@@ -1,0 +1,24 @@
+{
+  "name": "scrapbook",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bluebird": "^3.5.1",
+    "cheerio": "^1.0.0-rc.2",
+    "fs-extra": "^4.0.3",
+    "isomorphic-fetch": "^2.2.1",
+    "jsdom": "^11.5.1",
+    "lets-fetch": "^2.1.0",
+    "moment": "^2.19.3",
+    "moment-timezone": "^0.5.14",
+    "request": "^2.81.0",
+    "request-promise": "^4.2.1",
+    "shortid": "^2.2.8"
+  }
+}
