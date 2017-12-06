@@ -1,0 +1,6 @@
+# Created by .ignore support plugin (hsz.mobi)
+*.d.ts
+*.js
+
+/.idea/
+/dist/
