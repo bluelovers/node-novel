@@ -4,7 +4,7 @@
     "target": "es2017",
 
     "moduleResolution": "node",
-    "allowJs": true,
+    "allowJs": false,
 
     "sourceMap": true,
     "inlineSourceMap": true,
