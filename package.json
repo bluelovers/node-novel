@@ -9,16 +9,30 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "ascii-fullwidth-halfwidth-convert": "^0.1.1",
     "bluebird": "^3.5.1",
     "cheerio": "^1.0.0-rc.2",
+    "chinesenumber": "^1.0.1",
+    "deepmerge": "^2.0.1",
+    "diff": "^3.4.0",
+    "execall": "^1.0.0",
     "fs-extra": "^4.0.3",
+    "globby": "^7.1.1",
+    "i18next": "^10.2.1",
     "isomorphic-fetch": "^2.2.1",
     "jsdom": "^11.5.1",
     "lets-fetch": "^2.1.0",
     "moment": "^2.19.3",
     "moment-timezone": "^0.5.14",
+    "number-to-chinese-words": "^1.0.19",
     "request": "^2.81.0",
     "request-promise": "^4.2.1",
-    "shortid": "^2.2.8"
+    "shortid": "^2.2.8",
+    "str-util": "^1.0.3",
+    "upath2": "^2.0.0"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^4.0.5",
+    "@types/i18next": "^8.4.2"
   }
 }
