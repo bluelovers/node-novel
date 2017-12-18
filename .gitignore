@@ -3,3 +3,6 @@
 *.js
 
 /.idea/
+/dist_novel/
+/dist_novel/dmzj_out/
+/dist_novel/user_out/
