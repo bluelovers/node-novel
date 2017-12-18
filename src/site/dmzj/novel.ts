@@ -17,7 +17,7 @@ export async function download(data, options?)
 {
 	let _data = await download_info(data, options);
 
-	let path_main = path.join(projectConfig.dist_root,
+	let path_main = path.join(projectConfig.dist_novel_root,
 		'dmzj',
 		trimFilename(`${_data.data.g_lnovel_name}_(${_data.data.g_lnovel_id})`),
 	);
