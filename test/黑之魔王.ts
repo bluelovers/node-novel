@@ -4,13 +4,13 @@
 
 import * as globby from 'globby';
 import * as fs from 'fs-extra';
-import * as path from 'upath2';
+import path from 'upath2';
 import * as projectConfig from '../project.config';
 import { zh2num } from '../lib/zhnumber';
 import * as Promise from 'bluebird';
 import * as StrUtil from 'str-util';
-import * as jsdiff from 'diff';
-import { i18next, loadLocales, addResourceBundle } from '../lib/i18n';
+import * as JsDiff from 'diff';
+import { i18next, loadLocales, addResourceBundle, locales_def } from '../lib/i18n';
 import * as execall from 'execall';
 
 const novelText = require('D:\\Users\\Documents\\The Project\\gm_scripts_repo\\ux-tweak-sc\\lib\\novel\\text')
@@ -21,35 +21,46 @@ let _cache = {
 	block: {},
 	eng: {},
 };
-let cwd = path.join(projectConfig.dist_root, 'user', '黑之魔王');
-let cwd_out = path.join(cwd, 'out');
 
-const novelID = '黑之魔王';
+let novelID = '黑之魔王';
+let pathMain = 'user';
 
-{
+//novelID = '黑之魔王_(2367)';
+//pathMain = 'dmzj';
+
+novelID = '四度目は嫌な死属性魔術師';
+
+let cwd = path.join(projectConfig.dist_novel_root, pathMain, novelID);
+let cwd_out = path.join(projectConfig.dist_novel_root, `${pathMain}_out`, novelID);
+
 	//console.log(i18next.options);
 
 	// 利用 i18next 來達到根據小說切換語言模板
 
 	let myLocales = loadLocales(novelID);
-	addResourceBundle(myLocales);
-	i18next.changeLanguage(novelID);
 
+	if (myLocales)
+	{
+		addResourceBundle(myLocales);
+	}
+
+	i18next.changeLanguage(novelID);
 	//i18next.language = i18next.options.lng = novelID;
 
 	i18next.setDefaultNamespace('i18n');
 
 	//console.log(i18next);
-}
 
 (async () =>
 {
 	let ls = await Promise
-		.map(globby([
+		.mapSeries(globby([
 			'**/*.txt',
 			'!**/*.raw.txt',
 			'!**/*.new.txt',
 			'!**/out/**/*',
+			'!**/raw/**/*',
+			'!**/*_out/**/*',
 		], {
 			cwd: cwd,
 			absolute: true,
@@ -78,8 +89,29 @@ const novelID = '黑之魔王';
 			//.replace(/(\n){3,}/g, "\n\n\n")
 			;
 
+			(locales_def.words_maybe || [])
+				.concat(myLocales.words_maybe || [])
+				.map(function (v)
+				{
+					if (typeof v == 'string')
+					{
+						return new RegExp('(.{1,2})?(' + v + ')(.{1,2})?', 'gi');
+					}
+
+					return v;
+				})
+				.forEach(function (v)
+				{
+					let _m;
+					if ((_m = execall(v, _t)) && _m.length)
+					{
+						_cache.block[_cache_key_] = _m;
+					}
+				})
+			;
+
 			let _m;
-			if ((_m = execall(/(\S{1,2})?(\?{3,}|\S\*S|\*{2,})(\S{1,2})?/g, _t)) && _m.length)
+			if ((_m = execall(/(\S{1,2}(?![\?\*]))?(\?{3,}(?:[\s\?]+[\?])?|\S\*S|\*{2,})((?![\?\*])\S{1,2})?/g, _t)) && _m.length)
 			{
 				_cache.block[_cache_key_] = _m;
 
@@ -99,6 +131,8 @@ const novelID = '黑之魔王';
 
 			}
 
+
+
 			if ((_m = execall(new RegExp(`(\\S{1,2})(@|（·?）|\\\.{2,}|%|￥|#|\\$|（和谐）)(\\S{1,2})`, 'g'), _t)) && _m.length)
 			{
 
@@ -114,9 +148,13 @@ const novelID = '黑之魔王';
 
 			if (_t.toString() != _t_old.toString())
 			{
+				await fs.outputFile(path.join(cwd_out, file_dir, name) + '.patch', JsDiff.createPatch(name, _t_old.toString().replace(/\r\n|\r(?!\n)/g, "\n"), _t.toString().replace(/\r\n|\r(?!\n)/g, "\n"), {
+					newlineIsToken: true
+				}));
+
 				_t = _t.replace(/\n/g, "\r\n");
 
-				//await fs.outputFile(path.join(cwd_out, file_dir, name) + '.txt', _t);
+				await fs.outputFile(path.join(cwd_out, file_dir, name) + '.txt', _t);
 			}
 
 			//return rename(file, index, len);
@@ -128,6 +166,7 @@ const novelID = '黑之魔王';
 				await console.error(_cache.block);
 
 				fs.outputJson(path.join(cwd_out, '待修正屏蔽字.txt'), _cache.block, {
+					// @ts-ignore
 					spaces: "\t",
 				});
 			}
@@ -137,6 +176,7 @@ const novelID = '黑之魔王';
 				await console.error(_cache.eng);
 
 				fs.outputJson(path.join(cwd_out, '英語.txt'), _cache.eng, {
+					// @ts-ignore
 					spaces: "\t",
 				});
 			}
@@ -208,13 +248,13 @@ async function rename(file, index?, len?)
 		let name_new = `第${n2}話` + (s ? '　' + s : '');
 
 		let p1 = path.join(file_dir, name) + ext;
-		let p2 = path.join(file_dir, name_new) + ext;
+		let p2 = path.join(file_dir, path.filterNameEntry(name_new)) + ext;
 
 		_cache.rename[p1] = p2;
 
 		if (p1 != p2)
 		{
-			console.log(jsdiff.diffChars(name, name_new));
+			console.log(JsDiff.diffChars(name, name_new));
 
 			console.log([name, name_new].join("\n"));
 			//console.log(Buffer.from(name_new))
@@ -336,92 +376,13 @@ function my_words(html): string
 {
 	html = html.toString();
 
-	let sp = '#_@_#';
+	let sp = locales_def.sp || '#_@_#';
 
-	let words = [
-		[
-			/猫の\*尾亭|猫尾亭/g,
-			'猫の尻尾亭',
-		],
+	let words = locales_def.words || [];
+	let arr = locales_def.words_arr || [];
 
-		['话', '話'],
-		['·', '・'],
-
-		['— —', '——'],
-
-		['内尔好象', '妮露好象'],
-
-		['克洛诺', '黑乃'],
-		['威尔纳德', '威尔哈鲁特'],
-
-		['夏露', '夏洛特'],
-		['西满', '西蒙'],
-		['真乃真央', '黑乃真央'],
-		['贪婪格尔', '贪婪戈尔'],
-		[/元素大师|元素掌控者|元素之主/g, '元素掌控者'],
-		['龙杀手', '屠龍者'],
-		['DragonKiller', 'Dragon Killer'],
-
-		[/Element\s*master|Elemental\s*Master/ig, 'Elemental Master'],
-		[/Haunted\s*grave/ig, 'Haunted Grave'],
-		[/翼之君主/g, '君主之翼'],
-		[/酋达斯|犹达斯|猶達斯/g, '猶達斯'],
-		[/沙利叶|沙利葉/g, '沙利葉'],
-
-		[`米娅${sp}艾璐罗德`, '$1・$2'],
-
-		[`米娅${sp}艾璐罗德`, '$1・$2'],
-		[`菲奥娜${sp}索蕾优`, '$1・$2'],
-		[`米娅${sp}艾璐罗德`, '$1・$2'],
-
-		[`${sp}托利斯坦${sp}斯巴达`, '$1・$2・$3'],
-		[`${sp}弗里德里希${sp}巴尔缇艾尔`, '$1・$2・$3'],
-		[`${sp}尤里乌斯${sp}艾璐罗德`, '$1・$2・$3'],
-		[`${sp}艾斯特${sp}加尔布雷斯`, '$1・$2・$3'],
-		[`${sp}玛雅${sp}海德拉`, '$1・$2・$3'],
-		//[`${sp}尤里乌斯${sp}艾璐罗德`,'$1・$2・$3'],
-
-		[/(白金|苍月)(?:之)?(月)/g, '$1の$2'],
-
-		['很方面', '很方便'],
-		['惡梦', '噩梦'],
-
-		[
-			/(月的?)(\s*[\d][\d\s]+)([日日])/g, function (...m)
-		{
-			m[2] = StrUtil.toFullNumber(m[2]).trim();
-
-			return m[1] + m[2] + m[3];
-		}
-		],
-		[
-			/(第)(\s*[\d][\d\s]+)([话話])/g, function (...m)
-		{
-			m[2] = StrUtil.toFullNumber(m[2]).trim();
-
-			return m[1] + m[2] + m[3];
-		}
-		],
-
-		[
-			/(等级)(\s*[\d][ ]*)/g, function (...m)
-		{
-			m[2] = StrUtil.toFullNumber(m[2]).trim();
-
-			return m[1] + m[2];
-		}
-		],
-
-		[
-			/(等级)([一二三四五])/g, function (...m)
-		{
-			return m[1] + zh2num(m[2]);
-		}
-		]
-
-	];
-
-	let arr = [];
+	words = words.concat(myLocales.words || []);
+	arr = arr.concat(myLocales.words_arr || []);
 
 	words = novelText._words1(arr, words);
 	words = novelText._words2(words);
