@@ -2,7 +2,6 @@
  * Created by user on 2017/12/9/009.
  */
 
-import { zh2num } from 'lib/zhnumber';
 import { sp } from '.';
 import * as StrUtil from 'str-util';
 
@@ -122,12 +121,13 @@ export const words = [
 	[
 		/(等级)([一二三四五])/g, function (...m)
 	{
-		return m[1] + zh2num(m[2]);
+		return m[1] + StrUtil.zh2num(m[2]);
 	}
 	],
 
 ];
 
+// 需要人工確認的屏蔽字或錯字用語等等
 export const words_maybe = [];
 
 import * as self from './黑之魔王';
