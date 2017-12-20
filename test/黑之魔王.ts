@@ -385,8 +385,14 @@ function my_words(html): string
 
 	let sp = locales_def.sp || '#_@_#';
 
-	let words = locales_def.words || [];
-	let arr = locales_def.words_arr || [];
+	let words = [];
+	let arr = [];
+
+	words = words.concat(myLocales.words || []);
+	arr = arr.concat(myLocales.words_arr || []);
+
+	words = words.concat(locales_def.words || []);
+	arr = arr.concat(locales_def.words_arr || []);
 
 	words = words.concat(myLocales.words || []);
 	arr = arr.concat(myLocales.words_arr || []);
