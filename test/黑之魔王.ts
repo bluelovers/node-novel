@@ -6,15 +6,14 @@ import * as globby from 'globby';
 import * as fs from 'fs-extra';
 import path from 'upath2';
 import * as projectConfig from '../project.config';
-import { zh2num } from '../lib/zhnumber';
 import * as Promise from 'bluebird';
 import * as StrUtil from 'str-util';
 import * as JsDiff from 'diff';
 import { i18next, loadLocales, addResourceBundle, locales_def } from '../lib/i18n';
 import * as execall from 'execall';
 
-const novelText = require('D:\\Users\\Documents\\The Project\\gm_scripts_repo\\ux-tweak-sc\\lib\\novel\\text')
-	.novelText;
+import { novelText } from '../lib/novel/text';
+//const novelText = require('D:\\Users\\Documents\\The Project\\gm_scripts_repo\\ux-tweak-sc\\lib\\novel\\text').novelText;
 
 let _cache = {
 	rename: {},
@@ -228,7 +227,7 @@ async function rename(file, index?, len?)
 	}
 	else if (!n)
 	{
-		n = zh2num(name);
+		n = StrUtil.zh2num(name);
 
 		if (m = /[话話集#\._　 \t]+(.+)$/g.exec(name))
 		{
