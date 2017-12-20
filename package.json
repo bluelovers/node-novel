@@ -22,20 +22,20 @@
     "jsdom-global": "^3.0.2",
     "lets-fetch": "^2.1.0",
     "mdconf": "0.0.2",
-    "moment": "^2.19.3",
+    "moment": "^2.20.1",
     "moment-timezone": "^0.5.14",
     "nodejieba": "^2.2.5",
     "randexp": "^0.4.6",
-    "request": "^2.81.0",
-    "request-promise": "^4.2.1",
+    "request": "^2.83.0",
+    "request-promise": "^4.2.2",
     "shortid": "^2.2.8",
     "sort-alphabetic": "0.0.1",
     "str-util": "^2.0.0",
     "upath2": "^2.1.0",
-    "vue": "^2.5.9"
+    "vue": "^2.5.13"
   },
   "devDependencies": {
-    "@types/fs-extra": "^4.0.5",
+    "@types/fs-extra": "^4.0.7",
     "@types/i18next": "^8.4.2"
   }
 }
