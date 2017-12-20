@@ -546,8 +546,7 @@ export const words = [
 	['印像壁', '印象'],
 ];
 
-//GOLEM(魔像)
-
+// 需要人工確認的屏蔽字或錯字用語等等
 export const words_maybe = [
 	// 將對主角用的用語改為 小家伙
 	'小.?子',
