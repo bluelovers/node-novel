@@ -33,23 +33,23 @@ novelID = '四度目は嫌な死属性魔術師';
 let cwd = path.join(projectConfig.dist_novel_root, pathMain, novelID);
 let cwd_out = path.join(projectConfig.dist_novel_root, `${pathMain}_out`, novelID);
 
-	//console.log(i18next.options);
+//console.log(i18next.options);
 
-	// 利用 i18next 來達到根據小說切換語言模板
+// 利用 i18next 來達到根據小說切換語言模板
 
-	let myLocales = loadLocales(novelID);
+let myLocales = loadLocales(novelID);
 
-	if (myLocales)
-	{
-		addResourceBundle(myLocales);
-	}
+if (myLocales)
+{
+	addResourceBundle(myLocales);
+}
 
-	i18next.changeLanguage(novelID);
-	//i18next.language = i18next.options.lng = novelID;
+i18next.changeLanguage(novelID);
+//i18next.language = i18next.options.lng = novelID;
 
-	i18next.setDefaultNamespace('i18n');
+i18next.setDefaultNamespace('i18n');
 
-	//console.log(i18next);
+//console.log(i18next);
 
 (async () =>
 {
@@ -89,7 +89,10 @@ let cwd_out = path.join(projectConfig.dist_novel_root, `${pathMain}_out`, novelI
 			//.replace(/(\n){3,}/g, "\n\n\n")
 			;
 
-			(locales_def.words_maybe || [])
+			_cache.block[_cache_key_] = [];
+
+			[]
+				.concat(locales_def.words_maybe || [])
 				.concat(myLocales.words_maybe || [])
 				.map(function (v)
 				{
@@ -100,12 +103,12 @@ let cwd_out = path.join(projectConfig.dist_novel_root, `${pathMain}_out`, novelI
 
 					return v;
 				})
-				.forEach(function (v)
+				.forEach(function (v, index)
 				{
 					let _m;
 					if ((_m = execall(v, _t)) && _m.length)
 					{
-						_cache.block[_cache_key_] = _m;
+						_cache.block[_cache_key_] = _cache.block[_cache_key_].concat(_m);
 					}
 				})
 			;
@@ -113,7 +116,7 @@ let cwd_out = path.join(projectConfig.dist_novel_root, `${pathMain}_out`, novelI
 			let _m;
 			if ((_m = execall(/(\S{1,2}(?![\?\*]))?(\?{3,}(?:[\s\?]+[\?])?|\S\*S|\*{2,})((?![\?\*])\S{1,2})?/g, _t)) && _m.length)
 			{
-				_cache.block[_cache_key_] = _m;
+				_cache.block[_cache_key_] = _cache.block[_cache_key_].concat(_m);
 
 				//await console.error(name, _m);
 			}
@@ -131,8 +134,6 @@ let cwd_out = path.join(projectConfig.dist_novel_root, `${pathMain}_out`, novelI
 
 			}
 
-
-
 			if ((_m = execall(new RegExp(`(\\S{1,2})(@|（·?）|\\\.{2,}|%|￥|#|\\$|（和谐）)(\\S{1,2})`, 'g'), _t)) && _m.length)
 			{
 
@@ -148,13 +149,19 @@ let cwd_out = path.join(projectConfig.dist_novel_root, `${pathMain}_out`, novelI
 
 			if (_t.toString() != _t_old.toString())
 			{
-				await fs.outputFile(path.join(cwd_out, file_dir, name) + '.patch', JsDiff.createPatch(name, _t_old.toString().replace(/\r\n|\r(?!\n)/g, "\n"), _t.toString().replace(/\r\n|\r(?!\n)/g, "\n"), {
+				await fs.outputFile(path.join(cwd_out, file_dir, name) + '.patch', JsDiff.createPatch(name, _t_old.toString()
+					.replace(/\r\n|\r(?!\n)/g, "\n"), _t.toString().replace(/\r\n|\r(?!\n)/g, "\n"), {
 					newlineIsToken: true
 				}));
 
 				_t = _t.replace(/\n/g, "\r\n");
 
 				await fs.outputFile(path.join(cwd_out, file_dir, name) + '.txt', _t);
+			}
+
+			if (_cache.block[_cache_key_] && !_cache.block[_cache_key_].length)
+			{
+				delete _cache.block[_cache_key_];
 			}
 
 			//return rename(file, index, len);
@@ -165,7 +172,7 @@ let cwd_out = path.join(projectConfig.dist_novel_root, `${pathMain}_out`, novelI
 			{
 				await console.error(_cache.block);
 
-				fs.outputJson(path.join(cwd_out, '待修正屏蔽字.txt'), _cache.block, {
+				await fs.outputJson(path.join(cwd_out, '待修正屏蔽字.txt'), _cache.block, {
 					// @ts-ignore
 					spaces: "\t",
 				});
@@ -175,7 +182,7 @@ let cwd_out = path.join(projectConfig.dist_novel_root, `${pathMain}_out`, novelI
 			{
 				await console.error(_cache.eng);
 
-				fs.outputJson(path.join(cwd_out, '英語.txt'), _cache.eng, {
+				await fs.outputJson(path.join(cwd_out, '英語.txt'), _cache.eng, {
 					// @ts-ignore
 					spaces: "\t",
 				});
@@ -329,12 +336,12 @@ function textlayout(html): string
 	html = html
 	// for ts
 		.toString()
-		.replace(/([^\n「」【】《》“”『』（）](?:[！？?!。]*)?)\n((?:[—]+)?[「」“”【】《》（）『』])/ug, "$1\n\n$2")
+		.replace(/([^\n「」【】《》“”『』（）\[\]"](?:[！？?!。]*)?)\n((?:[—]+)?[「」“”【】《》（）『』])/ug, "$1\n\n$2")
 
-		.replace(/([「」【】《》“”『』（）―](?:[！？?!。]*)?)\n([^\n「」“”【】《》（）『』])/ug, "$1\n\n$2")
-		.replace(/([^\n「」【】《》“”『』（）](?:[！？?!。]*)?)\n((?:[—]+)?[「」“”【】《》（）『』])/ug, "$1\n\n$2")
+		.replace(/([「」【】《》“”『』（）―\[\]"](?:[！？?!。]*)?)\n([^\n「」“”【】《》（）『』])/ug, "$1\n\n$2")
+		.replace(/([^\n「」【】《》“”『』（）\[\]"](?:[！？?!。]*)?)\n((?:[—]+)?[「」“”【】《》（）『』])/ug, "$1\n\n$2")
 
-		.replace(/([「」【】《》“”『』（）―](?:[！？?!。]*)?)\n([^\n「」“”【】《》（）『』])/ug, "$1\n\n$2")
+		.replace(/([「」【】《》“”『』（）―\[\]"](?:[！？?!。]*)?)\n([^\n「」“”【】《》（）『』])/ug, "$1\n\n$2")
 
 		.replace(/(）(?:[！？?!。]*)?)\n([「」【】《》『』“”])/ug, "$1\n\n$2")
 
