@@ -110,18 +110,18 @@ export const words = [
 	],
 
 	[
+		/(等级)([一二三四五])/g, function (...m)
+	{
+		return m[1] + StrUtil.zh2num(m[2]);
+	}
+	],
+
+	[
 		/(等级)(\s*[\d][ ]*)/g, function (...m)
 	{
 		m[2] = StrUtil.toFullNumber(m[2]).trim();
 
 		return m[1] + m[2];
-	}
-	],
-
-	[
-		/(等级)([一二三四五])/g, function (...m)
-	{
-		return m[1] + StrUtil.zh2num(m[2]);
 	}
 	],
 
