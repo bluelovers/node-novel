@@ -2,6 +2,17 @@
  * Created by user on 2017/12/9/009.
  */
 
+import { IWordsOutput, IRegExpCallback } from '../novel/text'
+
+export interface IWords extends IWordsOutput
+{
+	[0]: string | RegExp,
+	[1]?: string | IRegExpCallback,
+	[2]?: string,
+}
+
+export type vMaybe = Array<string | RegExp>;
+
 export const lang = 'zh';
 
 export const value = {
@@ -14,7 +25,7 @@ export const value = {
 
 export const sp = '#_@_#';
 
-export const words = [
+export const words: IWords[] = [
 
 	['— —', '——'],
 
@@ -217,7 +228,7 @@ export function words_callback(text)
 	;
 }
 
-export const words_maybe = [
+export const words_maybe: vMaybe = [
 
 	'&(gt|lt|amp);?',
 	//'&(gt|lt|amp);?',
@@ -260,7 +271,7 @@ export const words_maybe = [
 
 	'\\<',
 
-	/(.{1,2})?((?:勇者|神)\?)(.{1,2})?/g,
+	/(.{1,3})?((?:勇者|神)\?)(.{1,3})?/g,
 
 	//'之巢|巢穴',
 
@@ -299,7 +310,7 @@ export const words_maybe = [
 
 	//'[奥奧歐][克格]',
 
-	/[\u4E00-\u9FFF]{1,2}[\?=][\u4E00-\u9FFF]{1,2}/ig,
+	/[\u4E00-\u9FFF]{1,3}[\?＝\=][\u4E00-\u9FFF]{1,3}/ig,
 
 ];
 
