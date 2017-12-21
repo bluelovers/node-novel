@@ -27,14 +27,14 @@ let pathMain = 'user';
 //novelID = '黑之魔王_(2367)';
 //pathMain = 'dmzj';
 
-//novelID = '四度目は嫌な死属性魔術師';
+novelID = '四度目は嫌な死属性魔術師';
 
 let cwd = path.join(projectConfig.dist_novel_root, pathMain, novelID);
 let cwd_out = path.join(projectConfig.dist_novel_root, `${pathMain}_out`, novelID);
 
 //console.log(i18next.options);
 
-// 利用 i18next 來達到根據小說切換語言模板
+// 利用 i18next 來達到根據小說切換翻譯模板
 
 let myLocales = loadLocales(novelID);
 
@@ -144,6 +144,11 @@ i18next.setDefaultNamespace('i18n');
 				{
 					_cache.block[_cache_key_] = _m;
 				}
+			}
+
+			if (typeof myLocales.words_callback == 'function')
+			{
+				_t = myLocales.words_callback(_t);
 			}
 
 			if (_t.toString() != _t_old.toString())
