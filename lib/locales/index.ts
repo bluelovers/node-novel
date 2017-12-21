@@ -194,15 +194,26 @@ export const words = [
 	['或者缺發', '或者缺乏'],
 	['個話做', '個化作'],
 
-	[/\n+([ =-]+)\n+/mg, '\n\n$1\n\n'],
+	[/\n+([ \-\=＝－]+)\n+/mg, '\n\n$1\n\n'],
+
+	['([。”])\n+[,，﹑]\n+', '$1\n\n']
 
 ];
 
 export function words_callback(text)
 {
+	let lightnovel_copy = '(?:图源|扫图|录入|翻译|翻译|作者|原名|插画|校对|日语原名|书名|转自|简介|目录)';
+
+	// @fixme unknow bug
 	return text
-		.replace(/(^|\n)((?:[^\s　]*)(?:图源|扫图|录入|翻译)：(?:[^\n]*))\n+(?=[^\n]+：)/g, '$1$2\n')
-		.replace(/(^|\n)((?:[^\s　]*)(?:图源|扫图|录入|翻译)：(?:[^\n]*))\n+(?![^\n]+：)/g, '$1$2\n\n')
+		.toString()
+		.replace(new RegExp(`(^|\\n)((?:[ \\t　]*)${lightnovel_copy}：(?:[^\\n]*))\\n+(?!(?:[^\\n]+：|[＝－\=\\-]))`, 'ug'), '$1$2\n\n')
+
+		.replace(new RegExp(`((?:[ \\t　]*)?${lightnovel_copy}：(?:[^\\n]*))\\n+(?=[^\\n：]+)`, 'ug'), '$1\n')
+
+		.replace(new RegExp(`((?:[ \\t　]*)?${lightnovel_copy}：(?:[^\\n]*))\\n+(?=[＝－\\=\\-])`, 'g'), '$1\n')
+
+		.replace(new RegExp(`\\n([＝－\\=\\-]+)\\n+((?:[ \\t　]*)?${lightnovel_copy}：)`, 'g'), '\n$1\n$2')
 	;
 }
 
@@ -210,6 +221,8 @@ export const words_maybe = [
 
 	'&(gt|lt|amp);?',
 	//'&(gt|lt|amp);?',
+
+	'\n+[^\n]\n+',
 
 	'成保',
 	'[裡裏里]社[會会]',
@@ -252,7 +265,7 @@ export const words_maybe = [
 	//'之巢|巢穴',
 
 	'[覆](?![盖盖])',
-	'[复復](?![讐前中兴杂])',
+	'[复復](?![讐前中兴杂数])',
 	'受命(?!令)',
 	'期理',
 	'身前',
