@@ -248,10 +248,13 @@ i18next.setDefaultNamespace('i18n');
 						return a;
 					}, [
 						'# 待確認',
+						'',
+						'[TOC]',
 					])
 					.join("\n")
 					.replace(/\n{3,}/g, '\n\n\n')
 					.replace(/^\n+|\n+$/g, '')
+					+ "\n";
 				;
 
 				console.log(md);
