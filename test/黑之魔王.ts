@@ -88,11 +88,11 @@ i18next.setDefaultNamespace('i18n');
 			//.replace(/(\n){3,}/g, "\n\n\n")
 			;
 
-			_cache.block[_cache_key_] = [];
+			_cache.block[_cache_key_] = {};
 
 			[]
-				.concat(locales_def.words_maybe || [])
 				.concat(myLocales.words_maybe || [])
+				.concat(locales_def.words_maybe || [])
 				.map(function (v)
 				{
 					if (typeof v == 'string')
@@ -107,21 +107,37 @@ i18next.setDefaultNamespace('i18n');
 					let _m;
 					if ((_m = execall(v, _t)) && _m.length)
 					{
-						_cache.block[_cache_key_] = _cache.block[_cache_key_].concat(_m);
+						//_cache.block[_cache_key_] = _cache.block[_cache_key_].concat(_m);
+
+						_cache.block[_cache_key_][v] = _cache.block[_cache_key_][v] || [];
+
+						_cache.block[_cache_key_][v] = _cache.block[_cache_key_][v].concat(_m);
+
+						//console.log(v);
 					}
 				})
 			;
 
 			let _m;
-			if ((_m = execall(/(\S{1,2}(?![\?\*]))?(\?{3,}(?:[\s\?]+[\?])?|\S\*S|\*{2,})((?![\?\*])\S{1,2})?/g, _t)) && _m.length)
+			let v = /(\S{1,2}(?![\?\*]))?(\?{3,}(?:[\s\?]+[\?])?|\S\*S|\*{2,})((?![\?\*])\S{1,2})?/g;
+			if ((_m = execall(v, _t)) && _m.length)
 			{
-				_cache.block[_cache_key_] = _cache.block[_cache_key_].concat(_m);
+
+
+				//_cache.block[_cache_key_] = _cache.block[_cache_key_].concat(_m);
+
+				let k = v.toString();
+				_cache.block[_cache_key_][k] = _cache.block[_cache_key_][k] || [];
+				_cache.block[_cache_key_][k] = _cache.block[_cache_key_][k].concat(_m);
 
 				//await console.error(name, _m);
 			}
 
-			if ((_m = execall(new RegExp(`([^a-z]{1,2})([a-z]+[ 　\\ta-z\'\\d]*[a-z'\\d])([^a-z]{1,2})`, 'ig'), _t)) && _m.length)
+			v = new RegExp(`([^a-z]{1,2})([a-z]+[ 　\\ta-z\'\\d]*[a-z'\\d])([^a-z]{1,2})`, 'ig');
+			if ((_m = execall(v, _t)) && _m.length)
 			{
+				let k = v.toString();
+
 				if (_cache.eng[_cache_key_])
 				{
 					_cache.eng[_cache_key_] = _cache.eng[_cache_key_].concat(_m);
@@ -133,9 +149,10 @@ i18next.setDefaultNamespace('i18n');
 
 			}
 
-			if ((_m = execall(new RegExp(`(\\S{1,2})(@|（·?）|\\\.{2,}|%|￥|#|\\$|（和谐）)(\\S{1,2})`, 'g'), _t)) && _m.length)
+			v = new RegExp(`(\\S{1,2})(@|（·?）|\\\.{2,}|%|￥|#|\\$|（和谐）)(\\S{1,2})`, 'g');
+			if ((_m = execall(v, _t)) && _m.length)
 			{
-
+				/*
 				if (_cache.block[_cache_key_])
 				{
 					_cache.block[_cache_key_] = _cache.block[_cache_key_].concat(_m);
@@ -144,6 +161,11 @@ i18next.setDefaultNamespace('i18n');
 				{
 					_cache.block[_cache_key_] = _m;
 				}
+				*/
+
+				let k = v.toString();
+				_cache.block[_cache_key_][k] = _cache.block[_cache_key_][k] || [];
+				_cache.block[_cache_key_][k] = _cache.block[_cache_key_][k].concat(_m);
 			}
 
 			if (typeof myLocales.words_callback == 'function')
@@ -163,7 +185,7 @@ i18next.setDefaultNamespace('i18n');
 				await fs.outputFile(path.join(cwd_out, file_dir, name) + '.txt', _t);
 			}
 
-			if (_cache.block[_cache_key_] && !_cache.block[_cache_key_].length)
+			if (_cache.block[_cache_key_] && !Object.keys(_cache.block[_cache_key_]).length)
 			{
 				delete _cache.block[_cache_key_];
 			}
@@ -174,17 +196,72 @@ i18next.setDefaultNamespace('i18n');
 		{
 			if (Object.keys(_cache.block).length)
 			{
-				await console.error(_cache.block);
+				/*
+				//await console.error(_cache.block);
 
 				await fs.outputJson(path.join(cwd_out, '待修正屏蔽字.txt'), _cache.block, {
 					// @ts-ignore
 					spaces: "\t",
 				});
+				*/
+
+				let md = Object.keys(_cache.block)
+					.reduce(function (a, file)
+					{
+						let values = _cache.block[file];
+
+						a.push(``);
+						a.push(`## ${file}`);
+						a.push(``);
+
+						let ret = Object.keys(values)
+							.reduce(function (a, r)
+						{
+							let ms = values[r];
+
+							//console.log(r);
+
+							a.push(`### ${r}`);
+							a.push(``);
+
+							let ret = ms.reduce(function (a, m)
+							{
+
+								a.push(`- ${m.match}`);
+
+								return a;
+							}, []);
+
+							a = a.concat(ret);
+
+							a.push(``);
+							//a.push(``);
+
+							return a;
+						}, []);
+
+						a = a.concat(ret);
+
+						a.push(``);
+						//a.push(``);
+
+						return a;
+					}, [
+						'# 待確認',
+					])
+					.join("\n")
+					.replace(/\n{3,}/g, '\n\n\n')
+					.replace(/^\n+|\n+$/g, '')
+				;
+
+				console.log(md);
+
+				await fs.outputFile(path.join(cwd_out, '待確認文字.md'), md);
 			}
 
 			if (Object.keys(_cache.eng).length)
 			{
-				await console.error(_cache.eng);
+				//await console.error(_cache.eng);
 
 				await fs.outputJson(path.join(cwd_out, '英語.txt'), _cache.eng, {
 					// @ts-ignore
