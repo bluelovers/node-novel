@@ -27,7 +27,7 @@ let pathMain = 'user';
 //novelID = '黑之魔王_(2367)';
 //pathMain = 'dmzj';
 
-novelID = '四度目は嫌な死属性魔術師';
+//novelID = '四度目は嫌な死属性魔術師';
 
 let cwd = path.join(projectConfig.dist_novel_root, pathMain, novelID);
 let cwd_out = path.join(projectConfig.dist_novel_root, `${pathMain}_out`, novelID);
