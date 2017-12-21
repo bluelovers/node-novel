@@ -27,7 +27,10 @@ let pathMain = 'user';
 //novelID = '黑之魔王_(2367)';
 //pathMain = 'dmzj';
 
-//novelID = '四度目は嫌な死属性魔術師';
+//novelID = '我的怪物眷族_(1984)';
+//pathMain = 'dmzj';
+
+novelID = '四度目は嫌な死属性魔術師';
 
 let cwd = path.join(projectConfig.dist_novel_root, pathMain, novelID);
 let cwd_out = path.join(projectConfig.dist_novel_root, `${pathMain}_out`, novelID);
@@ -41,6 +44,10 @@ let myLocales = loadLocales(novelID);
 if (myLocales)
 {
 	addResourceBundle(myLocales);
+}
+else
+{
+	myLocales = {};
 }
 
 i18next.changeLanguage(novelID);
@@ -97,7 +104,7 @@ i18next.setDefaultNamespace('i18n');
 				{
 					if (typeof v == 'string')
 					{
-						return new RegExp('(.{1,2})?(' + v + ')(.{1,2})?', 'gi');
+						return new RegExp('(.{1,3})?(' + v + ')(.{1,3})?', 'gi');
 					}
 
 					return v;
@@ -169,8 +176,13 @@ i18next.setDefaultNamespace('i18n');
 			}
 
 			if (typeof myLocales.words_callback == 'function')
+		{
+			_t = myLocales.words_callback(_t);
+		}
+
+			if (typeof locales_def.words_callback == 'function')
 			{
-				_t = myLocales.words_callback(_t);
+				_t = locales_def.words_callback(_t);
 			}
 
 			if (_t.toString() != _t_old.toString())
