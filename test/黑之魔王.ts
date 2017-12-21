@@ -34,6 +34,7 @@ let pathMain = 'user';
 //pathMain = 'dmzj';
 
 //novelID = '四度目は嫌な死属性魔術師';
+novelID = '虫虫酱むいむいたん';
 
 let cwd = path.join(projectConfig.dist_novel_root, pathMain, novelID);
 let cwd_out = path.join(projectConfig.dist_novel_root, `${pathMain}_out`, novelID);
@@ -62,6 +63,30 @@ i18next.setDefaultNamespace('i18n');
 
 (async () =>
 {
+	await Promise
+		.mapSeries(globby([
+			'**/meta.md',
+			'!**/*.raw.*',
+			'!**/*.new.*',
+			'!**/out/**/*',
+			'!**/raw/**/*',
+			'!**/*_out/**/*',
+		], {
+			cwd: cwd,
+			absolute: true,
+		}), async function (file, index, len)
+		{
+			let ext = path.extname(file);
+
+			let name = path.basename(file);
+			let file_dir = path.relative(cwd, path.dirname(file));
+
+			await fs.copy(file, path.join(cwd_out, file_dir, name));
+
+			return path.join(file_dir, name);
+		})
+	;
+
 	let ls = await Promise
 		.mapSeries(globby([
 			'**/*.txt',

@@ -14,8 +14,8 @@ export interface IWordsOutput
 {
 	_source?: any,
 
-	s: RegExp,
-	r:  string | IRegExpCallback,
+	s?: RegExp,
+	r?:  string | IRegExpCallback,
 
 	flags?: string,
 }
