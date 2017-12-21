@@ -194,7 +194,17 @@ export const words = [
 	['或者缺發', '或者缺乏'],
 	['個話做', '個化作'],
 
+	[/\n+([ =-]+)\n+/mg, '\n\n$1\n\n'],
+
 ];
+
+export function words_callback(text)
+{
+	return text
+		.replace(/(^|\n)((?:[^\s　]*)(?:图源|扫图|录入|翻译)：(?:[^\n]*))\n+(?=[^\n]+：)/g, '$1$2\n')
+		.replace(/(^|\n)((?:[^\s　]*)(?:图源|扫图|录入|翻译)：(?:[^\n]*))\n+(?![^\n]+：)/g, '$1$2\n\n')
+	;
+}
 
 export const words_maybe = [
 
@@ -276,7 +286,7 @@ export const words_maybe = [
 
 	//'[奥奧歐][克格]',
 
-	/[\u4E00-\u9FFF]{1,2}[\?][\u4E00-\u9FFF]{1,2}/ig,
+	/[\u4E00-\u9FFF]{1,2}[\?=][\u4E00-\u9FFF]{1,2}/ig,
 
 ];
 
