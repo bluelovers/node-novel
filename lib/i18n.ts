@@ -20,10 +20,12 @@ i18next.init({
 	interpolation: {
 		format: function (value, format, lng)
 		{
-
-			if (format == 'toFullNumber')
+			switch (format)
 			{
-				return StrUtil.toFullNumber(value);
+				case 'toFullNumber':
+				case 'num2zh':
+					value = (StrUtil[format] as Function)(value);
+					break;
 			}
 
 			return value;
@@ -35,7 +37,16 @@ addResourceBundle(locales_def);
 
 export { i18next };
 
-export function loadLocales(name, basepath = localesPath): { lang?, value?, resource?, sp?, words?, words_maybe?, words_arr? }
+export function loadLocales(name, basepath = localesPath): {
+	lang?: string,
+	value?,
+	resource?,
+	sp?: string,
+	words?,
+	words_maybe?,
+	words_arr?,
+	words_callback?: Function,
+}
 {
 	let id = basepath ? path.join(basepath, name) : name;
 
