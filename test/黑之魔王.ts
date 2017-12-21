@@ -30,7 +30,10 @@ let pathMain = 'user';
 //novelID = '我的怪物眷族_(1984)';
 //pathMain = 'dmzj';
 
-novelID = '四度目は嫌な死属性魔術師';
+//novelID = '被称为勇者、亦或是怪物的少女（勇者或是被称为怪物的少女）_(2018)';
+//pathMain = 'dmzj';
+
+//novelID = '四度目は嫌な死属性魔術師';
 
 let cwd = path.join(projectConfig.dist_novel_root, pathMain, novelID);
 let cwd_out = path.join(projectConfig.dist_novel_root, `${pathMain}_out`, novelID);
@@ -176,9 +179,9 @@ i18next.setDefaultNamespace('i18n');
 			}
 
 			if (typeof myLocales.words_callback == 'function')
-		{
-			_t = myLocales.words_callback(_t);
-		}
+			{
+				_t = myLocales.words_callback(_t);
+			}
 
 			if (typeof locales_def.words_callback == 'function')
 			{
@@ -228,29 +231,29 @@ i18next.setDefaultNamespace('i18n');
 
 						let ret = Object.keys(values)
 							.reduce(function (a, r)
-						{
-							let ms = values[r];
-
-							//console.log(r);
-
-							a.push(`### ${r}`);
-							a.push(``);
-
-							let ret = ms.reduce(function (a, m)
 							{
+								let ms = values[r];
 
-								a.push(`- ${m.match}`);
+								//console.log(r);
+
+								a.push(`### ${r}`);
+								a.push(``);
+
+								let ret = ms.reduce(function (a, m)
+								{
+
+									a.push(`- ${m.match}`);
+
+									return a;
+								}, []);
+
+								a = a.concat(ret);
+
+								a.push(``);
+								//a.push(``);
 
 								return a;
 							}, []);
-
-							a = a.concat(ret);
-
-							a.push(``);
-							//a.push(``);
-
-							return a;
-						}, []);
 
 						a = a.concat(ret);
 
