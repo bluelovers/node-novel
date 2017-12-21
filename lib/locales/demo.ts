@@ -4,7 +4,9 @@
 
 import { sp, IWords, vMaybe } from '.';
 
-// 改成小說名字
+/**
+ * 改成小說名字
+ */
 export const lang = '改成小說名字';
 
 /**
@@ -21,8 +23,7 @@ export const value = {
 };
 
 /**
- *
- * @type {string[][]}
+ * 在這裡放此小說專屬的取代樣本
  */
 export const words: IWords[] = [
 
@@ -34,7 +35,6 @@ export const words: IWords[] = [
 
 /**
  * 需要人工確認的屏蔽字或錯字用語等等
- * @type {vMaybe}
  */
 export const words_maybe: vMaybe = [
 
