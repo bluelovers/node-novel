@@ -20,6 +20,7 @@
     "i18next": "^10.2.1",
     "jsdom": "^11.5.1",
     "jsdom-global": "^3.0.2",
+    "json5": "^0.5.1",
     "lets-fetch": "^2.1.0",
     "mdconf": "0.0.2",
     "moment": "^2.20.1",
