@@ -128,7 +128,12 @@ export const words = [
 ];
 
 // 需要人工確認的屏蔽字或錯字用語等等
-export const words_maybe = [];
+export const words_maybe = [
+
+	// 沒有成功貼上的咒文
+	/([^\?]{1,2})?([\? ]+)([^\?]{1,2})?/mg,
+
+];
 
 import * as self from './黑之魔王';
 
