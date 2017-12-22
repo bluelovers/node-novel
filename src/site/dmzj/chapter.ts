@@ -147,6 +147,11 @@ export async function download(data, options?)
 
 				for (let id in _c)
 				{
+					if (!/^(?:[a-z]\:|\:)?\/\//i.test(_c[id]))
+					{
+						_c[id] = 'http://q.dmzj.com/' + _c[id];
+					}
+
 					_t = _t.replace(`{{@${id}@}}`, `\n\n<img src="${_c[id]}"/>\n\n`);
 				}
 
