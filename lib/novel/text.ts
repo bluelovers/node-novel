@@ -460,7 +460,8 @@ export class enspace
 		html = html
 			.replace(/\r\n|\r(?!\n)/g, "\n")
 			.replace(/[ 　\t]+\n/g, "\n")
-			.replace(/^[\s]+|[\s　]+$/g, '')
+			.replace(/[\s　]+$/g, '')
+			.replace(/^[\n \t]+/g, '')
 			.replace(/\n{4,}/g, "\n\n\n\n")
 		;
 

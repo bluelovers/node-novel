@@ -55,8 +55,12 @@ let novelID = '黑之魔王';
 //novelID = '虫虫酱むいむいたん';
 //novelID = '那个人，后来_(2272)';
 
-novelID = '讨厌第四次的死属性魔术师_(2206)';
-myLocalesID = '四度目は嫌な死属性魔術師';
+//novelID = '讨厌第四次的死属性魔术师_(2206)';
+//myLocalesID = '四度目は嫌な死属性魔術師';
+
+pathMain = 'wenku8';
+novelID = '加速世界_(381)';
+myLocalesID = '加速世界';
 
 let cwd = path.join(projectConfig.dist_novel_root, pathMain, novelID);
 let cwd_out = path.join(projectConfig.dist_novel_root, `${pathMain}_out`, novelID);
@@ -469,10 +473,22 @@ function make_meta_md()
 			//console.log(ls[0], cwd);
 
 			let data = await fs.readJSON(ls[0]);
+			data.data = data.data || {};
 
 			//console.log(data);
 
-			let tags = ['dmzj'];
+			let tags = [
+				'node-novel',
+			];
+
+			if (ls[0].match(/dmzj/))
+			{
+				tags.push('dmzj');
+			}
+			if (ls[0].match(/wenku8/))
+			{
+				tags.push('wenku8');
+			}
 
 			if (data.data.type)
 			{
@@ -482,9 +498,10 @@ function make_meta_md()
 			let md = `
 # novel
 
-- title: ${data.data.g_lnovel_name}
-- author: ${data.data.author}
-- cover: ${data.data.cover_pic}
+- title: ${data.novel_title || data.data.g_lnovel_name}
+- author: ${data.novel_author || data.data.author}
+- source: ${data.url || ''}
+- cover: ${data.data.cover_pic || ''}
 
 ## preface
 
