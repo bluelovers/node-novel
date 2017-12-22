@@ -22,7 +22,7 @@ export async function download(data, options?)
 		data.url = makeUrl(data);
 	}
 
-	let _data = {};
+	let _data = {} as any;
 	let $ = cheerio.load('');
 	let virtualConsole = new VirtualConsole();
 
