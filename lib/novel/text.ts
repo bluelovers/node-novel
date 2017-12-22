@@ -441,6 +441,7 @@ export class enspace
 		return text
 			.toString()
 			.replace(/\r\n|\r(?!\n)|\n/g, '\n')
+			.replace(/[  ]/g, ' ')
 			.replace(/[ \t　]+\n/g, '\n')
 			.replace(/^\n+|[\s　]+$/g, '')
 		;
