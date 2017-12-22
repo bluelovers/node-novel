@@ -108,7 +108,7 @@ export async function download_info(data, options?)
 
 		url: url,
 
-		data: {},
+		data: {} as any,
 
 		value: null as any[],
 

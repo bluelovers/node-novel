@@ -28,6 +28,7 @@ export const sp = '#_@_#';
 export const words: IWords[] = [
 
 	['— —', '——'],
+	['[  ]', ' '],
 
 	/**
 	 * 部分容易導致沒配對成功的簡繁日 字替換
@@ -231,7 +232,7 @@ export function words_callback(text)
 
 export const words_maybe: vMaybe = [
 
-	'&(gt|lt|amp);?',
+	'&(gt|lt|amp|nbsp);?',
 	//'&(gt|lt|amp);?',
 
 	'\n+[^\n]{1,2}\n+',
