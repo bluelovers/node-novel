@@ -1,6 +1,6 @@
 {
   "name": "node-novel",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "網路翻譯小說整理工具 donot install this",
   "main": "index.js",
   "scripts": {
@@ -13,7 +13,6 @@
     "cheerio": "^1.0.0-rc.2",
     "deepmerge": "^2.0.1",
     "diff": "^3.4.0",
-    "epub-maker": "^1.2.0",
     "execall": "^1.0.0",
     "fs-extra": "^4.0.3",
     "globby": "^7.1.1",
@@ -25,7 +24,6 @@
     "mdconf": "0.0.2",
     "moment": "^2.20.1",
     "moment-timezone": "^0.5.14",
-    "nodejieba": "^2.2.5",
     "randexp": "^0.4.6",
     "request": "^2.83.0",
     "request-promise": "^4.2.2",
@@ -34,6 +32,9 @@
     "str-util": "^2.0.0",
     "upath2": "^2.1.0",
     "vue": "^2.5.13"
+  },
+  "peerDependencies": {
+    "nodejieba": "^2.2.5"
   },
   "devDependencies": {
     "@types/fs-extra": "^4.0.7",
