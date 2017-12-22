@@ -142,7 +142,6 @@ export function parseUrl(url: string)
  * http://www.wenku8.com/novel/0/381/index.htm
  *
  * @param {string} url
- * @returns {<void>}
  */
 export async function download(url: string)
 {
@@ -166,7 +165,7 @@ export async function download(url: string)
 		`${trimFilename(novel.novel_title)}_(${novel.url_data.novel_id})`
 	);
 
-	Promise
+	return Promise
 		.mapSeries(novel.volume_list, function (volume, vid)
 		{
 			vid = vid.toString().padStart(4, '0');
@@ -263,7 +262,7 @@ export async function download(url: string)
 				)
 			;
 
-			console.log(ls);
+			//console.log(ls);
 
 			return fs.outputJSON(file, novel, {
 				spaces: "\t",
