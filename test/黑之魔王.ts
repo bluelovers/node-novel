@@ -13,7 +13,6 @@ import { i18next, loadLocales, addResourceBundle, locales_def } from '../lib/i18
 import * as execall from 'execall';
 
 import { novelText } from '../lib/novel/text';
-//const novelText = require('D:\\Users\\Documents\\The Project\\gm_scripts_repo\\ux-tweak-sc\\lib\\novel\\text').novelText;
 
 let _cache = {
 	rename: {},
