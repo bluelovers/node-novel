@@ -138,7 +138,13 @@ export function parseUrl(url: string)
 	return urlobj;
 }
 
-export async function download_novel(url: string)
+/**
+ * http://www.wenku8.com/novel/0/381/index.htm
+ *
+ * @param {string} url
+ * @returns {<void>}
+ */
+export async function download(url: string)
 {
 	{
 		let data = parseUrl(url);
