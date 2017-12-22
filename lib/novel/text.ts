@@ -15,7 +15,7 @@ export interface IWordsOutput
 	_source?: any,
 
 	s?: RegExp,
-	r?:  string | IRegExpCallback,
+	r?: string | IRegExpCallback,
 
 	flags?: string,
 }
@@ -192,27 +192,27 @@ export class enspace
 		let r = this._words_r1;
 
 		let arr = [
-			'绝@望@的@魔@手',
-			'毛@骨@悚@然',
-			'怀@孕',
-			'傻@瓜',
-			'禁@书',
-			'妊@娠',
-			'肉@(?:身|体)',
-			'呻@吟',
-			'翻@弄',
-			'做@爱',
-			'射@出',
-			'毛@骨',
-			'骨@悚',
-			'悚@然',
-			'艳@丽',
-			'麻@痹',
-			'绝@望',
-			'魔@手',
-			'代@价',
-			'防@卫@战',
-		]
+				'绝@望@的@魔@手',
+				'毛@骨@悚@然',
+				'怀@孕',
+				'傻@瓜',
+				'禁@书',
+				'妊@娠',
+				'肉@(?:身|体)',
+				'呻@吟',
+				'翻@弄',
+				'做@爱',
+				'射@出',
+				'毛@骨',
+				'骨@悚',
+				'悚@然',
+				'艳@丽',
+				'麻@痹',
+				'绝@望',
+				'魔@手',
+				'代@价',
+				'防@卫@战',
+			]
 			.concat(options && options.words_block ? options.words_block : null)
 		;
 
@@ -430,17 +430,130 @@ export class enspace
 
 	clearLF(text: string)
 	{
-		return text
-			.toString()
-			.replace(/\r\n|\r/g, '\n')
-			.replace(/[ 　]+\n/g, '\n')
+		return this.trim(text)
 			.replace(/\n{4,}/g, '\n\n')
 			.replace(/\n{3,}/g, '\n\n')
 			;
 	}
+
+	trim(text: string)
+	{
+		return text
+			.toString()
+			.replace(/\r\n|\r(?!\n)|\n/g, '\n')
+			.replace(/[ \t　]+\n/g, '\n')
+			.replace(/^\n+|[\s　]+$/g, '')
+		;
+	}
+
+	/**
+	 * 通用型段落調整
+	 *
+	 * @param html
+	 * @returns {string}
+	 */
+	textlayout(html): string
+	{
+		html = this.trim(html);
+
+		html = html
+			.replace(/\r\n|\r(?!\n)/g, "\n")
+			.replace(/[ 　\t]+\n/g, "\n")
+			.replace(/^[\s]+|[\s　]+$/g, '')
+			.replace(/\n{4,}/g, "\n\n\n\n")
+		;
+
+		if (!html.match(/[^\n]\n[^\n]/g))
+		{
+			let len = 1;
+
+			//console.log(html);
+
+			if (/\n\n\n/g.test(html))
+			{
+				//console.log(777);
+
+				if (/[^\n]\n\n[^\n]/g.test(html))
+				{
+					//console.log(888);
+				}
+				else
+				{
+					//console.log(999);
+
+					html = html
+						.replace(/\n{2}/g, "")
+					;
+				}
+
+				html = html
+					.replace(/\n{3,}/g, "\n\n\n")
+					.replace(/\n{2}/g, "\n")
+				;
+			}
+			else
+			{
+				//console.log(666);
+
+				html = html
+					.replace(/\n{3,}/g, "\n\n\n")
+					.replace(/\n\n/g, "\n")
+				;
+			}
+
+			//console.log(html);
+		}
+
+		html = html
+		// for ts
+			.toString()
+			.replace(/([^\n「」【】《》“”『』（）\[\]"](?:[！？?!。]*)?)\n((?:[—]+)?[「」“”【】《》（）『』])/ug, "$1\n\n$2")
+
+			.replace(/([「」【】《》“”『』（）―\[\]"](?:[！？?!。]*)?)\n([^\n「」“”【】《》（）『』])/ug, "$1\n\n$2")
+			.replace(/([^\n「」【】《》“”『』（）\[\]"](?:[！？?!。]*)?)\n((?:[—]+)?[「」“”【】《》（）『』])/ug, "$1\n\n$2")
+
+			.replace(/([「」【】《》“”『』（）―\[\]"](?:[！？?!。]*)?)\n([^\n「」“”【】《》（）『』])/ug, "$1\n\n$2")
+
+			.replace(/(）(?:[！？?!。]*)?)\n([「」【】《》『』“”])/ug, "$1\n\n$2")
+
+			/**
+			 * https://tieba.baidu.com/p/5400503864
+			 *
+			 * 「第三试炼也，多亏了妮露而通过了吗……」
+			 『心神守护的白羽毛』，这个从妮露那里收到的护身符，确实地守护了我的心。
+
+			 */
+			.replace(/([「」【】《》“”『』（）―](?:[！？?!。]*)?)\n((?:[「」“”【】《》（）『』])(?:[^\n]+)([^「」【】《》“”『』（）―](?:[！？?!。]*)?)\n)/ug, "$1\n$2\n")
+
+			/**
+			 * 住手，住手，我就是我。不是其他的任何人。
+			 　表示出要必死地进行抵抗的意志，但是侵入脑内的这个『什么东西』，并不能被阻止。不能被，阻止……
+			 */
+			.replace(/(\n(?:[^　\n][^\n]+))\n([　])/g, '$1\n\n$2')
+
+			/**
+			 * 这样一直在这高兴着
+
+			 。
+			 */
+			.replace(/([^\n])(\n+)((?:[吧呢]*)?[。！？，、])\n/ug, "$1$3$2")
+
+			.replace(/([^\n])(\n+)(fin|\<完\>)(\n|$)/ig, "$1$2\n$3$4")
+		;
+
+		html = html
+			.replace(/^\n+|[\s　]+$/g, '')
+			.replace(/(\n){4,}/g, "\n\n\n\n")
+			.replace(/(\n){3}/g, "\n\n")
+		;
+
+		return html;
+	}
+
 }
 
 export const novelText = enspace.create();
 
 import * as NovelText from './text';
+
 export default NovelText;

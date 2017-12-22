@@ -156,6 +156,8 @@ export async function download_info(data, options?)
 				}
 			}
 
+			_data.data.desc = $('#detail_block > .ilist:has(> h3) > p').text();
+
 			dom.window.volume_list = dom.window.volume_list.reverse();
 			dom.window.chapter_list = dom.window.chapter_list.reverse();
 

@@ -218,7 +218,8 @@ export function words_callback(text)
 	// @fixme unknow bug
 	return text
 		.toString()
-		.replace(new RegExp(`(^|\\n)((?:[ \\t　]*)${lightnovel_copy}：(?:[^\\n]*))\\n+(?!(?:[^\\n]+：|[＝－\=\\-]))`, 'ug'), '$1$2\n\n')
+		//.replace(new RegExp(`(^|\\n)((?:[ \\t　]*)${lightnovel_copy}：(?:[^\\n]*))\\n+(?!(?:[^\\n]+：|[＝－\=\\-]))`, 'ug'), '$1$2\n\n')
+		.replace(new RegExp(`(^|\\n)((?:[ \\t　]*)${lightnovel_copy}：(?:[^\\n]*))\\n{2,}(?!(?:[^\\n]+：|[＝－\=\\-]))`, 'ug'), '$1$2\n\n')
 
 		.replace(new RegExp(`((?:[ \\t　]*)?${lightnovel_copy}：(?:[^\\n]*))\\n+(?=[^\\n：]+)`, 'ug'), '$1\n')
 

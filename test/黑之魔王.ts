@@ -20,71 +20,66 @@ let _cache = {
 	eng: {},
 };
 
-let novelID = '黑之魔王';
+/**
+ * 語言模板名稱
+ * 對應 lib/locales
+ *
+ * 沒有設定時等同於 novelID
+ *
+ * @type {string}
+ */
+let myLocalesID: string;
+
+/**
+ * 資料夾位置
+ *
+ * user = dist_novel/user
+ * dmzj = dist_novel/dmzj
+ *
+ * @type {string}
+ */
 let pathMain = 'user';
+pathMain = 'dmzj';
+
+/**
+ * 小說資料夾名稱
+ *
+ * @type {string}
+ */
+let novelID = '黑之魔王';
 
 //novelID = '黑之魔王_(2367)';
-//pathMain = 'dmzj';
-
 //novelID = '我的怪物眷族_(1984)';
-//pathMain = 'dmzj';
-
 //novelID = '被称为勇者、亦或是怪物的少女（勇者或是被称为怪物的少女）_(2018)';
-//pathMain = 'dmzj';
-
 //novelID = '四度目は嫌な死属性魔術師';
-novelID = '虫虫酱むいむいたん';
+//novelID = '虫虫酱むいむいたん';
+//novelID = '那个人，后来_(2272)';
+
+novelID = '讨厌第四次的死属性魔术师_(2206)';
+myLocalesID = '四度目は嫌な死属性魔術師';
 
 let cwd = path.join(projectConfig.dist_novel_root, pathMain, novelID);
 let cwd_out = path.join(projectConfig.dist_novel_root, `${pathMain}_out`, novelID);
 
-//console.log(i18next.options);
-
 // 利用 i18next 來達到根據小說切換翻譯模板
-
-let myLocales = loadLocales(novelID);
-
+myLocalesID = myLocalesID || novelID;
+let myLocales = loadLocales(myLocalesID);
 if (myLocales)
 {
 	addResourceBundle(myLocales);
 }
 else
 {
-	myLocales = {};
+	myLocales = {
+		lang: myLocalesID,
+	};
 }
-
-i18next.changeLanguage(novelID);
-//i18next.language = i18next.options.lng = novelID;
-
+i18next.changeLanguage(myLocales.lang);
 i18next.setDefaultNamespace('i18n');
-
-//console.log(i18next);
 
 (async () =>
 {
-	await Promise
-		.mapSeries(globby([
-			'**/meta.md',
-			'!**/*.raw.*',
-			'!**/*.new.*',
-			'!**/out/**/*',
-			'!**/raw/**/*',
-			'!**/*_out/**/*',
-		], {
-			cwd: cwd,
-			absolute: true,
-		}), async function (file, index, len)
-		{
-			let ext = path.extname(file);
-
-			let name = path.basename(file);
-			let file_dir = path.relative(cwd, path.dirname(file));
-
-			await fs.copy(file, path.join(cwd_out, file_dir, name));
-
-			return path.join(file_dir, name);
-		})
-	;
+	await make_meta_md();
 
 	let ls = await Promise
 		.mapSeries(globby([
@@ -111,95 +106,88 @@ i18next.setDefaultNamespace('i18n');
 			let _t = _t_old.toString();
 
 			_t = my_words(_t);
-			_t = textlayout(_t);
+			_t = novelText.textlayout(_t);
 			_t = my_words(_t);
 
 			_t = novelText.replace(_t, {
 				words: true,
 			});
 
-			_t = _t
-			//.replace(/(\n){3,}/g, "\n\n\n")
-			;
+			_t = novelText.trim(_t);
 
-			_cache.block[_cache_key_] = {};
+			{
+				/**
+				 * 檢測容易產生錯誤的文字
+				 */
 
-			[]
-				.concat(myLocales.words_maybe || [])
-				.concat(locales_def.words_maybe || [])
-				.map(function (v)
-				{
-					if (typeof v == 'string')
+				_cache.block[_cache_key_] = {};
+
+				[]
+					.concat(myLocales.words_maybe || [])
+					.concat(locales_def.words_maybe || [])
+					.map(function (v)
 					{
-						return new RegExp('(.{1,3})?(' + v + ')(.{1,3})?', 'gi');
+						if (typeof v == 'string')
+						{
+							return new RegExp('(.{1,3})?(' + v + ')(.{1,3})?', 'gi');
+						}
+
+						return v;
+					})
+					.forEach(function (v, index)
+					{
+						let _m;
+						if ((_m = execall(v, _t)) && _m.length)
+						{
+							//_cache.block[_cache_key_] = _cache.block[_cache_key_].concat(_m);
+
+							_cache.block[_cache_key_][v] = _cache.block[_cache_key_][v] || [];
+
+							_cache.block[_cache_key_][v] = _cache.block[_cache_key_][v].concat(_m);
+
+							//console.log(v);
+						}
+					})
+				;
+
+				let _m;
+				let v = /(\S{1,2}(?![\?\*]))?(\?{3,}(?:[\s\?]+[\?])?|\S\*S|\*{2,})((?![\?\*])\S{1,2})?/g;
+				if ((_m = execall(v, _t)) && _m.length)
+				{
+
+
+					//_cache.block[_cache_key_] = _cache.block[_cache_key_].concat(_m);
+
+					let k = v.toString();
+					_cache.block[_cache_key_][k] = _cache.block[_cache_key_][k] || [];
+					_cache.block[_cache_key_][k] = _cache.block[_cache_key_][k].concat(_m);
+
+					//await console.error(name, _m);
+				}
+
+				v = new RegExp(`([^a-z]{1,2})([a-z]+[ 　\\ta-z\'\\d]*[a-z'\\d])([^a-z]{1,2})`, 'ig');
+				if ((_m = execall(v, _t)) && _m.length)
+				{
+					let k = v.toString();
+
+					if (_cache.eng[_cache_key_])
+					{
+						_cache.eng[_cache_key_] = _cache.eng[_cache_key_].concat(_m);
+					}
+					else
+					{
+						_cache.eng[_cache_key_] = _m;
 					}
 
-					return v;
-				})
-				.forEach(function (v, index)
-				{
-					let _m;
-					if ((_m = execall(v, _t)) && _m.length)
-					{
-						//_cache.block[_cache_key_] = _cache.block[_cache_key_].concat(_m);
-
-						_cache.block[_cache_key_][v] = _cache.block[_cache_key_][v] || [];
-
-						_cache.block[_cache_key_][v] = _cache.block[_cache_key_][v].concat(_m);
-
-						//console.log(v);
-					}
-				})
-			;
-
-			let _m;
-			let v = /(\S{1,2}(?![\?\*]))?(\?{3,}(?:[\s\?]+[\?])?|\S\*S|\*{2,})((?![\?\*])\S{1,2})?/g;
-			if ((_m = execall(v, _t)) && _m.length)
-			{
-
-
-				//_cache.block[_cache_key_] = _cache.block[_cache_key_].concat(_m);
-
-				let k = v.toString();
-				_cache.block[_cache_key_][k] = _cache.block[_cache_key_][k] || [];
-				_cache.block[_cache_key_][k] = _cache.block[_cache_key_][k].concat(_m);
-
-				//await console.error(name, _m);
-			}
-
-			v = new RegExp(`([^a-z]{1,2})([a-z]+[ 　\\ta-z\'\\d]*[a-z'\\d])([^a-z]{1,2})`, 'ig');
-			if ((_m = execall(v, _t)) && _m.length)
-			{
-				let k = v.toString();
-
-				if (_cache.eng[_cache_key_])
-				{
-					_cache.eng[_cache_key_] = _cache.eng[_cache_key_].concat(_m);
-				}
-				else
-				{
-					_cache.eng[_cache_key_] = _m;
 				}
 
-			}
-
-			v = new RegExp(`(\\S{1,2})(@|（·?）|\\\.{2,}|%|￥|#|\\$|（和谐）)(\\S{1,2})`, 'g');
-			if ((_m = execall(v, _t)) && _m.length)
-			{
-				/*
-				if (_cache.block[_cache_key_])
+				v = new RegExp(`(\\S{1,2})(@|（·?）|\\\.{2,}|%|￥|#|\\$|（和谐）)(\\S{1,2})`, 'g');
+				if ((_m = execall(v, _t)) && _m.length)
 				{
-					_cache.block[_cache_key_] = _cache.block[_cache_key_].concat(_m);
+					let k = v.toString();
+					_cache.block[_cache_key_][k] = _cache.block[_cache_key_][k] || [];
+					_cache.block[_cache_key_][k] = _cache.block[_cache_key_][k].concat(_m);
 				}
-				else
-				{
-					_cache.block[_cache_key_] = _m;
-				}
-				*/
-
-				let k = v.toString();
-				_cache.block[_cache_key_][k] = _cache.block[_cache_key_][k] || [];
-				_cache.block[_cache_key_][k] = _cache.block[_cache_key_][k].concat(_m);
 			}
 
 			if (typeof myLocales.words_callback == 'function')
@@ -229,20 +217,18 @@ i18next.setDefaultNamespace('i18n');
 				delete _cache.block[_cache_key_];
 			}
 
+			return path.join(file_dir, name);
+
 			//return rename(file, index, len);
 		})
 		.tap(async function ()
 		{
 			if (Object.keys(_cache.block).length)
 			{
-				/*
-				//await console.error(_cache.block);
-
-				await fs.outputJson(path.join(cwd_out, '待修正屏蔽字.txt'), _cache.block, {
-					// @ts-ignore
-					spaces: "\t",
-				});
-				*/
+				function stringify(v)
+				{
+					return JSON.stringify(v).replace(/^"|"$/g, '');
+				}
 
 				let md = Object.keys(_cache.block)
 					.reduce(function (a, file)
@@ -260,13 +246,13 @@ i18next.setDefaultNamespace('i18n');
 
 								//console.log(r);
 
-								a.push(`### ${r}`);
+								a.push(`### ${stringify(r)}`);
 								a.push(``);
 
 								let ret = ms.reduce(function (a, m)
 								{
 
-									a.push(`- ${m.match}`);
+									a.push(`- ${stringify(m.match)}`);
 
 									return a;
 								}, []);
@@ -404,103 +390,7 @@ async function rename(file, index?, len?)
 	}
 }
 
-function textlayout(html): string
-{
-	html = html.toString();
 
-	html = html
-		.replace(/\r\n|\r(?!\n)/g, "\n")
-		.replace(/[ 　\t]+\n/g, "\n")
-		.replace(/^[\s]+|[\s　]+$/g, '')
-		.replace(/\n{4,}/g, "\n\n\n\n")
-	;
-
-	if (!html.match(/[^\n]\n[^\n]/g))
-	{
-		let len = 1;
-
-		//console.log(html);
-
-		if (/\n\n\n/g.test(html))
-		{
-			//console.log(777);
-
-			if (/[^\n]\n\n[^\n]/g.test(html))
-			{
-				//console.log(888);
-			}
-			else
-			{
-				//console.log(999);
-
-				html = html
-					.replace(/\n{2}/g, "")
-				;
-			}
-
-			html = html
-				.replace(/\n{3,}/g, "\n\n\n")
-				.replace(/\n{2}/g, "\n")
-			;
-		}
-		else
-		{
-			//console.log(666);
-
-			html = html
-				.replace(/\n{3,}/g, "\n\n\n")
-				.replace(/\n\n/g, "\n")
-			;
-		}
-
-		//console.log(html);
-	}
-
-	html = html
-	// for ts
-		.toString()
-		.replace(/([^\n「」【】《》“”『』（）\[\]"](?:[！？?!。]*)?)\n((?:[—]+)?[「」“”【】《》（）『』])/ug, "$1\n\n$2")
-
-		.replace(/([「」【】《》“”『』（）―\[\]"](?:[！？?!。]*)?)\n([^\n「」“”【】《》（）『』])/ug, "$1\n\n$2")
-		.replace(/([^\n「」【】《》“”『』（）\[\]"](?:[！？?!。]*)?)\n((?:[—]+)?[「」“”【】《》（）『』])/ug, "$1\n\n$2")
-
-		.replace(/([「」【】《》“”『』（）―\[\]"](?:[！？?!。]*)?)\n([^\n「」“”【】《》（）『』])/ug, "$1\n\n$2")
-
-		.replace(/(）(?:[！？?!。]*)?)\n([「」【】《》『』“”])/ug, "$1\n\n$2")
-
-		/**
-		 * https://tieba.baidu.com/p/5400503864
-		 *
-		 * 「第三试炼也，多亏了妮露而通过了吗……」
-		 『心神守护的白羽毛』，这个从妮露那里收到的护身符，确实地守护了我的心。
-
-		 */
-		.replace(/([「」【】《》“”『』（）―](?:[！？?!。]*)?)\n((?:[「」“”【】《》（）『』])(?:[^\n]+)([^「」【】《》“”『』（）―](?:[！？?!。]*)?)\n)/ug, "$1\n$2\n")
-
-		/**
-		 * 住手，住手，我就是我。不是其他的任何人。
-		 　表示出要必死地进行抵抗的意志，但是侵入脑内的这个『什么东西』，并不能被阻止。不能被，阻止……
-		 */
-		.replace(/(\n(?:[^　\n][^\n]+))\n([　])/g, '$1\n\n$2')
-
-		/**
-		 * 这样一直在这高兴着
-
-		 。
-		 */
-		.replace(/([^\n])(\n+)((?:[吧呢]*)?[。！？，、])\n/ug, "$1$3$2")
-
-		.replace(/([^\n])(\n+)(fin|\<完\>)(\n|$)/ig, "$1$2\n$3$4")
-	;
-
-	html = html
-		.replace(/^\n+|[\s　]+$/g, '')
-		.replace(/(\n){4,}/g, "\n\n\n\n")
-		.replace(/(\n){3}/g, "\n\n")
-	;
-
-	return html;
-}
 
 function my_words(html): string
 {
@@ -528,4 +418,90 @@ function my_words(html): string
 	html = ret.value;
 
 	return html;
+}
+
+function make_meta_md()
+{
+	return Promise
+	.mapSeries(globby([
+		'**/meta.md',
+		'!**/*.raw.*',
+		'!**/*.new.*',
+		'!**/out/**/*',
+		'!**/raw/**/*',
+		'!**/*_out/**/*',
+	], {
+		cwd: cwd,
+		absolute: true,
+	}), async function (file, index, len)
+	{
+		let ext = path.extname(file);
+
+		let name = path.basename(file);
+		let file_dir = path.relative(cwd, path.dirname(file));
+
+		await fs.copy(file, path.join(cwd_out, file_dir, name));
+
+		return path.join(file_dir, name);
+	})
+	.then(async function (ls)
+	{
+		if (!ls.length && !fs.existsSync(path.join(cwd_out, 'meta.md')))
+		{
+			let ls = await globby([
+					'*.json',
+					'!**/*.raw.*',
+					'!**/*.new.*',
+					'!**/out/**/*',
+					'!**/raw/**/*',
+					'!**/*_out/**/*',
+				], {
+					cwd: cwd,
+					absolute: true,
+				})
+			;
+
+			if (!ls.length)
+			{
+				return;
+			}
+
+			//console.log(ls[0], cwd);
+
+			let data = await fs.readJSON(ls[0]);
+
+			//console.log(data);
+
+			let tags = ['dmzj'];
+
+			if (data.data.type)
+			{
+				tags = tags.concat(data.data.type);
+			}
+
+			let md = `
+# novel
+
+- title: ${data.data.g_lnovel_name}
+- author: ${data.data.author}
+- cover: ${data.data.cover_pic}
+
+## preface
+
+\`\`\`
+${(data.data.desc || '').replace(/\`/g, '\\`')}
+\`\`\`
+
+## tags
+
+- ${tags.join('\n- ')}
+
+# contribute
+
+`;
+
+			await fs.outputFile(path.join(cwd_out, 'meta.md'), md);
+		}
+	})
+;
 }
