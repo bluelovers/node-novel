@@ -33,7 +33,20 @@ export const words: IWords[] = [
 
 	[/\n+\–{3,}\n+/, '\n\n'],
 
-	[/^(第[^\n]+話[^\n]+)\n+/g, '$1\n\n'],
+	[/^(第[^\n]+話[^\n]*)\n+/g, '$1\n\n'],
+
+	[/露法斯\?玛法魯/g, '露法斯・玛法魯'],
+	['重復', '重覆'],
+	['・[ ]+', '・'],
+	['[ ]+・', '・'],
+
+	[/\n{2,}・/g, '\n\n・'],
+
+	[/(艾克斯盖特|Exgate)・?Online/ig, 'EXGATE・ONLINE', 'ig'],
+
+	['Online', 'ONLINE', 'ig'],
+	['Exgate', 'EXGATE', 'ig'],
+	['boss', 'BOSS', 'ig'],
 
 ] as IWords[];
 

@@ -101,6 +101,8 @@ export async function get_volume_list(url)
 				novel_author,
 				volume_list,
 
+				checkdate: moment().local(),
+
 				imgs: [] as string[],
 			};
 		})
