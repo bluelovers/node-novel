@@ -11,6 +11,7 @@ import * as StrUtil from 'str-util';
 import * as JsDiff from 'diff';
 import { i18next, loadLocales, addResourceBundle, locales_def } from '../lib/i18n';
 import * as execall from 'execall';
+import * as JSON from 'json5';
 
 import { novelText } from '../lib/novel/text';
 
@@ -63,6 +64,7 @@ let novelID = '黑之魔王';
 //myLocalesID = '加速世界';
 
 novelID = '野生のラスボスが現れた！';
+//novelID = '野生的最终boss出现了_(2014)';
 myLocalesID = '野生のラスボスが現れた！';
 
 let cwd = path.join(projectConfig.dist_novel_root, pathMain, novelID);
@@ -106,11 +108,13 @@ i18next.setDefaultNamespace('i18n');
 			let name = path.basename(file, ext);
 			let file_dir = path.relative(cwd, path.dirname(file));
 
+			let currentFile = path.join(file_dir, name);
+
 			const _cache_key_ = path.join(file_dir, name);
 
 			const _t_old = await fs.readFile(file);
 
-			let _t = _t_old.toString();
+			let _t = novelText.toStr(_t_old);
 
 			_t = my_words(_t);
 			_t = novelText.textlayout(_t);
@@ -207,16 +211,15 @@ i18next.setDefaultNamespace('i18n');
 				_t = locales_def.words_callback(_t);
 			}
 
-			if (_t.toString() != _t_old.toString())
+			_t = novelText.toStr(_t);
+
+			if (_t != _t_old.toString())
 			{
-				await fs.outputFile(path.join(cwd_out, file_dir, name) + '.patch', JsDiff.createPatch(name, _t_old.toString()
-					.replace(/\r\n|\r(?!\n)/g, "\n"), _t.toString().replace(/\r\n|\r(?!\n)/g, "\n"), {
+				await fs.outputFile(path.join(cwd_out, currentFile) + '.patch', JsDiff.createPatch(name, novelText.toStr(_t_old), _t, {
 					newlineIsToken: true
 				}));
 
-				_t = _t.replace(/\n/g, "\r\n");
-
-				await fs.outputFile(path.join(cwd_out, file_dir, name) + '.txt', _t);
+				await fs.outputFile(path.join(cwd_out, currentFile) + '.txt', novelText.toStr(_t, "\r\n"));
 			}
 
 			if (_cache.block[_cache_key_] && !Object.keys(_cache.block[_cache_key_]).length)
@@ -224,7 +227,7 @@ i18next.setDefaultNamespace('i18n');
 				delete _cache.block[_cache_key_];
 			}
 
-			return path.join(file_dir, name);
+			return currentFile;
 
 			//return rename(file, index, len);
 		})
@@ -232,11 +235,6 @@ i18next.setDefaultNamespace('i18n');
 		{
 			if (Object.keys(_cache.block).length)
 			{
-				function stringify(v)
-				{
-					return JSON.stringify(v).replace(/^"|"$/g, '');
-				}
-
 				let md = Object.keys(_cache.block)
 					.reduce(function (a, file)
 					{
@@ -298,10 +296,59 @@ i18next.setDefaultNamespace('i18n');
 			{
 				//await console.error(_cache.eng);
 
-				await fs.outputJson(path.join(cwd_out, '英語.txt'), _cache.eng, {
-					// @ts-ignore
-					spaces: "\t",
-				});
+				_cache.eng = Object.keys(_cache.eng)
+					.reduce(function (a, b)
+					{
+						a[b] = a[b] || {};
+
+						for (let m of _cache.eng[b])
+						{
+							if (!m.match)
+							{
+								continue;
+							}
+
+							a[b][m.sub[1]] = a[b][m.sub[1]] || [];
+
+							a[b][m.sub[1]].push(m.match);
+						}
+
+						for (let m in a[b])
+						{
+							a[b][m].sort();
+						}
+
+						return a;
+					}, {})
+				;
+
+				let out = Object.keys(_cache.eng)
+					.reduce(function (a, b)
+					{
+						a.push(`\n## ${b}`);
+
+						for (let k in _cache.eng[b])
+						{
+							a.push(`\n### ${stringify(k)}\n`);
+
+							for (let m of _cache.eng[b][k])
+							{
+								a.push(`- ${stringify(m)}`);
+							}
+						}
+
+						a.push('');
+
+						return a;
+					}, [
+						'# English',
+						'',
+						'[TOC]',
+					])
+					.join("\n")
+				;
+
+				await fs.outputFile(path.join(cwd_out, '英語.txt'), out);
 			}
 		})
 	;
@@ -524,4 +571,9 @@ ${(data.data.desc || '').replace(/\`/g, '\\`')}
 		}
 	})
 ;
+}
+
+function stringify(v)
+{
+	return JSON.stringify(v).replace(/^"|"$/g, '');
 }
