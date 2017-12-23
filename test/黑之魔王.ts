@@ -39,7 +39,7 @@ let myLocalesID: string;
  * @type {string}
  */
 let pathMain = 'user';
-pathMain = 'dmzj';
+//pathMain = 'dmzj';
 
 /**
  * 小說資料夾名稱
@@ -58,9 +58,12 @@ let novelID = '黑之魔王';
 //novelID = '讨厌第四次的死属性魔术师_(2206)';
 //myLocalesID = '四度目は嫌な死属性魔術師';
 
-pathMain = 'wenku8';
-novelID = '加速世界_(381)';
-myLocalesID = '加速世界';
+//pathMain = 'wenku8';
+//novelID = '加速世界_(381)';
+//myLocalesID = '加速世界';
+
+novelID = '野生のラスボスが現れた！';
+myLocalesID = '野生のラスボスが現れた！';
 
 let cwd = path.join(projectConfig.dist_novel_root, pathMain, novelID);
 let cwd_out = path.join(projectConfig.dist_novel_root, `${pathMain}_out`, novelID);
