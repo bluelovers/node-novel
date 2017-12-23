@@ -125,6 +125,33 @@ export const words = [
 	}
 	],
 
+	[/[·\?]([一二三四五六七八九十][式年型])/ig, '・$1'],
+
+	[/(第)([\_\t\uFEFF\xA0　 \d０１２３４５６７８９]+)(话|頁|夜|章|集)/g, function ($0, $1, $2, $3)
+	{
+		$2 = StrUtil.toFullNumber($2, {
+			only: {
+				number: true,
+				space: true,
+			},
+		});
+
+		let m;
+		if (m = $2.match(/^(\D+)?(.+)(\D+)?$/))
+		{
+			let s = ((m[1] || m[3]) ? ' ' : '');
+			let $2 = m[2].replace(/[^\d]+/ig, '');
+
+			if ($2)
+			{
+				$2 = s + $2 + s;
+				return $1 + $2 + $3;
+			}
+		}
+
+		return $0;
+	}],
+
 ];
 
 // 需要人工確認的屏蔽字或錯字用語等等
