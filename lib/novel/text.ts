@@ -52,38 +52,6 @@ export class enspace
 				s: /…\.{1,2}/g,
 				r: '……',
 			},
-			{
-				s: '(.)（·）(.)',
-				r: '$1$2',
-			},
-			{
-				s: '果#_@_#体',
-				r: '裸体',
-			},
-			{
-				s: /，([”』」])/,
-				r: '$1',
-
-				//no_regex: true,
-			},
-			{
-				s: '·',
-				r: '・',
-
-				//no_regex: true,
-			},
-			{
-				s: /零·年/ig,
-				r: '零・年',
-
-				//no_regex: true,
-			},
-			{
-				s: /[·\?]([一二三四五六七八九十][式年型])/ig,
-				r: '・$1',
-
-				//no_regex: true,
-			},
 
 			/*
 			{
@@ -99,33 +67,6 @@ export class enspace
 				r: '$1 $2 $3',
 			},
 			*/
-			{
-				s: /(第)([\_\t\uFEFF\xA0　 \d０１２３４５６７８９]+)(话|頁|夜|章|集)/g,
-				r: function ($0, $1, $2, $3)
-				{
-					$2 = StrUtil.toFullNumber($2, {
-						only: {
-							number: true,
-							space: true,
-						},
-					});
-
-					let m;
-					if (m = $2.match(/^(\D+)?(.+)(\D+)?$/))
-					{
-						let s = ((m[1] || m[3]) ? ' ' : '');
-						let $2 = m[2].replace(/[^\d]+/ig, '');
-
-						if ($2)
-						{
-							$2 = s + $2 + s;
-							return $1 + $2 + $3;
-						}
-					}
-
-					return $0;
-				},
-			},
 			{
 				s: /(话|日|章)[\_\t\uFEFF\xA0]+/ig,
 				r: '$1 ',
@@ -323,8 +264,7 @@ export class enspace
 
 		let _self = this;
 
-		let _ret = text
-			.toString()
+		let _ret = this.toStr(text)
 			.replace(_self._data_.rtrim, '')
 		;
 
@@ -438,12 +378,19 @@ export class enspace
 
 	trim(text: string)
 	{
-		return text
-			.toString()
-			.replace(/\r\n|\r(?!\n)|\n/g, '\n')
-			.replace(/[  ]/g, ' ')
+		return this.toStr(text)
 			.replace(/[ \t　]+\n/g, '\n')
 			.replace(/^\n+|[\s　]+$/g, '')
+		;
+	}
+
+	toStr(str, LF = "\n")
+	{
+		return str
+			.toString()
+			.replace(/\r\n|\r(?!\n)|\n/g, LF)
+			.replace(/\uFEFF/g, '')
+			.replace(/[  \xA0]/g, ' ')
 		;
 	}
 
