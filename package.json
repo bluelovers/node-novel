@@ -29,12 +29,25 @@
     "request": "^2.83.0",
     "request-promise": "^4.2.2",
     "shortid": "^2.2.8",
-    "str-util": "^2.0.0",
+    "str-util": "^2.1.1",
     "upath2": "^2.1.0",
     "whatwg-url": "^6.4.0"
   },
   "devDependencies": {
     "@types/fs-extra": "^4.0.7",
     "@types/i18next": "^8.4.2"
-  }
+  },
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bluelovers/node-novel.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/bluelovers/node-novel/issues"
+  },
+  "homepage": "https://github.com/bluelovers/node-novel#readme"
 }
