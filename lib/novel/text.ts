@@ -329,7 +329,7 @@ export class enspace
 	{
 		let _self = this;
 
-		return text
+		return this.toStr(text)
 			.replace(_self._data_.m0, function (...argv)
 			{
 				if (argv[2])
@@ -379,12 +379,12 @@ export class enspace
 	trim(text: string)
 	{
 		return this.toStr(text)
-			.replace(/[ \t　]+\n/g, '\n')
-			.replace(/^\n+|[\s　]+$/g, '')
+			.replace(/[ \t　\xA0\u3000]+\n/g, '\n')
+			.replace(/^\n+|[\s　\xA0\u3000]+$/g, '')
 		;
 	}
 
-	toStr(str, LF = "\n")
+	toStr(str: Buffer | string | any, LF = "\n"): string
 	{
 		return str
 			.toString()
