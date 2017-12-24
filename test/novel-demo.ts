@@ -47,7 +47,7 @@ let pathMain = 'user';
  *
  * @type {string}
  */
-let novelID = '黑之魔王';
+let novelID = '由于世界魔物满载';
 
 //novelID = '黑之魔王_(2367)';
 //novelID = '我的怪物眷族_(1984)';
