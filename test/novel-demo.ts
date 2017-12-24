@@ -40,7 +40,7 @@ let myLocalesID: string;
  * @type {string}
  */
 let pathMain = 'user';
-//pathMain = 'dmzj';
+pathMain = 'dmzj';
 
 /**
  * 小說資料夾名稱
@@ -64,7 +64,7 @@ let novelID = '黑之魔王';
 //myLocalesID = '加速世界';
 
 novelID = '野生のラスボスが現れた！';
-//novelID = '野生的最终boss出现了_(2014)';
+novelID = '野生的最终boss出现了_(2014)';
 myLocalesID = '野生のラスボスが現れた！';
 
 let cwd = path.join(projectConfig.dist_novel_root, pathMain, novelID);
