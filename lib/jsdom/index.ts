@@ -4,7 +4,27 @@
 
 import { JSDOM, VirtualConsole } from 'jsdom';
 import * as cheerio from 'cheerio';
+import { URL } from 'whatwg-url';
+import * as jQuery from 'jquery';
 //import * as self from './index';
+
+export interface URL
+{
+	href,
+	origin,
+	protocol,
+	username,
+	password,
+	host,
+	hostname,
+	port,
+	pathname,
+	search,
+	hash,
+	searchParams,
+
+	toJSON(),
+}
 
 export { JSDOM, VirtualConsole, cheerio }
 
@@ -17,7 +37,8 @@ export interface ICheerioJSDOM
 	document: Document,
 
 	virtualConsole: VirtualConsole,
-	$: cheerio,
+	//$: cheerio,
+	$(selector): JQuery<HTMLElement>,
 }
 
 export function cheerioJSDOM(url: string, options: any = {}): Promise<ICheerioJSDOM>
@@ -41,10 +62,22 @@ export function cheerioJSDOM(url: string, options: any = {}): Promise<ICheerioJS
 
 				virtualConsole: options.virtualConsole,
 
-				$: cheerio.load(dom.serialize()),
-			} as ICheerioJSDOM;
+				//$: cheerio.load(dom.serialize()),
+
+				// @ts-ignore
+				$: jQuery(dom.window),
+
+			};
 		})
 	;
+}
+
+export function fromURL(url: string, options = {})
+{
+	const parsedURL: URL = new URL(url);
+
+	console.log(parsedURL.hash);
+	console.log(parsedURL);
 }
 
 export default cheerioJSDOM;
