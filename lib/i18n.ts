@@ -48,6 +48,11 @@ export function loadLocales(name, basepath = localesPath): {
 	words_callback?: Function,
 }
 {
+	if (name === null)
+	{
+		return null;
+	}
+
 	let id = basepath ? path.join(basepath, name) : name;
 
 	try

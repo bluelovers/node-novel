@@ -72,6 +72,7 @@ let cwd_out = path.join(projectConfig.dist_novel_root, `${pathMain}_out`, novelI
 
 // 利用 i18next 來達到根據小說切換翻譯模板
 myLocalesID = myLocalesID || novelID;
+
 let myLocales = loadLocales(myLocalesID);
 if (myLocales)
 {
@@ -213,7 +214,9 @@ i18next.setDefaultNamespace('i18n');
 
 			_t = novelText.toStr(_t);
 
-			if (_t != _t_old.toString())
+			let changed = _t != _t_old.toString();
+
+			if (changed)
 			{
 				await fs.outputFile(path.join(cwd_out, currentFile) + '.patch', JsDiff.createPatch(name, novelText.toStr(_t_old), _t, {
 					newlineIsToken: true
@@ -226,6 +229,8 @@ i18next.setDefaultNamespace('i18n');
 			{
 				delete _cache.block[_cache_key_];
 			}
+
+			console.log(currentFile, changed);
 
 			return currentFile;
 
@@ -287,7 +292,7 @@ i18next.setDefaultNamespace('i18n');
 					+ "\n";
 				;
 
-				console.log(md);
+				//console.log(md);
 
 				await fs.outputFile(path.join(cwd_out, '待確認文字.md'), md);
 			}
