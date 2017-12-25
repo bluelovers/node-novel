@@ -25,6 +25,13 @@ export interface IRegExpCallback
 	($0: string, $1?: string, $2?: string, $3?: string, ...argv): string;
 }
 
+export interface IToStrOptions
+{
+	LF?: string,
+	allow_nbsp?: boolean,
+	allow_bom?: boolean,
+}
+
 export class enspace
 {
 	public _cache_ = {
@@ -381,17 +388,42 @@ export class enspace
 		return this.toStr(text)
 			.replace(/[ \t　\xA0\u3000]+\n/g, '\n')
 			.replace(/^\n+|[\s　\xA0\u3000]+$/g, '')
-		;
+			;
 	}
 
-	toStr(str: Buffer | string | any, LF = "\n"): string
+	toStr(str: Buffer | string | any, options?: IToStrOptions): string
+	toStr(str: Buffer | string | any, options?: string): string
+	toStr(str: Buffer | string | any, options?: string | IToStrOptions): string
 	{
-		return str
+		if (typeof options == 'string')
+		{
+			options = {
+				LF: options,
+			};
+		}
+
+		options = Object.assign({
+			LF: "\n",
+			allow_nbsp: false,
+			allow_bom: false,
+		}, options);
+
+		let ret = str
 			.toString()
-			.replace(/\r\n|\r(?!\n)|\n/g, LF)
-			.replace(/\uFEFF/g, '')
-			.replace(/[  \xA0]/g, ' ')
+			.replace(/\r\n|\r(?!\n)|\n/g, options.LF || "\n")
 		;
+
+		if (!options.allow_bom)
+		{
+			ret = ret.replace(/\uFEFF/g, '');
+		}
+
+		if (!options.allow_nbsp)
+		{
+			ret = ret.replace(/[  \xA0]/g, ' ');
+		}
+
+		return ret;
 	}
 
 	/**
