@@ -31,6 +31,7 @@
     "shortid": "^2.2.8",
     "str-util": "^2.1.1",
     "upath2": "^2.1.0",
+    "jschardet": "*",
     "whatwg-url": "^6.4.0"
   },
   "devDependencies": {
