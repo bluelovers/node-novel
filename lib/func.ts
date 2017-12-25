@@ -5,6 +5,7 @@
 export function trimFilename(name)
 {
 	return name.toString()
+		.replace(/\s+/g, ' ')
 		.replace(/[\?\'\"\|\*\:\<\>\/\\]+|^\.+/ig, '')
 		;
 }
