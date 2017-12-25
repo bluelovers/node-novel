@@ -12,6 +12,7 @@ import * as JsDiff from 'diff';
 import { i18next, loadLocales, addResourceBundle, locales_def } from '../lib/i18n';
 import * as execall from 'execall';
 import * as JSON from 'json5';
+import * as jschardet from 'jschardet';
 
 import { novelText } from '../lib/novel/text';
 
@@ -114,6 +115,15 @@ i18next.setDefaultNamespace('i18n');
 			const _cache_key_ = path.join(file_dir, name);
 
 			const _t_old = await fs.readFile(file);
+
+			{
+				let chk = jschardet.detect(_t_old);
+
+				if (chk.encoding != 'UTF-8')
+				{
+					console.error(currentFile, '此檔案可能不是 UTF8 請檢查編碼或利用 MadEdit 等工具轉換');
+				}
+			}
 
 			let _t = novelText.toStr(_t_old);
 
