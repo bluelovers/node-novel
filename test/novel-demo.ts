@@ -68,6 +68,8 @@ let novelID = '由于世界魔物满载';
 //novelID = '野生的最终boss出现了_(2014)';
 //myLocalesID = '野生のラスボスが現れた！';
 
+novelID = '火輪を抱いた少女';
+
 let cwd = path.join(projectConfig.dist_novel_root, pathMain, novelID);
 let cwd_out = path.join(projectConfig.dist_novel_root, `${pathMain}_out`, novelID);
 
@@ -235,6 +237,7 @@ i18next.setDefaultNamespace('i18n');
 					newlineIsToken: true
 				}));
 
+				//console.log('save', currentFile);
 				await fs.outputFile(path.join(cwd_out, currentFile) + '.txt', novelText.toStr(_t, "\r\n"));
 			}
 
