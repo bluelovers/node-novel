@@ -224,7 +224,10 @@ i18next.setDefaultNamespace('i18n');
 
 			_t = novelText.toStr(_t);
 
-			let changed = _t != _t_old.toString();
+			let changed = _t != novelText.toStr(_t_old, {
+				allow_nbsp: true,
+				allow_bom: true,
+			});
 
 			if (changed)
 			{
@@ -240,7 +243,7 @@ i18next.setDefaultNamespace('i18n');
 				delete _cache.block[_cache_key_];
 			}
 
-			console.log(currentFile, changed);
+			console[changed ? 'log' : 'error'](currentFile);
 
 			return currentFile;
 
