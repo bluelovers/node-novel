@@ -19,6 +19,7 @@ import { novelText } from '../lib/novel/text';
 let _cache = {
 	rename: {},
 	block: {},
+	block2: {},
 	eng: {},
 };
 
@@ -48,7 +49,7 @@ let pathMain = 'user';
  *
  * @type {string}
  */
-let novelID = '由于世界魔物满载';
+let novelID = '黑之魔王';
 
 //novelID = '黑之魔王_(2367)';
 //novelID = '我的怪物眷族_(1984)';
@@ -68,7 +69,7 @@ let novelID = '由于世界魔物满载';
 //novelID = '野生的最终boss出现了_(2014)';
 //myLocalesID = '野生のラスボスが現れた！';
 
-novelID = '火輪を抱いた少女';
+//novelID = '火輪を抱いた少女';
 
 let cwd = path.join(projectConfig.dist_novel_root, pathMain, novelID);
 let cwd_out = path.join(projectConfig.dist_novel_root, `${pathMain}_out`, novelID);
@@ -202,7 +203,21 @@ i18next.setDefaultNamespace('i18n');
 					{
 						_cache.eng[_cache_key_] = _m;
 					}
+				}
 
+				v = /([^\n\*]{0,3})?([^\n\*]\*{2,}[^\n\*])([^\n\*]{0,3})?/ig;
+				if ((_m = execall(v, _t)) && _m.length)
+				{
+					let k = v.toString();
+
+					if (_cache.block2[_cache_key_])
+					{
+						_cache.block2[_cache_key_] = _cache.block2[_cache_key_].concat(_m);
+					}
+					else
+					{
+						_cache.block2[_cache_key_] = _m;
+					}
 				}
 
 				v = new RegExp(`(\\S{1,2})(@|（·?）|\\\.{2,}|%|￥|#|\\$|（和谐）)(\\S{1,2})`, 'g');
@@ -256,120 +271,23 @@ i18next.setDefaultNamespace('i18n');
 		{
 			if (Object.keys(_cache.block).length)
 			{
-				let md = Object.keys(_cache.block)
-					.reduce(function (a, file)
-					{
-						let values = _cache.block[file];
-
-						a.push(``);
-						a.push(`## ${file}`);
-						a.push(``);
-
-						let ret = Object.keys(values)
-							.reduce(function (a, r)
-							{
-								let ms = values[r];
-
-								//console.log(r);
-
-								a.push(`### ${stringify(r)}`);
-								a.push(``);
-
-								let ret = ms.reduce(function (a, m)
-								{
-
-									a.push(`- ${stringify(m.match)}`);
-
-									return a;
-								}, []);
-
-								a = a.concat(ret);
-
-								a.push(``);
-								//a.push(``);
-
-								return a;
-							}, []);
-
-						a = a.concat(ret);
-
-						a.push(``);
-						//a.push(``);
-
-						return a;
-					}, [
-						'# 待確認',
-						'',
-						'[TOC]',
-					])
-					.join("\n")
-					.replace(/\n{3,}/g, '\n\n\n')
-					.replace(/^\n+|\n+$/g, '')
-					+ "\n";
-				;
-
-				//console.log(md);
+				let md = await cache_output1(_cache.block, '待確認文字');
 
 				await fs.outputFile(path.join(cwd_out, '待確認文字.md'), md);
 			}
 
 			if (Object.keys(_cache.eng).length)
 			{
-				//await console.error(_cache.eng);
-
-				_cache.eng = Object.keys(_cache.eng)
-					.reduce(function (a, b)
-					{
-						a[b] = a[b] || {};
-
-						for (let m of _cache.eng[b])
-						{
-							if (!m.match)
-							{
-								continue;
-							}
-
-							a[b][m.sub[1]] = a[b][m.sub[1]] || [];
-
-							a[b][m.sub[1]].push(m.match);
-						}
-
-						for (let m in a[b])
-						{
-							a[b][m].sort();
-						}
-
-						return a;
-					}, {})
-				;
-
-				let out = Object.keys(_cache.eng)
-					.reduce(function (a, b)
-					{
-						a.push(`\n## ${b}`);
-
-						for (let k in _cache.eng[b])
-						{
-							a.push(`\n### ${stringify(k)}\n`);
-
-							for (let m of _cache.eng[b][k])
-							{
-								a.push(`- ${stringify(m)}`);
-							}
-						}
-
-						a.push('');
-
-						return a;
-					}, [
-						'# English',
-						'',
-						'[TOC]',
-					])
-					.join("\n")
-				;
+				let out = await cache_output2(_cache.eng, 'English');
 
 				await fs.outputFile(path.join(cwd_out, '英語.txt'), out);
+			}
+
+			if (Object.keys(_cache.block2).length)
+			{
+				let out = await cache_output2(_cache.block2, '待修正屏蔽字');
+
+				await fs.outputFile(path.join(cwd_out, '待修正屏蔽字.md'), out);
 			}
 		})
 	;
@@ -377,6 +295,120 @@ i18next.setDefaultNamespace('i18n');
 	//console.log(ls);
 
 })();
+
+function cache_output1(_block, title)
+{
+	let md = Object.keys(_block)
+		.reduce(function (a, file)
+		{
+			let values = _block[file];
+
+			a.push(``);
+			a.push(`## ${file}`);
+			a.push(``);
+
+			let ret = Object.keys(values)
+				.reduce(function (a, r)
+				{
+					let ms = values[r];
+
+					//console.log(r);
+
+					a.push(`### ${stringify(r)}`);
+					a.push(``);
+
+					let ret = ms.reduce(function (a, m)
+					{
+
+						a.push(`- ${stringify(m.match)}`);
+
+						return a;
+					}, []);
+
+					a = a.concat(ret);
+
+					a.push(``);
+					//a.push(``);
+
+					return a;
+				}, []);
+
+			a = a.concat(ret);
+
+			a.push(``);
+			//a.push(``);
+
+			return a;
+		}, [
+			`# ${title}`,
+			'',
+			'[TOC]',
+		])
+		.join("\n")
+		.replace(/\n{3,}/g, '\n\n\n')
+		.replace(/^\n+|\n+$/g, '')
+		+ "\n";
+	;
+
+	return md;
+}
+
+function cache_output2(_block, title)
+{
+	_block = Object.keys(_block)
+		.reduce(function (a, b)
+		{
+			a[b] = a[b] || {};
+
+			for (let m of _block[b])
+			{
+				if (!m.match)
+				{
+					continue;
+				}
+
+				a[b][m.sub[1]] = a[b][m.sub[1]] || [];
+
+				a[b][m.sub[1]].push(m.match);
+			}
+
+			for (let m in a[b])
+			{
+				a[b][m].sort();
+			}
+
+			return a;
+		}, {})
+	;
+
+	let out = Object.keys(_block)
+		.reduce(function (a, b)
+		{
+			a.push(`\n## ${b}`);
+
+			for (let k in _block[b])
+			{
+				a.push(`\n### ${stringify(k)}\n`);
+
+				for (let m of _block[b][k])
+				{
+					a.push(`- ${stringify(m)}`);
+				}
+			}
+
+			a.push('');
+
+			return a;
+		}, [
+			`# ${title}`,
+			'',
+			'[TOC]',
+		])
+		.join("\n")
+	;
+
+	return out;
+}
 
 async function rename(file, index?, len?)
 {
