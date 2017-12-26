@@ -498,8 +498,11 @@ function chk_words_maybe(text, list, cache = {})
 					});
 				}
 
-				cache[v.m] = cache[v.m] || [];
-				cache[v.m] = cache[v.m].concat(_m);
+				if (_m.length)
+				{
+					cache[v.m] = cache[v.m] || [];
+					cache[v.m] = cache[v.m].concat(_m);
+				}
 
 				//console.log(v);
 			}
