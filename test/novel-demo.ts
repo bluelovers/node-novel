@@ -147,6 +147,7 @@ i18next.setDefaultNamespace('i18n');
 
 				_cache.block[_cache_key_] = {};
 
+				/*
 				[]
 					.concat(myLocales.words_maybe || [])
 					.concat(locales_def.words_maybe || [])
@@ -174,9 +175,20 @@ i18next.setDefaultNamespace('i18n');
 						}
 					})
 				;
+				*/
+
+				_cache.block[_cache_key_] = chk_words_maybe(_t, []
+					.concat(myLocales.words_maybe || [])
+					.concat(locales_def.words_maybe || []),
+					_cache.block[_cache_key_] = {})
+					.cache
+				;
 
 				let _m;
-				let v = /(\S{1,2}(?![\?\*]))?(\?{3,}(?:[\s\?]+[\?])?|\S\*S|\*{2,})((?![\?\*])\S{1,2})?/g;
+				let v;
+
+				/*
+				v = /(\S{1,2}(?![\?\*]))?(\?{3,}(?:[\s\?]+[\?])?|\S\*S|\*{2,})((?![\?\*])\S{1,2})?/g;
 				if ((_m = execall(v, _t)) && _m.length)
 				{
 
@@ -189,6 +201,7 @@ i18next.setDefaultNamespace('i18n');
 
 					//await console.error(name, _m);
 				}
+				*/
 
 				v = new RegExp(`([^a-z]{1,2})([a-z]+[ 　\\ta-z\'\\d]*[a-z'\\d])([^a-z]{1,2})`, 'ig');
 				if ((_m = execall(v, _t)) && _m.length)
@@ -280,7 +293,7 @@ i18next.setDefaultNamespace('i18n');
 			{
 				let out = await cache_output2(_cache.eng, 'English');
 
-				await fs.outputFile(path.join(cwd_out, '英語.txt'), out);
+				await fs.outputFile(path.join(cwd_out, '英語.md'), out);
 			}
 
 			if (Object.keys(_cache.block2).length)
@@ -296,7 +309,7 @@ i18next.setDefaultNamespace('i18n');
 
 })();
 
-function cache_output1(_block, title)
+function cache_output1(_block, title): string
 {
 	let md = Object.keys(_block)
 		.reduce(function (a, file)
@@ -353,7 +366,7 @@ function cache_output1(_block, title)
 	return md;
 }
 
-function cache_output2(_block, title)
+function cache_output2(_block, title): string
 {
 	_block = Object.keys(_block)
 		.reduce(function (a, b)
@@ -408,6 +421,95 @@ function cache_output2(_block, title)
 	;
 
 	return out;
+}
+
+function chk_words_maybe(text, list, cache = {})
+{
+	let ls = []
+		.concat(list || [])
+		.map(function (v)
+		{
+			let ret = {
+				m: null,
+				not: null,
+				and: null,
+			};
+
+			if (typeof v == 'string')
+			{
+				ret.m = v;
+			}
+			else if (v instanceof RegExp)
+			{
+				ret.m = v;
+			}
+			else if (Array.isArray(v))
+			{
+				ret.m = v[0];
+
+				ret.not = v[1];
+				ret.and = v[2];
+
+				//console.log(ret);
+			}
+			else if (v.m)
+			{
+				Object.assign(ret, v);
+			}
+			else
+			{
+				return null;
+			}
+
+			if (typeof ret.m == 'string')
+			{
+				ret.m = new RegExp('(.{1,3})?(' + ret.m + ')(.{1,3})?', 'gi');
+			}
+
+			return ret;
+		})
+		.filter(v => v && v.m)
+		.forEach(function (v, index)
+		{
+			let _m;
+			if ((_m = execall(v.m, text)) && _m.length)
+			{
+				//_cache.block[_cache_key_] = _cache.block[_cache_key_].concat(_m);
+
+				if (v.not || v.and)
+				{
+					_m = _m.filter(function (m: {
+						match: string,
+						sub: string[],
+						index: number,
+					})
+					{
+						if (v.not && v.not.test(m.match))
+						{
+							return false;
+						}
+
+						if (v.and && !v.and.test(m.match))
+						{
+							return false;
+						}
+
+						return true;
+					});
+				}
+
+				cache[v.m] = cache[v.m] || [];
+				cache[v.m] = cache[v.m].concat(_m);
+
+				//console.log(v);
+			}
+		})
+	;
+
+	return {
+		list: ls,
+		cache: cache,
+	};
 }
 
 async function rename(file, index?, len?)
