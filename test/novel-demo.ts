@@ -71,6 +71,8 @@ let novelID = '黑之魔王';
 
 //novelID = '火輪を抱いた少女';
 
+novelID = 'ウォルテニア戦記';
+
 let cwd = path.join(projectConfig.dist_novel_root, pathMain, novelID);
 let cwd_out = path.join(projectConfig.dist_novel_root, `${pathMain}_out`, novelID);
 
