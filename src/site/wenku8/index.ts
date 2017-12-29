@@ -5,7 +5,6 @@
 import { trimFilename } from '../../../lib/func';
 import cheerioJSDOM, {} from '../../../lib/jsdom';
 import * as Promise from 'bluebird';
-import * as self from './index';
 import * as moment from 'moment-timezone';
 import * as fs from 'fs-extra';
 import * as path from 'path';
@@ -170,7 +169,7 @@ export async function download(url: string)
 	return Promise
 		.mapSeries(novel.volume_list, function (volume, vid)
 		{
-			vid = vid.toString().padStart(4, '0');
+			vid = vid.toString().padStart(4, '0') + '0';
 
 			let dirname = path.join(path_novel,
 				`${vid} ${trimFilename(volume.volume_title)}`
@@ -191,7 +190,7 @@ export async function download(url: string)
 
 					let dom = await cheerioJSDOM(chapter.chapter_url);
 
-					dom.$('#contentdp').remove();
+					dom.$('#contentdp, #contentdp').remove();
 
 					let content = dom.$('#content');
 					let _img = content.find('img');
@@ -273,5 +272,5 @@ export async function download(url: string)
 	;
 }
 
-export default self;
+export default download;
 //export default exports;
