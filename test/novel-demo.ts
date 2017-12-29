@@ -71,7 +71,11 @@ let novelID = '黑之魔王';
 
 //novelID = '火輪を抱いた少女';
 
-novelID = 'ウォルテニア戦記';
+//novelID = 'ウォルテニア戦記';
+
+pathMain = 'webqxs';
+novelID = '公会的开挂接待小姐_(20)';
+myLocalesID = 'ギルドのチートな受付嬢';
 
 let cwd = path.join(projectConfig.dist_novel_root, pathMain, novelID);
 let cwd_out = path.join(projectConfig.dist_novel_root, `${pathMain}_out`, novelID);
@@ -303,6 +307,11 @@ i18next.setDefaultNamespace('i18n');
 				let out = await cache_output2(_cache.block2, '待修正屏蔽字');
 
 				await fs.outputFile(path.join(cwd_out, '待修正屏蔽字.md'), out);
+			}
+			else
+			{
+				//await fs.remove(path.join(cwd_out, '待修正屏蔽字.md'));
+				await fs.outputFile(path.join(cwd_out, '待修正屏蔽字.md'), '');
 			}
 		})
 	;
@@ -660,7 +669,10 @@ function make_meta_md()
 	})
 	.then(async function (ls)
 	{
-		if (!ls.length && !fs.existsSync(path.join(cwd_out, 'meta.md')))
+		if (!ls.length
+			&& !fs.existsSync(path.join(cwd_out, 'meta.md'))
+			&& !fs.existsSync(path.join(cwd_out, 'README.md'))
+		)
 		{
 			let ls = await globby([
 					'*.json',
@@ -700,6 +712,11 @@ function make_meta_md()
 				tags.push('wenku8');
 			}
 
+			if (ls[0].match(/dist_novel\/([^\/]+)(?:_out)?/))
+			{
+				tags.push(RegExp.$1);
+			}
+
 			if (data.data.type)
 			{
 				tags = tags.concat(data.data.type);
@@ -711,12 +728,14 @@ function make_meta_md()
 - title: ${data.novel_title || data.data.g_lnovel_name}
 - author: ${data.novel_author || data.data.author}
 - source: ${data.url || ''}
-- cover: ${data.data.cover_pic || ''}
+- cover: ${data.novel_cover || data.data.cover_pic || ''}
+- date: ${data.novel_date || ''}
+- status: ${data.novel_status || ''}
 
 ## preface
 
 \`\`\`
-${(data.data.desc || '').replace(/\`/g, '\\`')}
+${(data.novel_desc || data.data.desc || '').replace(/\`/g, '\\`')}
 \`\`\`
 
 ## tags
@@ -727,7 +746,7 @@ ${(data.data.desc || '').replace(/\`/g, '\\`')}
 
 `;
 
-			await fs.outputFile(path.join(cwd_out, 'meta.md'), md);
+			await fs.outputFile(path.join(cwd_out, 'README.md'), md);
 		}
 	})
 ;
