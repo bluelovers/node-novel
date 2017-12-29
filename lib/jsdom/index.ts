@@ -4,29 +4,68 @@
 
 import { JSDOM, VirtualConsole } from 'jsdom';
 import * as cheerio from 'cheerio';
-import { URL } from 'whatwg-url';
+import { URL as WURL } from 'whatwg-url';
 import * as jQuery from 'jquery';
 //import * as self from './index';
+import * as deepmerge from 'deepmerge';
 
-export interface URL
+class URL extends WURL
 {
-	href,
-	origin,
-	protocol,
-	username,
-	password,
-	host,
-	hostname,
-	port,
-	pathname,
-	search,
-	hash,
-	searchParams,
+	href: string;
+	origin: string;
+	protocol: string;
+	username: string;
+	password: string;
+	host: string;
+	hostname: string;
+	port: string;
+	pathname: string;
+	search: string;
+	hash: string;
+	searchParams: string;
 
-	toJSON(),
+	constructor(href: string, base?)
+	constructor(href: URL, base?)
+	constructor(href, base?)
+	{
+		if (href instanceof WURL)
+		{
+			href = href.href;
+		}
+		if (base instanceof WURL)
+		{
+			base = base.href;
+		}
+
+		super(href.toString(), base.toString());
+	}
+
+	static create(href, base?)
+	{
+		return new this(href, base);
+	}
+
+	toString()
+	{
+		return this.href;
+	}
 }
 
+export { URL }
+
 export { JSDOM, VirtualConsole, cheerio }
+
+export interface ICheerioOptions
+{
+	userAgent?: string,
+	referrer?: string,
+	cookieJar?: string,
+
+	requestOptions?;
+
+	runScripts?: boolean;
+	virtualConsole?: VirtualConsole,
+}
 
 export interface ICheerioJSDOM
 {
@@ -38,13 +77,13 @@ export interface ICheerioJSDOM
 
 	virtualConsole: VirtualConsole,
 	//$: cheerio,
-	$(selector): JQuery<HTMLElement>,
+	$(selector, context?): JQuery<HTMLElement>,
 }
 
-export function cheerioJSDOM(url: string, options: any = {}): Promise<ICheerioJSDOM>
+export function cheerioJSDOM(url: string, options: ICheerioOptions = {}): Promise<ICheerioJSDOM>
 {
 	options = Object.assign({
-		runScripts: "dangerously",
+		runScripts: 'dangerously',
 		virtualConsole: new VirtualConsole(),
 	}, options);
 
@@ -70,14 +109,6 @@ export function cheerioJSDOM(url: string, options: any = {}): Promise<ICheerioJS
 			};
 		})
 	;
-}
-
-export function fromURL(url: string, options = {})
-{
-	const parsedURL: URL = new URL(url);
-
-	console.log(parsedURL.hash);
-	console.log(parsedURL);
 }
 
 export default cheerioJSDOM;
