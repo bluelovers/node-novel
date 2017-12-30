@@ -257,6 +257,14 @@ export class enspace
 
 				value.s = new RegExp(value.s, value.flags ? value.flags : 'g');
 			}
+			else if (Array.isArray(value) && value.length == 1 && typeof value[0] == 'function')
+			{
+				value = value[0];
+			}
+			else if (typeof value.fn == 'function')
+			{
+				value = value.fn;
+			}
 
 			return value;
 		});
@@ -297,9 +305,18 @@ export class enspace
 
 		for (let i in words)
 		{
-			let _r = words[i].s;
+			let _new;
 
-			let _new = _ret.replace(_r, words[i].r);
+			if (typeof words[i] == 'function')
+			{
+				_new = (words[i] as Function)(_ret, _cache_words);
+			}
+			else
+			{
+				let _r = words[i].s;
+
+				_new = _ret.replace(_r, words[i].r);
+			}
 
 			if (_new != _ret)
 			{

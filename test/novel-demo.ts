@@ -73,9 +73,11 @@ let novelID = '黑之魔王';
 
 //novelID = 'ウォルテニア戦記';
 
-pathMain = 'webqxs';
-novelID = '公会的开挂接待小姐_(20)';
-myLocalesID = 'ギルドのチートな受付嬢';
+//pathMain = 'webqxs';
+//novelID = '公会的开挂接待小姐_(20)';
+//myLocalesID = 'ギルドのチートな受付嬢';
+
+novelID = '雪色エトランゼ';
 
 let cwd = path.join(projectConfig.dist_novel_root, pathMain, novelID);
 let cwd_out = path.join(projectConfig.dist_novel_root, `${pathMain}_out`, novelID);
@@ -648,6 +650,7 @@ function make_meta_md()
 	return Promise
 	.mapSeries(globby([
 		'**/meta.md',
+		'**/README.md',
 		'!**/*.raw.*',
 		'!**/*.new.*',
 		'!**/out/**/*',

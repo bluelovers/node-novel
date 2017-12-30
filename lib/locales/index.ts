@@ -4,16 +4,17 @@
  * @see https://tieba.baidu.com/p/5197931833
  */
 
-import { IWordsOutput, IRegExpCallback } from '../novel/text'
+import { IWordsOutput, IRegExpCallback } from '../novel/text';
+import * as StrUtil from 'str-util';
 
 export interface IWords extends IWordsOutput
 {
 	[0]: string | RegExp,
-	[1]?: string | IRegExpCallback,
+	[1]: string | IRegExpCallback,
 	[2]?: string,
 }
 
-export type vMaybe = Array<string | RegExp>;
+export type vMaybe = Array<string | RegExp | Function | Array<string | RegExp>>;
 
 export const lang = 'zh';
 
@@ -200,11 +201,14 @@ export const words: IWords[] = [
 
 	// @todo 复覆復
 	['([反答])[复覆復]', '$1覆'],
-	['重[復复](着|这道|了几遍|同样)', '重覆$1'],
+	['重[復复](着|这道|了几遍|同样|回想)', '重覆$1'],
 	['恢覆', '恢復'],
 	['多次重[復复]', '多次重覆'],
 
 	['沒發絕', '沒發覺'],
+
+	['哪里', '哪裡'],
+	['那里后', '那裡後'],
 
 	['傍([边觀])', '旁$1'],
 
@@ -238,9 +242,11 @@ export const words: IWords[] = [
 
 	['某者意義', '某種意義'],
 
+	['冷茎|冷靜', '冷靜'],
+
 	[/樣阿([\?？])/g, '樣啊$1'],
 
-	[/\n+([ \-\=＝－＊◇]+)\n+/mg, '\n\n$1\n\n'],
+	[/\n+([ \-\=＝－＊◇◆]+)\n+/mg, '\n\n$1\n\n'],
 
 	['([。”])\n+[,，﹑]\n+', '$1\n\n'],
 
@@ -251,6 +257,15 @@ export const words: IWords[] = [
 	[/\.{3}/g, '…'],
 	[/…\.{1,2}/g, '……'],
 	[/\.{2}/g, '…'],
+
+	[/([…吗么嗎麼人中聊哦办船呢啊阿何吶吧]\?+|\?+[」…）！])/ug, function (...m)
+	{
+		return StrUtil.toFullWidth(m[0], {
+			skip: {
+				space: true,
+			},
+		});
+	}],
 
 	[/^(第[^\n]+話[^\n]*)\n+/g, '$1\n\n'],
 
@@ -414,6 +429,8 @@ export const words_maybe: vMaybe = [
 	'越有',
 
 	'關西',
+
+	'维和',
 
 	'甄别',
 

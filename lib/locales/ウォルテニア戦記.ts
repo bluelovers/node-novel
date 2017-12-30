@@ -147,15 +147,6 @@ export const words: IWords[] = [
 
 	[',', '、'],
 
-	[/([…吗么嗎麼人中聊哦办船呢啊阿何吶吧]\?+|\?+[」…）！])/ug, function (...m)
-	{
-		return StrUtil.toFullWidth(m[0], {
-			skip: {
-				space: true,
-			},
-		});
-	}],
-
 	[/[\!\(\):]|\d+[：:]/g, function (...m)
 	{
 		return StrUtil.toFullWidth(m[0], {
