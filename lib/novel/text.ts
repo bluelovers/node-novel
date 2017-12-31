@@ -400,7 +400,9 @@ export class enspace
 			;
 	}
 
-	trim(text: string)
+	trim(text: Buffer): string
+	trim(text: string): string
+	trim(text: Buffer | string | any): string
 	{
 		return this.toStr(text)
 			.replace(/[ \t　\xA0\u3000]+\n/g, '\n')

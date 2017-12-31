@@ -19,6 +19,7 @@
     "globby": "^7.1.1",
     "i18next": "^10.2.1",
     "jquery": "^3.2.1",
+    "jschardet": "*",
     "jsdom": "^11.5.1",
     "jsdom-global": "^3.0.2",
     "json5": "^0.5.1",
@@ -29,9 +30,8 @@
     "request": "^2.83.0",
     "request-promise": "^4.2.2",
     "shortid": "^2.2.8",
-    "str-util": "^2.1.1",
+    "str-util": "^2.1.2",
     "upath2": "^2.1.0",
-    "jschardet": "*",
     "whatwg-url": "^6.4.0"
   },
   "devDependencies": {

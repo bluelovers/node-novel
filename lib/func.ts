@@ -5,9 +5,12 @@
 export function trimFilename(name)
 {
 	return name.toString()
-		.replace(/\s+/g, ' ')
+		.replace(/[\r\n\t  \xA0]+/g, ' ')
 		.replace(/[\?\'\"\|\*\:\<\>\/\\]+|^\.+/ig, '')
+		.trim()
+		.replace(/^[　\s]+/g, '')
+		.replace(/[　\s]+$/g, '')
 		;
 }
 
-export default exports;
+export default trimFilename;
