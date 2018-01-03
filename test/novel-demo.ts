@@ -79,6 +79,8 @@ let novelID = '黑之魔王';
 
 novelID = '雪色エトランゼ';
 
+novelID = '自称贤者弟子的贤者';
+
 let cwd = path.join(projectConfig.dist_novel_root, pathMain, novelID);
 let cwd_out = path.join(projectConfig.dist_novel_root, `${pathMain}_out`, novelID);
 
@@ -211,7 +213,7 @@ i18next.setDefaultNamespace('i18n');
 				}
 				*/
 
-				v = new RegExp(`([^a-z]{1,2})([a-z]+[ 　\\ta-z\'\\d]*[a-z'\\d])([^a-z]{1,2})`, 'ig');
+				v = /([^\w]{1,3})?(\w[ 　\w*\.\'\"\:\-\+\=]*)([^\w]{1,3})?/ig;
 				if ((_m = execall(v, _t)) && _m.length)
 				{
 					let k = v.toString();
