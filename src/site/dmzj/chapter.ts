@@ -125,11 +125,11 @@ export async function download(data, options?)
 					{
 						let _this = $(this);
 
-						if (_this.attr('src'))
+						if (_this.prop('src'))
 						{
 							let id = shortid();
 
-							_c[id] = _this.attr('src');
+							_c[id] = _this.prop('src');
 							_data.imgs.push(_c[id]);
 
 							$(`<span>{{@${id}@}}</span>`).insertAfter(this);

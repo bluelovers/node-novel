@@ -11,11 +11,12 @@ import * as StrUtil from 'str-util';
 import * as jschardet from 'jschardet';
 import * as execall from 'execall';
 import { novelText } from '../lib/novel/text';
+import trimFilename from '../lib/func';
 
 let inputFile = path.join(projectConfig.dist_novel_root,
 	'user',
-	'火輪を抱いた少女',
-	'raw/怀抱太阳的少女.txt',
+	'自称贤者弟子的贤者',
+	'raw/自稱弟子.txt',
 );
 
 let dirname = path.dirname(inputFile);
@@ -23,9 +24,17 @@ let dirname = path.dirname(inputFile);
 fs.readFile(inputFile)
 	.then(function (data)
 {
-	let txt = novelText.toStr(data);
+	let txt = novelText.trim(data);
 
-	let _m = execall(/^[ \t　]*(?:第[^\n]+[章話话]|幕间[^\n完]+|[序終终]章[^\n完]?)(?!完)[^\n]*$/mg, txt);
+	let _m;
+
+	//_m = execall(/^[ \t　]*(?:第[^\n]+[章話话]|幕间[^\n完]+|[序終终]章[^\n完]?)(?!完)[^\n]*$/mg, txt);
+
+	//_m = execall(/^[ ]*(?:(?:Act：)?\d+(?:[^\n+]*终章)?|第\d+章|\d+\+\d+)[ ]*$/img, txt);
+
+	_m = execall(/^[ ]*(?:\d{3}|百[一-九]十[一-九]|.?百.十.?)[^\n]*[ ]*$/img, txt);
+
+	//console.log(_m);
 
 	let _files = {};
 	let idx = 0;
@@ -38,8 +47,10 @@ fs.readFile(inputFile)
 	{
 		let m = _m[i];
 
-		if (idx == 0 && m.index != 0)
+		if (!m_last && idx == 0 && m.index != 0)
 		{
+			console.log(m);
+
 			let id = '0'.padStart(5, '0');
 			let name = id + '_' + 'unknow';
 
@@ -50,9 +61,13 @@ fs.readFile(inputFile)
 		else if (m_last)
 		{
 			let id = i.padStart(4, '0') + '0';
-			let name = id + '_' + m_last.match
-				.replace('章', '話')
-			;
+			let name = fix_name(m_last.match);
+
+			name = id + '_' + name;
+
+			console.log([name]);
+
+			//name = `${id}_Act：${StrUtil.toFullWidth(i.padStart(3, '0'))}`;
 
 			_files[name] = txt.slice(idx, m.index);
 
@@ -65,18 +80,41 @@ fs.readFile(inputFile)
 	if (idx < txt.length -1)
 	{
 		let id = i.padStart(4, '0') + '5';
-		let name = id + '_' + m_last.match
-			.replace('章', '話')
-		;
+		let name = fix_name(m_last.match);
+
+		name = id + '_' + name;
 
 		_files[name] = txt.slice(idx);
 	}
 
 	for (let name in _files)
 	{
-		fs.outputFile(path.join(dirname, 'out', name + '.txt'), _files[name]);
+		fs.outputFile(path.join(dirname, 'out', trimFilename(name) + '.txt'), _files[name]);
 	}
 
 	console.log(_m);
 })
 ;
+
+function fix_name(name)
+{
+	name = novelText.trim(name).trim()
+		//.replace('章', '話')
+	;
+
+	if (!/^\d+/.test(name))
+	{
+		name = StrUtil.zh2num(name).toString();
+	}
+
+	name = name
+		.replace(/^(\d+)[\-話话\s]*/, '$1　')
+		.replace(/[“”]/g, '')
+	;
+
+	name = StrUtil.zh2jp(name);
+
+	//console.log([name]);
+
+	return name;
+}

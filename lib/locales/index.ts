@@ -289,6 +289,8 @@ export const words: IWords[] = [
 	[/\n[ ]*([^：\n【】]+：[^\n【】]*)\n{2,}([ ]*[^：\n【】]+：)/ug, '\n$1\n$2'],
 	[/\n[ ]*([^：\n]+：[^\n]*)\n{2,}([ ]*[^：\n]+\n)/ug, '\n$1\n\n$2'],
 
+	[/\n+(完)[。\-]*$/g, '\n\n$1'],
+
 ];
 
 export function words_callback(text)

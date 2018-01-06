@@ -2,7 +2,8 @@
  * Created by user on 2017/12/5/005.
  */
 
-const StrUtil = require("str-util");
+import * as StrUtil from 'str-util';
+import * as toRegex from 'to-regex';
 
 export interface IOptions
 {
@@ -400,14 +401,41 @@ export class enspace
 			;
 	}
 
-	trim(text: Buffer): string
-	trim(text: string): string
-	trim(text: Buffer | string | any): string
+	trim(text: Buffer, options?): string
+	trim(text: string, options?): string
+	trim(text: Buffer | string | any, options?): string
 	{
-		return this.toStr(text)
+		let ret = this.toStr(text, options)
 			.replace(/[ \t　\xA0\u3000]+\n/g, '\n')
 			.replace(/^\n+|[\s　\xA0\u3000]+$/g, '')
 			;
+
+		if (typeof options == 'boolean')
+		{
+			options = {
+				trim: !!options,
+			}
+		}
+		else if (typeof options == 'string')
+		{
+			options = {
+				trim: options,
+			}
+		}
+
+		if (options)
+		{
+			if (typeof options.trim == 'string')
+			{
+				ret = StrUtil.trim(ret, '　' + options.trim);
+			}
+			else if (options.trim)
+			{
+				ret = StrUtil.trim(ret, '　');
+			}
+		}
+
+		return ret;
 	}
 
 	toStr(str: Buffer | string | any, options?: IToStrOptions): string

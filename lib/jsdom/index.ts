@@ -91,22 +91,34 @@ export function cheerioJSDOM(url: string, options: ICheerioOptions = {}): Promis
 		.fromURL(url, options)
 		.then(function (dom: JSDOM)
 		{
-			return {
+			let obj = {
 				source_url: url,
-
 				jsdom: dom,
-
-				window: dom.window,
-				document: dom.document,
 
 				virtualConsole: options.virtualConsole,
 
-				//$: cheerio.load(dom.serialize()),
-
-				// @ts-ignore
 				$: jQuery(dom.window),
-
 			};
+
+			Object.defineProperties(obj, {
+
+				window: {
+					get()
+					{
+						return dom.window;
+					},
+				},
+
+				document: {
+					get()
+					{
+						return dom.window.document;
+					},
+				},
+
+			});
+
+			return obj;
 		})
 	;
 }

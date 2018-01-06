@@ -207,11 +207,11 @@ export async function download(url: string)
 						{
 							let _this = dom.$(this);
 
-							if (_this.attr('src'))
+							if (_this.prop('src'))
 							{
 								let id = shortid();
 
-								_c[id] = _this.attr('src');
+								_c[id] = _this.prop('src');
 								chapter.imgs.push(_c[id]);
 								novel.imgs.push(_c[id]);
 
