@@ -14,7 +14,25 @@ import * as Promise from 'bluebird';
 
 import * as self from './txt-split';
 
-export function makeOptions(inputFile, options)
+export interface IOptions
+{
+	file?: string,
+	outDir?: string,
+
+	volume?: ISplitOption,
+	chapter?: ISplitOption,
+
+	dirname?: string,
+	ix?: number,
+}
+
+export interface ISplitOption
+{
+	r: RegExp,
+	cb?: ISplitCB,
+}
+
+export function makeOptions(inputFile: string, options: IOptions): IOptions
 {
 	let cache = Object.assign({
 		file: inputFile,
@@ -28,7 +46,7 @@ export function makeOptions(inputFile, options)
 	return cache;
 }
 
-export async function autoFile(inputFile, options)
+export async function autoFile(inputFile: string, options: IOptions)
 {
 	let ret = await readFile(inputFile, options);
 
@@ -37,7 +55,7 @@ export async function autoFile(inputFile, options)
 	return ret;
 }
 
-export async function readFile(inputFile, options)
+export async function readFile(inputFile: string, options: IOptions)
 {
 	let cache = makeOptions(inputFile, options);
 
@@ -50,7 +68,7 @@ export async function readFile(inputFile, options)
 
 	let data = await split_volume(txt, cache);
 
-	console.log(Object.keys(data));
+	//console.log(Object.keys(data));
 
 	//process.exit();
 
@@ -60,7 +78,7 @@ export async function readFile(inputFile, options)
 	};
 }
 
-export async function outputFile(data, options?): Promise<string[]>
+export async function outputFile(data, options?: IOptions): Promise<string[]>
 {
 	if (data.data)
 	{
@@ -89,7 +107,7 @@ export async function outputFile(data, options?): Promise<string[]>
 	return ls;
 }
 
-export function fix_name(name)
+export function fix_name(name: string): string
 {
 	name = novelText.trim(name, {
 		trim: true,
@@ -114,7 +132,11 @@ export function fix_name(name)
 	return name;
 }
 
-export function split_volume(txt, cache)
+export function split_volume(txt: string, cache: IOptions): {
+	[key: string]: {
+		[key: string]: string
+	};
+}
 {
 	let _vs;
 
@@ -199,7 +221,9 @@ export interface ISplitCB extends Function
 	};
 }
 
-export function split(txt, cache, _m, cb: ISplitCB)
+export function split(txt: string, cache: IOptions, _m, cb: ISplitCB): {
+	[key: string]: string,
+}
 {
 	let _files = {};
 	let idx = 0;
@@ -207,7 +231,7 @@ export function split(txt, cache, _m, cb: ISplitCB)
 	let m_last;
 
 	let i;
-	let ix = parseInt(cache.ix || 0);
+	let ix = cache.ix || 0;
 	let ii;
 
 	for (i in _m)
