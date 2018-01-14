@@ -11,6 +11,8 @@ import * as execall from 'execall';
 import { novelText } from '../novel/text';
 import trimFilename from '../func';
 import * as Promise from 'bluebird';
+import * as jschardet from 'jschardet';
+import fsIconv from './iconv';
 
 import * as self from './txt-split';
 
@@ -59,9 +61,18 @@ export async function readFile(inputFile: string, options: IOptions)
 {
 	let cache = makeOptions(inputFile, options);
 
-	let txt = await fs.readFile(cache.file)
+	let txt = await fsIconv.readFile(cache.file)
 		.then(function (data)
 		{
+			{
+				let chk = jschardet.detect(data);
+
+				if (chk.encoding != 'UTF-8')
+				{
+					console.error(cache.file, '此檔案可能不是 UTF8 請檢查編碼或利用 MadEdit 等工具轉換', chk);
+				}
+			}
+
 			return novelText.trim(data);
 		})
 	;
@@ -145,6 +156,8 @@ export function split_volume(txt: string, cache: IOptions): {
 		let _r = cache.volume.r;
 
 		let _m = execall(_r, txt);
+
+		//console.debug(_r, _m, txt);
 
 		if (!_m || !_m.length)
 		{

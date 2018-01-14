@@ -49,7 +49,9 @@ let pathMain = 'user';
  *
  * @type {string}
  */
-let novelID = '黑之魔王';
+let novelID: string;
+
+//novelID = '黑之魔王';
 
 //novelID = '黑之魔王_(2367)';
 //novelID = '我的怪物眷族_(1984)';
@@ -77,9 +79,22 @@ let novelID = '黑之魔王';
 //novelID = '公会的开挂接待小姐_(20)';
 //myLocalesID = 'ギルドのチートな受付嬢';
 
-novelID = '雪色エトランゼ';
+//novelID = '雪色エトランゼ';
 
-novelID = '自称贤者弟子的贤者';
+//novelID = '自称贤者弟子的贤者';
+
+//novelID = '抗いし者たちの系譜 逆襲の魔王';
+//myLocalesID = '抗いし者たちの系譜';
+
+//novelID = '魔拳のデイドリーマー';
+
+//novelID = '異世界迷宮の最深部を目指そう';
+novelID = '暗黒騎士物語　～勇者を倒すために魔王に召喚されました～';
+
+if (!novelID)
+{
+	throw new Error();
+}
 
 let cwd = path.join(projectConfig.dist_novel_root, pathMain, novelID);
 let cwd_out = path.join(projectConfig.dist_novel_root, `${pathMain}_out`, novelID);
@@ -134,7 +149,7 @@ i18next.setDefaultNamespace('i18n');
 
 				if (chk.encoding != 'UTF-8')
 				{
-					console.error(currentFile, '此檔案可能不是 UTF8 請檢查編碼或利用 MadEdit 等工具轉換');
+					console.error(currentFile, '此檔案可能不是 UTF8 請檢查編碼或利用 MadEdit 等工具轉換', chk);
 				}
 			}
 
@@ -213,7 +228,7 @@ i18next.setDefaultNamespace('i18n');
 				}
 				*/
 
-				v = /([^\w]{1,3})?(\w[ 　\w*\.\'\"\:\-\+\=]*)([^\w]{1,3})?/ig;
+				v = /([^\w]{1,3})?((?:\d*[a-z]+\w*)[ 　\w・\.\'\"\:\-\+\=]*)([^\w]{1,3})?/ig;
 				if ((_m = execall(v, _t)) && _m.length)
 				{
 					let k = v.toString();
@@ -395,9 +410,19 @@ function cache_output2(_block, title): string
 					continue;
 				}
 
-				a[b][m.sub[1]] = a[b][m.sub[1]] || [];
+				let key = m.sub[1]
+					.replace(/^[ 　・\.\'\"\:\-\+\=]+|[ 　・\.\'\"\:\-\+\=]+$/g, '')
+					.toLowerCase()
+				;
 
-				a[b][m.sub[1]].push(m.match);
+				if (/^\d+(?:\.\d+)?$|^([a-z])\1+$/i.test(key) || key.length == 1)
+				{
+					continue;
+				}
+
+				a[b][key] = a[b][key] || [];
+
+				a[b][key].push(m.match);
 			}
 
 			for (let m in a[b])

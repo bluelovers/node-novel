@@ -5,7 +5,7 @@
 import { novelText } from '../lib/novel/text';
 import path from 'upath2';
 import * as projectConfig from '../project.config';
-import txtSplit from '../lib/fs/txt-split';
+import txtSplit, { IOptions } from '../lib/fs/txt-split';
 import * as StrUtil from 'str-util';
 
 let _zh_num = '一二三四五六七八十';
@@ -13,13 +13,13 @@ let _space = ' 　\\t';
 
 let inputFile = path.join(projectConfig.dist_novel_root,
 	'user',
-	'魔拳のデイドリーマー',
-	'raw/魔拳的妄想者(1-97.5).txt',
+	'暗黒騎士物語　～勇者を倒すために魔王に召喚されました～',
+	'raw/暗黒騎士物語 1.1-4.7.txt',
 );
 
-let options = {
+let options: IOptions = {
 	volume: {
-		r: new RegExp(`(?:^|\\n)[${_space}]*(第?(?:[序终]|[${_zh_num}]+)章)([^\\n]*)`, 'igm'),
+		r: new RegExp(`(?:^|\\n)[${_space}]*(第?(?:[序终]|[${_zh_num}]+|\\d+)章)([^\\n]*)`, 'igm'),
 		cb({
 			i,
 			id,
@@ -32,9 +32,27 @@ let options = {
 		{
 			if (m_last)
 			{
-				name = novelText.trim(m_last.sub[0], {
+				let id = novelText.trim(StrUtil.zh2num(m_last.sub[0]) as string, {
 					trim: true,
-				}) + '　' + novelText.trim(m_last.sub[1], {
+				});
+
+				if (/\d+/.test(id))
+				{
+					id = id
+						.replace(/^\D+/, '')
+						.replace(/\D+$/, '')
+					;
+
+					name = `第${StrUtil.toFullNumber(id)}章`;
+				}
+				else
+				{
+					name = novelText.trim(m_last.sub[0], {
+						trim: true,
+					})
+				}
+
+				name = name + '　' + novelText.trim(m_last.sub[1], {
 					trim: true,
 				});
 			}
@@ -51,7 +69,7 @@ let options = {
 
 	chapter: {
 		//r: new RegExp(`[${_space}]*(第?(?:[序终]|[${_zh_num}]+)节)([^\\n]*)`, 'igm'),
-		r: new RegExp(`(?:^|\\n)[${_space}]*(第?(?:[序终]|[${_zh_num}]+|\\d+[ \\d\\+\\.]*)[話话；]+)([^\\n]*)`, 'igm'),
+		r: new RegExp(`(?:^|\\n)[${_space}]*(\\d+\\-\\d+)([^\\n]*)`, 'igm'),
 		cb({
 			i,
 			id,
@@ -74,7 +92,7 @@ let options = {
 					trim: true,
 				});
 
-				name = `第${id}話` + '　' + novelText.trim(m_last.sub[1], {
+				name = `${id}` + '　' + novelText.trim(m_last.sub[1], {
 					trim: '；',
 				});
 
@@ -91,6 +109,8 @@ let options = {
 		},
 	},
 };
+
+console.log(options);
 
 txtSplit.autoFile(inputFile, options)
 	.then(ret => console.log(ret))

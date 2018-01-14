@@ -126,6 +126,7 @@ export const words: IWords[] = [
 	[/(Fire|Ｆｌａｍｅ|Flame|Flmae)[・ 　]*(arrow|Ａｒｒｏｗ)/ig, '炎之矢'],
 	[/Light[・ 　]*Arrow/ig, '光之矢'],
 	[/Wind[・ 　]*Arrow/ig, '风之矢'],
+	[/Ice[・ 　]*Arrow/ig, '冰之矢'],
 
 	[/Wind[・ 　]*Flame?berge/ig, '风刃劍'],
 	[/(Ice|冰)[・ 　]*Flame?berge/ig, '冰结劍'],
@@ -138,6 +139,10 @@ export const words: IWords[] = [
 
 	[/Riosheth[・ 　]*Eagle/ig, 'Riosheth Eagle'],
 	[/Sky[・ 　]*Runner/ig, 'SkyRunner'],
+	[/Living[・ 　]*Legend/ig, 'Living Legend'],
+	[/Xiphias[・ 　]*Spear/ig, 'Xiphias Spear'],
+
+	[/Distance[・ 　]*Mute/ig, 'Distance Mute'],
 
 	//Tidal Wave
 
@@ -195,7 +200,7 @@ export const words: IWords[] = [
 
 	['[級级]别|等[級级]|レベル', '級别'],
 
-	['天上[的の]七?[骑騎]士', '天上的七骑士'],
+	['天上[的の]?七?[骑騎]士', '天上的七骑士'],
 
 	['艾尔乌纳|阿尔十字', '艾尔乌纳'],
 
@@ -214,8 +219,6 @@ export const words: IWords[] = [
 
 	['[赤红][色之]米诺陶洛斯', '赤之米诺陶洛斯'],
 
-
-
 	//['『显示』', '『表示』'],
 	//['[『「](携带品|物品|所有物|持ち物)[』」]', '『携带品』'],
 
@@ -223,7 +226,7 @@ export const words: IWords[] = [
 	{
 		let c;
 
-		switch (m[1])
+		switch (m[1].toLowerCase())
 		{
 			case '携带品':
 			case '物品':
@@ -256,6 +259,10 @@ export const words: IWords[] = [
 			case '赝品':
 				c = '伪物';
 				break;
+			case '材料':
+			case '素体':
+				c = '素体';
+				break;
 			case '眼睛':
 			case '目':
 			case '锐利的目光':
@@ -278,16 +285,17 @@ export const words: IWords[] = [
 			case '新月琉璃':
 				c = m[1];
 				break;
-			case 'Flamberge':
+			case 'flamberge':
 				c = '炎之剑';
 				break;
-			case 'Light':
 			case 'light':
 				c = '光';
 				break;
-			case 'Flame':
 			case 'flame':
 				c = '火焰';
+				break;
+			case 'wind':
+				c = '风';
 				break;
 			case '地图':
 			case '技能':
@@ -368,6 +376,8 @@ export const words: IWords[] = [
 	['妻身', '妾身'],
 
 	[/((.+)[酱醬]?)(?:（\2）)/g, '$1'],
+
+	[/([^\w])(Solo)(?![\w])/ig , '$1Solo'],
 
 	/**
 	 * @todo
