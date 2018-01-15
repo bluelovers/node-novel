@@ -51,9 +51,9 @@ export function chkBlankLine(txt): [number, number, number]
 	}
 
 	let min = _ms[0] || null;
-	let max = _ms[_ms.length - 1] || null;
+	let max = _ms[_ms.length - 1] || min;
 
-	let mid = _ms[1] || null;
+	let mid = _ms[1] || min;
 
 	return [min, mid, max];
 }

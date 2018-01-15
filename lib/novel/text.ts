@@ -4,6 +4,7 @@
 
 import * as StrUtil from 'str-util';
 import * as toRegex from 'to-regex';
+import { getBlankLine, chkBlankLine } from './checkline';
 
 export interface IOptions
 {
@@ -31,6 +32,11 @@ export interface IToStrOptions
 	LF?: string,
 	allow_nbsp?: boolean,
 	allow_bom?: boolean,
+}
+
+export interface ITextLayoutOptions extends IToStrOptions
+{
+	allow_lf2?: boolean,
 }
 
 export class enspace
@@ -476,12 +482,11 @@ export class enspace
 	/**
 	 * 通用型段落調整
 	 *
-	 * @param html
 	 * @returns {string}
 	 */
-	textlayout(html): string
+	textlayout(html, options: ITextLayoutOptions = {}): string
 	{
-		html = this.trim(html);
+		html = this.trim(html, options);
 
 		html = html
 			.replace(/\r\n|\r(?!\n)/g, "\n")
@@ -493,47 +498,41 @@ export class enspace
 
 		if (!html.match(/[^\n]\n[^\n]/g))
 		{
-			let len = 1;
+			let [min, mid, max] = chkBlankLine(html.toString());
 
-			//console.log(html);
-
-			if (/\n\n\n/g.test(html))
+			if (min > 2)
 			{
-				//console.log(777);
+				options.allow_lf2 = false;
+			}
 
-				if (/[^\n]\n\n[^\n]/g.test(html))
+			if (max >= 3)
+			{
+				if (min > 2)
 				{
-					//console.log(888);
-				}
-				else
-				{
-					//console.log(999);
+					let r = new RegExp(`\\n{${min - 1}}(\\n*)`, 'g');
 
 					html = html
-						.replace(/\n{2}/g, "")
+						//.replace(/\n{2}(\n*)/g, '$1')
+						.replace(r, '$1')
 					;
 				}
 
 				html = html
 					.replace(/\n{3,}/g, "\n\n\n")
-					.replace(/\n{2}/g, "\n")
+					//.replace(/\n{2}/g, "\n")
 				;
 			}
-			else
-			{
-				//console.log(666);
 
+			if (!options.allow_lf2)
+			{
 				html = html
-					.replace(/\n{3,}/g, "\n\n\n")
 					.replace(/\n\n/g, "\n")
 				;
 			}
-
-			//console.log(html);
 		}
 
 		html = html
-		// for ts
+			// for ts
 			.toString()
 			.replace(/([^\n「」【】《》“”『』（）\[\]"](?:[！？?!。]*)?)\n((?:[—]+)?[「」“”【】《》（）『』])/ug, "$1\n\n$2")
 
