@@ -284,9 +284,14 @@ export function split(txt: string, cache: IOptions, _m, cb: ISplitCB): {
 
 			name = id + '_' + name;
 
-			_files[name] = txt.slice(idx, m.index);
+			let txt_clip = txt.slice(idx, m.index);
 
-			idx = m.index;
+			if (txt_clip)
+			{
+				_files[name] = txt_clip;
+
+				idx = m.index;
+			}
 		}
 		else if (m_last)
 		{
@@ -323,9 +328,14 @@ export function split(txt: string, cache: IOptions, _m, cb: ISplitCB): {
 
 			//name = `${id}_Act：${StrUtil.toFullWidth(i.padStart(3, '0'))}`;
 
-			_files[name] = txt.slice(idx, m.index);
+			let txt_clip = txt.slice(idx, m.index);
 
-			idx = m.index;
+			if (txt_clip)
+			{
+				_files[name] = txt_clip;
+
+				idx = m.index;
+			}
 		}
 
 		m_last = m;

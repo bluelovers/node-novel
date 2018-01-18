@@ -13,8 +13,11 @@ import { i18next, loadLocales, addResourceBundle, locales_def } from '../lib/i18
 import * as execall from 'execall';
 import * as JSON from 'json5';
 import * as jschardet from 'jschardet';
+import { mdconf_meta, IMdconfMeta } from '../lib/fs/mdconf';
 
 import { novelText } from '../lib/novel/text';
+
+import { json2md } from '../lib/fs/metamd';
 
 let _cache = {
 	rename: {},
@@ -88,8 +91,12 @@ let novelID: string;
 
 //novelID = '魔拳のデイドリーマー';
 
-//novelID = '異世界迷宮の最深部を目指そう';
-novelID = '暗黒騎士物語　～勇者を倒すために魔王に召喚されました～';
+novelID = '異世界迷宮の最深部を目指そう';
+//novelID = '暗黒騎士物語　～勇者を倒すために魔王に召喚されました～';
+
+//pathMain = 'wenku8';
+//
+//novelID = '龙背上的骑兵_(513)';
 
 if (!novelID)
 {
@@ -119,6 +126,25 @@ i18next.setDefaultNamespace('i18n');
 (async () =>
 {
 	await make_meta_md();
+
+	let meta: IMdconfMeta;
+
+	if (fs.existsSync(path.join(cwd_out, 'meta.md')))
+	{
+		meta = await fs.readFile(path.join(cwd_out, 'meta.md'))
+			.then(mdconf_meta)
+	}
+	else if (fs.existsSync(path.join(cwd_out, 'README.md')))
+	{
+		meta = await fs.readFile(path.join(cwd_out, 'README.md'))
+			.then(mdconf_meta)
+	}
+
+	meta = Object.assign({
+		options: {
+			textlayout: {},
+		},
+	}, meta);
 
 	let ls = await Promise
 		.mapSeries(globby([
@@ -156,7 +182,7 @@ i18next.setDefaultNamespace('i18n');
 			let _t = novelText.toStr(_t_old);
 
 			_t = my_words(_t);
-			_t = novelText.textlayout(_t);
+			_t = novelText.textlayout(_t, meta.options.textlayout || {});
 			_t = my_words(_t);
 
 			_t = novelText.replace(_t, {
@@ -747,34 +773,9 @@ function make_meta_md()
 				tags.push(RegExp.$1);
 			}
 
-			if (data.data.type)
-			{
-				tags = tags.concat(data.data.type);
-			}
-
-			let md = `
-# novel
-
-- title: ${data.novel_title || data.data.g_lnovel_name}
-- author: ${data.novel_author || data.data.author}
-- source: ${data.url || ''}
-- cover: ${data.novel_cover || data.data.cover_pic || ''}
-- date: ${data.novel_date || ''}
-- status: ${data.novel_status || ''}
-
-## preface
-
-\`\`\`
-${(data.novel_desc || data.data.desc || '').replace(/\`/g, '\\`')}
-\`\`\`
-
-## tags
-
-- ${tags.join('\n- ')}
-
-# contribute
-
-`;
+			let md = await json2md(data, {
+				tags: tags,
+			});
 
 			await fs.outputFile(path.join(cwd_out, 'README.md'), md);
 		}

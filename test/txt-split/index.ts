@@ -2,10 +2,10 @@
  * Created by user on 2018/1/7/007.
  */
 
-import { novelText } from '../lib/novel/text';
+import { novelText } from '../../lib/novel/text';
 import path from 'upath2';
-import * as projectConfig from '../project.config';
-import txtSplit, { IOptions } from '../lib/fs/txt-split';
+import * as projectConfig from '../../project.config';
+import txtSplit, { IOptions } from '../../lib/fs/txt-split';
 import * as StrUtil from 'str-util';
 
 let _zh_num = '一二三四五六七八十';

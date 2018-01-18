@@ -11,6 +11,13 @@ import * as path from 'path';
 import * as projectConfig from '../../../project.config';
 import { novelText } from '../../../lib/novel/text';
 import * as shortid from 'shortid';
+import { download_image } from '../image';
+import { json2md } from '../../../lib/fs/metamd';
+
+moment.fn.toJSON = function() { return this.format(); }
+
+export const IDKEY = 'wenku8';
+export const PATH_NOVEL_MAIN = path.join(projectConfig.dist_novel_root, IDKEY);
 
 export async function get_volume_list(url)
 {
@@ -26,7 +33,7 @@ export async function get_volume_list(url)
 	}
 
 	return await cheerioJSDOM(url)
-		.then(function (dom)
+		.then(async function (dom)
 		{
 			let novel_title = dom.$('body > #title').text();
 			let novel_author = dom.$('body > #info').text().replace(/^作者：/, '');
@@ -92,12 +99,29 @@ export async function get_volume_list(url)
 				})
 			;
 
+			let {
+				novel_cover,
+				novel_desc,
+				novel_status,
+				novel_date,
+				novel_publisher,
+			} = await get_meta(url_data);
+
+			//console.log(novel_cover, novel_desc, novel_status);
+
 			return {
 				url: dom.source_url,
 				url_data,
 
 				novel_title,
 				novel_author,
+
+				novel_cover,
+				novel_desc,
+				novel_status,
+				novel_date,
+				novel_publisher,
+
 				volume_list,
 
 				checkdate: moment().local(),
@@ -110,6 +134,13 @@ export async function get_volume_list(url)
 
 export function makeUrl(urlobj, bool?: boolean)
 {
+	if (1 || urlobj.novel_pid === null)
+	{
+		let cid = (!bool && urlobj.chapter_id) ? '&cid=' + urlobj.chapter_id : '';
+
+		return `http://www.wenku8.com/modules/article/reader.php?aid=${urlobj.novel_id}${cid}`;
+	}
+
 	let cid = (!bool && urlobj.chapter_id) ? urlobj.chapter_id : 'index';
 
 	return `http://www.wenku8.com/novel/${urlobj.novel_pid}/${urlobj.novel_id}/${cid}.htm`;
@@ -125,11 +156,38 @@ export function parseUrl(url: string)
 		chapter_id: null,
 	};
 
-	let r = /novel\/([\d]+)\/([\d]+)\/(?:([\d]+)\.html?)?/;
+	url = url.toString();
 
-	let m = r.exec(url.toString());
+	let r: RegExp;
+	let m;
 
-	if (m)
+	r = /modules\/article\/articleinfo\.php\?id=(\d+)/;
+	if (m = r.exec(url))
+	{
+		urlobj.novel_id = m[1];
+
+		return urlobj;
+	}
+
+	r = /modules\/article\/reader\.php\?aid=(\d+)(?:&cid=(\d+))?/;
+	if (m = r.exec(url))
+	{
+		urlobj.novel_id = m[1];
+		urlobj.chapter_id = m[2];
+
+		return urlobj;
+	}
+
+	r = /book\/(\d+)\.htm/;
+	if (m = r.exec(url))
+	{
+		urlobj.novel_id = m[1];
+
+		return urlobj;
+	}
+
+	r = /novel\/([\d]+)\/([\d]+)\/(?:([\d]+)\.html?)?/;
+	if (m = r.exec(url))
 	{
 		urlobj.novel_pid = m[1];
 		urlobj.novel_id = m[2];
@@ -161,12 +219,11 @@ export async function download(url: string)
 
 	let idx = 0;
 
-	let path_novel = path.join(projectConfig.dist_novel_root,
-		'wenku8',
+	let path_novel = path.join(PATH_NOVEL_MAIN,
 		`${trimFilename(novel.novel_title)}_(${novel.url_data.novel_id})`
 	);
 
-	return Promise
+	let ret = await Promise
 		.mapSeries(novel.volume_list, function (volume, vid)
 		{
 			vid = vid.toString().padStart(4, '0') + '0';
@@ -220,8 +277,6 @@ export async function download(url: string)
 								dom.$(this).remove();
 							}
 						});
-
-
 					}
 
 					text = novelText.trim(content.text())
@@ -229,14 +284,23 @@ export async function download(url: string)
 						.replace(/^[  \t]{4,}/gm, '　　')
 						.replace(/^[  \t]+/gm, '　')
 						.replace(/^(　+)[  \t]+/gm, '$1')
+
+						.replace(/^　{2}/gm, '')
 						;
 
 					text = novelText.trim(text)
 						.replace(/(@\}\})\n*(\{\{@)/g, '$1\n$2')
 					;
 
+					let _idx = 0;
+
 					for (let id in _c)
 					{
+						await download_image(_c[id], {
+							fromfile: file,
+							prefix: 'img_' + (_idx++).toString().padStart(3, '0') + '_',
+						});
+
 						text = text
 							.replace(`{{@${id}@}}`, `<img src="${_c[id]}"/>`)
 						;
@@ -270,6 +334,87 @@ export async function download(url: string)
 			});
 		})
 	;
+
+	let md = await json2md(novel, {
+		tags: [
+			IDKEY,
+		],
+	});
+
+	if (md)
+	{
+		md += `
+# options
+
+## textlayout
+
+- allow_lf2: true
+
+`;
+
+		let file = path.join(path_novel, `README.md`);
+
+		await fs.outputFile(file, md);
+	}
+
+	return ret;
+}
+
+async function get_meta(url_data)
+{
+	let url = `http://www.wenku8.com/modules/article/articleinfo.php?id=${url_data.novel_id}`;
+
+	let dom = await cheerioJSDOM(url);
+
+	//novel_status
+	//novel_cover
+	//novel_desc
+
+	let _content = dom.$('#content > div > table:eq(1)');
+
+	let novel_cover = _content.find('img:eq(0)').prop('src');
+	let novel_desc = novelText.trim(_content.find('.hottext + br + span:eq(-1)').text() || '', {
+		trim: true,
+	});
+
+	let novel_status = '';
+	let novel_date = null;
+	let novel_publisher = null;
+
+	dom.$('#content > div > table:eq(0) tr:eq(-1) > td').each(function (i, elem)
+	{
+		let t = dom.$(elem).text();
+
+		if (t.match(/(?:状态|狀態)：\s*(.+)/))
+		{
+			novel_status = novelText.trim(RegExp.$1, {
+				trim: true,
+			});
+		}
+		else if (t.match(/(?:更新)：\s*(.+)/))
+		{
+			novel_date = novelText.trim(RegExp.$1, {
+				trim: true,
+			});
+
+			novel_date = moment(novel_date).local();
+		}
+		else if (t.match(/(?:文库分类)：\s*(.+)/))
+		{
+			novel_publisher = novelText.trim(RegExp.$1, {
+				trim: true,
+			});
+		}
+
+	});
+
+	return {
+		novel_cover,
+		novel_desc,
+		novel_status,
+		novel_date,
+		novel_publisher,
+	};
 }
 
 export default download;

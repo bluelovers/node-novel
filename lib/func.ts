@@ -13,4 +13,12 @@ export function trimFilename(name)
 		;
 }
 
+export function array_unique(array: any[])
+{
+	return array.filter(function (el, index, arr)
+	{
+		return index == arr.indexOf(el);
+	});
+}
+
 export default trimFilename;
