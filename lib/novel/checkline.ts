@@ -32,7 +32,10 @@ export function getBlankLine(txt, filter?: boolean, sort?: boolean): number[]
 
 		if (sort)
 		{
-			_ms.sort();
+			_ms.sort(function (a, b)
+			{
+				return a > b;
+			});
 		}
 
 		return _ms;
