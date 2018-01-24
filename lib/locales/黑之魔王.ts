@@ -39,7 +39,7 @@ export const resource = {
 export const words = [
 
 	[
-		/猫の\*尾亭|猫尾亭/g,
+		/猫の\*+尾亭|猫尾亭/g,
 		'猫の尻尾亭',
 	],
 
