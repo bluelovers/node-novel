@@ -138,7 +138,7 @@ export class enspace
 	};
 	public options = {};
 
-	public _words_r1 = '(?:\@|（·?）|\-|\/|\\\(\\\)|%|￥|_|\\\?|\\\||#|\\\$|（和谐）)';
+	public _words_r1 = '(?:\@|（·?）|\-|\/|\\\(\\\)|%|￥|_|\\\?|\\\||#|\\\$|（和谐）| )';
 
 	constructor(options?)
 	{
