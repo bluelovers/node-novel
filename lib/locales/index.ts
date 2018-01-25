@@ -42,6 +42,7 @@ export const words: IWords[] = [
 	[/[〔［]/g, '［'],
 	[/[〕］]/g, '］'],
 	[/[―—]/g, '—'],
+	['— —', '——'],
 
 	/**
 	 * 難以辨認的簡繁日 字替換
@@ -112,8 +113,6 @@ export const words: IWords[] = [
 	['馬車行不死', '馬車型不死'],
 
 	['回來的之後', '回來之後'],
-
-	['— —', '——'],
 
 	[`恶${sp}心`, '噁心'],
 	[`触${sp}手`, '触手'],
@@ -302,9 +301,9 @@ export const words: IWords[] = [
 
 	['飯餸|飯餚', '飯餚'],
 
-	[/(.+)（\1）/g, '$1'],
+	[/(.+)[（\(]\1[）\)]/g, '$1'],
 
-	[/\n+([ \-\=＝－＊◇◆☆◊]+)\n+/mg, '\n\n$1\n\n'],
+	[/\n+([ \-\=＝－─＊◇◆☆◊]+)\n+/mg, '\n\n$1\n\n'],
 
 	['([。”])\n+[,，﹑]\n+', '$1\n\n'],
 
@@ -330,7 +329,12 @@ export const words: IWords[] = [
 	[/\n[ ]*([^：\n【】]+：[^\n【】]*)\n{2,}([ ]*[^：\n【】]+：)/ug, '\n$1\n$2'],
 	[/\n[ ]*([^：\n]+：[^\n]*)\n{2,}([ ]*[^：\n]+\n)/ug, '\n$1\n\n$2'],
 
-	[/\n+[\(（]*完[\)）]*[。\-]*$/g, ''],
+	[/\n+[\(（\[]*完[\)）\]]*[。\-]*$/g, ''],
+
+	[/－{2,}/g, function (...m)
+	{
+		return m[0].replace(/－/g, '─')
+	}],
 
 ];
 
@@ -342,13 +346,13 @@ export function words_callback(text)
 	return text
 		.toString()
 		//.replace(new RegExp(`(^|\\n)((?:[ \\t　]*)${lightnovel_copy}：(?:[^\\n]*))\\n+(?!(?:[^\\n]+：|[＝－\=\\-]))`, 'ug'), '$1$2\n\n')
-		.replace(new RegExp(`(^|\\n)((?:[ \\t　]*)${lightnovel_copy}：(?:[^\\n]*))\\n{2,}(?!(?:[^\\n]+：|[＝－\=\\-]))`, 'ug'), '$1$2\n\n')
+		.replace(new RegExp(`(^|\\n)((?:[ \\t　]*)${lightnovel_copy}：(?:[^\\n]*))\\n{2,}(?!(?:[^\\n]+：|[＝－\=\\-─]))`, 'ug'), '$1$2\n\n')
 
 		.replace(new RegExp(`((?:[ \\t　]*)?${lightnovel_copy}：(?:[^\\n]*))\\n+(?=[^\\n：]+)`, 'ug'), '$1\n')
 
-		.replace(new RegExp(`((?:[ \\t　]*)?${lightnovel_copy}：(?:[^\\n]*))\\n+(?=[＝－\\=\\-])`, 'g'), '$1\n')
+		.replace(new RegExp(`((?:[ \\t　]*)?${lightnovel_copy}：(?:[^\\n]*))\\n+(?=[＝－\\=\\-─])`, 'g'), '$1\n')
 
-		.replace(new RegExp(`\\n([＝－\\=\\-]+)\\n+((?:[ \\t　]*)?${lightnovel_copy}：)`, 'g'), '\n$1\n$2')
+		.replace(new RegExp(`\\n([＝－\\=\\-─]+)\\n+((?:[ \\t　]*)?${lightnovel_copy}：)`, 'g'), '\n$1\n$2')
 	;
 }
 

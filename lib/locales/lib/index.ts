@@ -3,6 +3,7 @@
  */
 
 import { IWords } from '../';
+import * as StrUtil from 'str-util';
 
 export const lazymarks = [] as IWords[][];
 
@@ -36,6 +37,21 @@ lazymarks[2] = [
 lazymarks[3] = [
 	[/(「[^」]*)「([^」]*)」/g, '$1『$2』'],
 ];
+
+lazymarks[4] = [
+	[/[\!\(\):,~]/g, function (...m)
+	{
+		return StrUtil.toFullWidth(m[0], {
+			skip: {
+				space: true,
+			},
+		});
+	}],
+];
+
+export let _zh_num = '一二三四五六七八九十';
+export let _zh_num2 = '百十';
+export let _full_num = '０１２３４５６７８９';
 
 import * as self from './index';
 export default self;

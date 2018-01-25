@@ -19,9 +19,10 @@ export function word(name: string): string
 export function jp(txt: string): string
 {
 	return zh(StrUtil.zh2jp(txt, {
-		skip: '竜',
+		skip: '龙竜制征里像',
 		}))
 		.replace(/诅/g, '詛')
+		.replace(/复仇/g, '復仇')
 		;
 }
 
@@ -32,5 +33,7 @@ export function zh(txt: string): string
 		.replace(/[亜亚亞]/g, '亞')
 		.replace(/価/, '價')
 		.replace(/[觉覚覺]/g, '覺')
+		.replace(/亏/g, '虧')
+		//.replace(/当/g, '當')
 		;
 }

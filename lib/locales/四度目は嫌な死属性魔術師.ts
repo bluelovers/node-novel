@@ -4,7 +4,8 @@
 
 import * as StrUtil from 'str-util';
 
-import { sp } from '.';
+import { sp, IWords } from '.';
+import sublib from './lib';
 
 export const lang = '四度目は嫌な死属性魔術師';
 
@@ -18,7 +19,7 @@ export function words_callback(text)
 	return StrUtil.toFullNumber(text);
 }
 
-export const words = [
+export const words: IWords[] = [
 
 	//达露西亚 ダルシア
 	['[达達塔塔妲妲][爾尔露][希西希][亞亚]', '达露西亞'],
@@ -313,9 +314,9 @@ export const words = [
 
 	['Origin', 'ORIGIN', 'ig'],
 	['Lambda', 'LAMBDA', 'ig'],
-	['EARTH', 'EARTH', 'ig'],
-	['拉姆达|拉姆妲|拉姆達|拉姆达|拉姆妲', '拉姆達'],
-	['[奥奧]利俊|歐力金|欧力金|起源之地', '奧利俊'],
+	[/EARTH|亞斯\(アース\)/ig, 'EARTH'],
+	['拉姆达|拉姆妲|拉姆達|拉姆达|拉姆妲', 'LAMBDA'],
+	['[奥奧]利俊|歐力金|欧力金|起源之地', 'ORIGIN'],
 
 	/**
 	 * @todo 貝武多
@@ -387,6 +388,7 @@ export const words = [
 	 * 《佐佐冈提大森林》
 	 * 守护着大陆南部食尸鬼们的神明，《暗与森的邪神》佐佐冈提
 	 */
+	['古尔|食尸鬼', '食尸鬼'],
 
 	/**
 	 * @todo SCYLLA 斯库拉
@@ -507,14 +509,24 @@ export const words = [
 	['女將屍', '女殭屍'],
 	['占领君', '占领军'],
 
-	[/BOSS/ig, 'BOSS'],
+	//[/BOSS/ig, 'BOSS'],
 	[/Rank/ig, 'Rank'],
-	[/GHOUL/ig, 'GHOUL'],
+	//[/GHOUL/ig, 'GHOUL'],
+	[/Dampire|GHOUL|ELF|BOSS|DARK|undead|status/ig, function (...m)
+	{
+		return m[0].toUpperCase();
+	}],
+
+	['精靈', '精灵'],
+	['(暗黑|黑暗|闇|暗)(精[灵靈]|艾尔芙)|(黑?暗|暗黑|黑暗|闇)精靈', '暗黑艾尔芙'],
+	['(混血|半)精[灵靈]', '$1艾尔芙'],
 
 	['壹', '一'],
 
 	['禦使', '御使'],
 	['墓园蜜蜂', '墓园蜂'],
+
+	['level', 'LV', 'ig'],
 
 	/**
 	 * 维基感知
@@ -544,7 +556,9 @@ export const words = [
 	[/Bravers/ig, 'Bravers'],
 	[/《(布雷伯斯|勇者們)》/ig, '《Bravers》'],
 
-	['海腾', '海藤'],
+	//海藤卡纳塔(彼方)
+	['海腾|海藤', '海藤'],
+	['海藤カナタ', '海藤卡纳塔'],
 
 	//《演算》男
 	['町田|町田', '町田'],
@@ -553,9 +567,44 @@ export const words = [
 	//《監察官》女
 	['島田泉|島田泉|岛田泉', '島田泉'],
 
+	['圆藤硬弥|圓藤硬彌|円藤硬弥', '円藤硬弥'],
+	['狮方院真理', '獅方院真理'],
+	['成濑成美', '成瀬成美'],
+	['三波浅黄', '三波浅黄'],
+
+	['寛人|宽人', '寛人'],
+	['博人', '博人'],
+
 	['禦子|御子|禦子', '御子'],
 	['国|國', '国'],
 	['印像壁', '印象'],
+
+	['属性|屬性', '属性'],
+
+	[/^[ \t　]+/gm, ''],
+	[/^_+\n/g, ''],
+	[/\n,\n/g, '\n\n'],
+	[/([・：]) /g, '$1'],
+
+	[/\n+\(￣▽￣\)"\n+/g, '\n\n\n\n'],
+
+	[/\<\-/g, '←'],
+
+	//[/([」』）])[ ]*\[([^\[\]\n]+)\]$/gm, '$1《$2》'],
+
+	[/〔([^\n〔〕（）\(\)]+)〕/g, '（$1）'],
+
+	[/^【([^【】\n]+)】$/gm, '「$1」'],
+
+	[/^\*(?!\*)/gm, '＊'],
+
+	...sublib.lazymarks[4],
+
+	...sublib.lazymarks[0],
+	...sublib.lazymarks[1],
+	...sublib.lazymarks[2],
+	...sublib.lazymarks[3],
+
 ];
 
 // 需要人工確認的屏蔽字或錯字用語等等
