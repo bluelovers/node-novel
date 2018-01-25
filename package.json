@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "@types/jquery": "^3.2.17",
+    "base64topdf": "^1.1.8",
     "bluebird": "^3.5.1",
     "cheerio": "^1.0.0-rc.2",
     "deepmerge": "^2.0.1",
@@ -17,6 +18,7 @@
     "execall": "^1.0.0",
     "fs-extra": "^4.0.3",
     "globby": "^7.1.1",
+    "he": "^1.1.1",
     "i18next": "^10.2.1",
     "iconv-lite": "^0.4.19",
     "jquery": "^3.2.1",
@@ -32,8 +34,9 @@
     "request": "^2.83.0",
     "request-promise": "^4.2.2",
     "shortid": "^2.2.8",
-    "str-util": "^2.3.1",
+    "str-util": "^2.3.3",
     "to-regex": "^3.0.1",
+    "unrtf": "^0.2.1",
     "upath2": "^2.1.0",
     "whatwg-url": "^6.4.0"
   },

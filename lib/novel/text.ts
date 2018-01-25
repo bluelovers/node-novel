@@ -409,7 +409,8 @@ export class enspace
 
 	trim(text: Buffer, options?): string
 	trim(text: string, options?): string
-	trim(text: Buffer | string | any, options?): string
+	trim(text: number, options?): string
+	trim(text, options?): string
 	{
 		let ret = this.toStr(text, options)
 			.replace(/[ \t　\xA0\u3000]+\n/g, '\n')
@@ -444,9 +445,9 @@ export class enspace
 		return ret;
 	}
 
-	toStr(str: Buffer | string | any, options?: IToStrOptions): string
-	toStr(str: Buffer | string | any, options?: string): string
-	toStr(str: Buffer | string | any, options?: string | IToStrOptions): string
+	toStr(str: Buffer | string | number | any, options?: IToStrOptions): string
+	toStr(str: Buffer | string | number | any, options?: string): string
+	toStr(str, options?: string | IToStrOptions): string
 	{
 		if (typeof options == 'string')
 		{

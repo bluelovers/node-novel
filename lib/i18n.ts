@@ -103,5 +103,4 @@ export function addResourceBundle(locales, ns?, deep = true, overwrite = false)
 	return locales;
 }
 
-// @ts-ignore
 export default i18next;

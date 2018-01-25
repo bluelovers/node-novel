@@ -6,11 +6,11 @@ import * as globby from 'globby';
 import * as fs from 'fs-extra';
 import path from 'upath2';
 import * as StrUtil from 'str-util';
-import * as jschardet from 'jschardet';
 import * as execall from 'execall';
 import { novelText } from '../novel/text';
 import trimFilename from '../func';
 import * as Promise from 'bluebird';
+// @ts-ignore
 import * as jschardet from 'jschardet';
 import fsIconv from './iconv';
 
@@ -52,9 +52,11 @@ export async function autoFile(inputFile: string, options: IOptions)
 {
 	let ret = await readFile(inputFile, options);
 
-	ret['ls'] = await outputFile(ret);
+	let ls: string[] = await outputFile(ret);
 
-	return ret;
+	return Object.assign(ret, {
+		ls,
+	});
 }
 
 export async function readFile(inputFile: string, options: IOptions)

@@ -12,6 +12,7 @@ import * as JsDiff from 'diff';
 import { i18next, loadLocales, addResourceBundle, locales_def } from '../lib/i18n';
 import * as execall from 'execall';
 import * as JSON from 'json5';
+// @ts-ignore
 import * as jschardet from 'jschardet';
 import { mdconf_meta, IMdconfMeta } from '../lib/fs/mdconf';
 
@@ -54,7 +55,7 @@ let pathMain = 'user';
  */
 let novelID: string;
 
-//novelID = '黑之魔王';
+novelID = '黑之魔王';
 
 //novelID = '黑之魔王_(2367)';
 //novelID = '我的怪物眷族_(1984)';
@@ -91,12 +92,16 @@ let novelID: string;
 
 //novelID = '魔拳のデイドリーマー';
 
-novelID = '異世界迷宮の最深部を目指そう';
+//novelID = '異世界迷宮の最深部を目指そう';
 //novelID = '暗黒騎士物語　～勇者を倒すために魔王に召喚されました～';
 
 //pathMain = 'wenku8';
 //
 //novelID = '龙背上的骑兵_(513)';
+
+//novelID = '呼び出された殺戮者';
+
+//novelID = '病娇女神の箱庭';
 
 if (!novelID)
 {
@@ -149,6 +154,9 @@ i18next.setDefaultNamespace('i18n');
 	let ls = await Promise
 		.mapSeries(globby([
 			'**/*.txt',
+			'!**/~*',
+			'!**/*.raw.*',
+			'!**/*.new.*',
 			'!**/*.raw.txt',
 			'!**/*.new.txt',
 			'!**/out/**/*',
