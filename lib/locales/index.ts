@@ -331,10 +331,13 @@ export const words: IWords[] = [
 
 	[/\n+[\(（\[]*完[\)）\]]*[。\-]*$/g, ''],
 
-	[/－{2,}/g, function (...m)
+	[/[－\-─—]{2,}/g, function (...m)
 	{
-		return m[0].replace(/－/g, '─')
+		//return m[0].replace(/[－\-─—]/g, '─');
+		return '─'.repeat(m[0].length);
 	}],
+
+	[/([\u4E00-\u9FFF])\-(?![\w\-+])/g, '$1─'],
 
 ];
 

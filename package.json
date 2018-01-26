@@ -30,6 +30,7 @@
     "mdconf": "0.0.2",
     "moment": "^2.20.1",
     "moment-timezone": "^0.5.14",
+    "node-novel-globby": "^1.2.1",
     "randexp": "^0.4.6",
     "request": "^2.83.0",
     "request-promise": "^4.2.2",
@@ -52,9 +53,19 @@
     "type": "git",
     "url": "git+https://github.com/bluelovers/node-novel.git"
   },
-  "keywords": [],
+  "keywords": [
+    "node-novel",
+    "txt",
+    "sort",
+    "download",
+    "chinese",
+    "novel"
+  ],
   "bugs": {
     "url": "https://github.com/bluelovers/node-novel/issues"
   },
-  "homepage": "https://github.com/bluelovers/node-novel#readme"
+  "homepage": "https://github.com/bluelovers/node-novel#readme",
+  "optionalDependencies": {
+    "node-novel-info": "^1.0.1"
+  }
 }
