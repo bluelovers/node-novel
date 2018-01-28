@@ -94,16 +94,19 @@ novelID = '四度目は嫌な死属性魔術師';
 
 //novelID = '魔拳のデイドリーマー';
 
-novelID = '異世界迷宮の最深部を目指そう';
+//novelID = '異世界迷宮の最深部を目指そう';
 //novelID = '暗黒騎士物語　～勇者を倒すために魔王に召喚されました～';
 
 //pathMain = 'wenku8';
 //
 //novelID = '龙背上的骑兵_(513)';
 
-//novelID = '呼び出された殺戮者';
+novelID = '呼び出された殺戮者';
 
 //novelID = '病娇女神の箱庭';
+
+//novelID = 'よみがえる殺戮者';
+//myLocalesID = '呼び出された殺戮者';
 
 if (!novelID)
 {

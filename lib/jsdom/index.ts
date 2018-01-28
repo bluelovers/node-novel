@@ -4,52 +4,10 @@
 
 import { JSDOM, VirtualConsole } from 'jsdom';
 import * as cheerio from 'cheerio';
-import { URL as WURL } from 'whatwg-url';
+import { URL } from 'jsdom-url';
 import * as jQuery from 'jquery';
 //import * as self from './index';
 import * as deepmerge from 'deepmerge';
-
-class URL extends WURL
-{
-	href: string;
-	origin: string;
-	protocol: string;
-	username: string;
-	password: string;
-	host: string;
-	hostname: string;
-	port: string;
-	pathname: string;
-	search: string;
-	hash: string;
-	searchParams: string;
-
-	constructor(href: string, base?)
-	constructor(href: URL, base?)
-	constructor(href, base?)
-	{
-		if (href instanceof WURL)
-		{
-			href = href.href;
-		}
-		if (base instanceof WURL)
-		{
-			base = base.href;
-		}
-
-		super(href.toString(), base.toString());
-	}
-
-	static create(href, base?)
-	{
-		return new this(href, base);
-	}
-
-	toString()
-	{
-		return this.href;
-	}
-}
 
 export { URL }
 
