@@ -8,11 +8,9 @@ import path from 'upath2';
 import * as StrUtil from 'str-util';
 import * as execall from 'execall';
 import { novelText } from '../novel/text';
-import trimFilename from '../func';
 import * as Promise from 'bluebird';
-// @ts-ignore
-import * as jschardet from 'jschardet';
-import fsIconv from './iconv';
+import * as iconv from 'iconv-jschardet';
+import fsIconv, { trimFilename } from 'fs-iconv';
 
 import * as self from './txt-split';
 
@@ -67,7 +65,7 @@ export async function readFile(inputFile: string, options: IOptions)
 		.then(function (data)
 		{
 			{
-				let chk = jschardet.detect(data);
+				let chk = iconv.detect(data);
 
 				if (chk.encoding != 'UTF-8')
 				{

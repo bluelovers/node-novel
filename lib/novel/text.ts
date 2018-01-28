@@ -4,7 +4,7 @@
 
 import * as StrUtil from 'str-util';
 import * as toRegex from 'to-regex';
-import { getBlankLine, chkBlankLine } from './checkline';
+import chkBlankLine from 'blank-line';
 
 export interface IOptions
 {

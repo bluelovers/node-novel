@@ -8,7 +8,6 @@ import path from 'upath2';
 import * as projectConfig from '../project.config';
 import * as Promise from 'bluebird';
 import * as StrUtil from 'str-util';
-import * as jschardet from 'jschardet';
 import * as execall from 'execall';
 import { novelText } from '../lib/novel/text';
 import trimFilename from '../lib/func';

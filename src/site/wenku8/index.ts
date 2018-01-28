@@ -357,7 +357,7 @@ export async function download(url: string)
 		await fs.outputFile(file, md);
 	}
 
-	return ret;
+	return novel;
 }
 
 async function get_meta(url_data)

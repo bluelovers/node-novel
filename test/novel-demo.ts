@@ -12,13 +12,15 @@ import * as JsDiff from 'diff';
 import { i18next, loadLocales, addResourceBundle, locales_def } from '../lib/i18n';
 import * as execall from 'execall';
 import * as JSON from 'json5';
-// @ts-ignore
-import * as jschardet from 'jschardet';
-import { mdconf_meta, IMdconfMeta } from '../lib/fs/mdconf';
+import { mdconf_parse, IMdconfMeta } from 'node-novel-info';
+
+import * as iconv from 'iconv-jschardet';
 
 import { novelText } from '../lib/novel/text';
 
 import { json2md } from '../lib/fs/metamd';
+
+import * as novelGlobby from 'node-novel-globby';
 
 let _cache = {
 	rename: {},
@@ -60,7 +62,7 @@ novelID = '黑之魔王';
 //novelID = '黑之魔王_(2367)';
 //novelID = '我的怪物眷族_(1984)';
 //novelID = '被称为勇者、亦或是怪物的少女（勇者或是被称为怪物的少女）_(2018)';
-//novelID = '四度目は嫌な死属性魔術師';
+novelID = '四度目は嫌な死属性魔術師';
 //novelID = '虫虫酱むいむいたん';
 //novelID = '那个人，后来_(2272)';
 
@@ -92,7 +94,7 @@ novelID = '黑之魔王';
 
 //novelID = '魔拳のデイドリーマー';
 
-//novelID = '異世界迷宮の最深部を目指そう';
+novelID = '異世界迷宮の最深部を目指そう';
 //novelID = '暗黒騎士物語　～勇者を倒すために魔王に召喚されました～';
 
 //pathMain = 'wenku8';
@@ -137,12 +139,12 @@ i18next.setDefaultNamespace('i18n');
 	if (fs.existsSync(path.join(cwd_out, 'meta.md')))
 	{
 		meta = await fs.readFile(path.join(cwd_out, 'meta.md'))
-			.then(mdconf_meta)
+			.then(mdconf_parse)
 	}
 	else if (fs.existsSync(path.join(cwd_out, 'README.md')))
 	{
 		meta = await fs.readFile(path.join(cwd_out, 'README.md'))
-			.then(mdconf_meta)
+			.then(mdconf_parse)
 	}
 
 	meta = Object.assign({
@@ -151,21 +153,23 @@ i18next.setDefaultNamespace('i18n');
 		},
 	}, meta);
 
+	const TXT_PATH = cwd;
+
+	let globby_patterns: string[];
+	let globby_options: novelGlobby.IOptions = {
+		cwd: TXT_PATH,
+		useDefaultPatternsExclude: true,
+		absolute: true,
+	};
+
+	{
+		[globby_patterns, globby_options] = novelGlobby.getOptions(globby_patterns, globby_options);
+	}
+
 	let ls = await Promise
-		.mapSeries(globby([
-			'**/*.txt',
-			'!**/~*',
-			'!**/*.raw.*',
-			'!**/*.new.*',
-			'!**/*.raw.txt',
-			'!**/*.new.txt',
-			'!**/out/**/*',
-			'!**/raw/**/*',
-			'!**/*_out/**/*',
-		], {
-			cwd: cwd,
-			absolute: true,
-		}), async function (file, index, len)
+		.mapSeries(novelGlobby
+			.globbyASync(globby_patterns, globby_options)
+			.then(novelGlobby.returnGlobList), async function (file, index, len)
 		{
 			let ext = '.txt';
 
@@ -179,7 +183,7 @@ i18next.setDefaultNamespace('i18n');
 			const _t_old = await fs.readFile(file);
 
 			{
-				let chk = jschardet.detect(_t_old);
+				let chk = iconv.detect(_t_old);
 
 				if (chk.encoding != 'UTF-8')
 				{
@@ -708,19 +712,25 @@ function my_words(html): string
 
 function make_meta_md()
 {
-	return Promise
-	.mapSeries(globby([
+
+	let globby_patterns: string[];
+	let globby_options: novelGlobby.IOptions = {
+		cwd: cwd,
+		useDefaultPatternsExclude: true,
+		absolute: true,
+	};
+
+	globby_patterns = [
 		'**/meta.md',
 		'**/README.md',
-		'!**/*.raw.*',
-		'!**/*.new.*',
-		'!**/out/**/*',
-		'!**/raw/**/*',
-		'!**/*_out/**/*',
-	], {
-		cwd: cwd,
-		absolute: true,
-	}), async function (file, index, len)
+	];
+
+	{
+		[globby_patterns, globby_options] = novelGlobby.getOptions(globby_patterns, globby_options);
+	}
+
+	return Promise
+	.mapSeries(globby(globby_patterns, globby_options), async function (file, index, len)
 	{
 		let ext = path.extname(file);
 
@@ -738,18 +748,23 @@ function make_meta_md()
 			&& !fs.existsSync(path.join(cwd_out, 'README.md'))
 		)
 		{
-			let ls = await globby([
-					'*.json',
-					'!**/*.raw.*',
-					'!**/*.new.*',
-					'!**/out/**/*',
-					'!**/raw/**/*',
-					'!**/*_out/**/*',
-				], {
-					cwd: cwd,
-					absolute: true,
-				})
-			;
+
+			let globby_patterns: string[];
+			let globby_options: novelGlobby.IOptions = {
+				cwd: cwd,
+				useDefaultPatternsExclude: true,
+				absolute: true,
+			};
+
+			globby_patterns = [
+				'*.json',
+			];
+
+			{
+				[globby_patterns, globby_options] = novelGlobby.getOptions(globby_patterns, globby_options);
+			}
+
+			let ls = await globby(globby_patterns, globby_options);
 
 			if (!ls.length)
 			{

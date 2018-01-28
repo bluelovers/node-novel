@@ -2,21 +2,9 @@
  * Created by user on 2017/12/7/007.
  */
 
-import * as sanitize from 'sanitize-filename';
+import { trimFilename } from 'fs-iconv';
 
-export function trimFilename(name)
-{
-	let ret = name.toString()
-		.replace(/\r\n|\r|\n|　/g, ' ')
-		.replace(/[\s\r\n\t  \xA0　]+/g, ' ')
-	;
-
-	return sanitize(ret, ' ')
-		.trim()
-		.replace(/^[　\s]+/g, '')
-		.replace(/[　\s]+$/g, '')
-		;
-}
+export { trimFilename }
 
 export function array_unique(array: any[])
 {
