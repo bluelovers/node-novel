@@ -6,6 +6,9 @@
 
 import { IWordsOutput, IRegExpCallback } from '../novel/text';
 import * as StrUtil from 'str-util';
+import sublib from './lib';
+
+export { sublib }
 
 export interface IWords extends IWordsOutput
 {
