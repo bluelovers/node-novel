@@ -239,7 +239,7 @@ export class enspace
 				};
 			}
 
-			if (typeof value.s == 'string' && (value.s as string).match(/^(.+)#_@_#(.+)$/))
+			if (typeof value.s == 'string' && (value.s as string).match(/#_@_#(.+)$/))
 			{
 				// @ts-ignore
 				if (!value._source) value._source = value.s;
@@ -248,6 +248,8 @@ export class enspace
 				let s = a.join(`)${r}(`);
 
 				value.s = new RegExp(`(${s})`, value.flags ? value.flags : 'g');
+
+				//console.log(value.s);
 
 				if (value.r === null)
 				{

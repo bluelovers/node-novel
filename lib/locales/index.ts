@@ -178,7 +178,8 @@ export const words: IWords[] = [
 	['就事就', '就是就'],
 	['(困難)就事', '$1就是'],
 
-	[/([^\w]|^)boss(?!\w)/ig, '$1BOSS'],
+	//[/([^\w]|^)boss(?!\w)/ig, '$1BOSS'],
+	...sublib.lazymarks['en'],
 
 	['咀咒', '诅咒'],
 
@@ -571,5 +572,6 @@ export const words_maybe: vMaybe = [
 ];
 
 import * as self from './index';
+import { lazymarks } from './lib/index';
 
 export default self;

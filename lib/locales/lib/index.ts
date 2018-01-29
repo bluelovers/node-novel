@@ -4,6 +4,7 @@
 
 import { IWords } from '../';
 import * as StrUtil from 'str-util';
+import { regex_str } from '../../func';
 
 export const lazymarks = {} as IWords[][];
 
@@ -96,13 +97,48 @@ lazymarks[4] = [
 	[/([^\.])\.$/gm, '$1。'],
 ];
 
+lazymarks[5] = [
+	[/ ?([』」》）]) ?/g, '$1'],
+	[/ ?([《（「『]) ?/g, '$1'],
+];
+
 lazymarks['ltrim'] = [
 	[/^[ \t　]+/gm, ''],
+];
+
+lazymarks['en'] = [
+
+	...[
+		'RPG',
+		'BOSS',
+		'Cosplay',
+		'RAID',
+		'Fantasy',
+		'OK',
+		'CG',
+
+		'Golem',
+		'Rank',
+
+		'MAX',
+		'UP',
+		'Lv',
+
+	].map(function (value)
+	{
+		return _word_en(value);
+	}),
+
 ];
 
 export let _zh_num = '一二三四五六七八九十';
 export let _zh_num2 = '百十';
 export let _full_num = '０１２３４５６７８９';
+
+export function _word_en(str: string, ret: string = null, flag = 'ig')
+{
+	return [new RegExp(`(^|\\W)(${regex_str(str)})(?!\\w)`, flag), ((ret !== null) ? ret : '$1' + str)];
+}
 
 import * as self from './index';
 export default self;
