@@ -2,7 +2,7 @@
  * Created by user on 2017/12/21/021.
  */
 
-import { sp, IWords, vMaybe } from '.';
+import { sp, IWords, vMaybe, sublib } from '.';
 import * as StrUtil from 'str-util';
 
 /**
@@ -147,7 +147,7 @@ export const words: IWords[] = [
 
 	[',', '、'],
 
-	[/[\!\(\):]|\d+[：:]/g, function (...m)
+	[/\d+[：:]/g, function (...m)
 	{
 		return StrUtil.toFullWidth(m[0], {
 			skip: {
@@ -155,6 +155,8 @@ export const words: IWords[] = [
 			},
 		});
 	}],
+
+	...sublib.lazymarks[4],
 
 	[/([\u4E00-\u9FFF])\.(?!\.)/g, '$1。'],
 
@@ -164,6 +166,8 @@ export const words: IWords[] = [
 	[/\n+\-+\n+/gm, '\n\n\n'],
 
 	[/(\n)[　\u3000　　]{2,}/g, '$1　'],
+
+	...sublib.lazymarks[3],
 
 ] as IWords[];
 

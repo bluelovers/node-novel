@@ -64,9 +64,27 @@ lazymarks[3] = [
 ];
 
 lazymarks[4] = [
-	[/[\!\(\):,~]/g, function (...m)
+	[/[\!\(\):,~]+/g, function (...m)
 	{
 		return StrUtil.toFullWidth(m[0], {
+			skip: {
+				space: true,
+			},
+		});
+	}],
+
+	[/\?+(?=[』」\n])/g, function (...m)
+	{
+		return StrUtil.toFullWidth(m[0], {
+			skip: {
+				space: true,
+			},
+		});
+	}],
+
+	[/([\u4E00-\u9FFF])(\?+)(?=[』」\n ])/g, function (...m)
+	{
+		return m[1] + StrUtil.toFullWidth(m[2], {
 			skip: {
 				space: true,
 			},
