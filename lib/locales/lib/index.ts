@@ -82,7 +82,7 @@ lazymarks[4] = [
 		});
 	}],
 
-	[/([\u4E00-\u9FFF])(\?+)(?=[』」\n ])/g, function (...m)
+	[/([\u4E00-\u9FFF])(\?+)(?=[』」\n ][^\u4E00-\u9FFF])/g, function (...m)
 	{
 		return m[1] + StrUtil.toFullWidth(m[2], {
 			skip: {
@@ -90,6 +90,10 @@ lazymarks[4] = [
 			},
 		});
 	}],
+
+	[/(？) (！)/g, '$1$2'],
+
+	[/([^\.])\.$/gm, '$1。'],
 ];
 
 lazymarks['ltrim'] = [
