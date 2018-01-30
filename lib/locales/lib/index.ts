@@ -163,6 +163,9 @@ lazymarks['en'] = [
 		'UP',
 		'Lv',
 
+		'My',
+		'Lord',
+
 	].map(function (value)
 	{
 		return _word_en(value);
@@ -196,7 +199,7 @@ export function _word_zh(search, ret, flags = 'ig', skip?: string)
 
 export function _word_zh_core(search: string, skip: string)
 {
-	return search.replace(/[\u4E00-\u9FFF]/g, function (char)
+	return search.replace(/[\u4E00-\u9FFFの]/g, function (char)
 	{
 		if (skip && skip.indexOf(char) != -1)
 		{
@@ -221,6 +224,11 @@ export function _word_zh_core(search: string, skip: string)
 			a = a.concat(...zhtw_convert.tw(js));
 		}
 
+		if (zhtw_convert.table_jp[char])
+		{
+			a = a.concat(zhtw_convert.table_jp[char]);
+		}
+
 		a = array_unique(a);
 
 		return a.length > 1 ? '[' + a.join('') + ']' : a[0];
@@ -231,6 +239,13 @@ export namespace zhtw_convert
 {
 	let _table = {
 		'罗': '羅',
+	};
+
+	export const table_jp = {
+		'の': [
+			'之',
+			'的',
+		],
 	};
 
 	let _table_cn = Object.keys(_table)
