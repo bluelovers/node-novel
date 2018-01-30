@@ -4,7 +4,8 @@
 
 import { IWords } from '../';
 import * as StrUtil from 'str-util';
-import { regex_str } from '../../func';
+import { regex_str, array_unique } from '../../func';
+import { cn2tw, tw2cn } from 'chinese_convert';
 
 export const lazymarks = {} as IWords[][];
 
@@ -135,9 +136,78 @@ export let _zh_num = '一二三四五六七八九十';
 export let _zh_num2 = '百十';
 export let _full_num = '０１２３４５６７８９';
 
-export function _word_en(str: string, ret: string = null, flag = 'ig')
+export function _word_en(search: string, ret: string = null, flag = 'ig')
 {
-	return [new RegExp(`(^|\\W)(${regex_str(str)})(?!\\w)`, flag), ((ret !== null) ? ret : '$1' + str)];
+	return [new RegExp(`(^|\\W)(${regex_str(search)})(?!\\w)`, flag), ((ret !== null) ? ret : '$1' + search)];
+}
+
+export function _word_zh(search: string, ret, flag = 'ig', skip?: string)
+{
+	let s = _word_zh_core(search, skip);
+
+	return [s, ret, flag];
+}
+
+export function _word_zh_core(search: string, skip: string)
+{
+	return search.replace(/[\u4E00-\u9FFF]/g, function (char)
+	{
+		if (skip && skip.indexOf(char) != -1)
+		{
+			return char;
+		}
+
+		let t = zhtw_convert.tw(char);
+		let s = zhtw_convert.cn(char);
+
+		let a = array_unique([char, ...t, ...s]);
+
+		return a.length > 1 ? '[' + a.join('') + ']' : a[0];
+	});
+}
+
+export namespace zhtw_convert
+{
+	let _table = {
+		'罗': '羅',
+	};
+
+	let _table_cn = Object.keys(_table)
+		.reduce(function (a, b)
+		{
+			a[_table[b]] = b;
+
+			return a;
+		}, {})
+	;
+
+	export function tw(char): string[]
+	{
+		let a = [];
+
+		if (_table[char])
+		{
+			a.push(_table[char])
+		}
+
+		a.push(cn2tw(char));
+
+		return a;
+	}
+
+	export function cn(char): string[]
+	{
+		let a = [];
+
+		if (_table_cn[char])
+		{
+			a.push(_table_cn[char])
+		}
+
+		a.push(tw2cn(char));
+
+		return a;
+	}
 }
 
 import * as self from './index';
