@@ -30,6 +30,7 @@ export const value = {
 };
 
 export const sp = '#_@_#';
+export const sp2 = '[・。\\\?]';
 
 export const words: IWords[] = [
 

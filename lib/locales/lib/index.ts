@@ -6,6 +6,7 @@ import { IWords } from '../';
 import * as StrUtil from 'str-util';
 import { regex_str, array_unique } from '../../func';
 import { cn2tw, tw2cn } from 'chinese_convert';
+import { replace_literal } from '../../regexp';
 
 export const lazymarks = {} as IWords[][];
 
@@ -14,21 +15,50 @@ lazymarks[0] = [
 ];
 
 lazymarks[1] = [
-	[/"([^\n"']*)'([^'"\n]+)'/gm, '"$1『$2』'],
-	[/"([^\n"']*)'([^'"\n]+)'/gm, '"$1『$2』'],
+	[
+		/"([^\n"']*)'([^'"\n]+)'/gm,
+		'"$1『$2』'
+	],
+	[
+		/"([^\n"']*)'([^'"\n]+)'/gm,
+		'"$1『$2』'
+	],
 
-	[/^([^\n"“”「」'\[\]［］]*)["“'\[［]([ ]*[…？－—\w０-９ａ-ｚＡ-Ｚ『』\u4E00-\u9FFF][^\n"“”「」'\[\]［］]*(?:\n[^\n"“”「」'\[\]［］]*)?)["”'\]］]/gm, '$1「$2」'],
-	[/^([^\n"“”『』'‘’]*)["“'‘]([ ]*[…？－—\w０-９ａ-ｚＡ-Ｚ\u4E00-\u9FFF][^\n"“”『』'‘’]*)["”'’]/gm, '$1『$2』'],
-	[/^([^\n【】<>]*)[<]([ ]*[…？－—\w０-９ａ-ｚＡ-Ｚ\u4E00-\u9FFF][^\n【】<>]*)[>]/gm, '$1【$2】'],
+	[
+		/^([^\n"“”「」'\[\]［］]*)["“'\[［]([ ]*[…？－—\w０-９ａ-ｚＡ-Ｚ『』\u4E00-\u9FFF][^\n"“”「」'\[\]［］]*(?:\n[^\n"“”「」'\[\]［］]*)?)["”'\]］]/gm,
+		'$1「$2」'
+	],
+	[
+		/^([^\n"“”『』'‘’]*)["“'‘]([ ]*[…？－—\w０-９ａ-ｚＡ-Ｚ\u4E00-\u9FFF][^\n"“”『』'‘’]*)["”'’]/gm,
+		'$1『$2』'
+	],
+	[
+		/^([^\n【】<>]*)[<]([ ]*[…？－—\w０-９ａ-ｚＡ-Ｚ\u4E00-\u9FFF][^\n【】<>]*)[>]/gm,
+		'$1【$2】'
+	],
 
-	[/(『[^『』\n]+』[^\n"“”『』'‘’]*)["“'‘]([ ]*[…？－—\w０-９ａ-ｚＡ-Ｚ\u4E00-\u9FFF][^\n"“”『』'‘’]*)["”'’]/gm, '$1『$2』'],
-	[/(「[^「」\n]+」[^\n"“”「」'‘’]*)["“'‘]([ ]*[…？－—\w０-９ａ-ｚＡ-Ｚ\u4E00-\u9FFF][^\n"“”「」'‘’]*)["”'’]/gm, '$1「$2」'],
+	[
+		/(『[^『』\n]+』[^\n"“”『』'‘’]*)["“'‘]([ ]*[…？－—\w０-９ａ-ｚＡ-Ｚ\u4E00-\u9FFF][^\n"“”『』'‘’]*)["”'’]/gm,
+		'$1『$2』'
+	],
+	[
+		/(「[^「」\n]+」[^\n"“”「」'‘’]*)["“'‘]([ ]*[…？－—\w０-９ａ-ｚＡ-Ｚ\u4E00-\u9FFF][^\n"“”「」'‘’]*)["”'’]/gm,
+		'$1「$2」'
+	],
 
-	[/^([^「」\n【】\[\]［］\{\}]*)[\[［\{]([ ]*[…？－—\w０-９ａ-ｚＡ-Ｚ\u4E00-\u9FFF][^\n【】\[\]］\{\}]*)[\]］\}]/gm, '$1【$2】'],
-	[/(「[^「」\n【】\[\]［］]*)[\[［]([ ]*[…？－—\w０-９ａ-ｚＡ-Ｚ\u4E00-\u9FFF][^\n【】\[\]］]*)[\]］]/gm, '$1【$2】'],
+	[
+		/^([^「」\n【】\[\]［］\{\}]*)[\[［\{]([ ]*[…？－—\w０-９ａ-ｚＡ-Ｚ\u4E00-\u9FFF][^\n【】\[\]］\{\}]*)[\]］\}]/gm,
+		'$1【$2】'
+	],
+	[
+		/(「[^「」\n【】\[\]［］]*)[\[［]([ ]*[…？－—\w０-９ａ-ｚＡ-Ｚ\u4E00-\u9FFF][^\n【】\[\]］]*)[\]］]/gm,
+		'$1【$2】'
+	],
 
-
-	[/(【[^【】\n<>\[\]\{\}]+】[^\n【】<>\[\]\{\}]*)[<\[\{]([ ]*[…？－—\w０-９ａ-ｚＡ-Ｚ\u4E00-\u9FFF][^\n【】<>\[\]\{\}]*)[\]\}>]/gm, '$1【$2】'],
+	[
+		/(【[^【】\n<>\[\]\{\}]+】[^\n【】<>\[\]\{\}]*)[<\[\{]([ ]*[…？－—\w０-９ａ-ｚＡ-Ｚ\u4E00-\u9FFF][^\n【】<>\[\]\{\}]*)[\]\}>]/gm,
+		'$1【$2】'
+	],
 ];
 
 lazymarks[2] = [
@@ -42,7 +72,8 @@ lazymarks[3] = [
 	 */
 	[/(「[^」]*)「([^」]*)」/g, '$1『$2』'],
 
-	[/([「『]{2,})([^「『\n』」]+)([』」]{2,})/g, function (...m)
+	[
+		/([「『]{2,})([^「『\n』」]+)([』」]{2,})/g, function (...m)
 	{
 		if (m[1].length == m[3].length)
 		{
@@ -62,36 +93,43 @@ lazymarks[3] = [
 		}
 
 		return m[0];
-	}],
+	}
+	],
 ];
 
 lazymarks[4] = [
-	[/[\!\(\):,~]+/g, function (...m)
+	[
+		/[\!\(\):,~]+/g, function (...m)
 	{
 		return StrUtil.toFullWidth(m[0], {
 			skip: {
 				space: true,
 			},
 		});
-	}],
+	}
+	],
 
-	[/\?+(?=[』」\n])/g, function (...m)
+	[
+		/\?+(?=[』」\n])/g, function (...m)
 	{
 		return StrUtil.toFullWidth(m[0], {
 			skip: {
 				space: true,
 			},
 		});
-	}],
+	}
+	],
 
-	[/([\u4E00-\u9FFF])(\?+)(?=[』」\n ][^\u4E00-\u9FFF])/g, function (...m)
+	[
+		/([\u4E00-\u9FFF])(\?+)(?=[』」\n ][^\u4E00-\u9FFF])/g, function (...m)
 	{
 		return m[1] + StrUtil.toFullWidth(m[2], {
 			skip: {
 				space: true,
 			},
 		});
-	}],
+	}
+	],
 
 	[/(？) (！)/g, '$1$2'],
 
@@ -141,11 +179,19 @@ export function _word_en(search: string, ret: string = null, flag = 'ig')
 	return [new RegExp(`(^|\\W)(${regex_str(search)})(?!\\w)`, flag), ((ret !== null) ? ret : '$1' + search)];
 }
 
-export function _word_zh(search: string, ret, flag = 'ig', skip?: string)
+export function _word_zh(search: string, ret, flag?, skip?: string)
+export function _word_zh(search: RegExp, ret, flag?, skip?: string)
+export function _word_zh(search, ret, flags = 'ig', skip?: string)
 {
-	let s = _word_zh_core(search, skip);
+	let s = replace_literal(search, function (text)
+	{
+		return _word_zh_core(text, skip);
+	});
 
-	return [s, ret, flag];
+	// @ts-ignore
+	flags = (s instanceof RegExp) ? null : flags;
+
+	return [s, ret, flags];
 }
 
 export function _word_zh_core(search: string, skip: string)
@@ -157,10 +203,25 @@ export function _word_zh_core(search: string, skip: string)
 			return char;
 		}
 
-		let t = zhtw_convert.tw(char);
-		let s = zhtw_convert.cn(char);
+		let jt = StrUtil.jp2zht(char);
+		let js = StrUtil.jp2zhs(char);
 
-		let a = array_unique([char, ...t, ...s]);
+		let a =[
+			char,
+			...zhtw_convert.tw(char),
+			...zhtw_convert.cn(char),
+		];
+
+		if (!skip || skip.indexOf(jt) == -1)
+		{
+			a = a.concat(...zhtw_convert.cn(jt));
+		}
+		if (!skip || skip.indexOf(js) == -1)
+		{
+			a = a.concat(...zhtw_convert.tw(js));
+		}
+
+		a = array_unique(a);
 
 		return a.length > 1 ? '[' + a.join('') + ']' : a[0];
 	});
@@ -211,5 +272,6 @@ export namespace zhtw_convert
 }
 
 import * as self from './index';
+
 export default self;
 //export default exports;
