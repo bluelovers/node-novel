@@ -448,7 +448,7 @@ export const words: IWords[] = [
 
 	sublib._word_zh('凍土の月', '凍土の月'),
 
-	[
+	...([
 		'凍土',
 		'冥暗',
 		'初火',
@@ -463,7 +463,7 @@ export const words: IWords[] = [
 		a.push(sublib._word_zh(`${b}の月`, `${b}の月`));
 
 		return a;
-	}, []),
+	}, [])),
 
 	['问[道到]', '问到'],
 
@@ -505,12 +505,14 @@ export const words: IWords[] = [
 	}
 	],
 
-	[/第([\d０-９]+)使徒/g, function (...m)
+	[
+		/第([\d０-９]+)使徒/g, function (...m)
 	{
 		let n = StrUtil.num2zh(StrUtil.toHalfNumber(m[1]));
 
 		return `第${n}使徒`;
-	}],
+	}
+	],
 
 	[
 		/(等级|等級)([一二三四五])/g, function (...m)
@@ -548,7 +550,8 @@ export const words: IWords[] = [
 
 	[/[·\?]([一二三四五六七八九十][式年型])/ig, '・$1'],
 
-	[/(第)([\_\t\uFEFF\xA0　 \d０１２３４５６７８９]+)(话|頁|夜|章|集)/g, function ($0, $1, $2, $3)
+	[
+		/(第)([\_\t\uFEFF\xA0　 \d０１２３４５６７８９]+)(话|頁|夜|章|集)/g, function ($0, $1, $2, $3)
 	{
 		$2 = StrUtil.toFullNumber($2, {
 			only: {
@@ -571,7 +574,8 @@ export const words: IWords[] = [
 		}
 
 		return $0;
-	}],
+	}
+	],
 
 	[
 		/\d+/g, function (...m)

@@ -6,6 +6,7 @@ import { IWords } from '../';
 import * as StrUtil from 'str-util';
 import { regex_str, array_unique } from '../../func';
 import { cn2tw, tw2cn } from 'chinese_convert';
+import { IRegExpCallback } from '../../novel/text';
 import { replace_literal } from '../../regexp';
 
 export const lazymarks = {} as IWords[][];
@@ -177,14 +178,14 @@ export let _zh_num = '一二三四五六七八九十';
 export let _zh_num2 = '百十';
 export let _full_num = '０１２３４５６７８９';
 
-export function _word_en(search: string, ret: string = null, flag = 'ig')
+export function _word_en(search: string, ret: string = null, flag = 'ig'): IWords
 {
 	return [new RegExp(`(^|\\W)(${regex_str(search)})(?!\\w)`, flag), ((ret !== null) ? ret : '$1' + search)];
 }
 
-export function _word_zh(search: string, ret, flag?, skip?: string)
-export function _word_zh(search: RegExp, ret, flag?, skip?: string)
-export function _word_zh(search, ret, flags = 'ig', skip?: string)
+export function _word_zh(search: string, ret: string | IRegExpCallback, flag?: string, skip?: string): IWords
+export function _word_zh(search: RegExp, ret: string | IRegExpCallback, flag?: string, skip?: string): IWords
+export function _word_zh(search, ret: string | IRegExpCallback, flags = 'ig', skip?: string)
 {
 	let s = replace_literal(search, function (text)
 	{
@@ -194,7 +195,7 @@ export function _word_zh(search, ret, flags = 'ig', skip?: string)
 	// @ts-ignore
 	flags = (s instanceof RegExp) ? null : flags;
 
-	return [s, ret, flags];
+	return [s, ret, flags] as IWords;
 }
 
 export function _word_zh_core(search: string, skip: string)
