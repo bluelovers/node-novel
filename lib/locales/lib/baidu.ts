@@ -4,9 +4,10 @@
 
 import { IWords } from '../index';
 import sublib from './';
+import { array_unique } from '../../func';
 
 export const SP_KEY = '#_@_#';
-export const SP_REGEXP = '(?:\@|（·?）|\-|\/|\\\(\\\)|%|￥|_|\\\?|？|\\\||#|\\\$|[（\\\(](?:和谐|河蟹)[\\\)）]|（河）（蟹）|[（\\(][河蟹]{1,2}[\\)）]| |\\\.|[・。·])';
+export const SP_REGEXP = '(?:\@|（·?）|\-|\/|\\\(\\\)|%|￥|_|\\\?|？|\\\||#|\\\$|[（\\\(](?:和谐|河蟹)[\\\)）]|（河）（蟹）|[（\\(][河蟹]{1,2}[\\)）]| |\\\.|[・。·]|\\*)';
 
 export const SP_ESCAPE = '（河蟹）';
 
@@ -15,7 +16,7 @@ export const SP_ESCAPE = '（河蟹）';
  *
  * @type {string[][]}
  */
-export const table = [
+export const table = array_unique([
 	'噁心',
 	'触手',
 	'白痴',
@@ -59,20 +60,60 @@ export const table = [
 	'畜生',
 	'麻痹',
 	'废物',
-];
+	'娼婦',
+	'娼妓',
+	'男娼',
+	'男妓',
+	'卖春',
+	'流氓',
+	'出卖肉体',
+	'交合',
+	'卖人',
+	'強姦',
+	'強奸',
+	'反法',
+	'禁药',
+	'合体',
+	'乱交会',
+	'乱交',
+	'贞操',
+	'比基尼',
+	'邪教',
+	'非法',
+	'妓院',
+	'赌场',
+	'治安',
+	'警察',
+	'口大',
+	'政治',
+	'逮捕',
+	'法律',
+	'政敌',
+	'合法',
+	'措施',
+	'毒品',
+	'性感',
+	'混蛋',
+]);
 
 /**
  * 去和諧時會以第一個項目為返回結果
  *
  * @type {string[][]}
  */
-export const table2 = [
+export const table2 = array_unique([
 	['裸体', '果体',],
-];
+]);
+
+export const table3 = array_unique([
+	['強姦', '弓虽姦'],
+	['強奸', '弓虽女干', '弓虽奸'],
+]);
 
 export function escape(text: string, count = 1)
 {
 	let t = table2
+		.concat(table3)
 		.reduce(function (a, b)
 		{
 			if (Array.isArray(b))
@@ -107,6 +148,7 @@ export function escape(text: string, count = 1)
 export function unescape(text: string)
 {
 	let t = table2
+		.concat(table3)
 		.reduce(function (a, b)
 		{
 			if (Array.isArray(b))
@@ -139,22 +181,30 @@ export function unescape(text: string)
 
 export function getTable(): IWords[]
 {
-	return table2
+	return array_unique(table2
+		.concat(table3)
 		.concat(table)
 		.reduce(function (a, b)
 		{
 			let c;
-			c = Array.isArray(b) ? b : [b];
+			c = (Array.isArray(b) ? b : [b]);
 
-			c.forEach(function (value, index, array)
+			c.reduce(function (array, value)
 			{
 				let rs: IWords = sublib._word_zh(value.split('').join(SP_KEY), c[0], 'ig');
 
-				a.push(rs);
-			});
+				array.push(rs);
+
+				return array;
+			}, [])
+				.forEach(function (value, index, array)
+				{
+					a.push(value);
+				})
+			;
 
 			return a;
-		}, [] as IWords[])
+		}, [] as IWords[]))
 		;
 }
 
@@ -164,9 +214,9 @@ let d = unescape(s);
 
 console.log(s);
 console.log(d);
-
-console.log(getTable());
 */
+//console.log(getTable());
+
 
 import * as self from './baidu';
 

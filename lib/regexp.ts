@@ -2,7 +2,9 @@
  * Created by user on 2018/1/30/030.
  */
 
-import { parse as regexpParse, types } from 'regexp2';
+import { parse as regexpParse, types, isRegExp } from 'regexp2';
+
+export { isRegExp }
 
 export function replace_literal(r: string, cb : (text: string) => string): string
 export function replace_literal(r: RegExp, cb : (text: string) => string): RegExp
