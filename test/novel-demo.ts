@@ -62,7 +62,7 @@ novelID = '黑之魔王';
 //novelID = '黑之魔王_(2367)';
 //novelID = '我的怪物眷族_(1984)';
 //novelID = '被称为勇者、亦或是怪物的少女（勇者或是被称为怪物的少女）_(2018)';
-novelID = '四度目は嫌な死属性魔術師';
+//novelID = '四度目は嫌な死属性魔術師';
 //novelID = '虫虫酱むいむいたん';
 //novelID = '那个人，后来_(2272)';
 
@@ -94,14 +94,14 @@ novelID = '四度目は嫌な死属性魔術師';
 
 //novelID = '魔拳のデイドリーマー';
 
-//novelID = '異世界迷宮の最深部を目指そう';
-//novelID = '暗黒騎士物語　～勇者を倒すために魔王に召喚されました～';
+novelID = '異世界迷宮の最深部を目指そう';
+novelID = '暗黒騎士物語　～勇者を倒すために魔王に召喚されました～';
 
 //pathMain = 'wenku8';
 //
 //novelID = '龙背上的骑兵_(513)';
 
-novelID = '呼び出された殺戮者';
+//novelID = '呼び出された殺戮者';
 
 //novelID = '病娇女神の箱庭';
 
@@ -188,7 +188,7 @@ i18next.setDefaultNamespace('i18n');
 			{
 				let chk = iconv.detect(_t_old);
 
-				if (chk.encoding != 'UTF-8')
+				if (chk.encoding != 'UTF-8' && chk.encoding != 'ascii')
 				{
 					console.error(currentFile, '此檔案可能不是 UTF8 請檢查編碼或利用 MadEdit 等工具轉換', chk);
 				}

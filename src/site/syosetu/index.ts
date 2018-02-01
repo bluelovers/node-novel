@@ -83,6 +83,15 @@ export async function get_volume_list(url)
 					}
 					else
 					{
+						if (!currentVolume)
+						{
+							currentVolume = volume_list[volume_list.length] = {
+								volume_index: volume_list.length,
+								volume_title: 'null',
+								chapter_list: [],
+							};
+						}
+
 						let a = tr.find('.subtitle a');
 
 						tr.find('.long_update *').remove();
@@ -169,7 +178,9 @@ export function makeUrl(urlobj, bool?: boolean)
 		return `https://ncode.syosetu.com/txtdownload/dlstart/ncode/${urlobj.novel_pid}/?no=${urlobj.chapter_id}&hankaku=0&code=utf-8&kaigyo=crlf`;
 	}
 
-	return `http://${urlobj.novel_r18 || 'ncode'}.syosetu.com/${urlobj.novel_id}`;
+	let pad = (!bool && urlobj.chapter_id) ? urlobj.chapter_id : '';
+
+	return `http://${urlobj.novel_r18 || 'ncode'}.syosetu.com/${urlobj.novel_id}/${pad}`;
 }
 
 export function parseUrl(url: string)
@@ -207,10 +218,16 @@ export function parseUrl(url: string)
 	return urlobj;
 }
 
-/**
- * @param {string} url
- */
-export async function download(url: string)
+export async function download(url: string, downloadOptions: {
+	/**
+	 * 不使用小說家提供的 txt 下載連結
+	 */
+	disableTxtdownload?: boolean,
+	/**
+	 * 只產生目錄結構 不下載內容
+	 */
+	disableDownload?: boolean,
+} = {})
 {
 	{
 		let data = parseUrl(url);
@@ -251,7 +268,7 @@ export async function download(url: string)
 					chapter.chapter_index = (idx++);
 
 					let ext = '.txt';
-					let cid = chapter.chapter_index.toString().padStart(4, '0');
+					let cid = chapter.chapter_index.toString().padStart(4, '0') + '0';
 
 					let pad = chapter.chapter_date.format('YYYYMMDDHHmm');
 
@@ -269,33 +286,67 @@ export async function download(url: string)
 					}
 
 					let tryc = 0;
+					let fn;
 
-					let fn = async function ()
+					if (downloadOptions.disableDownload)
 					{
-						tryc++;
+						fn = async function ()
+						{
+							return '';
+						};
+					}
+					else if (!downloadOptions.disableTxtdownload)
+					{
+						fn = async function ()
+						{
+							tryc++;
 
-						return await fetch.single(chapter.chapter_url, {
-								type: 'text',
-								method: 'POST',
-							})
-							.catch(function (e)
-							{
-								if (tryc > 3)
-								{
-									return Promise.reject(e);
-								}
-
-								console.warn(`wait 25s\n${volume.volume_title}\n${chapter.chapter_title}`);
-
-								return new Promise(function (done)
-								{
-									setTimeout(done, 25000);
+							return await fetch.single(chapter.chapter_url, {
+									type: 'text',
+									method: 'POST',
 								})
-									.then(fn)
-									;
-							})
-						;
-					};
+								.catch(function (e)
+								{
+									if (tryc > 3)
+									{
+										return Promise.reject(e);
+									}
+
+									console.warn(`wait 25s\n${volume.volume_title}\n${chapter.chapter_title}`);
+
+									return new Promise(function (done)
+									{
+										setTimeout(done, 25000);
+									})
+										.then(fn)
+										;
+								})
+								;
+						};
+					}
+					else
+					{
+						let url = makeUrl({
+							chapter_id: chapter.chapter_id,
+							novel_id: novel.url_data.novel_id,
+						});
+
+						//console.log(url);
+
+						fn = async function ()
+						{
+							return cheerioJSDOM(url)
+								.then(async function (dom)
+								{
+									return [
+										dom.$('#novel_p').text(),
+										dom.$('#novel_honbun').text(),
+										dom.$('#novel_a').text(),
+									].join('\n\n==================\n\n');
+								})
+								;
+						};
+					}
 
 					let text = await fn()
 						.then(async function (text)
