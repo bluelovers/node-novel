@@ -209,6 +209,8 @@ export const words: IWords[] = [
 	sublib._word_zh('蒂亚特纳|迪亚多娜|迪雅多娜', '迪雅多娜'),
 	//['迪雅多娜|迪[亚亞]多娜|迪亞多娜', '迪雅多娜'],
 
+	sublib._word_zh('扎法菈妲', '扎法菈妲'),
+
 	/**
 	 * @todo 亞里亞蒂亞
 	 *
