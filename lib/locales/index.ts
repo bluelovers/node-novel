@@ -254,7 +254,7 @@ export const words: IWords[] = [
 
 	[/\n+[\(（\[]*完[\)）\]]*[。\-]*$/g, ''],
 
-	[/[－\-─—]{2,}|[－\-─—][』」》）]/g, function (...m)
+	[/[－\-─—]{2,}|[－\-─—](?=[』」》）])/g, function (...m)
 	{
 		//return m[0].replace(/[－\-─—]/g, '─');
 		return '─'.repeat(m[0].length);
