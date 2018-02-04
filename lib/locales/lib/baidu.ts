@@ -96,6 +96,7 @@ export const table = array_unique([
 	'混蛋',
 	'胸部',
 	'妖艳',
+	'傢伙',
 ]);
 
 /**

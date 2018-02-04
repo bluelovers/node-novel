@@ -81,7 +81,7 @@ export const words: IWords[] = [
 	sublib._word_zh('库娜', '庫娜'),
 
 	//sublib._word_zh('普琪娜|普琪娜', '普琪娜'),
-	//sublib._word_zh('珀莲娜', '珀莲娜'),
+	sublib._word_zh('珀莲娜|波莲', '珀莲娜'),
 
 	/**
 	 * 奥克
