@@ -12,13 +12,11 @@ import * as JsDiff from 'diff';
 import { i18next, loadLocales, addResourceBundle, locales_def } from '../lib/i18n';
 import * as execall from 'execall';
 import * as JSON from 'json5';
-import { mdconf_parse, IMdconfMeta } from 'node-novel-info';
+import novelInfo, { mdconf_parse, IMdconfMeta } from 'node-novel-info';
 
 import * as iconv from 'iconv-jschardet';
 
 import { novelText } from '../lib/novel/text';
-
-import { json2md } from '../lib/fs/metamd';
 
 import * as novelGlobby from 'node-novel-globby';
 
@@ -94,8 +92,8 @@ novelID = '黑之魔王';
 
 //novelID = '魔拳のデイドリーマー';
 
-novelID = '異世界迷宮の最深部を目指そう';
-novelID = '暗黒騎士物語　～勇者を倒すために魔王に召喚されました～';
+//novelID = '異世界迷宮の最深部を目指そう';
+//novelID = '暗黒騎士物語　～勇者を倒すために魔王に召喚されました～';
 
 //pathMain = 'wenku8';
 //
@@ -799,7 +797,11 @@ function make_meta_md()
 				tags.push(RegExp.$1);
 			}
 
-			let md = await json2md(data, {
+//			let md = await json2md(data, {
+//				tags: tags,
+//			});
+
+			let md = novelInfo.stringify({}, data, {
 				tags: tags,
 			});
 

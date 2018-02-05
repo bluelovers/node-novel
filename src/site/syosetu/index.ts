@@ -13,7 +13,7 @@ import * as projectConfig from '../../../project.config';
 import { novelText } from '../../../lib/novel/text';
 import * as shortid from 'shortid';
 import { download_image } from '../image';
-import { json2md } from '../../../lib/fs/metamd';
+import novelInfo, { mdconf_parse, IMdconfMeta } from 'node-novel-info';
 
 moment.fn.toJSON = function () { return this.format(); }
 
@@ -94,15 +94,24 @@ export async function get_volume_list(url)
 
 						let a = tr.find('.subtitle a');
 
-						tr.find('.long_update *').remove();
 						let chapter_date;
+						let dd;
+						let da = tr.find('.long_update');
 
-						let dd = tr.find('.long_update').text().replace(/^\s+|\s+$/g, '');
+						if (da.find('span[title*="/"]'))
+						{
+							dd = da.find('span[title*="/"]').attr('title').replace(/改稿|^\s+|\s+$/g, '');
+						}
+
+						if (!dd)
+						{
+							da.find('*').remove();
+							dd = da.text().replace(/^\s+|\s+$/g, '');
+						}
 
 						if (dd)
 						{
 							chapter_date = moment(dd, 'YYYY/MM/DD HH:mm').local();
-
 							_cache_dates.push(chapter_date.unix());
 						}
 
@@ -146,7 +155,56 @@ export async function get_volume_list(url)
 
 			let novel_date = moment.unix(_cache_dates[_cache_dates.length - 1]).local();
 
+			let a = await cheerioJSDOM(`https://${url_data.novel_r18 ? 'narou18' : 'narou'}.dip.jp/search.php?text=${url_data.novel_id}&novel=all&genre=all&new_genre=all&length=0&down=0&up=100`)
+				.then(function (dom)
+				{
+					let data: IMdconfMeta = {};
+
+					let h2 = dom.$(`div:has(> h2.search:has(> a[href*="${url_data.novel_id}"]))`).eq(0);
+
+					let search_left = h2.siblings('.search_left:eq(0)');
+					let search_right = h2.siblings('.search_right:eq(0)');
+
+					if (!h2.length)
+					{
+						return data;
+					}
+
+					//console.log(search_left);
+					//console.log(search_right);
+
+					data.novel = {};
+
+					data.novel.status = search_left.find('.novel_type').text();
+					data.novel.tags = [];
+
+					search_right.find('.keyword a')
+						.each(function (index, elem)
+						{
+							data.novel.tags.push(dom.$(elem).text())
+						})
+					;
+
+					data.link = [];
+					data.link.push(`[dip.jp](${dom.source_url}) - 小説家になろう　更新情報検索`);
+
+					//console.log(data);
+
+					return data;
+				})
+				.catch(function (e)
+				{
+					console.error(e);
+					console.error(`can't download novel extra info`);
+
+					return {};
+				})
+			;
+
 			return {
+
+				...a,
+
 				url: dom.source_url,
 				url_data,
 
@@ -171,16 +229,18 @@ export async function get_volume_list(url)
 
 export function makeUrl(urlobj, bool?: boolean)
 {
+	let subdomain = urlobj.novel_r18 ? 'novel18' : 'ncode';
+
 	if (urlobj.novel_pid && urlobj.chapter_id)
 	{
 		let cid = (!bool && urlobj.chapter_id) ? '&cid=' + urlobj.chapter_id : '';
 
-		return `https://ncode.syosetu.com/txtdownload/dlstart/ncode/${urlobj.novel_pid}/?no=${urlobj.chapter_id}&hankaku=0&code=utf-8&kaigyo=crlf`;
+		return `https://${subdomain}.syosetu.com/txtdownload/dlstart/ncode/${urlobj.novel_pid}/?no=${urlobj.chapter_id}&hankaku=0&code=utf-8&kaigyo=crlf`;
 	}
 
 	let pad = (!bool && urlobj.chapter_id) ? urlobj.chapter_id : '';
 
-	return `http://${urlobj.novel_r18 || 'ncode'}.syosetu.com/${urlobj.novel_id}/${pad}`;
+	return `http://${subdomain}.syosetu.com/${urlobj.novel_id}/${pad}`;
 }
 
 export function parseUrl(url: string)
@@ -191,12 +251,22 @@ export function parseUrl(url: string)
 		novel_pid: null,
 		novel_id: null,
 		chapter_id: null,
+
+		novel_r18: null,
 	};
 
 	url = url.toString();
 
 	let r: RegExp;
 	let m;
+
+	r = /(novel18)\.syosetu\.com/;
+	if (m = r.exec(url))
+	{
+		urlobj.novel_r18 = m[1];
+
+		return urlobj;
+	}
 
 	r = /txtdownload\/dlstart\/ncode\/(\d+)/;
 	if (m = r.exec(url))
@@ -278,7 +348,7 @@ export async function download(url: string, downloadOptions: {
 
 					if (fs.existsSync(file))
 					{
-						console.log(`skip\n${volume.volume_title}\n${chapter.chapter_title}`);
+						//console.log(`skip\n${volume.volume_title}\n${chapter.chapter_title}`);
 					}
 					else
 					{
@@ -376,29 +446,29 @@ export async function download(url: string, downloadOptions: {
 		})
 	;
 
-	let md = await json2md(novel, {
-		tags: [
-			IDKEY,
-		],
-	});
-
-	if (md)
 	{
-		md += `
-# options
+		let options = {};
+		options[IDKEY] = {
+			txtdownload_id: novel.novel_syosetu_id,
+		};
 
-## ${IDKEY}
-
-- txtdownload_id: ${novel.novel_syosetu_id}
-
-## textlayout
-
-- allow_lf2: true
-
-`;
+		let md = novelInfo.stringify({
+			novel: {
+				tags: [
+					IDKEY,
+				],
+			},
+			options,
+			link: novel.link || [],
+		}, novel, {
+			options: {
+				textlayout: {
+					allow_lf2: true,
+				}
+			},
+		});
 
 		let file = path.join(path_novel, `README.md`);
-
 		await fs.outputFile(file, md);
 	}
 

@@ -5,6 +5,7 @@
 import * as Promise from 'bluebird';
 import { JSDOM, VirtualConsole } from 'jsdom';
 import * as cheerio from 'cheerio';
+import { IDKEY } from '../wenku8/index';
 import { parseUrl, makeUrl, trimFilename } from './';
 //import * as moment from 'moment';
 import * as moment from 'moment-timezone';
@@ -12,6 +13,7 @@ import * as fs from 'fs-extra';
 import * as path from 'path';
 import * as projectConfig from '../../../project.config';
 import { download as downloadChapter } from './chapter';
+import novelInfo, { mdconf_parse, IMdconfMeta } from 'node-novel-info';
 
 export async function download(data, options?)
 {
@@ -27,6 +29,14 @@ export async function download(data, options?)
 	fs.outputJson(_file, _data, {
 		spaces: "\t",
 	});
+
+	let md = novelInfo.stringify({}, _data);
+	if (md)
+	{
+		let file = path.join(path_main, `README.md`);
+
+		await fs.outputFile(file, md);
+	}
 
 	let _a = _data.value.reduce(function (a, b)
 	{
@@ -55,6 +65,8 @@ export async function download(data, options?)
 					await fs.outputJson(_file + '.json', data, {
 						spaces: "\t",
 					});
+
+
 
 					await fs.outputFile(_file + '.txt', data.value);
 

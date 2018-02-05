@@ -12,7 +12,7 @@ import * as projectConfig from '../../../project.config';
 import { novelText } from '../../../lib/novel/text';
 import * as shortid from 'shortid';
 import { download_image } from '../image';
-import { json2md } from '../../../lib/fs/metamd';
+import novelInfo, { mdconf_parse, IMdconfMeta } from 'node-novel-info';
 
 moment.fn.toJSON = function() { return this.format(); }
 
@@ -335,7 +335,13 @@ export async function download(url: string)
 		})
 	;
 
-	let md = await json2md(novel, {
+	let md = novelInfo.stringify({
+		options: {
+			textlayout: {
+				allow_lf2: true,
+			},
+		},
+	}, novel, {
 		tags: [
 			IDKEY,
 		],
@@ -343,15 +349,6 @@ export async function download(url: string)
 
 	if (md)
 	{
-		md += `
-# options
-
-## textlayout
-
-- allow_lf2: true
-
-`;
-
 		let file = path.join(path_novel, `README.md`);
 
 		await fs.outputFile(file, md);

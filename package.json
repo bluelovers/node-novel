@@ -63,7 +63,7 @@
   },
   "optionalDependencies": {
     "node-novel-globby": "^1.3.4",
-    "node-novel-info": "^1.0.4",
+    "node-novel-info": "^2.2.1",
     "regexp2": "^1.0.5"
   }
 }
