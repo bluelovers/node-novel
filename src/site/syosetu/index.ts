@@ -98,7 +98,7 @@ export async function get_volume_list(url)
 						let dd;
 						let da = tr.find('.long_update');
 
-						if (da.find('span[title*="/"]'))
+						if (da.find('span[title*="/"]').length)
 						{
 							dd = da.find('span[title*="/"]').attr('title').replace(/改稿|^\s+|\s+$/g, '');
 						}
@@ -181,7 +181,9 @@ export async function get_volume_list(url)
 					search_right.find('.keyword a')
 						.each(function (index, elem)
 						{
-							data.novel.tags.push(dom.$(elem).text())
+							let k = dom.$(elem).text();
+
+							data.novel.tags = data.novel.tags.concat(k.split('/'));
 						})
 					;
 
