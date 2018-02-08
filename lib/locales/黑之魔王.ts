@@ -85,6 +85,7 @@ export const words: IWords[] = [
 	 * 顺便说一下，前者叫梅丽，后者叫玛丽。
 	 */
 	sublib._word_zh('艾利娜|艾丽娜|艾莉娜|爱丽娜', '艾莉娜'),
+	sublib._word_zh('工会|公会', '公会'),
 
 	/**
 	 * 鍛造
@@ -236,7 +237,8 @@ export const words: IWords[] = [
 	 * 索菲亞・西利烏斯・巴西費魯理事長
 	 * 索菲亚·天狼星·帕西法璐
 	 */
-	sublib._word_zh('索菲亞|苏菲', '索菲亞'),
+
+	sublib._word_zh('索菲亞|苏菲亞?', '索菲亞'),
 	sublib._word_zh('希利烏斯|西利[烏乌]斯', '希利烏斯'),
 	sublib._word_zh('帕西法爾|帕西法璐|巴西費魯|帕西菲爾', '帕西菲爾'),
 	//[`${sp}西利[烏乌]斯${sp}巴西費魯`, '$1・$2・$3'],
@@ -258,7 +260,7 @@ export const words: IWords[] = [
 	 *
 	 * 基塔斯司教
 	 */
-	['米萨|米莎', '米莎'],
+	['米萨|米莎|米沙', '米莎'],
 
 	sublib._word_zh(/酋达斯|犹达斯|猶達斯|基塔斯/g, '猶達斯'),
 
@@ -302,6 +304,9 @@ export const words: IWords[] = [
 	 */
 	sublib._word_zh('嫉妒吉尔|懒惰吉尔|怠惰吉尔', '怠惰吉尔'),
 	sublib._word_zh('贪婪格尔|贪婪戈尔', '贪婪戈尔'),
+	sublib._word_zh('傲慢杰姆', '傲慢杰姆'),
+	sublib._word_zh('暴食欧库多', '暴食欧库多'),
+	sublib._word_zh('嫉妒雷伊', '嫉妒雷伊'),
 
 	sublib._word_zh('悪食', '悪食'),
 	sublib._word_zh('懒惰|怠惰', '怠惰'),
@@ -326,8 +331,13 @@ export const words: IWords[] = [
 
 	/**
 	 * 斯铃村
+	 *
+	 * lost rose
+	 * Last Rose
 	 */
 	sublib._word_zh('阿苏贝鲁|艾斯梅拉', '艾斯梅拉'),
+	sublib._word_zh('最后的?玫瑰', '最后的玫瑰'),
+	sublib._word_zh(`l[oa]st${sp}rose`, 'Last Rose', 'ig'),
 
 	/**
 	 * 威斯特法伦
@@ -406,6 +416,8 @@ export const words: IWords[] = [
 
 	/**
 	 * weapen
+	 *
+	 * 恶魔的拥抱《diablo's embrace》
 	 */
 	[/Haunted\s*grave/ig, 'Haunted Grave'],
 	sublib._word_zh('来福枪|来复枪', '来福枪'),
@@ -419,6 +431,8 @@ export const words: IWords[] = [
 	sublib._word_zh('白王桜|白樱王', '白王桜'),
 	sublib._word_zh('霊刀', '霊刀'),
 
+	sublib._word_zh('起浮游|浮游羽毛', '浮游羽毛'),
+
 	/**
 	 * skill
 	 */
@@ -431,8 +445,37 @@ export const words: IWords[] = [
 	sublib._word_zh('榴弾砲撃', '榴弾砲撃'),
 	sublib._word_zh('蒼炎の守護', '蒼炎の守護'),
 
-	[`[《（「『]\\w+${sp}\\w+[』」》）]`, '$1・$2'],
-	[`[《（「『]\\w+${sp}\\w+${sp}\\w+[』」》）]`, '$1・$2・$3'],
+	sublib._word_zh(`the${sp}greed`, 'The・Greed'),
+
+	[
+		`[《（「『]\\w+[』」》）]`, function (...m)
+	{
+		return m[0].replace(/^([^\w]*)([a-z])/, function (...m)
+		{
+			return m[1] +m[2].toUpperCase();
+		});
+	}],
+	[
+		`[《（「『]\\w+${sp}\\w+[』」》）]`, function (...m)
+	{
+		return m.slice(1, 3).map(function (s)
+		{
+			return s.replace(/^([^\w]*)([a-z])/, function (...m)
+			{
+				return m[1] +m[2].toUpperCase();
+			});
+		}).join('・');
+	}],
+	[`[《（「『]\\w+(?:'\w+)?${sp}\\w+${sp}\\w+[』」》）]`, function (...m)
+	{
+		return m.slice(1, 4).map(function (s)
+		{
+			return s.replace(/^([^\w]*)([a-z])/, function (...m)
+			{
+				return m[1] +m[2].toUpperCase();
+			});
+		}).join('・');
+	}],
 
 	/**
 	 *
