@@ -7,7 +7,7 @@ import { sp, IWords, vMaybe, sublib } from './index';
 /**
  * 改成小說名字
  */
-export const lang = '改成小說名字';
+export const lang = '回復術士のやり直し～即死魔法とスキルコピーの超越ヒール～';
 
 /**
  * 其他用途
@@ -30,6 +30,12 @@ export const words: IWords[] = sublib._word_zh_all([
 	//['要取代的字', '取代後的字'],
 
 	//['— —', '——'],
+
+	['回復|回复', '回復'],
+	['術士', '術士'],
+	['術', '術'],
+	['剣聖', '剣聖'],
+	['勇者', '勇者'],
 
 ]);
 

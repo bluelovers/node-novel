@@ -264,7 +264,7 @@ export function _word_zh_all(arr: IWords[])
 		}
 
 		return value;
-	});
+	}) as IWords[];
 }
 
 export function _word_zh(search: string, ret: string | IRegExpCallback, flag?: string, skip?: string): IWords
