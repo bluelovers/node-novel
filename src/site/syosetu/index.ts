@@ -4,21 +4,24 @@
 
 import fetch from 'lets-fetch';
 import { trimFilename } from '../../../lib/func';
-import cheerioJSDOM, {} from '../../../lib/jsdom';
 import * as Promise from 'bluebird';
 import * as moment from 'moment-timezone';
 import * as fs from 'fs-extra';
 import * as path from 'path';
 import * as projectConfig from '../../../project.config';
-import { novelText } from '../../../lib/novel/text';
-import * as shortid from 'shortid';
-import { download_image } from '../image';
 import novelInfo, { mdconf_parse, IMdconfMeta } from 'node-novel-info';
+import { fromURL, IFromUrlOptions, URL, VirtualConsole } from 'jsdom-extra';
 
 moment.fn.toJSON = function () { return this.format(); }
 
 export const IDKEY = 'syosetu';
 export const PATH_NOVEL_MAIN = path.join(projectConfig.dist_novel_root, IDKEY);
+
+export const defaultJSDOMOptions: IFromUrlOptions = {
+	virtualConsole: new VirtualConsole,
+	runScripts: 'dangerously',
+	disableCheerio: true,
+};
 
 export async function get_volume_list(url)
 {
@@ -33,7 +36,7 @@ export async function get_volume_list(url)
 		url = makeUrl(data, true);
 	}
 
-	return await cheerioJSDOM(url)
+	return await fromURL(url, defaultJSDOMOptions)
 		.then(async function (dom)
 		{
 			let novel_title = dom.$('.novel_title').text();
@@ -43,7 +46,7 @@ export async function get_volume_list(url)
 
 			let novel_publisher = IDKEY;
 
-			let url_data = parseUrl(dom.source_url);
+			let url_data = parseUrl(dom.url.href);
 
 			let volume_list = [];
 
@@ -56,6 +59,14 @@ export async function get_volume_list(url)
 			let novel_syosetu_id;
 
 			{
+				let $ = dom.$;
+
+				//console.log(dom.serialize());
+
+				//console.log($('#novel_footer'));
+
+				//console.log($('#novel_footer').find('.undernavi a[href*="txtdownload"]'));
+
 				let m;
 				let dt = dom.$('#novel_footer .undernavi a[href*="txtdownload"]').attr('href');
 				if (m = dt.match(/ncode\/(\d+)/))
@@ -117,10 +128,19 @@ export async function get_volume_list(url)
 
 						let href = a.prop('href');
 
+						// @ts-ignore
 						let data = parseUrl(href);
 
 						if (!data.chapter_id)
 						{
+							console.log(a);
+							console.log(data);
+							console.log(href);
+							console.log(a.attr('href'));
+							console.log(new URL(href, dom.url));
+
+							console.log(dom._options);
+
 							throw new Error()
 						}
 						else
@@ -155,15 +175,15 @@ export async function get_volume_list(url)
 
 			let novel_date = moment.unix(_cache_dates[_cache_dates.length - 1]).local();
 
-			let a = await cheerioJSDOM(`https://${url_data.novel_r18 ? 'narou18' : 'narou'}.dip.jp/search.php?text=${url_data.novel_id}&novel=all&genre=all&new_genre=all&length=0&down=0&up=100`)
+			let a = await fromURL(`https://${url_data.novel_r18 ? 'narou18' : 'narou'}.dip.jp/search.php?text=${url_data.novel_id}&novel=all&genre=all&new_genre=all&length=0&down=0&up=100`, defaultJSDOMOptions)
 				.then(function (dom)
 				{
 					let data: IMdconfMeta = {};
 
 					let h2 = dom.$(`div:has(> h2.search:has(> a[href*="${url_data.novel_id}"]))`).eq(0);
 
-					let search_left = h2.siblings('.search_left:eq(0)');
-					let search_right = h2.siblings('.search_right:eq(0)');
+					let search_left = h2.siblings('.search_left').eq(0);
+					let search_right = h2.siblings('.search_right').eq(0);
 
 					if (!h2.length)
 					{
@@ -187,7 +207,9 @@ export async function get_volume_list(url)
 						})
 					;
 
+					// @ts-ignore
 					data.link = [];
+					// @ts-ignore
 					data.link.push(`[dip.jp](${dom.source_url}) - 小説家になろう　更新情報検索`);
 
 					//console.log(data);
@@ -245,7 +267,7 @@ export function makeUrl(urlobj, bool?: boolean)
 	return `http://${subdomain}.syosetu.com/${urlobj.novel_id}/${pad}`;
 }
 
-export function parseUrl(url: string)
+export function parseUrl(url)
 {
 	let urlobj = {
 		url: url,
@@ -407,7 +429,7 @@ export async function download(url: string, downloadOptions: {
 
 						fn = async function ()
 						{
-							return cheerioJSDOM(url)
+							return fromURL(url, defaultJSDOMOptions)
 								.then(async function (dom)
 								{
 									return [
@@ -478,4 +500,3 @@ export async function download(url: string, downloadOptions: {
 }
 
 export default download;
-//export default exports;
