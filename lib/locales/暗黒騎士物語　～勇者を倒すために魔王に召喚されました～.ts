@@ -189,6 +189,7 @@ export const words: IWords[] = [
 	 * 光树
 	 */
 	sublib._word_zh('妮娅', '妮娅'),
+	sublib._word_zh('梅迩菲娜', '梅迩菲娜'),
 
 	/**
 	 * 玛曼（マーマン）赤河岸边的哈提（ハッティ）王国灭亡
@@ -210,6 +211,11 @@ export const words: IWords[] = [
 	//['迪雅多娜|迪[亚亞]多娜|迪亞多娜', '迪雅多娜'],
 
 	sublib._word_zh('扎法菈妲', '扎法菈妲'),
+	sublib._word_zh('达哈克', '达哈克'),
+
+	sublib._word_zh('艾克利普斯', '艾克利普斯'),
+
+	sublib._word_zh('阿波菲斯', '阿波菲斯'),
 
 	/**
 	 * @todo 亞里亞蒂亞
@@ -308,6 +314,9 @@ export const words: IWords[] = [
 
 	sublib._word_zh('艾烏莉亞|艾薇利亚|尤莉亚|艾丽娅|艾歐莉亞', '艾烏莉亞'),
 
+	sublib._word_zh('基魯塔尔', '基魯塔尔'),
+	sublib._word_zh('布魯尔', '布魯尔'),
+
 
 	['納尔古尔|娜迩葛尔|娜尔葛尔|娜邇葛爾|纳尔戈尔|纳尔噶尔|納爾戈爾', '娜迩葛尔'],
 	['贝洛斯|维洛斯|贝罗斯|洛克斯|韋羅斯', '维洛斯'],
@@ -352,6 +361,10 @@ export const words: IWords[] = [
 	sublib._word_zh('萨特罗斯', '萨特罗斯'),
 	sublib._word_zh('巴顿', '巴顿'),
 
+	sublib._word_zh('戈尔贡', '戈尔贡'),
+
+	sublib._word_zh('ムシュマッヘ', 'ムシュマッヘ'),
+
 	//矮人 地精 哥布林
 	['地精|哥布林', '哥布林'],
 	['[奥奧][伽加]族?|食人魔', '食人魔'],
@@ -377,6 +390,8 @@ export const words: IWords[] = [
 	sublib._word_zh('(暗黒|黒暗)騎士', '暗黒騎士'),
 	sublib._word_zh('法の?騎士', '法の騎士'),
 	sublib._word_zh('騎士', '騎士'),
+
+	sublib._word_zh('盾之女神', '顿之女神'),
 
 	sublib._word_zh('劍の(乙女|少女)', '劍の乙女'),
 	sublib._word_zh('黑髮[の之的]賢者(?:[ ]?(千雪))?', '黑髮の賢者$1'),
