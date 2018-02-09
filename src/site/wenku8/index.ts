@@ -3,7 +3,6 @@
  */
 
 import { trimFilename } from '../../../lib/func';
-import cheerioJSDOM, {} from '../../../lib/jsdom';
 import * as Promise from 'bluebird';
 import * as moment from 'moment-timezone';
 import * as fs from 'fs-extra';
@@ -13,6 +12,7 @@ import { novelText } from '../../../lib/novel/text';
 import * as shortid from 'shortid';
 import { download_image } from '../image';
 import novelInfo, { mdconf_parse, IMdconfMeta } from 'node-novel-info';
+import { fromURL, IFromUrlOptions, URL, VirtualConsole } from 'jsdom-extra';
 
 moment.fn.toJSON = function() { return this.format(); }
 
@@ -32,13 +32,14 @@ export async function get_volume_list(url)
 		url = makeUrl(data, true);
 	}
 
-	return await cheerioJSDOM(url)
+	return await fromURL(url)
 		.then(async function (dom)
 		{
 			let novel_title = dom.$('body > #title').text();
 			let novel_author = dom.$('body > #info').text().replace(/^作者：/, '');
 
-			let url_data = parseUrl(dom.source_url);
+			let url = dom.url.href;
+			let url_data = parseUrl(dom.url.href);
 
 			let volume_list = [];
 
@@ -110,7 +111,7 @@ export async function get_volume_list(url)
 			//console.log(novel_cover, novel_desc, novel_status);
 
 			return {
-				url: dom.source_url,
+				url,
 				url_data,
 
 				novel_title,
@@ -245,7 +246,7 @@ export async function download(url: string)
 						`${cid}_${trimFilename(chapter.chapter_title)}\.${chapter.chapter_id}${ext}`
 					);
 
-					let dom = await cheerioJSDOM(chapter.chapter_url);
+					let dom = await fromURL(chapter.chapter_url);
 
 					dom.$('#contentdp, #contentdp').remove();
 
@@ -335,22 +336,29 @@ export async function download(url: string)
 		})
 	;
 
-	let md = novelInfo.stringify({
-		options: {
-			textlayout: {
-				allow_lf2: true,
-			},
-		},
-	}, novel, {
-		tags: [
-			IDKEY,
-		],
-	});
-
-	if (md)
 	{
-		let file = path.join(path_novel, `README.md`);
+		let options = {};
+		options[IDKEY] = {
+			txtdownload_id: novel.novel_syosetu_id,
+		};
 
+		let md = novelInfo.stringify({
+			novel: {
+				tags: [
+					IDKEY,
+				],
+			},
+			options,
+			link: novel.link || [],
+		}, novel, {
+			options: {
+				textlayout: {
+					allow_lf2: true,
+				}
+			},
+		});
+
+		let file = path.join(path_novel, `README.md`);
 		await fs.outputFile(file, md);
 	}
 
@@ -361,7 +369,7 @@ async function get_meta(url_data)
 {
 	let url = `http://www.wenku8.com/modules/article/articleinfo.php?id=${url_data.novel_id}`;
 
-	let dom = await cheerioJSDOM(url);
+	let dom = await fromURL(url);
 
 	//novel_status
 	//novel_cover

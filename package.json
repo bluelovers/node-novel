@@ -55,6 +55,7 @@
     "request-promise": "^4.2.2",
     "shortid": "^2.2.8",
     "str-util": "^2.3.3",
+    "tieba-harmony": "^1.1.0",
     "to-regex": "^3.0.1",
     "upath2": "^2.1.0"
   },
