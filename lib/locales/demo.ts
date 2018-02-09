@@ -3,6 +3,7 @@
  */
 
 import { sp, IWords, vMaybe, sublib } from './index';
+import * as StrUtil from 'str-util';
 
 /**
  * 改成小說名字

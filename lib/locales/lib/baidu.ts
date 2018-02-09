@@ -7,7 +7,7 @@ import sublib from './';
 import { array_unique } from '../../func';
 
 export const SP_KEY = '#_@_#';
-export const SP_REGEXP = '(?:\@|（·?）|\-|\/|\\\(\\\)|%|￥|_|\\\?|？|\\\||#|\\\$|[（\\\(](?:和谐|河蟹)[\\\)）]|（河）（蟹）|[（\\(][河蟹]{1,2}[\\)）]| |\\\.|[・。·]|\\*)';
+export const SP_REGEXP = '(?:\@|（·?）|\-|\/|\\\(\\\)|%|￥|_|\\\?|？|\\\||#|\\\$|[（\\\(](?:和谐|河蟹)[\\\)）]|（河）（蟹）|[（\\(][河蟹]{1,2}[\\)）]| |\\\.|[・。·]|\\*|□|圌)';
 
 export const SP_ESCAPE = '（河蟹）';
 
@@ -99,6 +99,42 @@ export const table = array_unique([
 	'傢伙',
 	'制作',
 	'算是',
+	'法理',
+	'肉欲',
+	'做愛',
+	'利用',
+	'注入',
+	'少女',
+	'色狼',
+	'床上',
+	'运动',
+	'今晚',
+	'摸着',
+	'公粮',
+	'诱惑',
+	'兴奋',
+	'饥渴',
+	'少妇',
+	'回復',
+	'身体',
+	'鼓起',
+	'強健',
+	'抓住',
+	'杀害',
+	'黑暗',
+	'地震',
+	'叫声',
+	'引诱',
+	'主谋',
+	'游街',
+	'旺盛',
+	'燃烧',
+	'基地',
+	'垃圾',
+	'觉醒',
+	'愚蠢',
+	'高潮',
+	'蛋疼',
 ]);
 
 /**
@@ -108,6 +144,7 @@ export const table = array_unique([
  */
 export const table2 = array_unique([
 	['裸体', '果体',],
+	['奴隷', '奴隶',],
 ]);
 
 export const table3 = array_unique([
@@ -195,13 +232,13 @@ export function getTable(): IWords[]
 			c = (Array.isArray(b) ? b : [b]);
 
 			c.reduce(function (array, value)
-			{
-				let rs: IWords = sublib._word_zh(value.split('').join(SP_KEY), c[0], 'ig');
+				{
+					let rs: IWords = sublib._word_zh(value.split('').join(SP_KEY), c[0], 'ig');
 
-				array.push(rs);
+					array.push(rs);
 
-				return array;
-			}, [])
+					return array;
+				}, [])
 				.forEach(function (value, index, array)
 				{
 					a.push(value);
@@ -221,7 +258,6 @@ console.log(s);
 console.log(d);
 */
 //console.log(getTable());
-
 
 import * as self from './baidu';
 

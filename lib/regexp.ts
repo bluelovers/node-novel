@@ -86,7 +86,7 @@ function _(b, cb)
 
 			return text;
 		default:
-			console.log(999, b, b.type);
+			//console.log(999, b, b.type);
 
 			break;
 	}

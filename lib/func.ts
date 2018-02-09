@@ -3,6 +3,7 @@
  */
 
 import { trimFilename } from 'fs-iconv';
+import { isRegExp } from 'regexp-cjk';
 
 export { trimFilename }
 
@@ -17,8 +18,16 @@ export function array_unique(array: any[])
 export const matchOperatorsRe = /[|\\{}()[\]^$+*?.]/g;
 
 //export function regex_excape(str: string)
-export function regex_str(str: string)
+export function regex_str(str: RegExp): string
+export function regex_str(str: string): string
+export function regex_str(str: string | RegExp): string
+export function regex_str(str): string
 {
+	if (isRegExp(str))
+	{
+		return str.source;
+	}
+
 	return str
 		.replace(/(\W)/g, '\\$1')
 		;

@@ -229,7 +229,7 @@ export async function get_volume_list(url)
 
 				...a,
 
-				url: dom.source_url,
+				url: dom.url.href,
 				url_data,
 
 				novel_title,
@@ -336,7 +336,7 @@ export async function download(url: string, downloadOptions: {
 
 	let novel = await get_volume_list(url);
 
-	//console.log(novel);
+	console.log(novel);
 
 	let idx = 0;
 

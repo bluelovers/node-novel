@@ -50,6 +50,9 @@ export const words: IWords[] = [
 	['— —', '——'],
 
 	...sublib.lazymarks['zh'],
+	...baidu.getTable(),
+	...sublib.lazymarks['zh'],
+	...sublib.lazymarks['zh2'],
 
 	['位什麼', '為什麼'],
 	['(不死者?)[話话]', '$1化'],
@@ -64,8 +67,6 @@ export const words: IWords[] = [
 	['馬車行不死', '馬車型不死'],
 
 	['回來的之後', '回來之後'],
-
-	...baidu.getTable(),
 
 	[/混\+蛋/g, '混蛋'],
 
@@ -224,9 +225,6 @@ export const words: IWords[] = [
 
 	['飯餸|飯餚', '飯餚'],
 
-	sublib._word_zh(/夢魘/g, '夢魘'),
-	sublib._word_zh(/奴隶|奴隷|奴隷/g, '奴隷'),
-
 	[/(.+)[（\(]\1[）\)]/g, '$1'],
 
 	[/\n+([ \-\=＝－─＊◇◆☆◊]+)\n+/mg, '\n\n$1\n\n'],
@@ -263,7 +261,15 @@ export const words: IWords[] = [
 		return '─'.repeat(m[0].length);
 	}],
 
+	[/([─＝=]){51,}/g, function (...m)
+	{
+		//return m[0].replace(/[－\-─—]/g, '─');
+		return m[1].repeat(51);
+	}],
+
 	[/([\u4E00-\u9FFF])\-(?![\w\-+])/g, '$1─'],
+
+	...sublib.lazymarks['ln'],
 
 ];
 
@@ -272,7 +278,7 @@ export function words_callback(text)
 	let lightnovel_copy = '(?:图源|扫图|录入|翻译|翻译|作者|原名|插画|校对|日语原名|书名|转自|简介|目录)';
 
 	// @fixme unknow bug
-	return text
+	text = text
 		.toString()
 		//.replace(new RegExp(`(^|\\n)((?:[ \\t　]*)${lightnovel_copy}：(?:[^\\n]*))\\n+(?!(?:[^\\n]+：|[＝－\=\\-]))`, 'ug'), '$1$2\n\n')
 		.replace(new RegExp(`(^|\\n)((?:[ \\t　]*)${lightnovel_copy}：(?:[^\\n]*))\\n{2,}(?!(?:[^\\n]+：|[＝－\=\\-─]))`, 'ug'), '$1$2\n\n')
@@ -283,6 +289,10 @@ export function words_callback(text)
 
 		.replace(new RegExp(`\\n([＝－\\=\\-─]+)\\n+((?:[ \\t　]*)?${lightnovel_copy}：)`, 'g'), '\n$1\n$2')
 	;
+
+	//text = text.replace(/^(「[^\n」]+)\n*(\n[^\n「」]+)*\n*(\n[^\n「]+」)/gm, '$1$2$3');
+
+	return text;
 }
 
 export const words_maybe: vMaybe = [
