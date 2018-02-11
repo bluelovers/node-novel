@@ -7,7 +7,7 @@ import * as fs from 'fs-extra';
 import path from 'upath2';
 import * as StrUtil from 'str-util';
 import * as execall from 'execall';
-import { novelText } from '../novel/text';
+import novelText from 'novel-text';
 import * as Promise from 'bluebird';
 import * as iconv from 'iconv-jschardet';
 import fsIconv, { trimFilename } from 'fs-iconv';
