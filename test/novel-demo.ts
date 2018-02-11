@@ -16,7 +16,7 @@ import novelInfo, { mdconf_parse, IMdconfMeta } from 'node-novel-info';
 
 import * as iconv from 'iconv-jschardet';
 
-import { novelText } from '../lib/novel/text';
+import novelText from 'novel-text';
 
 import * as novelGlobby from 'node-novel-globby';
 
@@ -105,6 +105,13 @@ novelID = '黑之魔王';
 
 //novelID = 'よみがえる殺戮者';
 //myLocalesID = '呼び出された殺戮者';
+
+//novelID = '回復術士のやり直し～即死魔法とスキルコピーの超越ヒール～';
+
+//novelID = '異世界で魅了チートを使って奴隷ハーレムをつくってみた';
+//pathMain = 'epub';
+
+//novelID = 'シャチになりましたオルカナティブ';
 
 if (!novelID)
 {

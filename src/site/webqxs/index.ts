@@ -9,7 +9,7 @@ import * as moment from 'moment-timezone';
 import * as fs from 'fs-extra';
 import * as path from 'path';
 import * as projectConfig from '../../../project.config';
-import { novelText } from '../../../lib/novel/text';
+import novelText from 'novel-text';
 import * as shortid from 'shortid';
 
 export const IDKEY = 'webqxs';

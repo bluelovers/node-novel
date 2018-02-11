@@ -9,7 +9,7 @@ import * as projectConfig from '../project.config';
 import * as Promise from 'bluebird';
 import * as StrUtil from 'str-util';
 import * as execall from 'execall';
-import { novelText } from '../lib/novel/text';
+import novelText from 'novel-text';
 import trimFilename from '../lib/func';
 
 let inputFile = path.join(projectConfig.dist_novel_root,

@@ -20,9 +20,27 @@ lazymarks[0] = [
 ];
 
 {
-	let word = `！？…－—\\w０-９ａ-ｚＡ-Ｚ『』\\u4E00-\\u9FFF`;
+
+	//
+// UNICODE RANGE : DESCRIPTION
+//
+// 3000-303F : punctuation
+// 3040-309F : hiragana
+// 30A0-30FF : katakana
+// FF00-FFEF : Full-width roman + half-width katakana
+// 4E00-9FAF : Common and uncommon kanji
+//
+// Non-Japanese punctuation/formatting characters commonly used in Japanese text
+// 2605-2606 : Stars
+// 2190-2195 : Arrows
+// u203B     : Weird asterisk thing
+
+	let word = `！？…－—\\w０-９ａ-ｚＡ-Ｚ『』\\u4E00-\\u9FFF\\u4E00-\\u9FAF\\u3000-\\u30FF`;
 
 	lazymarks[1] = [
+
+		[/ +$/gm, ''],
+
 		[
 			/"([^\n"']*)'([^'"\n]+)'/gm,
 			'"$1『$2』'
@@ -31,12 +49,23 @@ lazymarks[0] = [
 			/"([^\n"']*)'([^'"\n]+)'/gm,
 			'"$1『$2』'
 		],
+
+		[/^([“])([^\n"“”‘’「」『』'\[\]［］]*)\1$/gm, '$1$2”'],
+		[/^([‘])([^\n"“”‘’「」『』'\[\]［］]*)\1$/gm, '$1$2’'],
 
 		[
 			`^([^\\n"“”「」'\\[\\]［］]*)["“'\\[［]([ ]*[${word}][^\\n"“”「」'\\[\\]［］]*(?:\\n[^\\n"“”「」'\\[\\]［］]*)?)["”'\\]］]`,
 			'$1「$2」',
 			'gm',
 		],
+
+		[
+			// 嘗試修正 「杀」『杀』
+			`(「[^「」『』\\n]+」)(?:[^\\n"“”「」『』'\\[\\]［］]*)["“]([ ]*[${word}][^\\n"“”「」『』'‘’]*)["”]`,
+			'$1「$2」',
+			'gm',
+		],
+
 		[
 			`^([^\\n"“”『』'‘’]*)["“'‘]([ ]*[${word}][^\\n"“”『』'‘’]*)["”'’]`,
 			'$1『$2』',
@@ -116,7 +145,7 @@ lazymarks[3] = [
 
 lazymarks[4] = [
 	[
-		/[\!\(\):,~∞]+/g, function (...m)
+		/[\!\(\):,~∞&]+/g, function (...m)
 	{
 		return StrUtil.toFullWidth(m[0], {
 			skip: {
@@ -136,6 +165,15 @@ lazymarks[4] = [
 	}],
 
 	[/([\d０-９\u4E00-\u9FFF])([xX])([\d０-９])/g, '$1×$3'],
+
+	[/([\u4E00-\u9FFF！？…－—])([a-z])(?=[\u4E00-\u9FFF])/ig, function (...m)
+	{
+		return m[1] + StrUtil.toFullWidth(m[2], {
+			skip: {
+				space: true,
+			},
+		});
+	}],
 
 	[
 		/\?+(?=[』」\n])/g, function (...m)
@@ -163,8 +201,8 @@ lazymarks[4] = [
 
 	[/([^\.])\.$/gm, '$1。'],
 
-	[/(・) (?=\S)/g, '$1'],
-	[/(\S) (?=・)/g, '$1'],
+	[/([・，。、！？]) (?=\S)/g, '$1'],
+	[/(\S) (?=[・，。、！？])/g, '$1'],
 ];
 
 lazymarks[5] = [

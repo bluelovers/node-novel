@@ -4,12 +4,12 @@
  * @see https://tieba.baidu.com/p/5197931833
  */
 
-import { IWordsOutput, IRegExpCallback } from '../novel/text';
+import { IWordsOutput, IRegExpCallback } from 'novel-text';
 import * as StrUtil from 'str-util';
 import sublib from './lib';
 import baidu from './lib/baidu';
 
-export { sublib }
+export { sublib, IWordsOutput, IRegExpCallback }
 
 export interface IWords extends IWordsOutput
 {
@@ -50,7 +50,13 @@ export const words: IWords[] = [
 	['— —', '——'],
 
 	...sublib.lazymarks['zh'],
-	...baidu.getTable(),
+	...baidu.getTable({
+		tables: [
+			'较高',
+			'不要',
+
+		],
+	}),
 	...sublib.lazymarks['zh'],
 	...sublib.lazymarks['zh2'],
 
@@ -254,6 +260,7 @@ export const words: IWords[] = [
 	[/\n[ ]*([^：\n]+：[^\n]*)\n{2,}([ ]*[^：\n]+\n)/ug, '\n$1\n\n$2'],
 
 	[/\n+[\(（\[]*完[\)）\]]*[。\-]*$/g, ''],
+	[/[──＝=]+$/g, ''],
 
 	[/[－\-─—]{2,}|[－\-─—](?=[』」》）])/g, function (...m)
 	{

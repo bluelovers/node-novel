@@ -2,7 +2,7 @@
  * Created by user on 2018/1/7/007.
  */
 
-import { novelText } from '../../lib/novel/text';
+import novelText from 'novel-text';
 import path from 'upath2';
 import * as projectConfig from '../../project.config';
 import txtSplit, { IOptions } from '../../lib/fs/txt-split';
