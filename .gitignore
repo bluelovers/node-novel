@@ -6,3 +6,21 @@
 /dist_novel/
 /dist_novel/dmzj_out/
 /dist_novel/user_out/
+### git template
+.idea
+
+~ci.list.txt
+~ci.log.txt
+~ci.errors.txt
+
+*.stackdump
+*.bak
+*.old
+
+package-lock.json
+
+test/**/*.js
+test/**/*.d.ts
+test/*.js
+test/*.d.ts
+texst/temp

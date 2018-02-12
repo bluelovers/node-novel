@@ -154,7 +154,7 @@ export const words: IWords[] = [
 	sublib._word_zh('托莱典|托莱汀|达拉贡|拖莱登', '托莱汀'),
 	sublib._word_zh('托尔兹|托尔斯|兹托', '托尔斯'),
 
-	sublib._word_zh('法娜凱亞|法娜凯雅|法娜凯娅', '法娜凯雅'),
+	sublib._word_zh('法娜凱亞|法娜凯雅|法娜凯娅|菈妲法娜', '法娜凯雅'),
 
 	['丘比乌斯|裘皮乌斯', '裘皮乌斯'],
 	['艾特莉|艾莉特|莉艾特', '莉艾特'],
@@ -187,6 +187,8 @@ export const words: IWords[] = [
 	 *
 	 * 德涅波拉
 	 * 光树
+	 *
+	 * 战乙女德涅波拉
 	 */
 	sublib._word_zh('妮娅', '妮娅'),
 	sublib._word_zh('梅迩菲娜', '梅迩菲娜'),
@@ -214,6 +216,7 @@ export const words: IWords[] = [
 	sublib._word_zh('达哈克', '达哈克'),
 
 	sublib._word_zh('艾克利普斯', '艾克利普斯'),
+	sublib._word_zh('贝努', '贝努'),
 
 	sublib._word_zh('阿波菲斯', '阿波菲斯'),
 

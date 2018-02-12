@@ -203,6 +203,11 @@ lazymarks[4] = [
 
 	[/([・，。、！？]) (?=\S)/g, '$1'],
 	[/(\S) (?=[・，。、！？])/g, '$1'],
+
+	['([\\u4E00-\\u9FFF])([Oo]+)(?=[\\u4E00-\\u9FFF])', function (...m)
+	{
+		return m[1] + '◯'.repeat(m[2].length);
+	}],
 ];
 
 lazymarks[5] = [
