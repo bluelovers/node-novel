@@ -54,7 +54,9 @@ export const words: IWords[] = [
 		tables: [
 			'较高',
 			'不要',
-
+			'体位',
+			'出改',
+			'善再',
 		],
 	}),
 	...sublib.lazymarks['zh'],

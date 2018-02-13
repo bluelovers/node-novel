@@ -29,14 +29,28 @@ export const value = {
  */
 export const words: IWords[] = sublib._word_zh_all([
 
+	['雷康特布宁', '雷康特布宁'],
 
+	['哥林布|哥布林', '哥布林'],
+
+	['\'\'', '哥布林'],
+
+	[/\//g, function (...m)
+	{
+		return StrUtil.toFullWidth(m[0]);
+	}],
+
+	[/([\d０-９]+P)(?!\w)/g, function (...m)
+	{
+		return StrUtil.toFullWidth(m[1]);
+	}],
 
 	[/(\d+)/g, function (...m)
 	{
 		return StrUtil.toFullNumber(m[1]);
 	}],
 
-	//[/^[ \t　]+/gm, ''],
+	[/^[ \t　]+/gm, ''],
 	//[/^[\?]/gm, ''],
 
 
