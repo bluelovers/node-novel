@@ -64,7 +64,12 @@ export function loadLocales(name, basepath = localesPath): {
 	}
 	catch (e)
 	{
+		console.error(e);
 
+		if (!name)
+		{
+			throw e;
+		}
 	}
 
 	return null;

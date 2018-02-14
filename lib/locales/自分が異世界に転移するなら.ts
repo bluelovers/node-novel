@@ -33,7 +33,7 @@ export const words: IWords[] = sublib._word_zh_all([
 
 	['哥林布|哥布林', '哥布林'],
 
-	['\'\'', '哥布林'],
+	['共同语|共通语', '共通語'],
 
 	[/\//g, function (...m)
 	{

@@ -49,14 +49,9 @@ export const words: IWords[] = [
 	[/[―—]/g, '—'],
 	['— —', '——'],
 
-	...sublib.lazymarks['zh'],
 	...baidu.getTable({
 		tables: [
-			'较高',
-			'不要',
-			'体位',
-			'出改',
-			'善再',
+			//
 		],
 	}),
 	...sublib.lazymarks['zh'],
@@ -481,7 +476,9 @@ export const words_maybe: vMaybe = [
 	//'应为',
 	//'常识',
 
-	'[×]',
+	sublib._word_zh('回.举报', '回复举报')[0],
+
+	//'[×]',
 	/.{1,3}?[^a-z][x][^a-z].{1,3}?/ig,
 
 	//'另',
@@ -503,6 +500,8 @@ export const words_maybe: vMaybe = [
 	/[\u4E00-\u9FFF]{1,3}[\?＝\=\-][\u4E00-\u9FFF]{1,3}/ig,
 
 ];
+
+//console.log(words_maybe);
 
 import * as self from './index';
 import { lazymarks } from './lib/index';
