@@ -35,6 +35,11 @@ export const words: IWords[] = sublib._word_zh_all([
 
 	['共同语|共通语', '共通語'],
 
+	['贝尔米凯|贝尔麦克|ベルミケ|贝尔米克', '貝尔米凱'],
+	['春黑|ハルクロ|赫尔克罗', '赫尔克罗'],
+	['基尔萨尔|琪尔萨尔', '琪尔萨尔'],
+	['修米米|俢米米', '修米米'],
+
 	[/\//g, function (...m)
 	{
 		return StrUtil.toFullWidth(m[0]);
