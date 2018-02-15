@@ -303,14 +303,14 @@ export const words: IWords[] = [
 	 Rank5的地城『エルグランドキャニオン』的霸者大地龙，仅仅是通过就会制造出直径长达50米的巨大洞窟。
 	 */
 	sublib._word_zh('嫉妒吉尔|懒惰吉尔|怠惰吉尔', '怠惰吉尔'),
-	sublib._word_zh('贪婪格尔|贪婪戈尔', '贪婪戈尔'),
+	sublib._word_zh('贪婪格尔|贪婪戈尔', '貪婪戈尔'),
 	sublib._word_zh('傲慢杰姆', '傲慢杰姆'),
 	sublib._word_zh('暴食欧库多', '暴食欧库多'),
 	sublib._word_zh('嫉妒雷伊', '嫉妒雷伊'),
 
 	sublib._word_zh('悪食', '悪食'),
 	sublib._word_zh('懒惰|怠惰', '怠惰'),
-	sublib._word_zh('贪婪', '贪婪'),
+	sublib._word_zh('贪婪', '貪婪'),
 	sublib._word_zh('色欲', '色欲'),
 	sublib._word_zh('傲慢', '傲慢'),
 	sublib._word_zh('嫉妬', '嫉妬'),
@@ -330,13 +330,14 @@ export const words: IWords[] = [
 	sublib._word_zh('鲁朵拉|路多拉', '路多拉'),
 
 	/**
+	 * 艾斯梅拉山脉
 	 * 斯铃村
 	 *
 	 * lost rose
 	 * Last Rose
 	 */
 	sublib._word_zh('阿苏贝鲁|艾斯梅拉', '艾斯梅拉'),
-	sublib._word_zh('最后的?玫瑰', '最后的玫瑰'),
+	sublib._word_zh('最(后|後)的?玫瑰', '最後的玫瑰'),
 	sublib._word_zh(`l[oa]st${sp}rose`, 'Last Rose', 'ig'),
 
 	/**
@@ -433,10 +434,45 @@ export const words: IWords[] = [
 	sublib._word_zh('霊刀', '霊刀'),
 
 	sublib._word_zh('起浮游|浮游羽毛', '浮游羽毛'),
+	sublib._word_zh('绝怨鉈', '絶怨鉈'),
+
+	/*
+	['[『「]咒怨铊[「『]腹裂[』」][』」]', '「咒怨铊『腹裂』」'],
 
 	sublib._word_zh('獠牙剣(?:[』」》）】]?[《（「『【？?・]+)悪食[』」》）】]?', '牙劍「悪食」'),
 	sublib._word_zh('餓狼之?剣(?:[』」》）】]?[《（「『【？?・]+)悪食[』」》）】]?', '餓狼劍「悪食」'),
-	sublib._word_zh('暴食牙剣(?:[』」》）】]?[《（「『【？?・]+)悪食[』」》）】]?', '餓狼劍「極悪食」'),
+	sublib._word_zh('暴食牙剣(?:[』」》）】]?[《（「『【？?・]+)極悪食[』」》）】]?', '暴食牙剣「極悪食」'),
+
+	sublib._word_zh('絶怨鉈(?:[』」》）】]?[《（「『【？?・]+)首断[』」》）】]?', '絶怨鉈「首断」'),
+	*/
+
+	...(function (): IWords[]
+	{
+		let ret = [
+
+			[['獠?牙剣', '悪食'], '牙劍「悪食」'],
+			[['餓狼之?剣', '悪食'], '餓狼劍「悪食」'],
+			[['暴食牙剣', '極悪食'], '暴食牙剣「極悪食」'],
+
+			[['咒怨铊', '腹裂'], '咒怨铊「腹裂」'],
+			[['絶怨鉈', '首断'], '絶怨鉈「首断」'],
+
+		].reduce(function (a, b)
+		{
+			let c = [
+				`(${b[0][0]})(?:[』」》）】]?[《（「『【？?・]+)(${b[0][1]})[』」》）】]?`,
+				b[1] as string,
+			];
+
+			a.push(sublib._word_zh.apply(null, c));
+
+			return a;
+		}, [] as IWords[]);
+
+		console.log(ret);
+
+		return ret;
+	})(),
 
 	/**
 	 * skill
@@ -452,107 +488,11 @@ export const words: IWords[] = [
 	sublib._word_zh('影空間', '影空間'),
 
 	sublib._word_zh('聖魅术|聖愛魅惑|聖愛魅了', '聖愛魅惑'),
+	sublib._word_zh('肉体補填|肉体填補', '肉体填補'),
 
 	sublib._word_zh(`the${sp}greed`, 'The・Greed'),
 
 	...sublib.lazymarks['class'],
-
-	[[
-		`([《（「『【])`,
-
-		`(`,
-
-		`(?:[^《（「『【』」》）】\\n]{1,5})`,
-
-		`(?:`,
-		[
-			`（\\w）`,
-			`\\w`,
-		].join('|'),
-		`)?`,
-
-		`)`,
-
-		`([』」》）】])`,
-
-	].join(''), function (...m)
-	{
-		let _skip;
-
-		switch (m[2])
-		{
-			case '影空間':
-			case '混沌魔獸':
-			case '逆干渉':
-			case '聖愛魅惑':
-
-				m[1] = '『';
-				m[3] = '』';
-
-				break;
-			default:
-				_skip = true;
-				break;
-		}
-
-		if (_skip)
-		{
-			return m[0];
-		}
-
-		return m[1] + m[2] + m[3];
-	}],
-
-	[[
-		`([《（「『【])?`,
-
-		`(`,
-
-		`(?:牙劍|餓狼劍)`,
-
-		`(?:`,
-		[
-			[
-				`(?:[《（「『【])`,
-
-				`[^《（「『【』」》）】\\n]{1,3}`,
-
-				`(?:[』」》）】])`,
-			].join(''),
-
-		].join('|'),
-		`)`,
-
-		`)`,
-
-		`([』」》）】])?`,
-
-	].join(''), function (...m)
-	{
-		let _skip;
-
-		switch (m[2])
-		{
-			case '牙劍「悪食」':
-			case '餓狼劍「悪食」':
-			case '餓狼劍「極悪食」':
-
-				m[1] = '『';
-				m[3] = '』';
-
-				break;
-			default:
-				_skip = true;
-				break;
-		}
-
-		if (_skip)
-		{
-			return m[0];
-		}
-
-		return m[1] + m[2] + m[3];
-	}],
 
 	[
 		`[《（「『]\\w+[』」》）]`, function (...m)
@@ -764,7 +704,115 @@ export const words: IWords[] = [
 
 	...sublib.lazymarks[5],
 
-	['[『「]咒怨铊[「『]腹裂[』」][』」]', '「咒怨铊『腹裂』」'],
+	[[
+		`([《（「『【])`,
+
+		`(`,
+
+		`(?:[^《（「『【』」》）】\\n]{1,5})`,
+
+		`(?:`,
+		[
+			`（\\w）`,
+			`\\w`,
+		].join('|'),
+		`)?`,
+
+		`)`,
+
+		`([』」》）】])`,
+
+	].join(''), function (...m)
+	{
+		let _skip;
+
+		switch (m[2])
+		{
+			case '影空間':
+			case '混沌魔獸':
+			case '逆干渉':
+			case '聖愛魅惑':
+			case '進化':
+			case '肉体填補':
+
+				m[1] = '『';
+				m[3] = '』';
+
+				break;
+			default:
+				_skip = true;
+				break;
+		}
+
+		if (_skip)
+		{
+			return m[0];
+		}
+
+		return m[1] + m[2] + m[3];
+	}],
+
+	[[
+		`([《（「『【])?`,
+
+		`(?:`,
+
+		`(`,
+		[
+			'牙劍',
+			'餓狼劍',
+			'絶怨鉈',
+			'暴食牙剣',
+		].join('|'),
+		`)`,
+
+		`(?:`,
+		[
+			[
+				`(?:[《（「『【])`,
+
+				`([^《（「『【』」》）】\\n]{1,3})`,
+
+				`(?:[』」》）】])`,
+			].join(''),
+
+		].join('|'),
+		`)`,
+
+		`)`,
+
+		`([』」》）】])?`,
+
+	].join(''), function (...m)
+	{
+		let _skip;
+
+		switch (m[2])
+		{
+			case '牙劍':
+			case '餓狼劍':
+			case '暴食牙剣':
+			case '絶怨鉈':
+
+				m[1] = '『';
+
+				m[3] = `「${m[3]}」`;
+
+				m[4] = '』';
+
+				break;
+			default:
+				_skip = true;
+				break;
+		}
+
+		if (_skip)
+		{
+			return m[0];
+		}
+
+		return m[1] + m[2] + m[3] + m[4];
+	}],
 
 ];
 

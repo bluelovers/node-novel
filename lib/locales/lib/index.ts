@@ -5,7 +5,6 @@
 import { IWords } from '../';
 import * as StrUtil from 'str-util';
 import { regex_str, array_unique } from '../../func';
-import { cn2tw, tw2cn } from 'chinese_convert';
 import { IRegExpCallback } from 'novel-text';
 
 import * as regexpCjkLib from 'regexp-cjk/lib';
@@ -255,6 +254,9 @@ let _en = [
 	'Lord',
 
 	'Gay',
+
+	'cm',
+	'km',
 ];
 
 lazymarks['en'] = [
@@ -391,7 +393,7 @@ lazymarks['zh'] = _word_zh_all([
 
 	['熱', '熱'],
 	['諸', '諸'],
-	['絶', '絶'],
+	['绝|絶', '絶'],
 
 	['异|異', '異'],
 	['謎|谜', '謎'],
@@ -411,6 +413,7 @@ lazymarks['zh'] = _word_zh_all([
 
 	['魅', '魅'],
 	['陣', '陣'],
+	['貪', '貪'],
 
 ]);
 
@@ -438,6 +441,8 @@ lazymarks['zh2'] = _word_zh_all([
 
 	['(凱|凯|鎧)甲', '鎧甲'],
 
+	['進化', '進化'],
+
 	['试炼|試練', '試練'],
 
 	['后続|後續', '後續'],
@@ -445,6 +450,10 @@ lazymarks['zh2'] = _word_zh_all([
 	['复製|複製', '複製'],
 
 	['遺迹|遺跡', '遺跡'],
+
+	['美丑|美醜', '美醜'],
+
+	['絶頂', '絶頂'],
 
 ]);
 
@@ -543,120 +552,6 @@ export function _word_zh_all(arr: IWords[])
 		return value;
 	}) as IWords[];
 }
-
-/*
-
-export let _zh_num = '一二三四五六七八九十';
-export let _zh_num2 = '百十';
-export let _full_num = '０１２３４５６７８９';
-
-export function _word_zh(search: string, ret: string | IRegExpCallback, flag?: string, skip?: string): IWords
-export function _word_zh(search: RegExp, ret: string | IRegExpCallback, flag?: string, skip?: string): IWords
-export function _word_zh(search, ret: string | IRegExpCallback, flags = 'ig', skip?: string)
-{
-	let s = replace_literal(search, function (text)
-	{
-		return _word_zh_core(text, skip);
-	});
-
-	// @ts-ignore
-	flags = (s instanceof RegExp) ? null : flags;
-
-	return [s, ret, flags] as IWords;
-}
-
-export function _word_zh_core(search: string, skip: string)
-{
-	return search.replace(/[\u4E00-\u9FFFの]/g, function (char)
-	{
-		if (skip && skip.indexOf(char) != -1)
-		{
-			return char;
-		}
-
-		let jt = StrUtil.jp2zht(char);
-		let js = StrUtil.jp2zhs(char);
-
-		let a =[
-			char,
-			...zhtw_convert.tw(char),
-			...zhtw_convert.cn(char),
-		];
-
-		if (!skip || skip.indexOf(jt) == -1)
-		{
-			a = a.concat(...zhtw_convert.cn(jt));
-		}
-		if (!skip || skip.indexOf(js) == -1)
-		{
-			a = a.concat(...zhtw_convert.tw(js));
-		}
-
-		if (zhtw_convert.table_jp[char])
-		{
-			a = a.concat(zhtw_convert.table_jp[char]);
-		}
-
-		a = array_unique(a);
-
-		a.sort();
-
-		return a.length > 1 ? '[' + a.join('') + ']' : a[0];
-	});
-}
-
-export namespace zhtw_convert
-{
-	let _table = {
-		'罗': '羅',
-	};
-
-	export const table_jp = {
-		'の': [
-			'之',
-			'的',
-		],
-	};
-
-	let _table_cn = Object.keys(_table)
-		.reduce(function (a, b)
-		{
-			a[_table[b]] = b;
-
-			return a;
-		}, {})
-	;
-
-	export function tw(char): string[]
-	{
-		let a = [];
-
-		if (_table[char])
-		{
-			a.push(_table[char])
-		}
-
-		a.push(cn2tw(char));
-
-		return a;
-	}
-
-	export function cn(char): string[]
-	{
-		let a = [];
-
-		if (_table_cn[char])
-		{
-			a.push(_table_cn[char])
-		}
-
-		a.push(tw2cn(char));
-
-		return a;
-	}
-}
-
-*/
 
 import * as self from './index';
 
