@@ -13,6 +13,9 @@ import { replace_literal } from 'regexp-cjk/lib';
 import { isRegExp } from 'regexp-cjk';
 export const _word_zh = regexpCjkLib._word_zh;
 
+import { tagTemplate } from './tag';
+export { tagTemplate }
+
 export const lazymarks = {} as IWords[][];
 
 lazymarks[0] = [
@@ -402,7 +405,12 @@ lazymarks['zh'] = _word_zh_all([
 	['虧|亏', '虧'],
 
 	['語', '語'],
+	['間', '間'],
 	['俢|修', '修'],
+	['渉', '渉'],
+
+	['魅', '魅'],
+	['陣', '陣'],
 
 ]);
 
@@ -452,6 +460,61 @@ lazymarks['class'] = _word_zh_all([
 	['武(斗|闘|鬥)', '武闘'],
 	['格(闘|斗|鬥)術', '格闘術'],
 	['角(斗|闘|鬥)', '角闘'],
+
+	['魔法陣', '魔法陣'],
+	['魔術', '魔術'],
+
+]);
+
+lazymarks['c000'] = _word_zh_all([
+
+	[/\uFEFF/g, ''],
+
+	[/[  \xA0]/g, ' '],
+	//[/[　\u3000]/g, '　'],
+	[/[·‧・···•]/g, '・'],
+	[/[．]/g, '・'],
+	['[∶:]', ':'],
+	[/[：：︰﹕：]/ug, '：'],
+	[/[〔［]/g, '［'],
+	[/[〕］]/g, '］'],
+	[/[―—]/g, '—'],
+	['— —', '——'],
+
+]);
+
+lazymarks['c050'] = _word_zh_all([
+
+	[/[\.・。]{3}/g, '…'],
+	[/…[\.・。]{1,2}/g, '……'],
+	[/[\.・。]{2}/g, '…'],
+
+	[/([…也吗么嗎麼人中聊哦笑办我營道害做個族策車蹈具哈对事破嗯辦喲欸著咦船家到呢來啊數阿用何裡吶吧了趣里做诶～！？][\?!]+|[\?!]+[」…）！])/ug, function (...m)
+	{
+		return StrUtil.toFullWidth(m[0], {
+			skip: {
+				space: true,
+			},
+		});
+	}],
+
+]);
+
+lazymarks['c100'] = _word_zh_all([
+
+	[/[－\-─—]{2,}|[－\-─—](?=[』」》）])/g, function (...m)
+	{
+		//return m[0].replace(/[－\-─—]/g, '─');
+		return '─'.repeat(m[0].length);
+	}],
+
+	[/([─＝=]){51,}/g, function (...m)
+	{
+		//return m[0].replace(/[－\-─—]/g, '─');
+		return m[1].repeat(51);
+	}],
+
+	[/([\u4E00-\u9FFF])\-(?![\w\-+])/g, '$1─'],
 
 ]);
 

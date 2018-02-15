@@ -36,18 +36,7 @@ export const sp2 = '[・。\\\?]';
 export const words: IWords[] = [
 
 	// BOM
-	[/\uFEFF/g, ''],
-
-	[/[  \xA0]/g, ' '],
-	//[/[　\u3000]/g, '　'],
-	[/[·‧・···•]/g, '・'],
-	[/[．]/g, '・'],
-	['[∶:]', ':'],
-	[/[：：︰﹕：]/ug, '：'],
-	[/[〔［]/g, '［'],
-	[/[〕］]/g, '］'],
-	[/[―—]/g, '—'],
-	['— —', '——'],
+	...sublib.lazymarks['c000'],
 
 	...baidu.getTable({
 		tables: [
@@ -238,18 +227,7 @@ export const words: IWords[] = [
 
 	[/(.)（·）(.)/g, '$1$2'],
 
-	[/[\.・。]{3}/g, '…'],
-	[/…[\.・。]{1,2}/g, '……'],
-	[/[\.・。]{2}/g, '…'],
-
-	[/([…也吗么嗎麼人中聊哦笑办我營道害做個族策車蹈具哈对事破嗯辦喲欸著咦船家到呢來啊數阿用何裡吶吧了趣里做诶～！？][\?!]+|[\?!]+[」…）！])/ug, function (...m)
-	{
-		return StrUtil.toFullWidth(m[0], {
-			skip: {
-				space: true,
-			},
-		});
-	}],
+	...sublib.lazymarks['c050'],
 
 	[/^(第[^\n]+話[^\n]*)\n+/g, '$1\n\n'],
 
@@ -259,19 +237,7 @@ export const words: IWords[] = [
 	[/\n+[\(（\[]*完[\)）\]]*[。\-]*$/g, ''],
 	[/[──＝=]+$/g, ''],
 
-	[/[－\-─—]{2,}|[－\-─—](?=[』」》）])/g, function (...m)
-	{
-		//return m[0].replace(/[－\-─—]/g, '─');
-		return '─'.repeat(m[0].length);
-	}],
-
-	[/([─＝=]){51,}/g, function (...m)
-	{
-		//return m[0].replace(/[－\-─—]/g, '─');
-		return m[1].repeat(51);
-	}],
-
-	[/([\u4E00-\u9FFF])\-(?![\w\-+])/g, '$1─'],
+	...sublib.lazymarks['c100'],
 
 	...sublib.lazymarks['ln'],
 

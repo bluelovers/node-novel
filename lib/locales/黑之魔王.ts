@@ -413,6 +413,7 @@ export const words: IWords[] = [
 
 	[/Element\s*master|Elemental\s*Master/ig, 'Elemental Master'],
 	[/元素大师|元素掌控者|元素之主|元素支配者|元素大師|Elemental Master/g, '元素支配者'],
+	sublib._word_zh('混沌魔獸混沌', '混沌魔獸'),
 
 	/**
 	 * weapen
@@ -433,6 +434,10 @@ export const words: IWords[] = [
 
 	sublib._word_zh('起浮游|浮游羽毛', '浮游羽毛'),
 
+	sublib._word_zh('獠牙剣(?:[』」》）】]?[《（「『【？?・]+)悪食[』」》）】]?', '牙劍「悪食」'),
+	sublib._word_zh('餓狼之?剣(?:[』」》）】]?[《（「『【？?・]+)悪食[』」》）】]?', '餓狼劍「悪食」'),
+	sublib._word_zh('暴食牙剣(?:[』」》）】]?[《（「『【？?・]+)悪食[』」》）】]?', '餓狼劍「極悪食」'),
+
 	/**
 	 * skill
 	 */
@@ -444,8 +449,110 @@ export const words: IWords[] = [
 	sublib._word_zh('(雷)の魔王', '雷の魔王'),
 	sublib._word_zh('榴弾砲撃', '榴弾砲撃'),
 	sublib._word_zh('蒼炎の守護', '蒼炎の守護'),
+	sublib._word_zh('影空間', '影空間'),
+
+	sublib._word_zh('聖魅术|聖愛魅惑|聖愛魅了', '聖愛魅惑'),
 
 	sublib._word_zh(`the${sp}greed`, 'The・Greed'),
+
+	...sublib.lazymarks['class'],
+
+	[[
+		`([《（「『【])`,
+
+		`(`,
+
+		`(?:[^《（「『【』」》）】\\n]{1,5})`,
+
+		`(?:`,
+		[
+			`（\\w）`,
+			`\\w`,
+		].join('|'),
+		`)?`,
+
+		`)`,
+
+		`([』」》）】])`,
+
+	].join(''), function (...m)
+	{
+		let _skip;
+
+		switch (m[2])
+		{
+			case '影空間':
+			case '混沌魔獸':
+			case '逆干渉':
+			case '聖愛魅惑':
+
+				m[1] = '『';
+				m[3] = '』';
+
+				break;
+			default:
+				_skip = true;
+				break;
+		}
+
+		if (_skip)
+		{
+			return m[0];
+		}
+
+		return m[1] + m[2] + m[3];
+	}],
+
+	[[
+		`([《（「『【])?`,
+
+		`(`,
+
+		`(?:牙劍|餓狼劍)`,
+
+		`(?:`,
+		[
+			[
+				`(?:[《（「『【])`,
+
+				`[^《（「『【』」》）】\\n]{1,3}`,
+
+				`(?:[』」》）】])`,
+			].join(''),
+
+		].join('|'),
+		`)`,
+
+		`)`,
+
+		`([』」》）】])?`,
+
+	].join(''), function (...m)
+	{
+		let _skip;
+
+		switch (m[2])
+		{
+			case '牙劍「悪食」':
+			case '餓狼劍「悪食」':
+			case '餓狼劍「極悪食」':
+
+				m[1] = '『';
+				m[3] = '』';
+
+				break;
+			default:
+				_skip = true;
+				break;
+		}
+
+		if (_skip)
+		{
+			return m[0];
+		}
+
+		return m[1] + m[2] + m[3];
+	}],
 
 	[
 		`[《（「『]\\w+[』」》）]`, function (...m)
