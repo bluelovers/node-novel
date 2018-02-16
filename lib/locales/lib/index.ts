@@ -148,7 +148,7 @@ lazymarks[3] = [
 
 lazymarks[4] = [
 	[
-		/[\!\(\):,~∞&]+/g, function (...m)
+		/[\!\(\):,~∞&%]+/g, function (...m)
 	{
 		return StrUtil.toFullWidth(m[0], {
 			skip: {
@@ -415,6 +415,8 @@ lazymarks['zh'] = _word_zh_all([
 	['陣', '陣'],
 	['貪', '貪'],
 
+	['詛|诅', '詛'],
+
 ]);
 
 lazymarks['zh2'] = _word_zh_all([
@@ -454,6 +456,8 @@ lazymarks['zh2'] = _word_zh_all([
 	['美丑|美醜', '美醜'],
 
 	['絶頂', '絶頂'],
+
+	['治(愈|癒)', '治癒'],
 
 ]);
 

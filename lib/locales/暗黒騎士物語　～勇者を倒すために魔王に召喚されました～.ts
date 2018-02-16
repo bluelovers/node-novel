@@ -36,12 +36,21 @@ export const words: IWords[] = [
 	/**
 	 * 艾尔德王国是我们打倒千皮兽之后建立的王国
 	 * 班德尔平原
+	 *
+	 * アズィミド 阿茲維德
+	 *
+	 * 大賢者瑪裘烏斯
 	 */
 
 	['京华|京華', '京华'],
 	sublib._word_zh('加弥|加彌|嘉彌', '加弥'),
 	['奈[绪緒]美?|奈?[绪緒]美', '奈緒美'],
 	['憐侍|怜侍|伶侍|怜侍', '怜侍'],
+
+	sublib._word_zh('艾尔德|艾蘭德', '艾尔德'),
+	sublib._word_zh('班德尔|邦多勒', '班德尔'),
+
+	sublib._word_zh('瑪裘烏斯', '瑪裘烏斯'),
 
 	/**
 	 * 穆雷那斯
@@ -81,7 +90,14 @@ export const words: IWords[] = [
 	sublib._word_zh('库娜', '庫娜'),
 
 	//sublib._word_zh('普琪娜|普琪娜', '普琪娜'),
-	sublib._word_zh('珀莲娜|波莲', '珀莲娜'),
+	sublib._word_zh('珀莲娜|波莲娜', '珀莲娜'),
+	sublib._word_zh('珀莲|波莲', '珀莲'),
+
+	/**
+	 * 山之女神度萝拉的女儿，谷之女神姆米
+	 */
+	sublib._word_zh('艾恩西玛|恩谢玛', '艾恩西玛'),
+	sublib._word_zh('赫尔卡特', '赫尔卡特'),
 
 	/**
 	 * 奥克
@@ -151,7 +167,7 @@ export const words: IWords[] = [
 
 	sublib._word_zh('埃尔弗斯|阿尔弗斯', '埃尔弗斯'),
 
-	sublib._word_zh('托莱典|托莱汀|达拉贡|拖莱登', '托莱汀'),
+	sublib._word_zh('托莱典|托莱汀|达拉贡|拖莱登|达拉乌贡', '托莱汀'),
 	sublib._word_zh('托尔兹|托尔斯|兹托', '托尔斯'),
 
 	sublib._word_zh('法娜凱亞|法娜凯雅|法娜凯娅|菈妲法娜', '法娜凯雅'),
@@ -219,6 +235,9 @@ export const words: IWords[] = [
 	sublib._word_zh('贝努', '贝努'),
 
 	sublib._word_zh('阿波菲斯', '阿波菲斯'),
+	sublib._word_zh('吉普希尔|ジプシール', '吉普希尔'),
+
+	sublib._word_zh('混沌之灵杯|混沌的灵杯', '混沌之灵杯'),
 
 	/**
 	 * @todo 亞里亞蒂亞
@@ -301,7 +320,7 @@ export const words: IWords[] = [
 	/**
 	 * 罗库斯王国
 	 */
-	sublib._word_zh('罗库斯', '罗库斯'),
+	sublib._word_zh('罗库斯|ロクス', '罗库斯'),
 
 	/**
 	 * 基鲁塔尔
@@ -326,7 +345,10 @@ export const words: IWords[] = [
 	['阿爾戈亞|阿尔戈亚|阿戈[爾尔][亚亞]?', '阿尔戈亚'],
 	['卡農|卡隆|卡伦', '卡隆'],
 
-
+	/**
+	 *
+	 */
+	sublib._word_zh('尼妙|妮妙', '妮妙'),
 
 	/**
 	 *
@@ -343,6 +365,8 @@ export const words: IWords[] = [
 
 
 	['[烏乌]斯之?街', '烏斯之街'],
+
+	sublib._word_zh('濕地|濕原', '濕地'),
 
 	/**
 	 * 妖精
@@ -381,6 +405,9 @@ export const words: IWords[] = [
 
 	['精靈', '精灵'],
 
+	sublib._word_zh('精靈（ELF）', '妖精（ELF）'),
+	sublib._word_zh('森精', '妖精'),
+
 	['米陶洛斯|弥诺陶洛斯|米諾陶洛斯', '米諾陶洛斯'],
 
 	['戈雷姆', '哥雷姆'],
@@ -403,8 +430,10 @@ export const words: IWords[] = [
 
 	sublib._word_zh('锻冶|鐵冶', '锻冶'),
 
-	['[国國]', '国'],
-	['[圣聖]', '圣'],
+	sublib._word_zh('(吸血鬼)伯爵?', '$1伯爵'),
+
+	//['[国國]', '国'],
+	//['[圣聖]', '圣'],
 	['[樹树]', '树'],
 
 	[/\[女昌\]/g, '娼'],

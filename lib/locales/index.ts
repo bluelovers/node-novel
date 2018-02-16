@@ -41,6 +41,7 @@ export const words: IWords[] = [
 	...baidu.getTable({
 		tables: [
 			//
+			'斩首',
 		],
 	}),
 	...sublib.lazymarks['zh'],
