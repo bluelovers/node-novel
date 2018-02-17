@@ -42,6 +42,7 @@ export const words: IWords[] = [
 		tables: [
 			//
 			'斩首',
+			'賄賂',
 		],
 	}),
 	...sublib.lazymarks['zh'],
