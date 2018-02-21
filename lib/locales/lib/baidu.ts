@@ -18,6 +18,7 @@ export function getTable(options: tiebaHarmony.IOptions = {}): IWords[]
 			'体位',
 			'出改',
 			'善再',
+			'谄媚',
 		],
 	});
 

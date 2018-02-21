@@ -85,7 +85,7 @@ export const words: IWords[] = [
 	 * 我和莉莉共乘一匹，菲奥娜独自乘坐一匹。
 	 * 顺便说一下，前者叫梅丽，后者叫玛丽。
 	 */
-	sublib._word_zh('艾利娜|艾丽娜|艾莉娜|爱丽娜', '艾莉娜'),
+	sublib._word_zh('艾利娜|艾丽娜|艾莉娜|爱丽娜|艾里娜', '艾莉娜'),
 	sublib._word_zh('工会|公会|行会', '公会'),
 
 	/**
@@ -192,13 +192,13 @@ export const words: IWords[] = [
 	 *
 	 * 赛利亚|瑟莉雅 兰布尔
 	 */
-	['威[爾尔][納纳]德|威[爾尔](哈鲁特|哈尔?德)|瓦[尔爾][納纳]德|瓦尔哈尔?德', '威尔哈鲁特'],
+	['威[爾尔][納纳]德|威[爾尔](哈鲁?特|哈尔?德)|瓦[尔爾][納纳]德|瓦尔哈尔?德', '威尔哈鲁特'],
 	['威[爾尔]|瓦[尔爾]', '威尔'],
 
-	['(威[爾尔]|瓦[尔爾])([納纳]德|哈鲁特|哈尔?德)', '威尔哈鲁特'],
-	['(雷欧|雷恩)([納纳]德|哈鲁特|哈尔?德)', '雷恩哈鲁特'],
+	['(威[爾尔]|瓦[尔爾])([納纳]德|哈鲁?特|哈尔?德)', '威尔哈鲁特'],
+	['(雷欧|雷恩)([納纳]德|哈鲁?特|哈尔?德)', '雷恩哈鲁特'],
 
-	['(艾森|雷恩|威尔)([納纳]德|哈鲁特|哈尔?德)', '$1哈鲁特'],
+	['(艾森|雷恩|威尔)([納纳]德|哈鲁?特|哈尔?德)', '$1哈鲁特'],
 
 	sublib._word_zh('夏(露|洛|爾)特?|夏洛特', '夏洛特'),
 
@@ -267,7 +267,7 @@ export const words: IWords[] = [
 	sublib._word_zh('蓼蓝', '蓼蓝'),
 	sublib._word_zh('米萨|米莎|米沙', '米莎'),
 
-	sublib._word_zh(/沙利叶|沙利葉|萨利叶/g, '沙利葉'),
+	sublib._word_zh(/沙利叶|沙利葉|萨利叶|沙利业/g, '沙利葉'),
 
 	sublib._word_zh(`([^丽])(亚伯|亚伯|埃布尔|阿贝尔)`, '$1亚伯'),
 
@@ -357,7 +357,7 @@ export const words: IWords[] = [
 	 * lost rose
 	 * Last Rose
 	 */
-	sublib._word_zh('阿苏贝鲁|艾斯梅拉', '艾斯梅拉'),
+	sublib._word_zh('阿苏贝鲁|艾斯梅拉|阿斯貝尔', '艾斯梅拉'),
 	sublib._word_zh('最(后|後)的?玫瑰', '最後的玫瑰'),
 	sublib._word_zh(`l[oa]st${sp}rose`, 'Last Rose', 'ig'),
 
@@ -437,7 +437,7 @@ export const words: IWords[] = [
 	['龙杀手', '屠龍者'],
 	['DragonKiller', 'Dragon Killer'],
 
-	sublib._word_zh(/(?:漆黑|黑色|黑之)(?:夢魘|噩梦|惡梦)的?狂戰士/g, '漆黑夢魘的狂戰士'),
+	sublib._word_zh(/(?:漆黒|黒色|黒之)(?:夢魘|噩梦|悪梦)的?狂(?:戰|戦)士/g, '漆黑夢魘的狂戰士'),
 
 	[/Element\s*master|Elemental\s*Master/ig, 'Elemental Master'],
 	[/元素大师|元素掌控者|元素之主|元素支配者|元素大師|Elemental Master/g, '元素支配者'],
@@ -454,7 +454,7 @@ export const words: IWords[] = [
 	sublib._word_zh('来福枪|来复枪', '来福枪'),
 
 	['ブ儿ーム|ブルーム', 'ブルーム'],
-	[/(Ains|艾因茲|アインズ)[・\?](B[rl]oom|布魯姆|ブルーム|ブ儿ーム)/ig, '艾因茲・布魯姆'],
+	[/(Ains|艾因茲|アインズ|ainz)[・\?]?(B[rl]oom|布魯姆|ブルーム|ブ儿ーム)/ig, '艾因茲・布魯姆'],
 
 	sublib._word_zh(/custom ・fireball|改造火球杖/g, '定制・火球杖'),
 	sublib._word_zh(/定制・火焰水晶球/g, '定制・火焰水晶球'),
@@ -587,7 +587,7 @@ export const words: IWords[] = [
 		'红炎',
 	].reduce(function (a, b)
 	{
-		a.push(sublib._word_zh(`${b}の月`, `${b}の月`));
+		a.push(sublib._word_zh(`${b}の?月`, `${b}の月`));
 
 		return a;
 	}, [])),

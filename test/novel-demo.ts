@@ -2,7 +2,6 @@
  * Created by user on 2017/12/8/008.
  */
 
-import * as globby from 'globby';
 import * as fs from 'fs-extra';
 import path from 'upath2';
 import * as projectConfig from '../project.config';
@@ -19,6 +18,8 @@ import * as iconv from 'iconv-jschardet';
 import novelText from 'novel-text';
 
 import * as novelGlobby from 'node-novel-globby';
+
+const DEBUG = false;
 
 let _cache = {
 	rename: {},
@@ -113,6 +114,10 @@ novelID = '黑之魔王';
 
 //novelID = 'シャチになりましたオルカナティブ';
 
+//novelID = '自分が異世界に転移するなら';
+
+//novelID = '百魔の主';
+
 if (!novelID)
 {
 	throw new Error();
@@ -177,7 +182,33 @@ i18next.setDefaultNamespace('i18n');
 	let ls = await Promise
 		.mapSeries(novelGlobby
 			.globbyASync(globby_patterns, globby_options)
-			.then(novelGlobby.returnGlobList), async function (file, index, len)
+			.tap(async function (ls)
+			{
+				if (DEBUG)
+				{
+					await fs.writeJSON('./temp/log.1.json', ls, {
+						spaces: "\t",
+					});
+				}
+			})
+			.then(novelGlobby.returnGlobList)
+			.tap(async function (ls)
+			{
+				//console.log(globby_patterns, globby_options);
+
+				if (DEBUG)
+				{
+					ls = ls.map(function (p)
+					{
+						return path.relative(TXT_PATH, p);
+					});
+
+					await fs.writeFile('./temp/log.2.txt', ls.join("\n"));
+
+					process.exit();
+				}
+
+			}), async function (file, index, len)
 		{
 			let ext = '.txt';
 
@@ -351,7 +382,7 @@ i18next.setDefaultNamespace('i18n');
 
 			//return rename(file, index, len);
 		})
-		.tap(async function ()
+		.tap(async function (ls)
 		{
 			if (Object.keys(_cache.block).length)
 			{
@@ -601,95 +632,6 @@ function chk_words_maybe(text, list, cache = {})
 	};
 }
 
-async function rename(file, index?, len?)
-{
-	_cache.rename = _cache.rename || {};
-
-	let ext = '.txt';
-
-	let name = path.basename(file, ext);
-	let file_dir = path.relative(cwd, path.dirname(file));
-
-	name = StrUtil.stripAnsi(name);
-
-	let n;
-	let m;
-	let s;
-
-	let name2 = StrUtil.toHalfNumber(name);
-
-	if (m = /(?:第\s*)?(\d+)(?:[话話集#\._　\s\t])?/g.exec(name2))
-	{
-		n = m[1];
-
-		s = name2.slice(m.index + m[0].length);
-
-		//console.log(s);
-
-		if (m = /^(?:[话話集#\._　\s\t]+)?(.+)$/g.exec(s))
-		{
-			//console.log(m);
-
-			s = m[1];
-		}
-	}
-	else if (!n)
-	{
-		n = StrUtil.zh2num(name);
-
-		if (m = /[话話集#\._　 \t]+(.+)$/g.exec(name))
-		{
-			s = m[1];
-		}
-	}
-
-	if (n)
-	{
-		s = (s || '').replace(/^[\s　]+|[\s　]+$/g, '');
-
-		let n2 = StrUtil.toFullNumber(n.toString());
-		s = StrUtil.toFullNumber(s, {
-			only: {
-				number: true,
-				not_default: true,
-			},
-			skip: {
-				space: true,
-				eng: true,
-			},
-		});
-
-		let name_new = `第${n2}話` + (s ? '　' + s : '');
-
-		let p1 = path.join(file_dir, name) + ext;
-		let p2 = path.join(file_dir, path.filterNameEntry(name_new)) + ext;
-
-		_cache.rename[p1] = p2;
-
-		if (p1 != p2)
-		{
-			console.log(JsDiff.diffChars(name, name_new));
-
-			console.log([name, name_new].join("\n"));
-			//console.log(Buffer.from(name_new))
-			//console.log(Buffer.from(name));
-			//console.log([p1, p2].join("\n"));
-
-			return fs.move(path.join(cwd, p1), path.join(cwd, p2));
-		}
-		else
-		{
-			//console.log('skip', p1);
-		}
-	}
-	else
-	{
-		await console.error(name);
-	}
-}
-
-
-
 function my_words(html): string
 {
 	html = html.toString();
@@ -738,7 +680,7 @@ function make_meta_md()
 	}
 
 	return Promise
-	.mapSeries(globby(globby_patterns, globby_options), async function (file, index, len)
+	.mapSeries(novelGlobby.globby(globby_patterns, globby_options), async function (file, index, len)
 	{
 		let ext = path.extname(file);
 
@@ -772,7 +714,7 @@ function make_meta_md()
 				[globby_patterns, globby_options] = novelGlobby.getOptions(globby_patterns, globby_options);
 			}
 
-			let ls = await globby(globby_patterns, globby_options);
+			let ls = await novelGlobby.globby(globby_patterns, globby_options);
 
 			if (!ls.length)
 			{
