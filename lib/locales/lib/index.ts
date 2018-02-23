@@ -521,16 +521,24 @@ lazymarks['c050'] = _word_zh_all([
 
 lazymarks['c100'] = _word_zh_all([
 
+	// 無間斷的 -
 	[/[－\-─—]{2,}|[－\-─—](?=[』」》）])/g, function (...m)
 	{
 		//return m[0].replace(/[－\-─—]/g, '─');
 		return '─'.repeat(m[0].length);
 	}],
 
-	[/([─＝=]){51,}/g, function (...m)
+	[/([─＝=══－\-─—]){10,}/g, function (...m)
 	{
 		//return m[0].replace(/[－\-─—]/g, '─');
-		return m[1].repeat(51);
+		return m[1].repeat(24 || 51);
+	}],
+
+	// 無間斷的等號
+	[/([＝=══]){4,}/g, function (...m)
+	{
+		//return m[0].replace(/[－\-─—]/g, '─');
+		return '═'.repeat(m[0].length);
 	}],
 
 	[/([\u4E00-\u9FFF])\-(?![\w\-+])/g, '$1─'],
@@ -562,6 +570,10 @@ export function _word_zh_all(arr: IWords[])
 		return value;
 	}) as IWords[];
 }
+
+export let _zh_num = '一二三四五六七八九十';
+export let _zh_num2 = '百十';
+export let _full_num = '０１２３４５６７８９';
 
 import * as self from './index';
 

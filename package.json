@@ -39,14 +39,14 @@
     "i18next": "^10.4.1",
     "iconv-jschardet": "^1.0.5",
     "json5": "latest",
-    "node-novel-globby": "^1.6.4",
+    "node-novel-globby": "^1.7.3",
     "node-novel-info": "^2.3.4",
     "novel-text": "^1.0.8",
     "regexp-cjk": "^1.2.9",
     "regexp2": "^1.2.0",
     "shortid": "^2.2.8",
-    "str-util": "^2.3.12",
-    "tieba-harmony": "^1.2.2",
+    "str-util": "^2.3.13",
+    "tieba-harmony": "^1.2.3",
     "upath2": "^2.1.0"
   },
   "devDependencies": {
