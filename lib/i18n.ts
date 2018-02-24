@@ -64,7 +64,14 @@ export function loadLocales(name, basepath = localesPath): {
 	}
 	catch (e)
 	{
-		console.error(e);
+		if (e.code == 'MODULE_NOT_FOUND')
+		{
+			console.error(e.toString());
+		}
+		else
+		{
+			console.error(e);
+		}
 
 		if (!name)
 		{

@@ -23,4 +23,5 @@ test/**/*.js
 test/**/*.d.ts
 test/*.js
 test/*.d.ts
-texst/temp
+test/temp
+/test/temp/
