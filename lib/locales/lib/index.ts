@@ -531,7 +531,7 @@ lazymarks['c100'] = _word_zh_all([
 	[/([─＝=══－\-─—]){10,}/g, function (...m)
 	{
 		//return m[0].replace(/[－\-─—]/g, '─');
-		return m[1].repeat(24 || 51);
+		return m[1].repeat(20 || 51);
 	}],
 
 	// 無間斷的等號
