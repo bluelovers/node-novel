@@ -8,7 +8,7 @@ import * as StrUtil from 'str-util';
 /**
  * 改成小說名字
  */
-export const lang = '奪う者　奪われる者';
+export const lang = '人喰い転移者の異世界復讐譚　～無能はスキル『捕食』で成り上がる～';
 
 /**
  * 其他用途
@@ -30,22 +30,7 @@ export const words: IWords[] = sublib._word_zh_all([
 
 	//['要取代的字', '取代後的字'],
 
-	['斗技', '闘技'],
-	['哥布尔', '哥布林'],
-
-	...([
-		'LV',
-		'HP',
-		'MP',
-	].map(function (value)
-	{
-		return ['([^\\w０-９Ａ-Ｚ])' + value.split('').concat('').join('[ ]?') + '(?![\\w０-９Ａ-Ｚ])', '$1' + StrUtil.toFullEnglish(value), 'ig'];
-	})),
-
-	[/\d+/g, function (s)
-	{
-		return StrUtil.toFullNumber(s);
-	}],
+	['anima', '阿尼玛'],
 
 	...sublib.lazymarks['class'],
 
@@ -58,8 +43,6 @@ export const words: IWords[] = sublib._word_zh_all([
 	...sublib.lazymarks[5],
 
 ]);
-
-console.log(words);
 
 /**
  * 需要人工確認的屏蔽字或錯字用語等等

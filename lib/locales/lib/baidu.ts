@@ -19,6 +19,14 @@ export function getTable(options: tiebaHarmony.IOptions = {}): IWords[]
 			'出改',
 			'善再',
 			'谄媚',
+
+			//
+
+			'尼玛',
+			'阿尼玛',
+			'断头',
+			'断头台',
+			'虐杀',
 		],
 	});
 
