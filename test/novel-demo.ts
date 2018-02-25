@@ -61,7 +61,7 @@ novelID = '黑之魔王';
 //novelID = '黑之魔王_(2367)';
 //novelID = '我的怪物眷族_(1984)';
 //novelID = '被称为勇者、亦或是怪物的少女（勇者或是被称为怪物的少女）_(2018)';
-//novelID = '四度目は嫌な死属性魔術師';
+novelID = '四度目は嫌な死属性魔術師';
 //novelID = '虫虫酱むいむいたん';
 //novelID = '那个人，后来_(2272)';
 
@@ -117,6 +117,10 @@ novelID = '黑之魔王';
 //novelID = '自分が異世界に転移するなら';
 
 //novelID = '百魔の主';
+
+//novelID = '奪う者　奪われる者';
+
+novelID = '人喰い転移者の異世界復讐譚　～無能はスキル『捕食』で成り上がる～';
 
 if (!novelID)
 {
@@ -178,6 +182,21 @@ i18next.setDefaultNamespace('i18n');
 	{
 		[globby_patterns, globby_options] = novelGlobby.getOptions(globby_patterns, globby_options);
 	}
+
+	await novelGlobby.globby([
+			'cover.*',
+		], globby_options)
+		.then(ls =>
+		{
+			if (ls.length)
+			{
+				return Promise.map(ls, function (file)
+				{
+					return fs.copy(file, path.join(cwd_out, path.relative(globby_options.cwd, file)));
+				})
+			}
+		})
+	;
 
 	let ls = await Promise
 		.mapSeries(novelGlobby

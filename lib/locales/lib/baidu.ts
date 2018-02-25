@@ -24,9 +24,10 @@ export function getTable(options: tiebaHarmony.IOptions = {}): IWords[]
 
 			'尼玛',
 			'阿尼玛',
-			'断头',
-			'断头台',
+			'断頭',
+			'断頭台',
 			'虐杀',
+			'那边',
 		],
 	});
 
