@@ -528,7 +528,7 @@ lazymarks['c100'] = _word_zh_all([
 		return '─'.repeat(m[0].length);
 	}],
 
-	[/([─＝=══－\-─—\*＊＊◇◆☆◊]){10,}/g, function (...m)
+	[/([─＝=══－\-─—\*＊＊◇◆☆◊▃]){10,}/g, function (...m)
 	{
 		//return m[0].replace(/[－\-─—]/g, '─');
 		return m[1].repeat(20 || 51);
