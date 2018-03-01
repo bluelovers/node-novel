@@ -118,9 +118,11 @@ novelID = '四度目は嫌な死属性魔術師';
 
 //novelID = '百魔の主';
 
-//novelID = '奪う者　奪われる者';
+novelID = '奪う者　奪われる者';
 
-novelID = '人喰い転移者の異世界復讐譚　～無能はスキル『捕食』で成り上がる～';
+//novelID = '人喰い転移者の異世界復讐譚　～無能はスキル『捕食』で成り上がる～';
+
+//novelID = '帰ってきてもファンタジー！？';
 
 if (!novelID)
 {
@@ -651,6 +653,8 @@ function chk_words_maybe(text, list, cache = {})
 	};
 }
 
+let inited = false;
+
 function my_words(html): string
 {
 	html = html.toString();
@@ -665,6 +669,19 @@ function my_words(html): string
 
 	words = words.concat(locales_def.words || []);
 	arr = arr.concat(locales_def.words_arr || []);
+
+	if (!inited)
+	{
+		inited = true;
+
+		/*
+		fs.outputJSON(path.join(__dirname, './temp/words.json'), words, {
+			spaces: "\t",
+		});
+		*/
+
+		fs.outputFile(path.join(__dirname, './temp/words.json'), JSON.stringify(words, null, '\t'));
+	}
 
 	words = words.concat(myLocales.words || []);
 	arr = arr.concat(myLocales.words_arr || []);
