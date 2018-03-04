@@ -122,7 +122,13 @@ novelID = '奪う者　奪われる者';
 
 //novelID = '人喰い転移者の異世界復讐譚　～無能はスキル『捕食』で成り上がる～';
 
-//novelID = '帰ってきてもファンタジー！？';
+novelID = '帰ってきてもファンタジー！？';
+
+novelID = '魔王様、リトライ！';
+
+novelID = '豚公爵に転生したから、今度は君に好きと言いたい';
+
+novelID = '転生したら剣でした';
 
 if (!novelID)
 {
@@ -303,7 +309,8 @@ i18next.setDefaultNamespace('i18n');
 				_cache.block[_cache_key_] = chk_words_maybe(_t, []
 					.concat(myLocales.words_maybe || [])
 					.concat(locales_def.words_maybe || []),
-					_cache.block[_cache_key_] = {})
+					_cache.block[_cache_key_] = {}
+				)
 					.cache
 				;
 
@@ -680,7 +687,20 @@ function my_words(html): string
 		});
 		*/
 
-		fs.outputFile(path.join(__dirname, './temp/words.json'), JSON.stringify(words, null, '\t'));
+		fs.outputFile(path.join(__dirname, './temp/words.json'), JSON.stringify(words, function (k, v)
+		{
+			if (v instanceof RegExp)
+			{
+				//return `/${v.source}/${v.flags}`;
+				return v.toString();
+			}
+			else if (typeof v == 'function')
+			{
+				return v.toString();
+			}
+
+			return v;
+		}, '\t'));
 	}
 
 	words = words.concat(myLocales.words || []);
@@ -716,84 +736,84 @@ function make_meta_md()
 	}
 
 	return Promise
-	.mapSeries(novelGlobby.globby(globby_patterns, globby_options), async function (file, index, len)
-	{
-		let ext = path.extname(file);
-
-		let name = path.basename(file);
-		let file_dir = path.relative(cwd, path.dirname(file));
-
-		await fs.copy(file, path.join(cwd_out, file_dir, name));
-
-		return path.join(file_dir, name);
-	})
-	.then(async function (ls)
-	{
-		if (!ls.length
-			&& !fs.existsSync(path.join(cwd_out, 'meta.md'))
-			&& !fs.existsSync(path.join(cwd_out, 'README.md'))
-		)
+		.mapSeries(novelGlobby.globby(globby_patterns, globby_options), async function (file, index, len)
 		{
+			let ext = path.extname(file);
 
-			let globby_patterns: string[];
-			let globby_options: novelGlobby.IOptions = {
-				cwd: cwd,
-				useDefaultPatternsExclude: true,
-				absolute: true,
-			};
+			let name = path.basename(file);
+			let file_dir = path.relative(cwd, path.dirname(file));
 
-			globby_patterns = [
-				'*.json',
-			];
+			await fs.copy(file, path.join(cwd_out, file_dir, name));
 
+			return path.join(file_dir, name);
+		})
+		.then(async function (ls)
+		{
+			if (!ls.length
+				&& !fs.existsSync(path.join(cwd_out, 'meta.md'))
+				&& !fs.existsSync(path.join(cwd_out, 'README.md'))
+			)
 			{
-				[globby_patterns, globby_options] = novelGlobby.getOptions(globby_patterns, globby_options);
-			}
 
-			let ls = await novelGlobby.globby(globby_patterns, globby_options);
+				let globby_patterns: string[];
+				let globby_options: novelGlobby.IOptions = {
+					cwd: cwd,
+					useDefaultPatternsExclude: true,
+					absolute: true,
+				};
 
-			if (!ls.length)
-			{
-				return;
-			}
+				globby_patterns = [
+					'*.json',
+				];
 
-			//console.log(ls[0], cwd);
+				{
+					[globby_patterns, globby_options] = novelGlobby.getOptions(globby_patterns, globby_options);
+				}
 
-			let data = await fs.readJSON(ls[0]);
-			data.data = data.data || {};
+				let ls = await novelGlobby.globby(globby_patterns, globby_options);
 
-			//console.log(data);
+				if (!ls.length)
+				{
+					return;
+				}
 
-			let tags = [
-				'node-novel',
-			];
+				//console.log(ls[0], cwd);
 
-			if (ls[0].match(/dmzj/))
-			{
-				tags.push('dmzj');
-			}
-			if (ls[0].match(/wenku8/))
-			{
-				tags.push('wenku8');
-			}
+				let data = await fs.readJSON(ls[0]);
+				data.data = data.data || {};
 
-			if (ls[0].match(/dist_novel\/([^\/]+)(?:_out)?/))
-			{
-				tags.push(RegExp.$1);
-			}
+				//console.log(data);
+
+				let tags = [
+					'node-novel',
+				];
+
+				if (ls[0].match(/dmzj/))
+				{
+					tags.push('dmzj');
+				}
+				if (ls[0].match(/wenku8/))
+				{
+					tags.push('wenku8');
+				}
+
+				if (ls[0].match(/dist_novel\/([^\/]+)(?:_out)?/))
+				{
+					tags.push(RegExp.$1);
+				}
 
 //			let md = await json2md(data, {
 //				tags: tags,
 //			});
 
-			let md = novelInfo.stringify({}, data, {
-				tags: tags,
-			});
+				let md = novelInfo.stringify({}, data, {
+					tags: tags,
+				});
 
-			await fs.outputFile(path.join(cwd_out, 'README.md'), md);
-		}
-	})
-;
+				await fs.outputFile(path.join(cwd_out, 'README.md'), md);
+			}
+		})
+		;
 }
 
 function stringify(v)
