@@ -9,6 +9,8 @@ import tiebaHarmony from 'tieba-harmony';
 import * as deepmerge from 'deepmerge-plus';
 import sublib from './index';
 
+//console.log(tiebaHarmony.SP_REGEXP);
+
 export function getTable(options: tiebaHarmony.IOptions = {}): IWords[]
 {
 	options = deepmerge(options, {

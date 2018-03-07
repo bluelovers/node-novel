@@ -8,7 +8,7 @@ import * as StrUtil from 'str-util';
 /**
  * 改成小說名字
  */
-export const lang = '';
+export const lang = '天才魔法使與原娼婦新娘';
 
 /**
  * 其他用途
@@ -28,7 +28,27 @@ export const value = {
  */
 export const words: IWords[] = sublib._word_zh_all([
 
-	//['要取代的字', '取代後的字'],
+	[`艾斯特|艾斯提`, '艾斯特'],
+	[`拉尔夫${sp}艾斯特`, '拉尔夫＝艾斯特'],
+	[`拉尔夫=艾斯特`, '拉尔夫＝艾斯特'],
+
+	['召還魔法|召回魔法', '召還魔法'],
+
+	[/([\u4E00-\u9FFF])=([\u4E00-\u9FFF])/, '$1＝$2'],
+
+	[`[＋+]α`, '＋α'],
+
+	[/\n+([★☆])/g, '\n\n\n$1'],
+
+	[/(\d+)/g, function (...m)
+	{
+		return StrUtil.toFullNumber(m[1]);
+	}],
+
+	[/([^\w\u00C0-\u017F\.μ・·?‧•―-])([\w])(?![\w\u00C0-\u017F\.μ・·?‧•―-])/g, function (...m)
+	{
+		return m[1] + StrUtil.toFullWidth(m[2]);
+	}],
 
 	...sublib.lazymarks['class'],
 

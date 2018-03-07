@@ -60,7 +60,14 @@ export function loadLocales(name, basepath = localesPath): {
 		let c = require.resolve(id);
 		//console.log(c);
 
-		return require(id);
+		let i = require(id);
+
+		if (i.lang === '' || i.lang === null)
+		{
+			i.lang = path.basename(id);
+		}
+
+		return i;
 	}
 	catch (e)
 	{

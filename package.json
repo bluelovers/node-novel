@@ -46,7 +46,7 @@
     "regexp2": "^1.2.0",
     "shortid": "^2.2.8",
     "str-util": "^2.3.13",
-    "tieba-harmony": "^1.2.4",
+    "tieba-harmony": "^1.2.5",
     "upath2": "^2.1.0"
   },
   "devDependencies": {
