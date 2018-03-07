@@ -118,17 +118,17 @@ novelID = '四度目は嫌な死属性魔術師';
 
 //novelID = '百魔の主';
 
-novelID = '奪う者　奪われる者';
+//novelID = '奪う者　奪われる者';
 
 //novelID = '人喰い転移者の異世界復讐譚　～無能はスキル『捕食』で成り上がる～';
 
-novelID = '帰ってきてもファンタジー！？';
+//novelID = '帰ってきてもファンタジー！？';
 
 novelID = '魔王様、リトライ！';
 
-novelID = '豚公爵に転生したから、今度は君に好きと言いたい';
+//novelID = '豚公爵に転生したから、今度は君に好きと言いたい';
 
-novelID = '転生したら剣でした';
+//novelID = '転生したら剣でした';
 
 if (!novelID)
 {
@@ -248,6 +248,13 @@ i18next.setDefaultNamespace('i18n');
 
 			const _t_old = await fs.readFile(file);
 
+			if (_t_old.toString() === '')
+			{
+				console.warn(currentFile, '此檔案無內容');
+
+				return currentFile;
+			}
+			else
 			{
 				let chk = iconv.detect(_t_old);
 
