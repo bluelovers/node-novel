@@ -29,7 +29,12 @@ export function getTable(options: tiebaHarmony.IOptions = {}): IWords[]
 			'断頭',
 			'断頭台',
 			'虐杀',
-			'那边',
+
+			'麻藥',
+
+			'反国家',
+			'殺戮',
+
 		],
 	});
 
