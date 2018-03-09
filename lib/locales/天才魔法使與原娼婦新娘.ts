@@ -40,6 +40,8 @@ export const words: IWords[] = sublib._word_zh_all([
 
 	[/\n+([★☆])/g, '\n\n\n$1'],
 
+	[/^([★☆][^\n]+)\n(\S)/gm, '$1\n\n$2'],
+
 	[/(\d+)/g, function (...m)
 	{
 		return StrUtil.toFullNumber(m[1]);
