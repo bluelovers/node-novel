@@ -45,7 +45,7 @@ export const words: IWords[] = sublib._word_zh_all([
 		return StrUtil.toFullNumber(m[1]);
 	}],
 
-	[/([^\w\u00C0-\u017F\.μ・·?‧•―-])([\w])(?![\w\u00C0-\u017F\.μ・·?‧•―-])/g, function (...m)
+	[/([^\w\u00C0-\u017F\.μ・·?‧•―-])([\w]|ss)(?![\w\u00C0-\u017F\.μ・·?‧•―-])/ig, function (...m)
 	{
 		return m[1] + StrUtil.toFullWidth(m[2]);
 	}],
