@@ -35,6 +35,8 @@ export function getTable(options: tiebaHarmony.IOptions = {}): IWords[]
 			'反国家',
 			'殺戮',
 
+			'白色',
+
 		],
 	});
 

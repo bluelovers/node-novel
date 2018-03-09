@@ -8,7 +8,7 @@ import * as StrUtil from 'str-util';
 /**
  * 改成小說名字
  */
-export const lang = '';
+export const lang = '再臨勇者の復讐譚　～失望しました、勇者やめて元魔王と組みます～';
 
 /**
  * 其他用途

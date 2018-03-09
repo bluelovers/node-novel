@@ -31,7 +31,7 @@
   "dependencies": {
     "blank-line": "^1.0.0",
     "bluebird": "^3.5.1",
-    "cjk-conv": "^1.0.10",
+    "cjk-conv": "^1.0.14",
     "deepmerge-plus": "^2.1.1",
     "diff": "^3.5.0",
     "execall": "^1.0.0",
@@ -46,16 +46,12 @@
     "regexp2": "^1.2.0",
     "shortid": "^2.2.8",
     "str-util": "^2.3.13",
-    "tieba-harmony": "^1.2.5",
+    "tieba-harmony": "^1.2.8",
     "upath2": "^2.1.0"
   },
   "devDependencies": {
     "@types/fs-extra": "^5.0.1",
     "@types/i18next": "^8.4.3",
-    "@types/jquery": "^3.3.0",
-    "jsdom-url": "^2.2.0",
-    "moment": "^2.21.0",
-    "moment-timezone": "^0.5.14",
     "randexp": "^0.5.1"
   },
   "optionalDependencies": {}
