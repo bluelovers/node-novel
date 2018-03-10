@@ -37,6 +37,8 @@ export function getTable(options: tiebaHarmony.IOptions = {}): IWords[]
 
 			'白色',
 
+			'詛咒',
+
 		],
 	});
 
