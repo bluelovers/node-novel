@@ -272,6 +272,9 @@ let _en = [
 	'OK',
 	'CG',
 
+	'MMORPG',
+	'MMO',
+
 	'Golem',
 	'Rank',
 
@@ -607,7 +610,7 @@ lazymarks['c050'] = _word_zh_all([
 	[/…[\.・。]{1,2}/g, '……'],
 	[/[\.・。]{2}/g, '…'],
 
-	[/([…也吗么嗎麼人呵中噢个跑聊哦哎勒毒妹誒呀萬笑者雄办喔我營恋道心帥害做個族策車蹈具哈对事破嗯辦喲欸著咦船家到呢來啊數阿用何裡吶吧了趣里做诶～！？][\?!]+|[\?!]+[」…）！])/ug, function (...m)
+	[/([…也吗么嗎麼人呵中噢个跑聊哦哎系勒毒妹誒呀萬笑者雄办喔我營恋道心帥害做個族策車蹈具哈对事破嗯辦喲欸著咦船家到呢來啊數阿用何裡吶吧了趣里做诶～！？][\?!]+|[\?!]+[」…）！])/ug, function (...m)
 	{
 		return StrUtil.toFullWidth(m[0], {
 			skip: {
@@ -650,7 +653,7 @@ lazymarks['c100'] = _word_zh_all([
 
 ]);
 
-export function _word_en(search: string | RegExp, ret: string | IRegExpCallback = null, flag = 'ig'): IWords
+export function _word_en(search: string | RegExp, ret: string | IRegExpCallback = null, flag = 'ig'): [RegExp, string | any]
 {
 	return [new RegExp(`(^|\\W)(${regex_str(search)})(?!\\w)`, flag), ((ret !== null) ? ret : '$1' + search)];
 }
