@@ -130,6 +130,26 @@ novelID = '魔王様、リトライ！';
 
 //novelID = '転生したら剣でした';
 
+//novelID = '天才魔法使與原娼婦新娘';
+
+//novelID = '悠久の愚者アズリーの、賢者のすゝめ';
+
+//novelID = '元将軍のアンデッドナイト';
+
+//novelID = 'エルフ転生からのチート建国記';
+
+//novelID = '再臨勇者の復讐譚　～失望しました、勇者やめて元魔王と組みます～';
+
+//novelID = 'NO FATIGUE 24時間戦える男の転生譚';
+
+//novelID = '２９歳独身は異世界で自由に生きた…かった。';
+
+//novelID = '物語の中の銀の髪';
+
+//novelID = '黒の創造召喚師';
+
+novelID = '俺の死亡フラグが留まるところを知らない';
+
 if (!novelID)
 {
 	throw new Error();
@@ -142,6 +162,13 @@ let cwd_out = path.join(projectConfig.dist_novel_root, `${pathMain}_out`, novelI
 myLocalesID = myLocalesID || novelID;
 
 let myLocales = loadLocales(myLocalesID);
+
+if (!myLocales)
+{
+	console.warn(`load default demo`);
+	myLocales = loadLocales('demo');
+}
+
 if (myLocales)
 {
 	addResourceBundle(myLocales);

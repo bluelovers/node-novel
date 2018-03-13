@@ -29,6 +29,10 @@ novelID = 'エルフ転生からのチート建国記';
 
 novelID = '再臨勇者の復讐譚　～失望しました、勇者やめて元魔王と組みます～';
 
+novelID = '物語の中の銀の髪';
+
+novelID = '黒の創造召喚師';
+
 if (!novelID)
 {
 	throw new Error();
@@ -54,8 +58,36 @@ else
 i18next.changeLanguage(myLocales.lang);
 i18next.setDefaultNamespace('i18n');
 
+let _zh_num = '一二三四五六七八九十';
+let _full_num = '０-９';
+let _space = ' 　\\t';
+
 (async () =>
 {
+
+	let r: RegExp;
+
+	r = new zhRegExp([
+		`(?:^)[${_space}]*`,
+		//`(?:【渣翻＋直译＋脑补】)?`,
+		`(`,
+		[
+			//`[序终][曲章]`,
+			`(?:第?(?:[${_zh_num}]+|\\d+(?:\.\\d+)?|[${_full_num}]+(?:[\\.．][${_full_num}]+)?)(?:话|集|章))`,
+			//`６[${_full_num}]+`,
+			//`20`
+			//`\\d+[${_space}\\-]`,
+		].join('|'),
+		`)`,
+		`[${_space}]*`,
+		//`[：~～]*`,
+		`([^\\n]*)`,
+		//`[：~～]*`,
+		`[${_space}]*`,
+		`$`,
+	].join(''), 'igm');
+
+	r = new zhRegExp(`第?\\s*(\\d+)\\s*話\\s*(.+?)?\\s*$`);
 
 	let ls = await Promise
 		.mapSeries(globby([
@@ -77,10 +109,42 @@ i18next.setDefaultNamespace('i18n');
 			const name_old = name;
 			let file_dir = path.dirname(file);
 
+			let m = r.exec(name);
+
+			//const c = '　';
+			const c = ' ';
+
+			if (m)
+			{
+				let id_str: string;
+
+				let [src, id, desc] = m;
+
+				desc = novelText.trim(desc || '', {
+					//trim: true,
+					trim: '；：：~～　 .',
+				});
+
+				let idn = id;
+				idn = idn.padStart(3, '0');
+
+				id_str = `第${idn}話`;
+
+				name = `${id_str}`;
+				if (desc)
+				{
+					name += c + `${desc}`;
+				}
+			}
+
 			name = zhtext.filename(name, {
 				skip: '娘志',
+				//safe: false,
 				})
 				.replace('后記', '後記')
+				.replace(/“/g, '『')
+				.replace(/”/g, '』')
+
 				/*
 				.replace(/(\d+)/g, function (...m)
 				{
