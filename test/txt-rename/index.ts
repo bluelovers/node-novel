@@ -33,6 +33,8 @@ novelID = '物語の中の銀の髪';
 
 novelID = '黒の創造召喚師';
 
+novelID = '乙女ゲームの悪（中略）ヒロインが鬼畜女装野郎だったので、助けて下さい';
+
 if (!novelID)
 {
 	throw new Error();
@@ -69,25 +71,30 @@ let _space = ' 　\\t';
 
 	r = new zhRegExp([
 		`(?:^)[${_space}]*`,
+		`(\\d{4,}[ _])?`,
 		//`(?:【渣翻＋直译＋脑补】)?`,
 		`(`,
 		[
 			//`[序终][曲章]`,
-			`(?:第?(?:[${_zh_num}]+|\\d+(?:\.\\d+)?|[${_full_num}]+(?:[\\.．][${_full_num}]+)?)(?:话|集|章))`,
+			//`(?:第?(?:[${_zh_num}]+|\\d+(?:\.\\d+)?|[${_full_num}]+(?:[\\.．][${_full_num}]+)?)(?:话|集|章))`,
 			//`６[${_full_num}]+`,
 			//`20`
 			//`\\d+[${_space}\\-]`,
 		].join('|'),
 		`)`,
-		`[${_space}]*`,
+		//`[${_space}]*`,
 		//`[：~～]*`,
 		`([^\\n]*)`,
 		//`[：~～]*`,
-		`[${_space}]*`,
+		//`[${_space}]*`,
 		`$`,
-	].join(''), 'igm');
+	].join(''), 'ig');
 
-	r = new zhRegExp(`第?\\s*(\\d+)\\s*話\\s*(.+?)?\\s*$`);
+	//r = new zhRegExp(`第?\\s*(\\d+)\\s*話\\s*(.+?)?\\s*$`);
+
+	r = new zhRegExp(`^(\\d{4,}[ _])()(.+)$`);
+
+	console.log(r);
 
 	let ls = await Promise
 		.mapSeries(globby([
@@ -112,36 +119,46 @@ let _space = ' 　\\t';
 			let m = r.exec(name);
 
 			//const c = '　';
-			const c = ' ';
+			//const c = ' ';
+			const c = '';
 
 			if (m)
 			{
 				let id_str: string;
 
-				let [src, id, desc] = m;
+				let [src, ido, id, desc] = m;
 
 				desc = novelText.trim(desc || '', {
 					//trim: true,
 					trim: '；：：~～　 .',
 				});
 
+				desc = StrUtil.toFullNumber(desc);
+
 				let idn = id;
-				idn = idn.padStart(3, '0');
+				if (typeof idn != 'undefined')
+				{
+					idn = idn.padStart(3, '0');
+				}
 
 				id_str = `第${idn}話`;
 
-				name = `${id_str}`;
+				name = '';
+
+				//name = `${id_str}`;
 				if (desc)
 				{
 					name += c + `${desc}`;
 				}
+
+				name = ido + name;
 			}
 
 			name = zhtext.filename(name, {
 				skip: '娘志',
 				//safe: false,
 				})
-				.replace('后記', '後記')
+				.replace(/后(記|宮)/g, '後$1')
 				.replace(/“/g, '『')
 				.replace(/”/g, '』')
 
@@ -158,6 +175,8 @@ let _space = ' 　\\t';
 			});
 
 			name = trimFilename(name);
+
+			//console.log(name, m);
 
 			if (name_old != name)
 			{

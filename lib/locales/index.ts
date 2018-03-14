@@ -38,13 +38,7 @@ export const words: IWords[] = [
 	// BOM
 	...sublib.lazymarks['c000'],
 
-	...baidu.getTable({
-		tables: [
-			//
-			'斩首',
-			'賄賂',
-		],
-	}),
+	...baidu.getTable(),
 	...sublib.lazymarks['zh'],
 	...sublib.lazymarks['zh2'],
 
@@ -237,7 +231,7 @@ export const words: IWords[] = [
 
 	[/\n[ ]*([^：\n]+：[^\n]*)\n{2,}([ ]*[^：\n]+\n)/ug, '\n$1\n\n$2'],
 
-	[/\n+[\(（\[]*完[\)）\]]*[。\-]*$/g, ''],
+	[/\n+[\(（\[]*(?:完|FIN)[\)）\]]*[。\-]*$/ig, ''],
 
 	[/\n[──＝=═]+$/g, ''],
 

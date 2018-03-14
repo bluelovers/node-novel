@@ -39,6 +39,11 @@ export function getTable(options: tiebaHarmony.IOptions = {}): IWords[]
 
 			'詛咒',
 
+			'斩首',
+			'賄賂',
+
+			'混蛋',
+
 		],
 	});
 

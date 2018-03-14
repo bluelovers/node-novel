@@ -120,13 +120,13 @@ novelID = '四度目は嫌な死属性魔術師';
 
 //novelID = '奪う者　奪われる者';
 
-//novelID = '人喰い転移者の異世界復讐譚　～無能はスキル『捕食』で成り上がる～';
+novelID = '人喰い転移者の異世界復讐譚　～無能はスキル『捕食』で成り上がる～';
 
 //novelID = '帰ってきてもファンタジー！？';
 
-novelID = '魔王様、リトライ！';
+//novelID = '魔王様、リトライ！';
 
-//novelID = '豚公爵に転生したから、今度は君に好きと言いたい';
+novelID = '豚公爵に転生したから、今度は君に好きと言いたい';
 
 //novelID = '転生したら剣でした';
 
@@ -148,7 +148,9 @@ novelID = '魔王様、リトライ！';
 
 //novelID = '黒の創造召喚師';
 
-novelID = '俺の死亡フラグが留まるところを知らない';
+//novelID = '俺の死亡フラグが留まるところを知らない';
+
+//novelID = '乙女ゲームの悪（中略）ヒロインが鬼畜女装野郎だったので、助けて下さい';
 
 if (!novelID)
 {
@@ -216,6 +218,8 @@ i18next.setDefaultNamespace('i18n');
 
 	{
 		[globby_patterns, globby_options] = novelGlobby.getOptions(globby_patterns, globby_options);
+
+		globby_patterns.push('!*.raw');
 	}
 
 	await novelGlobby.globby([
@@ -720,6 +724,8 @@ function my_words(html): string
 			spaces: "\t",
 		});
 		*/
+
+		console.log(novelText._words_r1);
 
 		fs.outputFile(path.join(__dirname, './temp/words.json'), JSON.stringify(words, function (k, v)
 		{
