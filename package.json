@@ -31,7 +31,7 @@
   "dependencies": {
     "blank-line": "^1.0.0",
     "bluebird": "^3.5.1",
-    "cjk-conv": "^1.0.14",
+    "cjk-conv": "^1.0.18",
     "deepmerge-plus": "^2.1.1",
     "diff": "^3.5.0",
     "execall": "^1.0.0",
@@ -41,7 +41,7 @@
     "json5": "latest",
     "node-novel-globby": "^1.7.3",
     "node-novel-info": "^2.3.4",
-    "novel-text": "^1.0.10",
+    "novel-text": "^1.0.11",
     "regexp-cjk": "^1.2.12",
     "regexp2": "^1.2.0",
     "shortid": "^2.2.8",
