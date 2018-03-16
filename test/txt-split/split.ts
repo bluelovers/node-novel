@@ -16,8 +16,8 @@ let _space = ' 　\\t';
 
 let inputFile = path.join(projectConfig.dist_novel_root,
 	'user',
-	'俺の死亡フラグが留まるところを知らない',
-	'raw/不知我的死亡flag将于何处停止1-88.txt',
+	'カルマの塔',
+	'raw/业之塔1-111.txt',
 );
 
 let options: IOptions = {
@@ -35,9 +35,9 @@ let options: IOptions = {
 				`\\d+`,
 			].join('|'),
 			`)`,
-			//`[${_space}]*`,
+			`[${_space}]*`,
 			//`[：~～]*`,
-			//`([^\\n]*)`,
+			`([^\\n]*)`,
 			//`[：~～]*`,
 			`[${_space}]*`,
 			`$`,
@@ -52,19 +52,18 @@ let options: IOptions = {
 			idx,
 		})
 		{
-			const c = ' ';
 
 			if (m_last)
 			{
-				let [id, desc] = m_last.sub;
+				let [idd, desc] = m_last.sub;
 				let id_str: string;
 				let idn: string;
 
-				id = novelText.trim(id, {
+				idd = novelText.trim(idd, {
 					trim: true,
 				});
 
-				idn = StrUtil.zh2num(StrUtil.toHalfWidth(id).trim())
+				idn = StrUtil.zh2num(StrUtil.toHalfWidth(idd).trim())
 					.toString()
 				;
 
@@ -79,14 +78,17 @@ let options: IOptions = {
 
 				let _ok = true;
 
+				const c = ' ';
+
 				if (/^(\d+(?:\.\d+)?)$/.test(idn2))
 				{
 					idn = RegExp.$1;
 
 					//idn = StrUtil.num2zh(idn);
-					idn = StrUtil.toFullWidth(idn);
+//					idn = StrUtil.toFullWidth(idn);
 
-					id_str = `第${idn}話`;
+					//id_str = `${idn.padStart(3, '0')}話`;
+					id_str = `${idn.padStart(3, '0')}`;
 
 					name = `${id_str}`;
 					if (desc)
@@ -94,11 +96,13 @@ let options: IOptions = {
 						name += c + `${desc}`;
 					}
 
+					id = '';
+
 					_ok = true;
 				}
 				else if (0)
 				{
-					id_str = id;
+					id_str = idd;
 					name = `${id_str}`;
 					if (desc)
 					{

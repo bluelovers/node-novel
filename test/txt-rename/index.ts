@@ -35,6 +35,8 @@ novelID = '黒の創造召喚師';
 
 novelID = '乙女ゲームの悪（中略）ヒロインが鬼畜女装野郎だったので、助けて下さい';
 
+novelID = 'カルマの塔';
+
 if (!novelID)
 {
 	throw new Error();
@@ -80,19 +82,22 @@ let _space = ' 　\\t';
 			//`６[${_full_num}]+`,
 			//`20`
 			//`\\d+[${_space}\\-]`,
+			'\\d{3}',
 		].join('|'),
 		`)`,
-		//`[${_space}]*`,
+		`[${_space}]*`,
 		//`[：~～]*`,
 		`([^\\n]*)`,
 		//`[：~～]*`,
-		//`[${_space}]*`,
+		`[${_space}]*`,
 		`$`,
 	].join(''), 'ig');
 
 	//r = new zhRegExp(`第?\\s*(\\d+)\\s*話\\s*(.+?)?\\s*$`);
 
-	r = new zhRegExp(`^(\\d{4,}[ _])()(.+)$`);
+//	r = new zhRegExp(`^(\\d{4,}[ _])()(.+)$`);
+
+	r = new zhRegExp(`^()(\\d{3}) (.+)$`);
 
 	console.log(r);
 
@@ -105,6 +110,8 @@ let _space = ' 　\\t';
 			'!**/out/**/*',
 			'!**/raw/**/*',
 			'!**/*_out/**/*',
+			'!*.raw',
+			'!raw',
 		], {
 			cwd: cwd,
 			absolute: true,
@@ -120,7 +127,7 @@ let _space = ' 　\\t';
 
 			//const c = '　';
 			//const c = ' ';
-			const c = '';
+			const c = ' ';
 
 			if (m)
 			{
@@ -141,17 +148,20 @@ let _space = ' 　\\t';
 					idn = idn.padStart(3, '0');
 				}
 
-				id_str = `第${idn}話`;
+				id_str = `${idn}`;
 
 				name = '';
 
-				//name = `${id_str}`;
+				name = `${id_str}`;
 				if (desc)
 				{
 					name += c + `${desc}`;
 				}
 
-				name = ido + name;
+				if (typeof ido != 'undefined' && ido !== '')
+				{
+					name = ido + name;
+				}
 			}
 
 			name = zhtext.filename(name, {
@@ -176,7 +186,7 @@ let _space = ' 　\\t';
 
 			name = trimFilename(name);
 
-			//console.log(name, m);
+//			console.log(name, m);
 
 			if (name_old != name)
 			{

@@ -372,7 +372,7 @@ export function split(txt: string, cache: IOptions, _m, cb: ISplitCB): {
 			}
 		}
 
-		name = id + '_' + name;
+		name = (id !== '' ? id + '_' : '') + name;
 
 		_files[name] = txt.slice(idx);
 	}
