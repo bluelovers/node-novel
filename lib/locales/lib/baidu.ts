@@ -44,6 +44,8 @@ export function getTable(options: tiebaHarmony.IOptions = {}): IWords[]
 
 			'混蛋',
 
+			'侵犯',
+
 		],
 	});
 

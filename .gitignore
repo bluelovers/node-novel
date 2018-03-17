@@ -2,12 +2,10 @@
 *.d.ts
 *.js
 
-/.idea/
-/dist_novel/
-/dist_novel/dmzj_out/
-/dist_novel/user_out/
-### git template
 .idea
+dist_novel
+dist_novel/*_out
+### git template
 
 ~ci.list.txt
 ~ci.log.txt
@@ -24,4 +22,5 @@ test/**/*.d.ts
 test/*.js
 test/*.d.ts
 test/temp
-/test/temp/
+test/temp*
+/dist_novel/
