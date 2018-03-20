@@ -34,6 +34,8 @@ export const words: IWords[] = sublib._word_zh_all([
 
 	['召還魔法|召回魔法', '召還魔法'],
 
+	['澄華', '澄華'],
+
 	[/([\u4E00-\u9FFF])=([\u4E00-\u9FFF])/, '$1＝$2'],
 
 	[`[＋+]α`, '＋α'],
