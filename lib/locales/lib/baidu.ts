@@ -46,6 +46,18 @@ export function getTable(options: tiebaHarmony.IOptions = {}): IWords[]
 
 			'侵犯',
 
+			//-------------
+
+			'军事政变',
+			'政变',
+			'杀人',
+			'国家颠覆',
+			'颠覆',
+			'鲜血',
+			'露出',
+			'内脏',
+			'血水',
+
 		],
 	});
 
