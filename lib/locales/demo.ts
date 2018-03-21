@@ -40,7 +40,7 @@ export const words: IWords[] = sublib._word_zh_all([
 	...sublib.lazymarks[3],
 	...sublib.lazymarks[5],
 
-]);
+] as IWords[]);
 
 /**
  * 需要人工確認的屏蔽字或錯字用語等等
