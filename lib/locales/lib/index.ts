@@ -728,7 +728,7 @@ export function _word_en(search: string | RegExp, ret: string | IRegExpCallback 
  * 最好只用在全新腳本內
  *
  */
-export function _word_zh_all(arr: IWords[])
+export function _word_zh_all(arr: IWords[]): IWords[]
 {
 	return arr.slice().map(function (value, index, array)
 	{

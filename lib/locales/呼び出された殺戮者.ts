@@ -27,7 +27,7 @@ export const value = {
 /**
  * 在這裡放此小說專屬的取代樣本
  */
-export const words: IWords[] = [
+export const words: IWords[] = sublib._word_zh_all([
 
 	sublib._word_zh(/远野\?一二三|一二三\.遠野/g, '远野一二三'),
 	sublib._word_zh('远野', '遠野'),
@@ -271,7 +271,7 @@ export const words: IWords[] = [
 	['蘇普朗格魯|苏普朗格鲁|蘇普朗格魯', '苏普朗格鲁'],
 	[/优古\?优提勒夫托/g, '优古・优提勒夫托'],
 	['庫澤姆|库泽姆', '库泽姆'],
-	['霍兰特|霍根|霍特蘭|霍蘭特|霍蘭', '霍兰特'],
+	['霍兰特|霍根|霍特蘭|霍蘭特|霍兰德', '霍兰特'],
 	['納爾格魯|[纳納][尔爾]格[鲁魯]', '納尔格鲁'],
 
 	/**
@@ -365,7 +365,7 @@ export const words: IWords[] = [
 
 	...sublib.lazymarks['zh'],
 
-] as IWords[];
+] as IWords[]);
 
 /**
  * 需要人工確認的屏蔽字或錯字用語等等

@@ -68,6 +68,8 @@ export const words: IWords[] = sublib._word_zh_all([
 	[`(?:琪拉|琪菈)古依`, '琪菈・古依'],
 	[`(?:琪拉|琪菈)${sp}古依`, '琪菈・古依'],
 
+
+	[`安洁露|安潔拉`, '安洁露'],
 	[`安洁露霍瓦伊特`, '安洁露・霍瓦伊特'],
 	[`安洁露${sp}霍瓦伊特`, '安洁露・霍瓦伊特'],
 
@@ -144,6 +146,8 @@ export const words: IWords[] = sublib._word_zh_all([
 	[`【`, '「'],
 	[`】`, '」'],
 
+	[/^\*{3,}$/gm, '■□■□'],
+
 	[/^\.$/gm, ''],
 
 	[/^　+/gm, ''],
@@ -158,7 +162,7 @@ export const words: IWords[] = sublib._word_zh_all([
 	...sublib.lazymarks[3],
 	...sublib.lazymarks[5],
 
-]);
+] as IWords[]);
 
 /**
  * 需要人工確認的屏蔽字或錯字用語等等

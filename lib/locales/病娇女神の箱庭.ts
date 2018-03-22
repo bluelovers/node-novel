@@ -4,6 +4,8 @@
 
 import { sp, IWords, vMaybe } from '.';
 import * as StrUtil from 'str-util';
+import { sublib } from './index';
+import { _word_en } from './lib/index';
 
 /**
  * 改成小說名字
@@ -26,7 +28,7 @@ export const value = {
 /**
  * 在這裡放此小說專屬的取代樣本
  */
-export const words: IWords[] = [
+export const words: IWords[] = sublib._word_zh_all([
 
 	['yuzuki|柚希|柚肴', '柚希'],
 	//中央（水瀬）
@@ -34,21 +36,21 @@ export const words: IWords[] = [
 	['(?:中央)(君)', '水瀬$1'],
 	['(?:中央)\(水瀬\)', '水瀬'],
 
-	['尤诺|YUNO|优诺', '尤诺'],
+	['尤诺|YUNO|优诺', '尤諾'],
 
 	['[萝蘿][滋茲]|蘿茲', '蘿茲'],
 	['(美狄|媒体)姐', '美狄亞姐'],
 
-	['克劳迪娅|克劳迪亚|克勞迪婭', '克劳迪娅'],
+	['克劳迪娅|克劳迪亚|克勞迪婭', '克劳迪婭'],
 
-	['蘭古|兰古', '蘭古'],
+	['蘭古', '蘭古'],
 
 	['哥特|哥德', '哥德'],
 
 	[`Fire${sp}(Ball|bolt)`, 'Fire・Ball', 'ig'],
 	[`治療${sp}(毒|麻痺)`, '治療・$2', 'ig'],
 
-	['亚', '亞'],
+	//['亚', '亞'],
 
 	[/([^a-z])SP(?![a-z])/ig, '$1SP'],
 	[/([^a-z])flag(?![a-z])/ig, '$1Flag'],
@@ -110,7 +112,12 @@ export const words: IWords[] = [
 
 	[/^[\-]{3,}$/gm, '\n'],
 
-] as IWords[];
+	_word_en(/[a-z]/g, function (...m)
+	{
+		return m[1] + StrUtil.toFullEnglish(m[2]);
+	}),
+
+]);
 
 /**
  * 需要人工確認的屏蔽字或錯字用語等等
