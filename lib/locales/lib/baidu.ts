@@ -58,6 +58,9 @@ export function getTable(options: tiebaHarmony.IOptions = {}): IWords[]
 			'内脏',
 			'血水',
 
+			'赌博',
+			'俘虏',
+
 		],
 	});
 
