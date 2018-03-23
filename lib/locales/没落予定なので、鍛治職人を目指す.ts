@@ -83,6 +83,8 @@ export const words: IWords[] = sublib._word_zh_all([
 
 	[`${sp}帕拉拉`, '・帕拉拉'],
 
+	['法米魯|ファミール', '法米魯'],
+
 	/**
 	 * 塔利司馬
 	 *
@@ -95,6 +97,7 @@ export const words: IWords[] = sublib._word_zh_all([
 	 */
 	['銀圓|銀币|銀貨', '銀币'],
 	['植物|植株', '植物'],
+	['名子|名字', '名字'],
 
 	...sublib.lazymarks['class'],
 
