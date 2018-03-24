@@ -31,6 +31,7 @@
   "dependencies": {
     "blank-line": "^1.0.0",
     "bluebird": "^3.5.1",
+    "child-process-promise": "^2.2.1",
     "cjk-conv": "^1.0.18",
     "deepmerge-plus": "^2.1.1",
     "diff": "^3.5.0",
@@ -47,7 +48,8 @@
     "shortid": "^2.2.8",
     "str-util": "^2.3.13",
     "tieba-harmony": "^1.2.10",
-    "upath2": "^2.1.0"
+    "upath2": "^2.1.0",
+    "yargs": "^11.0.0"
   },
   "devDependencies": {
     "@types/fs-extra": "^5.0.1",

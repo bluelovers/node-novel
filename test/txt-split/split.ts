@@ -16,8 +16,8 @@ let _space = ' 　\\t';
 
 let inputFile = path.join(projectConfig.dist_novel_root,
 	'user',
-	'カルマの塔',
-	'raw/业之塔1-111.txt',
+	'没落予定なので、鍛治職人を目指す',
+	'z.raw/没落预定.txt',
 );
 
 let options: IOptions = {
@@ -29,10 +29,13 @@ let options: IOptions = {
 			`(`,
 			[
 				//`[序终][曲章]`,
-				`(?:第?(?:[${_zh_num}]+|\\d+(?:\.\\d+)?|[${_full_num}]+(?:[\\.．][${_full_num}]+)?)(?:话|集|章))`,
+				//`(?:第?(?:[${_zh_num}]+|\\d+(?:\.\\d+)?|[${_full_num}]+(?:[\\.．][${_full_num}]+)?)(?:话|集|章))`,
 				//`６[${_full_num}]+`,
 				//`20`
-				`\\d+`,
+				//`\\d+`,
+
+				`第[${_zh_num}${_full_num}0-9]+章[${_space}]*第[${_zh_num}${_full_num}0-9]+话`,
+
 			].join('|'),
 			`)`,
 			`[${_space}]*`,
@@ -54,6 +57,33 @@ let options: IOptions = {
 		{
 
 			if (m_last)
+			{
+				let [idd, desc] = m_last.sub;
+
+				let idn: string;
+				idn = StrUtil.zh2num(StrUtil.toHalfWidth(idd).trim(), {
+					unsafe: true,
+					})
+					.toString()
+				;
+
+				idn = idn
+					.replace(/第/g, ' ')
+					.replace(/\s+/g, ' ')
+					.trim()
+				;
+
+				let _ok = true;
+
+				if (_ok)
+				{
+					name = idn;
+					idx += m_last.match.length;
+					id = '';
+				}
+			}
+
+			if (0 && m_last)
 			{
 				let [idd, desc] = m_last.sub;
 				let id_str: string;

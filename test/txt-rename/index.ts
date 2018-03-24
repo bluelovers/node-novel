@@ -37,6 +37,8 @@ novelID = '乙女ゲームの悪（中略）ヒロインが鬼畜女装野郎だ
 
 novelID = 'カルマの塔';
 
+novelID = '没落予定なので、鍛治職人を目指す';
+
 if (!novelID)
 {
 	throw new Error();
@@ -97,7 +99,7 @@ let _space = ' 　\\t';
 
 //	r = new zhRegExp(`^(\\d{4,}[ _])()(.+)$`);
 
-	r = new zhRegExp(`^()(\\d{3}) (.+)$`);
+	//r = new zhRegExp(`^()(\\d{3}) (.+)$`);
 
 	console.log(r);
 
@@ -129,7 +131,7 @@ let _space = ' 　\\t';
 			//const c = ' ';
 			const c = ' ';
 
-			if (m)
+			if (0 && m)
 			{
 				let id_str: string;
 
