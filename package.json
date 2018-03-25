@@ -40,7 +40,7 @@
     "i18next": "^10.6.0",
     "iconv-jschardet": "^1.0.5",
     "json5": "latest",
-    "node-novel-globby": "^1.7.5",
+    "node-novel-globby": "^1.7.6",
     "node-novel-info": "^2.3.4",
     "novel-text": "^1.0.11",
     "regexp-cjk": "^1.2.12",
