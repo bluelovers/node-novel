@@ -635,7 +635,7 @@ function my_words(html): string
 
 		console.log(novelText._words_r1);
 
-		fs.outputFile(path.join(__dirname, './temp/words.json'), JSON.stringify(words, function (k, v)
+		fs.outputFile(path.join(projectConfig.project_root, 'test', './temp/words.json'), JSON.stringify(words, function (k, v)
 		{
 			if (v instanceof RegExp)
 			{

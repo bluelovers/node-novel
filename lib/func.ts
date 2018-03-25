@@ -7,8 +7,9 @@ import { isRegExp } from 'regexp-cjk';
 
 export { trimFilename }
 
-export function array_unique(array: any[])
+export function array_unique<T>(array: T): T
 {
+	// @ts-ignore
 	return array.filter(function (el, index, arr)
 	{
 		return index == arr.indexOf(el);

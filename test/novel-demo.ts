@@ -4,6 +4,8 @@
 
 import { exec, spawn, execFile } from 'child-process-promise';
 import path from 'upath2';
+import * as Promise from 'bluebird';
+import { array_unique } from '../lib/func';
 
 let myLocalesID: string;
 
@@ -125,18 +127,37 @@ novelID = '人喰い転移者の異世界復讐譚　～無能はスキル『捕
 
 novelID = '没落予定なので、鍛治職人を目指す';
 
-novelID = '最下位職から最強まで成り上がる～地道な努力はチートでした～';
+//novelID = '最下位職から最強まで成り上がる～地道な努力はチートでした～';
 
 (async () =>
 {
-	await cpCall(novelID)
-		.then(function (result)
-		{
-			console.log(result.childProcess.pid, result.childProcess.spawnargs[result.childProcess.spawnargs.length - 1]);
-		})
-	;
+	// 支援一次處理多個小說
+	Promise.mapSeries(array_unique([
+		'',
+
+		//novelID,
+
+		//'かみがみ〜最も弱き反逆者〜',
+		'回復術士のやり直し～即死魔法とスキルコピーの超越ヒール～',
+
+	] as string[]), async function (novelID: string)
+	{
+		if (!novelID) return;
+
+		return cpCall(novelID, pathMain, myLocalesID)
+			.then(function (result)
+			{
+				console.log(result.childProcess.pid, result.childProcess.spawnargs[result.childProcess.spawnargs.length - 1]);
+			})
+			;
+	});
+
 })();
 
+/**
+ * node ./src/novel-demo.js -m user -l '' -n 'xxxx'
+ * ts-node ./src/novel-demo.ts -m user -l '' -n 'xxxx'
+ */
 function cpCall(novelID?: string, pathMain?: string, myLocalesID?: string)
 {
 	let promise = spawn('node', [
