@@ -38,7 +38,7 @@ export const resource = {
 
 };
 
-export const words: IWords[] = [
+export const words: IWords[] = sublib._word_zh_all([
 
 	//['[黑黒]', '黑'],
 
@@ -891,7 +891,7 @@ export const words: IWords[] = [
 		return m[1] + m[2] + m[3] + m[4];
 	}],
 
-];
+]);
 
 // 需要人工確認的屏蔽字或錯字用語等等
 export const words_maybe = [
