@@ -60,6 +60,7 @@ export function getTable(options: tiebaHarmony.IOptions = {}): IWords[]
 
 			'赌博',
 			'俘虏',
+			'發騷',
 
 		],
 	});
