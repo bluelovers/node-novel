@@ -5,7 +5,7 @@
 import { sp, IWords } from '.';
 import * as StrUtil from 'str-util';
 import sublib from './lib';
-import { lazymarks } from './lib/index';
+import { _word_en, lazymarks } from './lib/index';
 
 export const lang = '黑之魔王';
 
@@ -97,7 +97,7 @@ export const words: IWords[] = sublib._word_zh_all([
 	//['斯特拉托斯|斯特斯汀|斯特兰特斯', '斯特拉托斯'],
 	['斯特拉托斯|斯特斯汀|斯特兰特斯|斯特拉特', '斯特拉托斯'],
 
-	['莫尔德雷德|莫德雷德|摩尔德雷', '莫德雷德'],
+	['莫尔德雷德|莫德雷德特?|摩尔德雷', '莫德雷德'],
 
 	[`${sp}威尔西${sp}莫德雷德`, '$1・$2・$3'],
 	[/[华華]因/g, '华因'],
@@ -152,7 +152,7 @@ export const words: IWords[] = sublib._word_zh_all([
 
 	[/(?:妮露|尼禄)(公主)/g, '妮露$1'],
 
-	['尤[利里][烏乌]斯|尤里乌斯', '尤里乌斯'],
+	['尤[利里][烏乌]斯|尤里乌斯|伊琉乌絲', '尤里乌斯'],
 	['艾[璐尔]罗德|埃尔罗德|埃尔路斯|艾尔洛特|艾尔罗德|艾璐罗德|艾路羅德', '艾璐罗德'],
 
 	[`${sp}尤里乌斯${sp}(?:艾璐罗德|卢德)`, '$1・尤里乌斯・艾璐罗德'],
@@ -190,7 +190,7 @@ export const words: IWords[] = sublib._word_zh_all([
 	['海德拉|九头蛇', '海德拉'],
 	//[`${sp}玛雅${sp}海德拉`, '$1・$2・$3'],
 	[`${sp}玛雅${sp}海德拉`, '$1・玛雅・海德拉'],
-	[`萨菲尔?|薩菲尔?`, '萨菲'],
+	[`萨菲(?:尔|亞)?`, '萨菲'],
 
 	/**
 	 * 親衛隊
@@ -494,6 +494,8 @@ export const words: IWords[] = sublib._word_zh_all([
 
 	['独立遊撃権限?', '独立遊撃権限'],
 
+	['アルターフェイス|Alter ?-? ?Face', 'Alter・Face', 'ig'],
+
 	/**
 	 * weapen
 	 *
@@ -508,8 +510,10 @@ export const words: IWords[] = sublib._word_zh_all([
 	[/custom ・fireball|改造火球杖/g, '定制・火球杖'],
 	[/定制・火焰水晶球/g, '定制・火焰水晶球'],
 
-	['白王桜|白樱王', '白王桜'],
+	['白王桜|白樱王|「桜花」白王桜?', '白王桜'],
 	['霊刀', '霊刀'],
+
+	['霊刀「白王桜」|霊刀白王桜', '霊刀「白王桜」'],
 
 	['起浮游|浮游羽毛', '浮游羽毛'],
 	['绝怨鉈', '絶怨鉈'],
@@ -542,6 +546,8 @@ export const words: IWords[] = sublib._word_zh_all([
 
 			[['咒怨铊', '腹裂'], '咒怨铊「腹裂」'],
 			[['絶怨鉈', '首断|斩首'], '絶怨鉈「首断」'],
+
+			[['霊刀', '白王桜'], '霊刀「白王桜」'],
 
 		].reduce(function (a, b)
 		{
@@ -776,6 +782,11 @@ export const words: IWords[] = sublib._word_zh_all([
 	}
 	],
 
+	_word_en(/\w/g, function (...m)
+	{
+		return m[1] + StrUtil.toFullWidth(m[2]);
+	}),
+
 	[/\n,\n/g, '\n\n'],
 
 	...sublib.lazymarks[4],
@@ -887,7 +898,7 @@ export const words: IWords[] = sublib._word_zh_all([
 			'餓狼劍',
 			'絶怨鉈',
 			'暴食牙剣',
-			'心神守護の白羽'
+			'心神守護の白羽',
 		].join('|'),
 		`)`,
 
