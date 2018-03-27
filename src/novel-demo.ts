@@ -61,6 +61,7 @@ let _cache = {
 	block: {},
 	block2: {},
 	eng: {},
+	ja: {},
 };
 
 let cwd = path.join(projectConfig.dist_novel_root, pathMain, novelID);
@@ -316,6 +317,48 @@ i18next.setDefaultNamespace('i18n');
 					_cache.block[_cache_key_][k] = _cache.block[_cache_key_][k] || [];
 					_cache.block[_cache_key_][k] = _cache.block[_cache_key_][k].concat(_m);
 				}
+
+				v = new RegExp(`^[^\\nぁ-んァ-ヴーｱ-ﾝﾞ]*?([『「]*[ぁ-んァ-ヴーｱ-ﾝﾞｰ]{2,}[」』]*(?:[『「？、…。＋０-９Ａ-Ｚａ-ｚ（）！]*[ぁ-んァ-ヴーｱ-ﾝﾞｰ]*[」』]*)*)[^\\n]*?$`, 'uigm');
+				if ((_m = execall(v, _t)) && _m.length)
+				{
+					let k = v.toString();
+
+					_m = _m
+						.map(function (m, index)
+						{
+							m.order = index;
+
+							return m;
+						})
+						.sort(function (a, b)
+						{
+							return 0 - (a.sub[0].length - b.sub[0].length);
+						})
+						.filter(function (m)
+						{
+							//console.log(m);
+
+							return (m.sub[1] != 'の' && m.sub[0].length >= 2);
+						})
+						.slice(0, 5)
+						.sort(function (a, b)
+						{
+							return a.order - b.order;
+						})
+					;
+
+					if (_m.length)
+					{
+						if (_cache.ja[_cache_key_])
+						{
+							_cache.ja[_cache_key_] = _cache.ja[_cache_key_].concat(_m);
+						}
+						else
+						{
+							_cache.ja[_cache_key_] = _m;
+						}
+					}
+				}
 			}
 
 			if (typeof myLocales.words_callback == 'function')
@@ -370,6 +413,12 @@ i18next.setDefaultNamespace('i18n');
 				let out = await cache_output2(_cache.eng, 'English');
 
 				await fs.outputFile(path.join(cwd_out, '英語.md'), out);
+			}
+
+			if (Object.keys(_cache.ja).length)
+			{
+				let out = await cache_output3(_cache.ja, '');
+				await fs.outputFile(path.join(cwd_out, 'ja.md'), out);
 			}
 
 			if (Object.keys(_cache.block2).length)
@@ -514,6 +563,34 @@ function cache_output2(_block, title): string
 	return out;
 }
 
+function cache_output3(_block, title): string
+{
+	let out = Object.keys(_block)
+		.reduce(function (a, b)
+		{
+			a.push(`\n## ${b}`);
+
+			a.push('');
+
+			for (let m of _block[b])
+			{
+				a.push(`- ${stringify(m.match)}`);
+			}
+
+			a.push('');
+
+			return a;
+		}, [
+			`# ${title}`,
+			'',
+			'[TOC]',
+		])
+		.join("\n")
+	;
+
+	return out;
+}
+
 function chk_words_maybe(text, list, cache = {})
 {
 	let ls = []
@@ -635,7 +712,9 @@ function my_words(html): string
 
 		console.log(novelText._words_r1);
 
-		fs.outputFile(path.join(projectConfig.project_root, 'test', './temp/words.json'), JSON.stringify(words, function (k, v)
+		fs.outputFile(path.join(projectConfig.project_root, 'test', './temp/words.json'), JSON.stringify(words, function (k,
+			v
+		)
 		{
 			if (v instanceof RegExp)
 			{
