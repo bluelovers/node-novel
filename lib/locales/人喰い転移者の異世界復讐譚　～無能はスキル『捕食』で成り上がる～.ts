@@ -48,6 +48,8 @@ export const words: IWords[] = sublib._word_zh_all([
 
 	[/^[　 ]+([\-◆◇]+)[　 ]*$/gm, '$1'],
 
+	['𪚥', ''],
+
 	...sublib.lazymarks['class'],
 
 	...sublib.lazymarks[4],
