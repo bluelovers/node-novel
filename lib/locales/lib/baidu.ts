@@ -61,6 +61,10 @@ export function getTable(options: tiebaHarmony.IOptions = {}): IWords[]
 			'赌博',
 			'俘虏',
 			'發騷',
+			'死刑',
+			'殺死',
+			'殺掉',
+			'背叛',
 
 		],
 	});
