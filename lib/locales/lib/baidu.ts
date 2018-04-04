@@ -65,6 +65,7 @@ export function getTable(options: tiebaHarmony.IOptions = {}): IWords[]
 			'殺死',
 			'殺掉',
 			'背叛',
+			'性女',
 
 		],
 	});
