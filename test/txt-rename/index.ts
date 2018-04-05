@@ -19,6 +19,7 @@ import * as zhtext from 'novel-text/zhjp';
 import * as locales_lib from '../../lib/locales/lib';
 import { trimFilename, regex_str } from '../../lib/func';
 import { zhRegExp } from 'regexp-cjk';
+import novelFilename from 'cjk-conv/lib/novel/filename';
 
 let myLocalesID: string;
 let pathMain = 'user';
@@ -37,7 +38,9 @@ novelID = '乙女ゲームの悪（中略）ヒロインが鬼畜女装野郎だ
 
 novelID = 'カルマの塔';
 
-novelID = '没落予定なので、鍛治職人を目指す';
+//novelID = '没落予定なので、鍛治職人を目指す';
+
+//novelID = '誰にでもできる影から助ける魔王討伐';
 
 if (!novelID)
 {
@@ -166,13 +169,15 @@ let _space = ' 　\\t';
 				}
 			}
 
-			name = zhtext.filename(name, {
+			name = novelFilename.filename(name, {
 				skip: '娘志',
 				//safe: false,
 				})
 				.replace(/后(記|宮)/g, '後$1')
 				.replace(/“/g, '『')
 				.replace(/”/g, '』')
+
+				.replace(/レポート/g, '記事')
 
 				/*
 				.replace(/(\d+)/g, function (...m)

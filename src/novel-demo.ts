@@ -22,7 +22,7 @@ import * as novelGlobby from 'node-novel-globby';
 
 import * as yargs from 'yargs';
 
-const DEBUG = false;
+const DEBUG = true;
 
 let cli = yargs
 	.argv
@@ -146,6 +146,8 @@ i18next.setDefaultNamespace('i18n');
 		})
 	;
 
+	//console.log(globby_patterns);
+
 	let ls = await Promise
 		.mapSeries(novelGlobby
 			.globbyASync(globby_patterns, globby_options)
@@ -153,7 +155,7 @@ i18next.setDefaultNamespace('i18n');
 			{
 				if (DEBUG)
 				{
-					await fs.writeJSON('./temp/log.1.json', ls, {
+						await fs.writeJSON(path.join(projectConfig.temp_root, 'log.1.json'), ls, {
 						spaces: "\t",
 					});
 				}
@@ -170,9 +172,9 @@ i18next.setDefaultNamespace('i18n');
 						return path.relative(TXT_PATH, p);
 					});
 
-					await fs.writeFile('./temp/log.2.txt', ls.join("\n"));
+					await fs.writeFile(path.join(projectConfig.temp_root, 'log.2.txt'), ls.join("\n"));
 
-					process.exit();
+					//process.exit();
 				}
 
 			}), async function (file, index, len)
