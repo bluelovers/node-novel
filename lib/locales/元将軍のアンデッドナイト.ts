@@ -112,6 +112,10 @@ export const words: IWords[] = sublib._word_zh_all([
 
 	['ガンザス|刚扎斯', '刚扎斯'],
 
+	/**
+	 *
+	 */
+	['特托姆布尔克|特托姆堡', '特托姆堡'],
 
 	/**
 	 *
