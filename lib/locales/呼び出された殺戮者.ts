@@ -336,6 +336,18 @@ export const words: IWords[] = sublib._word_zh_all([
 
 	[/^[ \t　]+/gm, ''],
 
+	...sublib.lazymarks['class'],
+
+	...sublib.lazymarks[4],
+
+	...sublib.lazymarks[0],
+	...sublib.lazymarks[1],
+	...sublib.lazymarks[2],
+	...sublib.lazymarks[3],
+	...sublib.lazymarks[5],
+
+	/*
+
 	[/"([^\n"']*)'([^'"\n]+)'/gm, '"$1『$2』'],
 	[/"([^\n"']*)'([^'"\n]+)'/gm, '"$1『$2』'],
 
@@ -352,8 +364,12 @@ export const words: IWords[] = sublib._word_zh_all([
 
 	[/(【[^【】\n<>\[\]\{\}]+】[^\n【】<>\[\]\{\}]*)[<\[\{]([ ]*[…？－—\w０-９ａ-ｚＡ-Ｚ\u4E00-\u9FFF][^\n【】<>\[\]\{\}]*)[\]\}>]/gm, '$1【$2】'],
 
+	*/
+
 	[/[\[【“]/g, '「'],
 	[/[\]】”]/g, '」'],
+
+	/*
 
 	[/(「[^」]*)「([^」]*)」/g, '$1『$2』'],
 
@@ -361,6 +377,8 @@ export const words: IWords[] = sublib._word_zh_all([
 	[/(\n【[^\n]+】\n)([^【\n])/g, '$1\n$2'],
 
 	[/\n[ 　]*\.[ 　]*(?=\n)/g, '\n'],
+
+	*/
 
 	['([」』])[ ]+（', '$1（'],
 
