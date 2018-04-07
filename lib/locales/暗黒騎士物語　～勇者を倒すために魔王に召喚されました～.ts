@@ -27,7 +27,7 @@ export const value = {
 /**
  * 在這裡放此小說專屬的取代樣本
  */
-export const words: IWords[] = [
+export const words: IWords[] = sublib._word_zh_all([
 
 	['迪哈尔特|迪哈魯特|迪哈魯特|迪哈爾特|迪哈[ ]特', '迪哈魯特'],
 
@@ -75,7 +75,7 @@ export const words: IWords[] = [
 	 * 緹貝尔
 	 */
 
-	sublib._word_zh('古洛利西亞|古洛利亚斯|古洛利亞西|格洛里亚斯|格罗里亚斯', '古洛利亚斯'),
+	sublib._word_zh('古洛利西亞|古洛利亚斯|古洛利亞西|格洛里亚斯|格罗里亚斯|古洛利亞斯', '古洛利亞斯'),
 
 	sublib._word_zh('莫德斯|莫迪斯|莫德斯|モデス', '莫德斯'),
 	sublib._word_zh('兰菲尔德|蘭菲爾德|拉昂菲尔德', '兰菲尔德'),
@@ -422,7 +422,7 @@ export const words: IWords[] = [
 	['[奥奧][伽加]族?|食人魔', '食人魔'],
 	['人狼|狼人', '人狼'],
 
-	['狮鹫|格里芬', '狮鹫'],
+	['狮鹫|格里芬', '獅鷲'],
 	['鹫马|骏鹰|西伯格里夫', '鹫马'],
 	['飞马|佩加索斯|珀伽索斯', '飞马'],
 
@@ -502,7 +502,7 @@ export const words: IWords[] = [
 
 	[/\n+\-+\n*$/g, ''],
 
-] as IWords[];
+]) as IWords[];
 
 /**
  * 需要人工確認的屏蔽字或錯字用語等等
