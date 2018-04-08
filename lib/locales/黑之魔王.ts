@@ -292,7 +292,7 @@ export const words: IWords[] = sublib._word_zh_all([
 	 *
 	 */
 
-	[/猶達斯斯?|酋达斯|犹达斯|基塔斯|泽拉斯|ジュダス/g, '猶達斯'],
+	[/猶達斯斯?|酋达斯|犹达斯|基塔斯|泽拉斯|ジュダス|泽魯斯/g, '猶達斯'],
 	['蓼蓝|愛', '愛'],
 	['米萨|米莎|米沙|弥撒', '米莎'],
 
@@ -302,7 +302,7 @@ export const words: IWords[] = sublib._word_zh_all([
 
 	[`白の勇者|白色勇者`, '白の勇者'],
 
-	[`白色秘仪|白之秘跡|白の秘跡|白之遗迹`, '白の秘跡'],
+	[`白色秘仪|白之秘跡|白の秘跡|白之遗迹|白的聖礼`, '白の秘跡'],
 
 	[`司教|主教`, '司教'],
 
@@ -602,7 +602,7 @@ export const words: IWords[] = sublib._word_zh_all([
 	['神兵計画', '神兵計画'],
 	['腕力強化', '腕力強化'],
 
-	[`the${sp}greed`, 'The・Greed'],
+	[`the${sp}greed`, 'THE・GREED', 'ig'],
 
 	...sublib.lazymarks['class'],
 
