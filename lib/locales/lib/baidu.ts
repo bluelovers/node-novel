@@ -16,6 +16,8 @@ export function getTable(options: tiebaHarmony.IOptions = {}): IWords[]
 	options = deepmerge(options, {
 		tables: [
 
+			'毒妇',
+
 		],
 	});
 
