@@ -229,6 +229,8 @@ export const words: IWords[] = sublib._word_zh_all([
 
 	[/\n+(～[^\n]+～)\n+/gm, '\n\n\n$1\n\n'],
 
+	[/^【([^\n「」【】]+)】$/gm, '「$1」'],
+
 	...sublib.lazymarks[4],
 
 	...sublib.lazymarks[0],
