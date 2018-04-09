@@ -354,7 +354,7 @@ export const words: IWords[] = sublib._word_zh_all([
 	['Lambda', 'LAMBDA', 'ig'],
 	[/EARTH|亞斯\(アース\)/ig, 'EARTH'],
 	['拉姆达|拉姆妲|拉姆達|拉姆达|拉姆妲|ラムダ', 'LAMBDA'],
-	['[奥奧]利俊|歐力金|欧力金|起源之地', 'ORIGIN'],
+	['[奥奧]利俊|歐力金|欧力金|起源之地|欧利金', 'ORIGIN'],
 
 	/**
 	 * @todo 貝武多
