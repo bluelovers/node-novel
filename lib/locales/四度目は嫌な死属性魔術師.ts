@@ -405,7 +405,7 @@ export const words: IWords[] = sublib._word_zh_all([
 	['ブキャップ|bugyappu|布咯普', '布咯普', 'ig'],
 	['Gerazoog|ゲラゾーグ|格拉佐格|格拉ゾーグ|格拉索古|格拉索斯', '格拉佐格', 'ig'],
 
-	['Boumgan|ブモーガン', 'ブモーガン', 'ig'],
+	['Boumgan|ブモーガン|布莫干', '布莫干', 'ig'],
 	['布扎斯|布扎泽斯|ブザゼオス|布扎泽欧斯', '布扎泽斯', 'ig'],
 
 
