@@ -55,7 +55,7 @@ export const words: IWords[] = sublib._word_zh_all([
 	['普隆', '普隆'],
 
 	['芙蕾娅|芙蕾雅|芙莱亚|芙雷亚|美善雅|弗雷亞', '芙蕾雅'],
-	['芙莉雅|美莉雅|芙莉亞', '芙莉雅'],
+	['芙莉雅|美莉雅|芙莉亞|フレイア', '芙莉雅'],
 
 	['アールグランデ|阿魯古兰迪', '阿魯古兰迪'],
 	['クラタリッサ|庫拉塔利萨', '庫拉塔利萨'],
@@ -263,6 +263,7 @@ export const words: IWords[] = sublib._word_zh_all([
 				break;
 			case '模仿（Heal）':
 			case '模仿Heal':
+			case '模仿治疗':
 				m[2] = '模仿（Heal）';
 				break;
 			case '改良（Heal）':
