@@ -52,6 +52,8 @@
     "yargs": "^11.0.0"
   },
   "devDependencies": {
+    "@types/bluebird": "^3.5.20",
+    "@types/bluebird-global": "^3.5.5",
     "@types/fs-extra": "^5.0.2",
     "@types/i18next": "^8.4.3",
     "randexp": "^0.5.1"

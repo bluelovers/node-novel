@@ -2,10 +2,12 @@
  * Created by user on 2017/12/8/008.
  */
 
+import * as Promise from 'bluebird';
+//import Promise = require('bluebird');
+
 import * as fs from 'fs-extra';
 import path from 'upath2';
 import * as projectConfig from '../project.config';
-import * as Promise from 'bluebird';
 import * as StrUtil from 'str-util';
 import * as JsDiff from 'diff';
 import { i18next, loadLocales, addResourceBundle, locales_def } from '../lib/i18n';
@@ -138,7 +140,7 @@ i18next.setDefaultNamespace('i18n');
 		{
 			if (ls.length)
 			{
-				return Promise.map(ls, function (file)
+				return Promise.map(ls, function (file: string)
 				{
 					return fs.copy(file, path.join(cwd_out, path.relative(globby_options.cwd, file)));
 				})
