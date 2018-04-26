@@ -28,7 +28,7 @@ export const value = {
  */
 export const words: IWords[] = sublib._word_zh_all([
 
-	//['要取代的字', '取代後的字'],
+	['拉奥斯提亚|劳斯提亞|ラオスティア', '拉奧斯提亞'],
 
 	...sublib.lazymarks['class'],
 
