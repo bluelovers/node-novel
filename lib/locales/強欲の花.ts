@@ -47,6 +47,8 @@ export const words: IWords[] = sublib._word_zh_all([
 
 	['賽丽絲|Serisu', '賽丽絲'],
 
+	['跌落品|掉落品', '掉落品'],
+
 	...sublib.lazymarks['class'],
 
 	[/^(【[^\n]+)\n+(?=【)/gm, '$1\n'],
