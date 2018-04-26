@@ -53,6 +53,10 @@ export const words: IWords[] = sublib._word_zh_all([
 
 	[/lv/ig, 'LV'],
 
+	[/Chimera|奇美拉/ig, '奇美拉'],
+
+	[/\n+(─+[^\n─]+─+)\n+/gm, '\n\n\n$1\n\n'],
+
 	['異種族間交尾|異种族間交配', '異種族間交尾'],
 
 	...sublib.lazymarks['class'],
