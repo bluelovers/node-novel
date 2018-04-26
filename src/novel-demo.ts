@@ -129,8 +129,6 @@ i18next.setDefaultNamespace('i18n');
 
 	{
 		[globby_patterns, globby_options] = novelGlobby.getOptions(globby_patterns, globby_options);
-
-		globby_patterns.push('!*.raw');
 	}
 
 	await novelGlobby.globby([
@@ -387,7 +385,10 @@ i18next.setDefaultNamespace('i18n');
 				await fs.outputFile(path.join(cwd_out, currentFile) + '.patch', JsDiff.createPatch(name, novelText.toStr(_t_old), _t, {
 					newlineIsToken: true
 				}));
+			}
 
+			if (_t.replace(/\s+/g, ''))
+			{
 				//console.log('save', currentFile);
 				await fs.outputFile(path.join(cwd_out, currentFile) + '.txt', novelText.toStr(_t, "\r\n"));
 			}
@@ -397,16 +398,26 @@ i18next.setDefaultNamespace('i18n');
 				delete _cache.block[_cache_key_];
 			}
 
-			console[changed ? 'log' : 'error'](currentFile);
+			console[changed ? 'log' : 'error'](currentFile, index, len);
 
 			return currentFile;
 
 			//return rename(file, index, len);
 		})
+		.then(function (ls)
+		{
+			//console.log(-1);
+
+			return ls;
+		})
 		.tap(async function (ls)
 		{
+			//console.log(0);
+
 			if (Object.keys(_cache.block).length)
 			{
+				//console.log(1);
+
 				let md = await cache_output1(_cache.block, '待確認文字');
 
 				await fs.outputFile(path.join(cwd_out, '待確認文字.md'), md);
@@ -414,6 +425,8 @@ i18next.setDefaultNamespace('i18n');
 
 			if (Object.keys(_cache.eng).length)
 			{
+				//console.log(2);
+
 				let out = await cache_output2(_cache.eng, 'English');
 
 				await fs.outputFile(path.join(cwd_out, '英語.md'), out);
@@ -421,18 +434,24 @@ i18next.setDefaultNamespace('i18n');
 
 			if (Object.keys(_cache.ja).length)
 			{
+				//console.log(3);
+
 				let out = await cache_output3(_cache.ja, '');
 				await fs.outputFile(path.join(cwd_out, 'ja.md'), out);
 			}
 
 			if (Object.keys(_cache.block2).length)
 			{
+				//console.log(4);
+
 				let out = await cache_output2(_cache.block2, '待修正屏蔽字');
 
 				await fs.outputFile(path.join(cwd_out, '待修正屏蔽字.md'), out);
 			}
 			else
 			{
+				//console.log(5);
+
 				//await fs.remove(path.join(cwd_out, '待修正屏蔽字.md'));
 				await fs.outputFile(path.join(cwd_out, '待修正屏蔽字.md'), '');
 			}
