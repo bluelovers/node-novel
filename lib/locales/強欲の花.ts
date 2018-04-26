@@ -35,6 +35,9 @@ export const words: IWords[] = sublib._word_zh_all([
 
 	['強欲の(?:种|芽)', '強欲の种'],
 
+	['ダン|丹', '丹'],
+	['诚一|セイイチ', '诚一'],
+
 	...sublib.lazymarks['class'],
 
 	[/^(【[^\n]+)\n+(?=【)/gm, '$1\n'],
@@ -56,6 +59,12 @@ export const words: IWords[] = sublib._word_zh_all([
 
 	[/^【([^\n【】]{10,})】/gm, '「$1」'],
 	[/^【([^\n【】 ]{9,})】/gm, '「$1」'],
+
+	[/\[/g, '【'],
+	[/\]/g, '】'],
+
+	[/\{/g, '《'],
+	[/\}/g, '》'],
 
 ] as IWords[]);
 
