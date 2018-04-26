@@ -50,6 +50,7 @@ export const words: IWords[] = sublib._word_zh_all([
 	[/^【([^\n【】 ]+[，。！…？][^\n【】]*)】/gm, '「$1」'],
 
 	[/^【([^\n【】]{10,})】/gm, '「$1」'],
+	[/^【([^\n【】 ]{9,})】/gm, '「$1」'],
 
 ] as IWords[]);
 
