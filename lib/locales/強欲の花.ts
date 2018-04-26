@@ -29,6 +29,11 @@ export const value = {
 export const words: IWords[] = sublib._word_zh_all([
 
 	['拉奥斯提亚|劳斯提亞|ラオスティア', '拉奧斯提亞'],
+	['諾斯提亞|ノスティア', '諾斯提亞'],
+	['高卢|ガウル', '高卢'],
+	[`(?:高卢|瑪丽)${sp}諾斯提亞`, '$1・諾斯提亞'],
+
+	['強欲の(?:种|芽)', '強欲の种'],
 
 	...sublib.lazymarks['class'],
 

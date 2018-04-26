@@ -16,8 +16,8 @@ let _space = ' 　\\t';
 
 let inputFile = path.join(projectConfig.dist_novel_root,
 	'user',
-	'没落予定なので、鍛治職人を目指す',
-	'z.raw/没落预定.txt',
+	'強欲の花',
+	'z.raw/1~78.txt',
 );
 
 let options: IOptions = {
@@ -34,7 +34,11 @@ let options: IOptions = {
 				//`20`
 				//`\\d+`,
 
-				`第[${_zh_num}${_full_num}0-9]+章[${_space}]*第[${_zh_num}${_full_num}0-9]+话`,
+				//`第[${_zh_num}${_full_num}0-9]+章[${_space}]*第[${_zh_num}${_full_num}0-9]+话`,
+
+				`(?:第(?:[${_zh_num}]+|\\d+|[${_full_num}]+)(?:话|集|章))`,
+
+				`\\d{2} `,
 
 			].join('|'),
 			`)`,
@@ -56,7 +60,7 @@ let options: IOptions = {
 		})
 		{
 
-			if (m_last)
+			if (0 && m_last)
 			{
 				let [idd, desc] = m_last.sub;
 
@@ -126,7 +130,7 @@ let options: IOptions = {
 						name += c + `${desc}`;
 					}
 
-					id = '';
+					//id = '';
 
 					_ok = true;
 				}
