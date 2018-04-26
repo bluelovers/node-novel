@@ -55,7 +55,13 @@ export const words: IWords[] = sublib._word_zh_all([
 
 	[/Chimera|奇美拉/ig, '奇美拉'],
 
+	['撒魯洛斯的迷宮|サウロスの迷宮', '撒魯洛斯的迷宮'],
+
 	[/\n+(─+[^\n─]+─+)\n+/gm, '\n\n\n$1\n\n'],
+	[/\n+(-+[^\n─]+-+)\n+/gm, function (s, $1)
+	{
+		return `\n\n\n${$1}\n\n`.replace(/-/g, '─');
+	}],
 
 	['異種族間交尾|異种族間交配', '異種族間交尾'],
 
