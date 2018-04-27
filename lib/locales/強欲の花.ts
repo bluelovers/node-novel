@@ -57,6 +57,8 @@ export const words: IWords[] = sublib._word_zh_all([
 
 	['Jozu(da)?|乔茲', '乔茲'],
 
+	['賽瑞納|Serena|塞丽娜', '塞丽娜'],
+
 	[/lv/ig, 'LV'],
 	[/水平 ?(\d+)/ig, 'LV$1'],
 
