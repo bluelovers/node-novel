@@ -29,7 +29,7 @@ export const value = {
 export const words: IWords[] = sublib._word_zh_all([
 
 	['拉奥斯提亚|劳斯提亞|ラオスティア|劳苏提亞', '拉奧斯提亞'],
-	['諾斯提亞|ノスティア|nosutia|Nosutia', '諾斯提亞', 'ig'],
+	['諾斯提亞|ノスティア|nosutia|Nosutia|諾眭迪亞', '諾斯提亞', 'ig'],
 	['高卢|ガウル', '高卢'],
 	[`(?:高卢|瑪丽)${sp}諾斯提亞`, '$1・諾斯提亞'],
 
@@ -62,7 +62,7 @@ export const words: IWords[] = sublib._word_zh_all([
 	[/lv/ig, 'LV'],
 	[/水平 ?(\d+)/ig, 'LV$1'],
 
-	[/JēKuru|Jekuru|泽庫魯|ジェークル/ig, '泽庫魯'],
+	[/JēKuru|Jekuru|泽庫魯|ジェークル|杰庫魯/ig, '泽庫魯'],
 	[/泽庫魯(城镇|都市)|(城镇|都市)泽庫魯/ig, '都市泽庫魯'],
 
 	[/Chimera|奇美拉/ig, '奇美拉'],
@@ -74,8 +74,9 @@ export const words: IWords[] = sublib._word_zh_all([
 	[/水禾魯夫|水沃尔夫/ig, '水沃尔夫'],
 
 	[/哈梅倫|ハーメルン/ig, '哈梅倫'],
+	[/ベルク/ig, 'ベルク'],
 
-	[/ノワール|諾瓦尔/ig, '諾瓦尔'],
+	[/ノワール|諾瓦尔|诺瓦卢/ig, '諾瓦尔'],
 
 	[/几吕博雅火山|龍神火山/ig, '龍神火山'],
 
@@ -99,6 +100,8 @@ export const words: IWords[] = sublib._word_zh_all([
 
 	[/^(【[^\n]+)\n+(?=【)/gm, '$1\n'],
 	[/^[　 ]+/gm, ''],
+
+
 
 	//[/^回复举报[^\n]+\n+[^\n]+\n正式会员\d$/gm, '\n'],
 
