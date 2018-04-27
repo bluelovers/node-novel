@@ -53,8 +53,14 @@ export const words: IWords[] = sublib._word_zh_all([
 
 	['跌落品|掉落品', '掉落品'],
 
+	['強(大的)?新游戏|強化模式', '強化模式'],
+
+	['Jozu(da)?|乔茲', '乔茲'],
+
 	[/lv/ig, 'LV'],
 	[/水平 ?(\d+)/ig, 'LV$1'],
+
+	[/JēKuru|Jekuru|泽庫魯/ig, '泽庫魯'],
 
 	[/Chimera|奇美拉/ig, '奇美拉'],
 
