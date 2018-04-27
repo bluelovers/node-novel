@@ -63,7 +63,7 @@ export const words: IWords[] = sublib._word_zh_all([
 	[/水平 ?(\d+)/ig, 'LV$1'],
 
 	[/JēKuru|Jekuru|泽庫魯|ジェークル|杰庫魯/ig, '泽庫魯'],
-	[/泽庫魯(城镇|都市)|(城镇|都市)泽庫魯/ig, '都市泽庫魯'],
+	[/泽庫魯(城镇|都?市)|(城镇|都市)泽庫魯/ig, '都市泽庫魯'],
 
 	[/Chimera|奇美拉/ig, '奇美拉'],
 
@@ -85,6 +85,8 @@ export const words: IWords[] = sublib._word_zh_all([
 	['(撒魯洛斯|サウロス|萨乌罗斯)の迷宮', '萨乌罗斯的迷宮'],
 
 	[/前人未踏|前人未达/ig, '前人未踏'],
+
+	[/史萊姆Eater|史萊姆吞噬者/ig, '史萊姆吞噬者'],
 
 	[/\n+(◆[^\n]+)\n+/gm, '\n\n$1\n\n'],
 
