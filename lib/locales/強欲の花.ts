@@ -62,7 +62,7 @@ export const words: IWords[] = sublib._word_zh_all([
 	[/lv/ig, 'LV'],
 	[/水平 ?(\d+)/ig, 'LV$1'],
 
-	[/JēKuru|Jekuru|泽庫魯/ig, '泽庫魯'],
+	[/JēKuru|Jekuru|泽庫魯|ジェークル/ig, '泽庫魯'],
 	[/泽庫魯(城镇|都市)|(城镇|都市)泽庫魯/ig, '都市泽庫魯'],
 
 	[/Chimera|奇美拉/ig, '奇美拉'],
@@ -72,6 +72,8 @@ export const words: IWords[] = sublib._word_zh_all([
 	[/Item ?Box|物品箱|道具箱/ig, '道具箱'],
 
 	[/水禾魯夫|水沃尔夫/ig, '水沃尔夫'],
+
+	[/哈梅倫|ハーメルン/ig, '哈梅倫'],
 
 	[/ノワール|諾瓦尔/ig, '諾瓦尔'],
 
