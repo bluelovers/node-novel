@@ -173,7 +173,7 @@ lazymarks[4] = [
 	}
 	],
 
-	[/([^\d])(,)(?!\d)/ig, function (...m)
+	[/([^\d０-９])(,)(?![\d０-９])/ig, function (...m)
 	{
 		return m[1] + StrUtil.toFullWidth(m[2], {
 			skip: {
