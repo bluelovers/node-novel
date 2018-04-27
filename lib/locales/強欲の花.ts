@@ -69,7 +69,7 @@ export const words: IWords[] = sublib._word_zh_all([
 
 	[/Gurantia/ig, 'Gurantia'],
 
-	[/Item ?Box|物品箱/ig, '物品箱'],
+	[/Item ?Box|物品箱|道具箱/ig, '道具箱'],
 
 	[/水禾魯夫|水沃尔夫/ig, '水沃尔夫'],
 
