@@ -163,7 +163,7 @@ lazymarks[4] = [
 	[/^[。，]$/gm, '\n'],
 
 	[
-		/[\!\(\):,~∞&%]+/g, function (...m)
+		/[\!\(\):~∞&%]+/g, function (...m)
 	{
 		return StrUtil.toFullWidth(m[0], {
 			skip: {
@@ -172,6 +172,26 @@ lazymarks[4] = [
 		});
 	}
 	],
+
+	[/([^\d])(,)(?!\d)/ig, function (...m)
+	{
+		return m[1] + StrUtil.toFullWidth(m[2], {
+			skip: {
+				space: true,
+			},
+		});
+	}],
+
+	[/([^\d])(,)(?!\d)/g, function (...m)
+	{
+		return m[1] + StrUtil.toFullWidth(m[2], {
+			skip: {
+				space: true,
+			},
+		});
+	}, 'g', {
+		useNativeRegExp: true,
+	}],
 
 	[/([\d０-９])([\/\-~\+])([\d０-９])/g, function (...m)
 	{
@@ -753,6 +773,14 @@ export function _word_zh_all(arr: IWords[]): IWords[]
 		if (Array.isArray(value) && ((typeof value[0] == 'string') || isRegExp(value[0])))
 		{
 			let [s, ...a] = value.slice();
+
+			if (a.length > 2)
+			{
+				if (a[2].useNativeRegExp)
+				{
+					return [s, ...a];
+				}
+			}
 
 			s = regexpCjkLib._word_zh(s, null)[0];
 
