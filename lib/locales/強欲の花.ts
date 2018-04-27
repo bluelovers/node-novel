@@ -29,9 +29,9 @@ export const value = {
 export const words: IWords[] = sublib._word_zh_all([
 
 	['拉奥斯提亚|劳斯提亞|ラオスティア|劳苏提亞', '拉奧斯提亞'],
-	['諾斯提亞|ノスティア|nosutia|Nosutia|諾眭迪亞', '諾斯提亞', 'ig'],
+	['諾斯提亞|ノスティア|nosutia|Nosutia|諾眭迪亞|諾斯蒂亞', '諾斯蒂亞', 'ig'],
 	['高卢|ガウル', '高卢'],
-	[`(?:高卢|瑪丽)${sp}諾斯提亞`, '$1・諾斯提亞'],
+	[`(?:高卢|瑪丽)${sp}諾斯蒂亞`, '$1・諾斯蒂亞'],
 
 	[`(?:诚一|成一)(?:[。・])(?:如月|Kisaragi)`, '诚一・如月'],
 
@@ -67,7 +67,7 @@ export const words: IWords[] = sublib._word_zh_all([
 
 	[/Chimera|奇美拉/ig, '奇美拉'],
 
-	[/Gurantia/ig, 'Gurantia'],
+	[/Gurantia|格蘭蒂亞/ig, '格蘭蒂亞'],
 
 	[/Item ?Box|物品箱|道具箱/ig, '道具箱'],
 
