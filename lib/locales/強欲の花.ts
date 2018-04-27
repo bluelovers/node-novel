@@ -57,7 +57,7 @@ export const words: IWords[] = sublib._word_zh_all([
 
 	['Jozu(da)?|乔茲', '乔茲'],
 
-	['賽瑞納|Serena|塞丽娜', '塞丽娜'],
+	['賽瑞納|Serena|塞丽娜|セレナ', '塞丽娜'],
 
 	[/lv/ig, 'LV'],
 	[/水平 ?(\d+)/ig, 'LV$1'],
@@ -72,6 +72,8 @@ export const words: IWords[] = sublib._word_zh_all([
 	[/Item ?Box|物品箱|道具箱/ig, '道具箱'],
 
 	[/水禾魯夫|水沃尔夫/ig, '水沃尔夫'],
+
+	[/ノワール|諾瓦尔/ig, '諾瓦尔'],
 
 	[/几吕博雅火山|龍神火山/ig, '龍神火山'],
 
