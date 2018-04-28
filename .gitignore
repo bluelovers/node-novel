@@ -4,6 +4,9 @@
 
 .idea
 dist_novel
+dist_novel/**/*
+dist_novel/*
+dist_novel/**
 dist_novel/*_out
 ### git template
 
