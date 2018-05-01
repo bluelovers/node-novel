@@ -26,7 +26,7 @@
     "test": "test"
   },
   "scripts": {
-    "local-link": "npm link cjk-conv tieba-harmony node-novel-globby",
+    "local-link": "npm link cjk-conv tieba-harmony node-novel-globby novel-text",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
