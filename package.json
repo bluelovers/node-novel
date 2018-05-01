@@ -26,6 +26,7 @@
     "test": "test"
   },
   "scripts": {
+    "local-test-rename": "ts-node test/txt-rename/index.ts",
     "local-link": "npm link cjk-conv tieba-harmony node-novel-globby novel-text",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -33,8 +34,8 @@
     "blank-line": "^1.0.0",
     "bluebird": "^3.5.1",
     "child-process-promise": "^2.2.1",
-    "cjk-conv": "^1.0.31",
-    "deepmerge-plus": "^2.1.1",
+    "cjk-conv": "^1.0.33",
+    "deepmerge-plus": "^2.1.2",
     "diff": "^3.5.0",
     "execall": "^1.0.0",
     "fs-iconv": "^1.3.5",
@@ -43,11 +44,11 @@
     "json5": "latest",
     "node-novel-globby": "^1.7.11",
     "node-novel-info": "^2.3.5",
-    "novel-text": "^1.1.12",
+    "novel-text": "^1.1.15",
     "regexp-cjk": "^1.2.13",
     "regexp2": "^1.2.0",
     "shortid": "^2.2.8",
-    "str-util": "^2.3.13",
+    "str-util": "^2.3.16",
     "tieba-harmony": "^1.3.0",
     "upath2": "^2.1.2",
     "yargs": "^11.0.0"
