@@ -7,9 +7,9 @@ import * as StrUtil from 'str-util';
 import { regex_str, array_unique } from '../../func';
 import { IRegExpCallback } from 'novel-text';
 
+//import * as regexpCjkLib from 'regexp-cjk/lib/v1';
 import * as regexpCjkLib from 'regexp-cjk/lib';
-import { replace_literal } from 'regexp-cjk/lib';
-import { isRegExp } from 'regexp-cjk';
+import { isRegExp, zhRegExp } from 'regexp-cjk';
 export const _word_zh = regexpCjkLib._word_zh;
 
 import { tagTemplate } from './tag';

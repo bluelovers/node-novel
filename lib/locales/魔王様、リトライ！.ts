@@ -35,6 +35,8 @@ export const words: IWords[] = sublib._word_zh_all([
 	[`零`, '零'],
 	[`悠`, '悠'],
 
+	[`阿庫`, '惡'],
+
 	...[
 		'桐野　悠',
 		'霧雨　零',
