@@ -346,7 +346,7 @@ export const words: IWords[] = sublib._word_zh_all([
 
 	[`ベルグント|卑尔根|贝尔古特|拜魯蒙特`, '貝尔古特'],
 
-	[`(?:艾露貝齐亞|貝魯貝其亞|ヘルベチア)`, '艾露貝齐亞'],
+	[`(?:艾露貝齐亞|貝魯貝其亞|ヘルベチア|貝魯貝奇亞)`, '艾露貝齐亞'],
 
 	[`皮恩德${sp}多米尼克${sp}艾露貝齐亞${sp}貝尔古特`, '皮恩德・多米尼克・艾露貝齐亞・貝尔古特'],
 
@@ -699,8 +699,6 @@ export const words: IWords[] = sublib._word_zh_all([
 		'红炎',
 	].reduce(function (a, b)
 	{
-		console.log(sublib._word_zh(`${b}の?月`, `${b}の月`));
-
 		a.push(sublib._word_zh(`${b}の?月`, `${b}の月`));
 
 		return a;
