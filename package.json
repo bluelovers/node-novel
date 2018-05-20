@@ -1,6 +1,6 @@
 {
   "name": "node-novel",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "網路翻譯小說整理工具 donot install this",
   "keywords": [
     "chinese",
@@ -43,9 +43,9 @@
     "iconv-jschardet": "^1.0.5",
     "json5": "latest",
     "node-novel-globby": "^1.7.11",
-    "node-novel-info": "^2.3.5",
+    "node-novel-info": "^2.3.6",
     "novel-text": "^1.1.15",
-    "regexp-cjk": "^2.0.7",
+    "regexp-cjk": "^2.0.8",
     "regexp2": "^1.2.0",
     "shortid": "^2.2.8",
     "str-util": "^2.3.16",

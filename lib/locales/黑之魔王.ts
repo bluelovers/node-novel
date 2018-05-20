@@ -224,7 +224,7 @@ export const words: IWords[] = sublib._word_zh_all([
 
 	['(艾森|雷恩|威尔)([納纳]德|哈鲁?特|哈尔?德)', '$1哈鲁特'],
 
-	['夏(露|洛|爾)特?|夏洛特', '夏洛特'],
+	['夏露洛特|夏(露|洛|爾)特?|夏洛特', '夏洛特'],
 
 	['特里斯坦|托利斯坦', '托利斯坦'],
 	//['斯巴德|斯巴[達]|斯特达|斯伯达', '斯巴达'],
@@ -337,6 +337,8 @@ export const words: IWords[] = sublib._word_zh_all([
 	/**
 	 *
 	 */
+	[`(完整調试|フルチュ－ン|完全調试)`, '完整調试'],
+
 	[`(完整調试|フルチュ－ン|完全調试)・(哥雷姆|塔诺斯|タウスル|托魯斯)`, '完整調试・托魯斯'],
 	[`塔诺斯|タウスル|托魯斯|金牛座`, '托魯斯'],
 
@@ -513,7 +515,7 @@ export const words: IWords[] = sublib._word_zh_all([
 
 	['战塔法罗斯|战塔法魯斯', '战塔法罗斯'],
 
-	['アルターフェイス|Alter ?-? ?Face', 'Alter・Face', 'ig'],
+	['アルターフェイス|Alter ?-? ?Face', 'Alter・Face|阿鲁达菲斯', 'ig'],
 
 	/**
 	 * weapen
@@ -676,6 +678,8 @@ export const words: IWords[] = sublib._word_zh_all([
 		'红炎',
 	].reduce(function (a, b)
 	{
+		console.log(sublib._word_zh(`${b}の?月`, `${b}の月`));
+
 		a.push(sublib._word_zh(`${b}の?月`, `${b}の月`));
 
 		return a;
