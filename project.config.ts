@@ -11,4 +11,5 @@ export const temp_root = path.join(project_root, 'test/temp');
 
 export const dist_novel_root = path.join(project_root, 'dist_novel');
 
-export default module.exports;
+import * as ProjectConfig from './project.config'
+export default ProjectConfig;

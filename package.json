@@ -31,10 +31,13 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
+    "@types/cross-spawn": "^6.0.0",
+    "arr-unique": "^1.0.2",
     "blank-line": "^1.0.0",
     "bluebird": "^3.5.1",
     "child-process-promise": "^2.2.1",
     "cjk-conv": "^1.0.35",
+    "cross-spawn": "^6.0.5",
     "deepmerge-plus": "^2.1.2",
     "diff": "^3.5.0",
     "execall": "^1.0.0",
