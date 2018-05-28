@@ -65,14 +65,24 @@ function ditDiffStaged(): string[]
 function ditDiffStagedDir(): string[]
 {
 	let cp = crossSpawn.sync('git',
-		//'diff --cached --dirstat=files,0'.split(' '),
+		'diff --cached --dirstat=files,0'.split(' '),
+		{
+			cwd: ProjectConfig.dist_novel_root,
+		}
+	);
+
+	let cp2 = crossSpawn.sync('git',
 		'diff --dirstat=files,0'.split(' '),
 		{
 			cwd: ProjectConfig.dist_novel_root,
 		}
 	);
 
-	return cp.stdout.toString()
+	return [
+		cp.stdout.toString(),
+		cp2.stdout.toString()
+	]
+		.join('\n')
 		.split(/[\n\r]+/)
 		.map(function (v)
 		{
