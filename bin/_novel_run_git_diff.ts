@@ -6,28 +6,52 @@ import * as crossSpawn from 'cross-spawn';
 import * as path from 'path';
 import ProjectConfig from '../project.config';
 import * as Promise from 'bluebird';
+import * as fs from 'fs-extra';
 import { array_unique } from '../lib/func';
 
-Promise
-	.mapSeries(array_unique(ditDiffStagedDir()
-		.map(function (v)
+let arr_ids = array_unique(ditDiffStagedDir()
+	.map(function (v)
+	{
+		let d = v.split(/\//);
+
+		let pathMain = d[0];
+		let novelID = d[1];
+
+		if (pathMain.match(/_out$/))
 		{
-			let d = v.split(/\//);
+			pathMain = pathMain.replace(/_out$/, '');
+		}
 
-			let pathMain = d[0];
-			let novelID = d[1];
-
-			if (d.length > 3
-				&& pathMain != 'cm'
-				&& !pathMain.match(/_out$/))
-			{
-				return {
-					pathMain,
-					novelID,
-				}
+		if (d.length > 3
+			&& pathMain != 'cm'
+			&& !pathMain.match(/_out$/))
+		{
+			return {
+				pathMain,
+				novelID,
 			}
-		}))
-		.filter(v => v), function ({
+		}
+	}))
+	.filter(v => v)
+;
+
+let _cache_file = path.join(
+	ProjectConfig.temp_root,
+	path.basename(__filename) + '.json'
+);
+
+if (arr_ids.length == 1)
+{
+	fs.outputJSONSync(_cache_file, arr_ids);
+}
+else if (arr_ids.length == 0 && fs.existsSync(_cache_file))
+{
+	arr_ids = fs.readJSONSync(_cache_file);
+	console.log(`使用上次執行的目錄`, arr_ids);
+}
+
+Promise
+	.mapSeries(arr_ids, function ({
 		pathMain,
 		novelID,
 	})
