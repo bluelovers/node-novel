@@ -4,22 +4,22 @@
 
 import { trimFilename } from 'fs-iconv';
 import { isRegExp } from 'regexp-cjk';
-import * as arrUniq from 'arr-unique';
+export { array_unique, lazy_unique } from 'array-hyper-unique';
 
 export { trimFilename }
 
+/*
 export function array_unique<T>(array: T[]): T[]
 {
 	return arrUniq(array);
 
-	/*
 	// @ts-ignore
 	return array.filter(function (el, index, arr)
 	{
 		return index == arr.indexOf(el);
 	});
-	*/
 }
+*/
 
 export const matchOperatorsRe = /[|\\{}()[\]^$+*?.]/g;
 

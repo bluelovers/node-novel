@@ -32,7 +32,7 @@
   },
   "dependencies": {
     "@types/cross-spawn": "^6.0.0",
-    "arr-unique": "^1.0.2",
+    "array-hyper-unique": "^1.0.0",
     "blank-line": "^1.0.0",
     "bluebird": "^3.5.1",
     "child-process-promise": "^2.2.1",
