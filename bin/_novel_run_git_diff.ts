@@ -22,7 +22,7 @@ let arr_ids = array_unique(ditDiffStagedDir()
 			pathMain = pathMain.replace(/_out$/, '');
 		}
 
-		if (d.length > 3
+		if (d.length >= 3
 			&& pathMain != 'cm'
 			&& !pathMain.match(/_out$/))
 		{
