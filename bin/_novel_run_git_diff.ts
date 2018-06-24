@@ -8,6 +8,7 @@ import ProjectConfig from '../project.config';
 import * as Promise from 'bluebird';
 import * as fs from 'fs-extra';
 import { array_unique } from '../lib/func';
+import novelInfo, { mdconf_parse, IMdconfMeta } from 'node-novel-info';
 
 let arr_ids = array_unique(ditDiffStagedDir()
 	.map(function (v)
@@ -51,12 +52,78 @@ else if (arr_ids.length == 0 && fs.existsSync(_cache_file))
 }
 
 Promise
-	.mapSeries(arr_ids, function ({
+	.mapSeries(arr_ids, async function ({
 		pathMain,
 		novelID,
 	})
 	{
 		let myLocalesID = '';
+
+		let cwd_path = path.join(ProjectConfig.dist_novel_root, pathMain, novelID);
+
+		let meta: IMdconfMeta;
+
+		if (fs.existsSync(path.join(cwd_path, 'meta.md')))
+		{
+			meta = await fs.readFile(path.join(cwd_path, 'meta.md'))
+			.then(mdconf_parse)
+		}
+		else if (fs.existsSync(path.join(cwd_path, 'README.md')))
+		{
+			meta = await fs.readFile(path.join(cwd_path, 'README.md'))
+			.then(mdconf_parse)
+		}
+
+		if (meta)
+		{
+			const localesPath = path.join(ProjectConfig.project_root, './lib/locales');
+
+			if (!myLocalesID && meta.novel.series)
+			{
+				let p: string;
+
+				if (!myLocalesID)
+				{
+					p = path.join(localesPath, novelID);
+
+					if (fs.existsSync(p + '.ts'))
+					{
+						myLocalesID = novelID;
+					}
+				}
+
+				/**
+				 * 依據系列名稱來自動選擇檔案
+				 */
+				if (!myLocalesID && meta.novel.series.name)
+				{
+					if (!myLocalesID && meta.novel.series.name)
+					{
+						p = path.join(localesPath, meta.novel.series.name);
+
+						if (fs.existsSync(p + '.ts'))
+						{
+							myLocalesID = meta.novel.series.name;
+						}
+					}
+
+					if (!myLocalesID && meta.novel.series.name_short)
+					{
+						p = path.join(localesPath, meta.novel.series.name_short);
+
+						if (fs.existsSync(p + '.ts'))
+						{
+							myLocalesID = meta.novel.series.name_short;
+						}
+					}
+				}
+
+				if (myLocalesID)
+				{
+					console.log(`自動將 myLocalesID 設置為 ${myLocalesID}`);
+				}
+			}
+		}
 
 		let cp = crossSpawn.sync('node', [
 			path.join(__dirname, '../src/novel-demo'),
