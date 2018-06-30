@@ -64,6 +64,17 @@ export const words: IWords[] = sublib._word_zh_all([
 	['露庫斯貝露|イクスペル', '露庫斯貝露'],
 	['斯貝露|スペル', '斯貝露'],
 
+	['歐因克|オインク', '歐因克'],
+
+	/**
+	 *
+	 */
+	['精靈', '精靈'],
+	['回復魔法', '回復魔法'],
+
+	/**
+	 *
+	 */
 	...sublib.lazymarks['class'],
 
 	...sublib.lazymarks[4],
