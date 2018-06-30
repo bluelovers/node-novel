@@ -70,7 +70,19 @@ export const words: IWords[] = sublib._word_zh_all([
 
 	['瑪英茲穀|瑪英茲谷', '瑪英茲谷'],
 
-	['大媽媽|偉大母親|グランドマザー|伟大之母|偉大なる母', '偉大母親'],
+	['達', '達'],
+
+	['ファストリア|法斯特利亞', '法斯特利亞'],
+
+	/**
+	 *
+	 */
+	['職業☆Miss少女|職業乙女', '職業乙女'],
+
+	/**
+	 *
+	 */
+	['大媽媽|偉大母親|グランドマザー|伟大之母|偉大なる母|偉大的母親', '偉大母親'],
 
 	/**
 	 *
@@ -86,13 +98,14 @@ export const words: IWords[] = sublib._word_zh_all([
 	 *
 	 */
 
-	[/([\u4E00-\u9FFF])(\d+)(?=[\u4E00-\u9FFF])/g, function (...m)
+	[/([\u4E00-\u9FFF。，]|\n)(\d+)(?=[\u4E00-\u9FFF。，])/g, function (...m)
 	{
 		m[2] = StrUtil.toFullNumber(m[2]);
 		return m[1] + StrUtil.toFullNumber(m[2]);
 	}],
 
 	[/　 /g, '　　'],
+	['──── ────', '────────'],
 
 	...sublib.lazymarks['class'],
 
