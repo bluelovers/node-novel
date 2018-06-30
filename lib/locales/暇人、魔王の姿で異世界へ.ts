@@ -96,12 +96,16 @@ export const words: IWords[] = sublib._word_zh_all([
 	/**
 	 *
 	 */
-	['大媽媽|偉大母親|グランドマザー|伟大之母|偉大なる母|偉大的母親', '偉大母親'],
+	['大媽媽|偉大母親|グランドマザー|伟大之母|偉大なる母|偉大的母親|GrandMother', '偉大母親'],
 
 	['GRANDIA SEED|グランディアシード', 'GRANDIA SEED', 'ig'],
 	['Online Game|線上遊戲', '線上遊戲', 'ig'],
 
 	['盧庫斯|ルクス', '盧庫斯'],
+
+	['波動斬|WaveMotion', '波動斬'],
+
+	['ニブルヘイム|尼福爾海姆', '尼福爾海姆'],
 
 	/**
 	 *
@@ -109,8 +113,11 @@ export const words: IWords[] = sublib._word_zh_all([
 	['精靈|Efl|Elf', '精靈'],
 	['回復魔法', '回復魔法'],
 
+	['回[复]', '回復'],
+
 	['等級|Level', '等級'],
 	['技能|Skill', '技能'],
+	['Status|狀態', '狀態'],
 
 	['elder ?精靈|高等精靈', '高等精靈', 'ig'],
 
