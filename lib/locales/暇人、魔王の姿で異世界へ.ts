@@ -74,6 +74,8 @@ export const words: IWords[] = sublib._word_zh_all([
 
 	['ファストリア|法斯特利亞', '法斯特利亞'],
 
+	['蘭特', '蘭特'],
+
 	/**
 	 *
 	 */
