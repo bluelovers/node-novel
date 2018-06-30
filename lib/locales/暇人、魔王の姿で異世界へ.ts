@@ -70,6 +70,8 @@ export const words: IWords[] = sublib._word_zh_all([
 
 	['瑪英茲穀|瑪英茲谷', '瑪英茲谷'],
 
+	['大媽媽|偉大母親|グランドマザー', '偉大母親'],
+
 	/**
 	 *
 	 */
@@ -79,6 +81,13 @@ export const words: IWords[] = sublib._word_zh_all([
 	/**
 	 *
 	 */
+
+	[/([\u4E00-\u9FFF])(\d+)(?=[\u4E00-\u9FFF])/g, function (...m)
+	{
+		m[2] = StrUtil.toFullNumber(m[2]);
+		return m[1] + StrUtil.toFullNumber(m[2]);
+	}],
+
 	...sublib.lazymarks['class'],
 
 	...sublib.lazymarks[4],
