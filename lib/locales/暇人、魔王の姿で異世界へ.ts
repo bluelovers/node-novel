@@ -77,6 +77,13 @@ export const words: IWords[] = sublib._word_zh_all([
 	['蘭特', '蘭特'],
 
 	['斯蒂麗亞|スティリア', '斯蒂麗亞'],
+	['シェザード|謝扎德', '謝扎德'],
+
+	['藍堂|ランドウ', '藍堂'],
+	['那央|ナオ', '那央'],
+
+	['フォレスト|佛雷斯特', '佛雷斯特'],
+	['麥肯齊|マッケンジー', '麥肯齊'],
 
 	/**
 	 *
@@ -84,6 +91,7 @@ export const words: IWords[] = sublib._word_zh_all([
 	['職業☆Miss少女|職業乙女', '職業乙女'],
 	['利布拉里|リブラリー', '利布拉里'],
 	['セカンダリア|塞坎達利亞', '塞坎達利亞'],
+	['サーディス|薩迪斯', '薩迪斯'],
 
 	/**
 	 *
@@ -93,11 +101,16 @@ export const words: IWords[] = sublib._word_zh_all([
 	['GRANDIA SEED|グランディアシード', 'GRANDIA SEED', 'ig'],
 	['Online Game|線上遊戲', '線上遊戲', 'ig'],
 
+	['盧庫斯|ルクス', '盧庫斯'],
+
 	/**
 	 *
 	 */
 	['精靈|Efl|Elf', '精靈'],
 	['回復魔法', '回復魔法'],
+
+	['等級|Level', '等級'],
+	['技能|Skill', '技能'],
 
 	['elder ?精靈|高等精靈', '高等精靈', 'ig'],
 
@@ -107,7 +120,7 @@ export const words: IWords[] = sublib._word_zh_all([
 	 *
 	 */
 
-	[/([\u4E00-\u9FFF。，]|\n)(\d+)(?=[\u4E00-\u9FFF。，])/g, function (...m)
+	[/([\u4E00-\u9FFF。，…]|\n)(\d+)(?=[\u4E00-\u9FFF。…，])/g, function (...m)
 	{
 		m[2] = StrUtil.toFullNumber(m[2]);
 		return m[1] + StrUtil.toFullNumber(m[2]);
