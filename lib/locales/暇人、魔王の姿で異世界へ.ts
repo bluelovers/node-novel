@@ -107,6 +107,8 @@ export const words: IWords[] = sublib._word_zh_all([
 
 	['ニブルヘイム|尼福爾海姆', '尼福爾海姆'],
 
+	['洞窟蝙蝠|CaveBad|ケイブバッド', '洞窟蝙蝠', 'ig'],
+
 	/**
 	 *
 	 */
