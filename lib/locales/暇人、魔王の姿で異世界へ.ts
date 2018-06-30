@@ -70,7 +70,7 @@ export const words: IWords[] = sublib._word_zh_all([
 
 	['瑪英茲穀|瑪英茲谷', '瑪英茲谷'],
 
-	['大媽媽|偉大母親|グランドマザー', '偉大母親'],
+	['大媽媽|偉大母親|グランドマザー|伟大之母|偉大なる母', '偉大母親'],
 
 	/**
 	 *
@@ -105,6 +105,8 @@ export const words: IWords[] = sublib._word_zh_all([
 	...sublib.lazymarks[5],
 
 	[/^(【[^\n]+)\n{2}(?=【[^\n]+】[^\n]+)/gm, '$1\n'],
+	[/^(【[^\n]+)\n{2}(?=　)/gm, '$1\n'],
+	[/^(　[^\n]+)\n{2}(?=　{2,})/gm, '$1\n'],
 
 ] as IWords[]);
 
