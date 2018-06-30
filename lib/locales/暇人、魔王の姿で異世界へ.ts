@@ -75,8 +75,12 @@ export const words: IWords[] = sublib._word_zh_all([
 	/**
 	 *
 	 */
-	['精靈', '精靈'],
+	['精靈|Efl', '精靈'],
 	['回復魔法', '回復魔法'],
+
+	['elder ?精靈|高等精靈', '高等精靈', 'ig'],
+
+	['對象', '對象'],
 
 	/**
 	 *
@@ -88,6 +92,8 @@ export const words: IWords[] = sublib._word_zh_all([
 		return m[1] + StrUtil.toFullNumber(m[2]);
 	}],
 
+	[/　 /g, '　　'],
+
 	...sublib.lazymarks['class'],
 
 	...sublib.lazymarks[4],
@@ -97,6 +103,8 @@ export const words: IWords[] = sublib._word_zh_all([
 	...sublib.lazymarks[2],
 	...sublib.lazymarks[3],
 	...sublib.lazymarks[5],
+
+	[/^(【[^\n]+)\n{2}(?=【[^\n]+】[^\n]+)/gm, '$1\n'],
 
 ] as IWords[]);
 
