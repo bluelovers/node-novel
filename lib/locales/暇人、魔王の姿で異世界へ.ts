@@ -71,7 +71,7 @@ export const words: IWords[] = sublib._word_zh_all([
 	['歐因克|オインク', '歐因克'],
 	['索魯托伯古', '索魯托伯古'],
 
-	['達', '達'],
+
 
 	['蘭特', '蘭特'],
 
@@ -120,11 +120,12 @@ export const words: IWords[] = sublib._word_zh_all([
 
 	['ソルトバーグ|塞爾托巴博|索魯托伯古', '索魯托伯古'],
 
+	['ブライトネスアーチ|布萊特涅斯亞奇', '布萊特涅斯亞奇'],
 
 	/**
 	 *
 	 */
-	['大媽媽|偉大母親|グランドマザー|伟大之母|偉大なる母|偉大的母親|GrandMother', '偉大母親'],
+	['大媽媽|偉大母親|グランドマザー|伟大之母|偉大なる母|偉大的母親|GrandMother|Grandmother', '偉大母親', 'ig'],
 
 	['GRANDIA SEED|グランディアシード', 'GRANDIA SEED', 'ig'],
 	['Online Game|線上遊戲', '線上遊戲', 'ig'],
@@ -155,6 +156,8 @@ export const words: IWords[] = sublib._word_zh_all([
 	['AbsoluteZero|絶對零度', '絶對零度', 'ig'],
 	['Charge|充能', '充能', 'ig'],
 
+	['指鎧|ArmourRing', '指鎧', 'ig'],
+
 	/**
 	 *
 	 */
@@ -176,6 +179,10 @@ export const words: IWords[] = sublib._word_zh_all([
 	['職業', '職業'],
 
 	['註意|注意', '注意'],
+
+	['藍', '藍'],
+	['達', '達'],
+	['彌', '彌'],
 
 	/**
 	 *
