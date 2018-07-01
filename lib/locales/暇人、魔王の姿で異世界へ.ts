@@ -135,8 +135,6 @@ export const words: IWords[] = sublib._word_zh_all([
 
 	['Meister|大師|マイスター', '大師'],
 
-	['选单', '選單'],
-
 	['サクリファイス|犧牲', '犧牲'],
 
 	['港口都市|港口城市|港口城鎮', '港口都市'],
@@ -173,6 +171,9 @@ export const words: IWords[] = sublib._word_zh_all([
 
 	['對象', '對象'],
 	['印像', '印象'],
+
+	['选单', '選單'],
+	['職業', '職業'],
 
 	/**
 	 *
