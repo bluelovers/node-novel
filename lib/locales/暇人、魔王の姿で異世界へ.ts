@@ -28,7 +28,7 @@ export const value = {
  */
 export const words: IWords[] = sublib._word_zh_all([
 
-	['カイヴォン|凱馮', '凱馮'],
+	['カイヴォン|凱馮|馮凱', '凱馮'],
 
 	['露耶|リュエ', '露耶'],
 	['賽彌耶魯|セミエール', '賽彌耶魯'],
@@ -196,6 +196,7 @@ export const words: IWords[] = sublib._word_zh_all([
 	['藍', '藍'],
 	['達', '達'],
 	['彌', '彌'],
+	['馮', '馮'],
 
 	/**
 	 *
