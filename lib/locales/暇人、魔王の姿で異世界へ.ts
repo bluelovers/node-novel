@@ -171,6 +171,8 @@ export const words: IWords[] = sublib._word_zh_all([
 
 	['指鎧|ArmourRing', '指鎧', 'ig'],
 
+	['路線|Course', '路線', 'ig'],
+
 	/**
 	 *
 	 */
