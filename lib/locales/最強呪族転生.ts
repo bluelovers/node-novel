@@ -4,6 +4,7 @@
 
 import { sp, IWords, vMaybe, sublib } from './index';
 import * as StrUtil from 'str-util';
+import { _word_en } from './lib/index';
 
 /**
  * 改成小說名字
@@ -36,7 +37,7 @@ export const words: IWords[] = sublib._word_zh_all([
 	['瑪雷|ベレーク', '瑪雷'],
 
 	['姬澤露|ジゼル', '姬澤露'],
-	['ゼレルート|泽列特', '澤列特'],
+	['ゼレルート|泽列特|澤列魯特', '澤列魯特'],
 
 	['マーレン|馬尔蓮?', '馬爾'],
 
@@ -50,6 +51,11 @@ export const words: IWords[] = sublib._word_zh_all([
 
 	[/【/g, '「'],
 	[/】/g, '」'],
+
+	_word_en(/\d+/g, function (...m)
+	{
+		return m[1] + StrUtil.toFullNumber(m[2]);
+	}),
 
 	...sublib.lazymarks['class'],
 
