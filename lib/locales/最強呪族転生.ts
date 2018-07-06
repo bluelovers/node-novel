@@ -96,6 +96,8 @@ export const words: IWords[] = sublib._word_zh_all([
 	['イベン|易典', '易典'],
 	['博亞|ボア', '博亞'],
 
+	['グレーターベア|巨型熊|大熊|Great Bear|green bear', '巨型熊', 'ig'],
+
 	['希姆帕咯特|シムパロット', '希姆帕咯特'],
 
 	// --------------
