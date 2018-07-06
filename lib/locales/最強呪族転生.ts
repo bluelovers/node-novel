@@ -68,6 +68,8 @@ export const words: IWords[] = sublib._word_zh_all([
 
 	['ドゥーム|多姆', '多姆'],
 
+	['キメラの尾|奇美拉的尾巴|奇美拉之尾', '奇美拉之尾'],
+
 	/**
 	 *
 	 */
