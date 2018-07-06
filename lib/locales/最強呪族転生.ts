@@ -71,7 +71,7 @@ export const words: IWords[] = sublib._word_zh_all([
 	/**
 	 *
 	 */
-	['オーテム|歐特魯', '歐特魯'],
+	['オーテム|歐特魯|欧特姆', '歐特魯'],
 
 	['歐特魯台車|歐特魯卡車', '歐特魯台車'],
 
@@ -102,6 +102,11 @@ export const words: IWords[] = sublib._word_zh_all([
 	_word_en(/\d+/g, function (...m)
 	{
 		return m[1] + StrUtil.toFullNumber(m[2]);
+	}),
+
+	_word_en(/[a-z]/ig, function (...m)
+	{
+		return m[1] + StrUtil.toFullEnglish(m[2]);
 	}),
 
 	...sublib.lazymarks['class'],
