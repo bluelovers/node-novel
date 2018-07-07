@@ -152,6 +152,9 @@ export const words: IWords[] = sublib._word_zh_all([
 
 	['ヒョットル|休特爾', '休特爾'],
 
+	['魔導携帯電話|マギフォン|魔導攜帶電話', '魔導携帯電話'],
+
+	['イッサ草|以撒草', '以撒草'],
 
 	/**
 	 *
@@ -188,6 +191,9 @@ export const words: IWords[] = sublib._word_zh_all([
 
 	['哥布島|哥布岛|哥布刀|哥布Dao', '哥布島'],
 
+	[`(?:伊貝爾|イベール)${sp}(?:巴雲|バウン)`, '伊貝爾・巴雲'],
+	[`伊貝爾。巴雲`, '伊貝爾・巴雲'],
+
 	/**
 	 *
 	 */
@@ -199,6 +205,11 @@ export const words: IWords[] = sublib._word_zh_all([
 
 	[/【/g, '「'],
 	[/】/g, '」'],
+
+	_word_en(/\d+g/ig, function (...m: string[])
+	{
+		return m[1] + StrUtil.toFullWidth(m[2].toUpperCase());
+	}),
 
 	_word_en(/\d+/g, function (...m)
 	{
