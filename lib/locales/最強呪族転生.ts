@@ -158,6 +158,8 @@ export const words: IWords[] = sublib._word_zh_all([
 
 	['迪恩美伊|甸美伊', '迪恩美伊'],
 
+	['莉諾亞|裡諾亞|リノア', '莉諾亞'],
+
 	/**
 	 *
 	 */
