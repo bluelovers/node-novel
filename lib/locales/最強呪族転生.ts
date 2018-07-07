@@ -170,6 +170,8 @@ export const words: IWords[] = sublib._word_zh_all([
 
 	['羅布|ロウブ', '羅布'],
 
+	['ジャガー|賈伽|查格|加卡', '賈伽'],
+
 	/**
 	 *
 	 */
