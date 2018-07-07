@@ -576,6 +576,9 @@ lazymarks['zh'] = _word_zh_all([
 	['頭', '頭'],
 	['風', '風'],
 
+	['監', '監'],
+	['獄', '獄'],
+
 ]);
 
 lazymarks['zh2'] = _word_zh_all([
