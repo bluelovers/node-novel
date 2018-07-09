@@ -390,6 +390,8 @@ export const words: IWords[] = sublib._word_zh_all([
 
 	['考验的探索者|試練の探索者', '試練的探索者'],
 
+	['エドガー|埃德加|愛德格', '埃德加'],
+
 	/**
 	 * @todo 龍
 	 *
