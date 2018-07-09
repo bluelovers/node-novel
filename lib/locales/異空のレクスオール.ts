@@ -4,6 +4,7 @@
 
 import { sp, IWords, vMaybe, sublib } from './index';
 import * as StrUtil from 'str-util';
+import { _word_en } from './lib/index';
 
 /**
  * 改成小說名字
@@ -29,16 +30,39 @@ export const value = {
 export const words: IWords[] = sublib._word_zh_all([
 
 	['カナメ', '要'],
+	['アリサ|艾麗莎', '艾麗莎'],
+
+	['修涅依魯|シュネイル', '修涅依魯'],
+
+	/**
+	 *
+	 */
+	['無限回廊', '無限回廊'],
+
 
 	['レクスオールアロー|雷庫斯歐魯之矢', '雷庫斯歐魯之矢'],
 	['レクスオール|雷庫斯歐魯|雷庫斯歐陸', '雷庫斯歐魯'],
 
 	['アルハザール|阿魯哈薩魯', '阿魯哈薩魯'],
+	['ゼルフェクト|澤魯菲庫特', '澤魯菲庫特'],
+
+	['ルヴェルレヴェル|露維露蕾維露', '露維露蕾維露'],
+
+	/**
+	 *
+	 */
+
+	['ラナン|拉楠', '拉楠'],
 
 	...sublib.lazymarks['class'],
 
 	[/\n+(\S+\n)(?=年齢：)/g, '\n\n\n$1'],
 	[/\n+(\n)(?=・)/g, '\n\n$1'],
+
+	_word_en(/SF/ig, function (...m: string[])
+	{
+		return m[1] + 'SF';
+	}),
 
 	...sublib.lazymarks[4],
 
