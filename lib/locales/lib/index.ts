@@ -593,6 +593,8 @@ lazymarks['zh'] = _word_zh_all([
 	['費|费', '費'],
 	['達', '達'],
 
+	['[种]', '種'],
+
 ]);
 
 lazymarks['zh2'] = _word_zh_all([
