@@ -1144,6 +1144,8 @@ export const words: IWords[] = sublib._word_zh_all([
 	['土屋', '土屋'],
 	['加奈子|卡娜可', '加奈子'],
 
+	['干初|乾初', '乾初'],
+
 	/**
 	 *
 	 */
