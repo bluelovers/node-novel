@@ -91,6 +91,7 @@ export const words: IWords[] = sublib._word_zh_all([
 			.replace(/　 (?=\S)/g, '　　')
 			;
 	}],
+	[/　 (?=\S)/gm, '　　'],
 
 	[/： (?=\S)/gm, '：'],
 
