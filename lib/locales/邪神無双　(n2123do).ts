@@ -28,13 +28,21 @@ export const value = {
  */
 export const words: IWords[] = sublib._word_zh_all([
 
+
+	['晴艾|晴愛', '晴艾'],
 	['蛤蠣|奴隷', '奴隷'],
 
 	...sublib.lazymarks['class'],
 
 	[/\n+(\S)(?=[^\n]*\n種族：)/gm, '\n\n\n$1'],
+	[/\n{2,}(?=種族：)/gm, '\n\n\n'],
 
-	[/^  (?=\S)/gm, '　'],
+	[/^(  +)(?=[^\s　])/gm, function (s)
+	{
+		return s.replace(/  /g, '　');
+	}],
+
+	[/^(　+) (?=\S)/gm, '$1　'],
 
 	...sublib.lazymarks[4],
 
@@ -46,6 +54,10 @@ export const words: IWords[] = sublib._word_zh_all([
 
 	[/^(『[^』]+)\n\n(?=　)/gm, '$1\n'],
 	[/^(「[^」]+)\n\n(?=　)/gm, '$1\n'],
+
+	[/^(技能：[^\n]*)\n{2,}(?=　)/gm, '$1\n'],
+
+	[/^ +/gm, ''],
 
 ] as IWords[]);
 
