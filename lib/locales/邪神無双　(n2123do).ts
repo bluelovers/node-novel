@@ -84,6 +84,14 @@ export const words: IWords[] = sublib._word_zh_all([
 
 	[/^ +/gm, ''],
 
+	[/(  +)/gm, function (s)
+	{
+		return s
+			.replace(/  /g, '　')
+			.replace(/　 (?=\S)/g, '　　')
+			;
+	}],
+
 ] as IWords[]);
 
 /**
