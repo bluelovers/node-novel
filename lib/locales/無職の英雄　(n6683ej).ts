@@ -30,6 +30,7 @@ export const value = {
 export const words: IWords[] = sublib._word_zh_all([
 
 	['劍的城市|劍的都市', '劍的都市'],
+	['豬頭人国?王', '豬頭人王'],
 
 	...sublib.lazymarks['class'],
 
