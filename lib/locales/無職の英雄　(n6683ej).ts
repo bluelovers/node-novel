@@ -33,6 +33,8 @@ export const words: IWords[] = sublib._word_zh_all([
 
 	...sublib.lazymarks['class'],
 
+	[/^　(?=[^　])/gm, ''],
+
 	_word_en(/\d+g/ig, function (...m: string[])
 	{
 		return m[1] + StrUtil.toFullWidth(m[2].toUpperCase());
