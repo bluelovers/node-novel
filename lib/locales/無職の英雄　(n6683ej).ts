@@ -38,6 +38,8 @@ export const words: IWords[] = sublib._word_zh_all([
 	['鋼劍士|刚劍士', '鋼劍士'],
 	['莉莉婭|莉莉安', '莉莉婭'],
 
+	['阿雷魯|阿勒魯', '阿勒魯'],
+
 	[/[〝＂]([^〝〟「」『』＂\n]+)〟/g, '〈$1〉'],
 
 	...sublib.lazymarks['class'],
