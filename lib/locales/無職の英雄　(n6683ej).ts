@@ -31,6 +31,7 @@ export const words: IWords[] = sublib._word_zh_all([
 
 	['劍的城市|劍的都市', '劍的都市'],
 	['豬頭人国?王', '豬頭人王'],
+	['劍士(?:工|公)会', '劍士公会'],
 
 	...sublib.lazymarks['class'],
 
