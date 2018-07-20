@@ -29,7 +29,7 @@ export const value = {
  */
 export const words: IWords[] = sublib._word_zh_all([
 
-	['劍的城市|劍的都市', '劍的都市'],
+	['劍(的|之)(城市|都市)', '劍之都市'],
 	['豬頭人国?王', '豬頭人王'],
 
 	['劍士(?:工|公)会', '劍士公会'],
