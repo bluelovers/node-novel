@@ -29,7 +29,7 @@ export const value = {
  */
 export const words: IWords[] = sublib._word_zh_all([
 
-	//['要取代的字', '取代後的字'],
+	['劍的城市|劍的都市', '劍的都市'],
 
 	...sublib.lazymarks['class'],
 
