@@ -602,6 +602,8 @@ lazymarks['zh'] = _word_zh_all([
 
 	['戰', '戰' ],
 
+	['刹|剎', '刹' ],
+
 ]);
 
 lazymarks['zh2'] = _word_zh_all([
