@@ -29,9 +29,26 @@ export const value = {
  */
 export const words: IWords[] = sublib._word_zh_all([
 
+	['陰の実力者|影之实力者', '影之實力者'],
+
 	[/^　/gm, ''],
 
 	...sublib.lazymarks['class'],
+
+	_word_en(/\d+g/ig, function (...m: string[])
+	{
+		return m[1] + StrUtil.toFullWidth(m[2].toUpperCase());
+	}),
+
+	_word_en(/\d+/g, function (...m)
+	{
+		return m[1] + StrUtil.toFullNumber(m[2]);
+	}),
+
+	_word_en(/[a-z]/ig, function (...m)
+	{
+		return m[1] + StrUtil.toFullEnglish(m[2]);
+	}),
 
 	...sublib.lazymarks[4],
 
