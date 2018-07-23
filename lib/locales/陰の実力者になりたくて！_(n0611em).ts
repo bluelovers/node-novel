@@ -31,6 +31,8 @@ export const words: IWords[] = sublib._word_zh_all([
 
 	['陰の実力者|影之实力者', '影之實力者'],
 
+	['全\\*果', '全裸'],
+
 	[/^　/gm, ''],
 
 	...sublib.lazymarks['class'],
