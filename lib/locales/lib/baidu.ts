@@ -17,6 +17,9 @@ export function getTable(options: tiebaHarmony.IOptions = {}): IWords[]
 		tables: [
 
 			'毒妇',
+			'傻瓜',
+			'厮杀',
+
 
 		],
 	});
