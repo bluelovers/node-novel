@@ -30,6 +30,7 @@ export const value = {
 export const words: IWords[] = sublib._word_zh_all([
 
 	[/(\S)   (?=\S)/g, '$1\n\n'],
+	[/───+(（插入图片\d+）)───+/gm, '───$1───'],
 
 	...sublib.lazymarks['class'],
 
