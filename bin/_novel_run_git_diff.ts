@@ -52,6 +52,8 @@ else if (arr_ids.length == 0 && fs.existsSync(_cache_file))
 	console.log(`使用上次執行的目錄`, arr_ids);
 }
 
+const localesPath = path.join(ProjectConfig.project_root, './lib/locales');
+
 Promise
 	.mapSeries(arr_ids, async function ({
 		pathMain,
@@ -67,57 +69,46 @@ Promise
 		if (fs.existsSync(path.join(cwd_path, 'meta.md')))
 		{
 			meta = await fs.readFile(path.join(cwd_path, 'meta.md'))
-			.then(mdconf_parse)
+				.then(mdconf_parse)
 		}
 		else if (fs.existsSync(path.join(cwd_path, 'README.md')))
 		{
 			meta = await fs.readFile(path.join(cwd_path, 'README.md'))
-			.then(mdconf_parse)
+				.then(mdconf_parse)
 		}
 
 		if (meta)
 		{
-			const localesPath = path.join(ProjectConfig.project_root, './lib/locales');
-
-			if (!myLocalesID && meta.novel.series)
+			if (!myLocalesID)
 			{
-				let p: string;
+				myLocalesID = searchLocalesID([
+					novelID,
 
-				if (!myLocalesID)
-				{
-					p = path.join(localesPath, novelID);
+					meta.novel.title,
 
-					if (fs.existsSync(p + '.ts'))
-					{
-						myLocalesID = novelID;
-					}
-				}
+					meta.novel.title_short,
+					meta.novel.title_zh,
+					meta.novel.title_jp,
+					// @ts-ignore
+					meta.novel.title_output,
+					// @ts-ignore
+					meta.novel.title_tw,
+					// @ts-ignore
+					meta.novel.title_cn,
+					// @ts-ignore
+					meta.novel.title_other,
+					// @ts-ignore
+					meta.novel.title_source,
 
-				/**
-				 * 依據系列名稱來自動選擇檔案
-				 */
-				if (!myLocalesID && meta.novel.series.name)
-				{
-					if (!myLocalesID && meta.novel.series.name)
-					{
-						p = path.join(localesPath, meta.novel.series.name);
+					/**
+					 * 依據系列名稱來自動選擇檔案
+					 */
+					meta.novel.series && meta.novel.series.name,
+					meta.novel.series && meta.novel.series.name_short,
 
-						if (fs.existsSync(p + '.ts'))
-						{
-							myLocalesID = meta.novel.series.name;
-						}
-					}
-
-					if (!myLocalesID && meta.novel.series.name_short)
-					{
-						p = path.join(localesPath, meta.novel.series.name_short);
-
-						if (fs.existsSync(p + '.ts'))
-						{
-							myLocalesID = meta.novel.series.name_short;
-						}
-					}
-				}
+					// @ts-ignore
+					meta.novel.title_en,
+				]);
 
 				if (myLocalesID)
 				{
@@ -141,6 +132,29 @@ Promise
 		console.log(cp.pid, pathMain, novelID,);
 	})
 ;
+
+function searchLocalesID(ids: string[])
+{
+	let myLocalesID: string;
+
+	for (let name of ids)
+	{
+		if (!name)
+		{
+			continue;
+		}
+
+		let p = path.join(localesPath, name);
+
+		if (fs.existsSync(p + '.ts'))
+		{
+			myLocalesID = name;
+			break;
+		}
+	}
+
+	return myLocalesID;
+}
 
 function ditDiffStaged(): string[]
 {
