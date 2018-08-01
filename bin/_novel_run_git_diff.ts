@@ -89,8 +89,16 @@ Promise
 					meta.novel.title_short,
 					meta.novel.title_zh,
 					meta.novel.title_jp,
+
 					// @ts-ignore
 					meta.novel.title_output,
+
+					/**
+					 * 依據系列名稱來自動選擇檔案
+					 */
+					meta.novel.series && meta.novel.series.name,
+					meta.novel.series && meta.novel.series.name_short,
+
 					// @ts-ignore
 					meta.novel.title_tw,
 					// @ts-ignore
@@ -99,12 +107,6 @@ Promise
 					meta.novel.title_other,
 					// @ts-ignore
 					meta.novel.title_source,
-
-					/**
-					 * 依據系列名稱來自動選擇檔案
-					 */
-					meta.novel.series && meta.novel.series.name,
-					meta.novel.series && meta.novel.series.name_short,
 
 					// @ts-ignore
 					meta.novel.title_en,
