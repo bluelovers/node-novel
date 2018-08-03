@@ -4,6 +4,7 @@
 
 import { sp, IWords, vMaybe, sublib } from './index';
 import * as StrUtil from 'str-util';
+import { _word_en } from './lib/index';
 
 /**
  * 改成小說名字
@@ -31,9 +32,9 @@ export const words: IWords[] = sublib._word_zh_all([
 	['芙拉姆|フラム', '芙拉姆'],
 	['亞普利柯特|アプリコット', '亞普利柯特'],
 
-	['米爾琪特|ミルキット|米尔琪特', '米爾琪特'],
+	['米爾琪特|ミルキット|米尔琪特|米而琪特', '米爾琪特'],
 
-	['塞拉', '塞拉'],
+	['塞拉|薩拉', '塞拉'],
 	['安比蓮', '安比蓮'],
 
 	['琪莉露|キリル', '琪莉露'],
@@ -67,6 +68,18 @@ export const words: IWords[] = sublib._word_zh_all([
 
 	['利齊', '利齊'],
 
+	['塞雷伊德', '塞雷伊德'],
+	['涅伊加斯', '涅伊加斯'],
+	['西圖姆', '西圖姆'],
+	['札伊翁', '札伊翁'],
+	['迪扎', '迪扎'],
+
+
+	['茵庫', '茵庫'],
+	['利夫庫拉福特', '利夫庫拉福特'],
+
+	['緹娜', '緹娜'],
+
 	// ----------------
 
 	['魂喰いのツヴァイハンダー|噬魂双手剑|噬魂的雙手劍', '噬魂的雙手劍'],
@@ -74,10 +87,27 @@ export const words: IWords[] = sublib._word_zh_all([
 	['Status|ステータス', 'Status'],
 	['エピック|史詩', '史詩'],
 
+	['壹|一', '一'],
+
 	[/^ /gm, ''],
 	[/^　(?=「)/gm, ''],
 
 	...sublib.lazymarks['class'],
+
+	_word_en(/\d+g/ig, function (...m: string[])
+	{
+		return m[1] + StrUtil.toFullWidth(m[2].toUpperCase());
+	}),
+
+	_word_en(/\d+/g, function (...m)
+	{
+		return m[1] + StrUtil.toFullNumber(m[2]);
+	}),
+
+	_word_en(/[a-z]/ig, function (...m)
+	{
+		return m[1] + StrUtil.toFullEnglish(m[2]);
+	}),
 
 	...sublib.lazymarks[4],
 
