@@ -29,9 +29,55 @@ export const value = {
  */
 export const words: IWords[] = sublib._word_zh_all([
 
-	//['要取代的字', '取代後的字'],
+	['ステラ|史黛拉', '史黛拉'],
+	['ノードゥス|諾杜斯', '諾杜斯'],
+
+	// 鳥
+	['クレバー|克萊瓦', '克萊瓦'],
+
+	['グレン|格倫|格林', '格倫'],
+
+	['グレッグス|格雷古斯', '格雷古斯'],
+	['ジョージア|喬基亞', '喬基亞'],
+
+	['ベック|貝克', '貝克'],
+	['メイス|梅斯', '梅斯'],
+	['ガルド|伽魯德', '伽魯德'],
+
+	['マリー|瑪麗', '瑪麗'],
+	['ライア|萊亞|萊雅', '萊雅'],
+	['ドブ川|多布川', '多布川'],
+
+	// 斯托克商會
+	['ストック|斯托克', '斯托克'],
+	['路羅伊', '路羅伊'],
+
+	['帕魯普德', '帕魯普德'],
+
+	// 霍爾希德帝国
+	['ホルシード|霍爾希德', '霍爾希德'],
+
+	// 皮貝利之城 ピーベリーの街
+	['ピーベリー|皮貝利', '皮貝利'],
+
+	[/^　/gm, ''],
 
 	...sublib.lazymarks['class'],
+
+	_word_en(/\d+g/ig, function (...m: string[])
+	{
+		return m[1] + StrUtil.toFullWidth(m[2].toUpperCase());
+	}),
+
+	_word_en(/\d+/g, function (...m)
+	{
+		return m[1] + StrUtil.toFullNumber(m[2]);
+	}),
+
+	_word_en(/[a-z]/ig, function (...m)
+	{
+		return m[1] + StrUtil.toFullEnglish(m[2]);
+	}),
 
 	...sublib.lazymarks[4],
 
