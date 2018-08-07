@@ -59,7 +59,7 @@ export const words: IWords[] = sublib._word_zh_all([
 	/**
 	 *
 	 */
-	[`托路|托珑|托泷|托拢`, '托珑'],
+	[`托路|托珑|托泷|托拢|tron`, '托珑'],
 	[`琼恩|裘恩`, '琼恩'],
 
 	/**
@@ -82,6 +82,7 @@ export const words: IWords[] = sublib._word_zh_all([
 	[`玛乌托${sp}福吉`, '玛乌托・福吉'],
 	[`多納${sp}多納`, '多納・多納'],
 
+	[`多那行館`, '多納行館'],
 
 	[`玛夏魯|玛夏露`, '玛夏魯'],
 	[`玛夏魯${sp}安茨`, '玛夏魯・安茨'],
@@ -111,7 +112,7 @@ export const words: IWords[] = sublib._word_zh_all([
 
 	[`米利岗|米利崗`, '米利崗'],
 
-	[`雪風|雪风`, '雪风'],
+	[`雪風|雪风`, '雪風'],
 	[`蜜柑|蜜康`, '蜜康'],
 
 	[`瑪涅|曼登|マンデン`, '瑪涅'],
@@ -124,6 +125,7 @@ export const words: IWords[] = sublib._word_zh_all([
 	[`Love${sp}Prison`, 'Love・Prison', 'ig'],
 
 	['城镇路奇|路奇城', '路奇城'],
+	['路奇|rookie|ルーキー', '路奇'],
 
 	/**
 	 *
@@ -152,6 +154,8 @@ export const words: IWords[] = sublib._word_zh_all([
 	[/(\W)maa(?!\w)/ig, '$1嘛'],
 
 	['情報の一部が公開されました。|一部份的情報已公開。', '一部份的情報已公開。'],
+
+	['貝者場|賭場', '賭場'],
 
 	['悪', '惡'],
 	[`玛`, '瑪'],
