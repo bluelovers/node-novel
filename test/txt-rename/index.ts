@@ -20,6 +20,7 @@ import * as locales_lib from '../../lib/locales/lib';
 import { trimFilename, regex_str } from '../../lib/func';
 import { zhRegExp } from 'regexp-cjk';
 import novelFilename from 'cjk-conv/lib/novel/filename';
+import { cn2tw_min } from 'cjk-conv/lib/zh/convert/min';
 
 let myLocalesID: string;
 let pathMain = 'user';
@@ -41,6 +42,9 @@ novelID = 'カルマの塔';
 //novelID = '没落予定なので、鍛治職人を目指す';
 
 //novelID = '誰にでもできる影から助ける魔王討伐';
+
+pathMain = 'dmzj';
+novelID = '幻想世界的愛麗絲緹露';
 
 if (!novelID)
 {
@@ -192,6 +196,8 @@ let _space = ' 　\\t';
 			});
 
 			name = trimFilename(name);
+
+			name = cn2tw_min(name);
 
 //			console.log(name, m);
 
