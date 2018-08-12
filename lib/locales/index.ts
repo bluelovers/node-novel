@@ -42,7 +42,7 @@ export const words: IWords[] = [
 	...sublib.lazymarks['zh'],
 	...sublib.lazymarks['zh2'],
 
-	['(不死者?)[話话]', '$1化'],
+	//['(不死者?)[話话]', '$1化'],
 	['而后在', '之後在'],
 
 	['多余', '多餘'],
