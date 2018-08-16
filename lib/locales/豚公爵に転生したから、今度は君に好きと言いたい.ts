@@ -52,6 +52,8 @@ export const words: IWords[] = sublib._word_zh_all([
 
 	['雅莉西婭|愛莉西亞|亞里希亞|アリシア|艾麗西亞', '愛莉西亞'],
 
+	[`${sp}(?:布拉|布菈)${sp}(?:迪亞|蒂婭)${sp}薩奇斯塔`, '・布拉・迪亞・薩奇斯塔'],
+
 	/**
 	 * 洛克莫科老師
 	 * 阿魯魯老師
@@ -194,10 +196,13 @@ export const words: IWords[] = sublib._word_zh_all([
 		return m[1] + StrUtil.toFullNumber(m[2]);
 	}),
 
+	[/“([^\n“”「」『』]+)“/g, '「$1」'],
+
 	...sublib.lazymarks[4],
 
 	...sublib.lazymarks[0],
 	...sublib.lazymarks[1],
+
 	...sublib.lazymarks[2],
 	...sublib.lazymarks[3],
 	...sublib.lazymarks[5],
