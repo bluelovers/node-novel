@@ -186,6 +186,11 @@ export const words: IWords[] = sublib._word_zh_all([
 
 	[/^　(?![　\s●])/gm, ''],
 
+	[/(([^\n“”「」『』])(」|”))\1{1,}(?!$)/gm, function (...m)
+	{
+		return m[2].repeat((m[0].length / m[1].length));
+	}],
+
 	_word_en(/\d+/g, function (...m)
 	{
 		if (m[1] == '─')
