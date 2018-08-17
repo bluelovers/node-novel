@@ -35,6 +35,8 @@ export const words: IWords[] = sublib._word_zh_all([
 
 	['初始之街|初始之鎮', '初始之街'],
 
+	['索里雅', '索里雅'],
+
 	...sublib.lazymarks['class'],
 
 	[/\n+(\S)(?=[^\n]*\n種族：)/gm, '\n\n\n$1'],
