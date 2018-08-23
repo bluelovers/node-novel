@@ -680,6 +680,8 @@ lazymarks['zh'] = _word_zh_all([
 
 	['[圏]', '圈'],
 
+	['[图]', '圖'],
+
 ]);
 
 lazymarks['zh2'] = _word_zh_all([

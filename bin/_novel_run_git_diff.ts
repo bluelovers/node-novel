@@ -82,6 +82,8 @@ Promise
 			if (!myLocalesID)
 			{
 				myLocalesID = searchLocalesID([
+					meta.options && meta.options.novel && meta.options.novel.pattern,
+
 					novelID,
 
 					meta.novel.title,
@@ -141,7 +143,7 @@ function searchLocalesID(ids: string[])
 
 	for (let name of ids)
 	{
-		if (!name)
+		if (!name || typeof name !== 'string')
 		{
 			continue;
 		}
