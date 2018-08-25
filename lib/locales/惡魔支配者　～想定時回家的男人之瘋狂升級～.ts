@@ -4,7 +4,7 @@
 
 import { sp, IWords, vMaybe, sublib } from './index';
 import * as StrUtil from 'str-util';
-import { _word_en, lazymarks } from './lib/index';
+import { _word_en } from './lib/index';
 
 /**
  * 改成小說名字 (可留白 則自動設定為檔案名稱)
@@ -16,7 +16,10 @@ export const lang = '';
  */
 export const words_source: IWords[] = [
 
-	//['要取代的字', '取代後的字'],
+	['五条亘', '五条亘'],
+	['五条', '五条'],
+
+	['神楽', '神楽'],
 
 ];
 
@@ -32,7 +35,7 @@ export const words: IWords[] = sublib._word_zh_all([
 	...sublib.lazymarks[4],
 
 	...sublib.lazymarks['full_width_001'],
-	//...sublib.lazymarks['full_width_002'],
+	...sublib.lazymarks['full_width_002'],
 
 	...sublib.lazymarks[0],
 	...sublib.lazymarks[1],

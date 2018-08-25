@@ -892,6 +892,24 @@ lazymarks['c100'] = _word_zh_all([
 
 ]);
 
+lazymarks['full_width_001'] = _word_zh_all([
+
+	_word_en(/\d+/g, function (...m)
+	{
+		return m[1] + StrUtil.toFullNumber(m[2]);
+	}),
+
+]);
+
+lazymarks['full_width_002'] = _word_zh_all([
+
+	_word_en(/[a-z]/ig, function (...m)
+	{
+		return m[1] + StrUtil.toFullEnglish(m[2]);
+	}),
+
+]);
+
 export function _word_en(search: string | RegExp, ret: string | IRegExpCallback = null, flag = 'ig'): [RegExp, string | any]
 {
 	return [new RegExp(`(^|[^\\w'])(${regex_str(search)})(?![\\w'])`, flag), ((ret !== null) ? ret : '$1' + search)];
