@@ -7,29 +7,25 @@ import * as StrUtil from 'str-util';
 import { _word_en } from './lib/index';
 
 /**
- * 改成小說名字
+ * 改成小說名字 (可留白 則自動設定為檔案名稱)
  */
 export const lang = '';
 
 /**
- * 其他用途
- *
- * @type {{chapter_id: string; chapter_title: string; volume_id: string; volume_title: string}}
+ * 在這裡放此小說專屬的取代樣本
  */
-export const value = {
-	chapter_id: '第{{0}}話',
-	chapter_title: `$t(chapter_id, [{{0}}])　{{title}}`,
+export const words_source: IWords[] = [
 
-	volume_id: '第{{0}}章',
-	volume_title: `$t(chapter_id, [{{0}}])：{{title}}`,
-};
+	//['要取代的字', '取代後的字'],
+
+];
 
 /**
- * 在這裡放此小說專屬的取代樣本
+ * 實際使用的取代樣式
  */
 export const words: IWords[] = sublib._word_zh_all([
 
-	//['要取代的字', '取代後的字'],
+	...words_source,
 
 	...sublib.lazymarks['class'],
 
@@ -62,5 +58,19 @@ export function words_callback(text: string): string
 {
 	return text;
 }
+
+/**
+ * 其他用途
+ *
+ * @deprecated
+ * @type {{chapter_id: string; chapter_title: string; volume_id: string; volume_title: string}}
+ */
+export const value = {
+	chapter_id: '第{{0}}話',
+	chapter_title: `$t(chapter_id, [{{0}}])　{{title}}`,
+
+	volume_id: '第{{0}}章',
+	volume_title: `$t(chapter_id, [{{0}}])：{{title}}`,
+};
 
 export default exports;
