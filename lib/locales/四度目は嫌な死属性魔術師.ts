@@ -10,11 +10,6 @@ import { _word_en } from './lib/index';
 
 export const lang = '四度目は嫌な死属性魔術師';
 
-export const value = {
-	chapter_id: '{{0, num2zh}}話',
-	chapter_title: `$t(chapter_id, [{{0}}])　{{title}}`,
-};
-
 export function words_callback(text)
 {
 	return text;
@@ -1291,7 +1286,9 @@ export const words: IWords[] = sublib._word_zh_all([
 	['瑪奧|馬奧|馬魯', '瑪奧'],
 	[`瑪奧${sp}史密斯`, '瑪奧・史密斯'],
 
-
+	['ヘルメス|赫爾墨斯', '赫爾墨斯'],
+	['物体創造', '物体創造'],
+	['ベイカー|貝克(?:茉秋)?', '貝克'],
 
 	['海卡丘海尔|海卡丘凱尔', '海卡丘凱尔'],
 
@@ -1435,11 +1432,16 @@ export const words: IWords[] = sublib._word_zh_all([
 // 需要人工確認的屏蔽字或錯字用語等等
 export const words_maybe = [
 	// 將對主角用的用語改為 小家伙
-	'小.?子',
+	//'小.?子',
 
-	'亞斯',
+	//'亞斯',
 
 ];
+
+export const value = {
+	chapter_id: '{{0, num2zh}}話',
+	chapter_title: `$t(chapter_id, [{{0}}])　{{title}}`,
+};
 
 import * as self from './四度目は嫌な死属性魔術師';
 
