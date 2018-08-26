@@ -12,22 +12,9 @@ import sublib from './lib';
 export const lang = '自称贤者弟子的贤者';
 
 /**
- * 其他用途
- *
- * @type {{chapter_id: string; chapter_title: string; volume_id: string; volume_title: string}}
- */
-export const value = {
-	chapter_id: '第{{0}}話',
-	chapter_title: `$t(chapter_id, [{{0}}])　{{title}}`,
-
-	volume_id: '第{{0}}章',
-	volume_title: `$t(chapter_id, [{{0}}])：{{title}}`,
-};
-
-/**
  * 在這裡放此小說專屬的取代樣本
  */
-export const words: IWords[] = sublib._word_zh_all([
+export const words_source: IWords[] = [
 
 	//['要取代的字', '取代後的字'],
 
@@ -141,6 +128,9 @@ export const words: IWords[] = sublib._word_zh_all([
 
 	['斯密斯米|米斯密斯', '斯密斯米'],
 
+	['靈獸', '靈獸'],
+	//['アクタルキア|阿克達魯克雅|阿庫塔露琪亞', '阿庫塔露琪亞'],
+
 	['公[国國]', '公国'],
 	['(罗|羅)(兹|茲)(兰|蘭)', '羅茲蘭'],
 
@@ -224,6 +214,15 @@ export const words: IWords[] = sublib._word_zh_all([
 	[/RAID\b/ig, 'RAID'],
 	['fantasy', 'Fantasy', 'ig'],
 
+];
+
+/**
+ * 實際使用的取代樣式
+ */
+export const words: IWords[] = sublib._word_zh_all([
+
+	...words_source,
+
 	['(?:等级|Rank|ＲＡＮＫ(?:等级)?)[ \-—]?([a-zＡ-Ｚ])(?:等级)?', '$1级', 'ig'],
 	['(?:等级)?([a-zＡ-Ｚ])[ \-—]?(?:等?级|Rank|ＲＡＮＫ)(?:等级)?', '$1级', 'ig'],
 
@@ -273,5 +272,19 @@ export function words_callback(text: string): string
 {
 	return text;
 }
+
+
+/**
+ * 其他用途
+ *
+ * @type {{chapter_id: string; chapter_title: string; volume_id: string; volume_title: string}}
+ */
+export const value = {
+	chapter_id: '第{{0}}話',
+	chapter_title: `$t(chapter_id, [{{0}}])　{{title}}`,
+
+	volume_id: '第{{0}}章',
+	volume_title: `$t(chapter_id, [{{0}}])：{{title}}`,
+};
 
 export default exports;

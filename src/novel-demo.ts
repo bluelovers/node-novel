@@ -484,7 +484,10 @@ async function create_pattern_md()
 	{
 		let data_source = load_pattern(id).words_source;
 
-		let md = `__TOC__\n\n總數：${data.data.length}／${data_source.length}\n\n${data.md}\n\n`;
+		let md = `__TOC__\n
+[${data.novelID.replace(/[\[\]]/g, '\\$&')}](https://github.com/bluelovers/node-novel/blob/master/lib/locales/${encodeURIComponent(data.novelID)})
+總數：${data.data.length}／${data_source.length}
+\n${data.md}\n\n`;
 
 
 		await fs.outputFile(path.join(cwd_out, '整合樣式.md'), md);

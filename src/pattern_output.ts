@@ -212,6 +212,7 @@ export function make_pattern_md(novelID: string, basePath: string = BASEPATH)
 			md,
 			ret,
 			data,
+			novelID: path.basename(novelID, '.ts').replace(/\.js$/, ''),
 		}
 	}
 
