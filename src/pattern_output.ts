@@ -34,16 +34,18 @@ export function parse_data(novelID: string, basePath: string = BASEPATH)
 		data.words_source
 			.forEach(function (value, index)
 			{
+				let title = value[1] as string;
+
 				let label: string;
 				let row: IDataRaw;
 
-				if (value && typeof value[1] == 'string')
+				if (value && typeof title == 'string')
 				{
 					let raw = getRawString(value[0]);
 
 					let row = {
 						index,
-						target: value[1],
+						target: title,
 						patterns: [],
 					} as IDataRaw;
 
@@ -93,7 +95,18 @@ export function parse_data(novelID: string, basePath: string = BASEPATH)
 						//console.log(row);
 					}
 
-					ret.push(row);
+					// 從結果中移除僅能用作調整字體的條目
+					if (
+						row.patterns.length == 1
+						&& row.patterns[0] == title
+					)
+					{
+						//console.log(row);
+					}
+					else
+					{
+						ret.push(row);
+					}
 				}
 			})
 		;
