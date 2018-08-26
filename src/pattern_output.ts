@@ -189,7 +189,7 @@ export function make_pattern_md(novelID: string, basePath: string = BASEPATH)
 			{
 				return '`' +
 					stringify(v)
-						.replace(/[\[\]`]/g, '\\$&')
+						.replace(/[`]/g, '\\$&')
 					+ '`'
 					;
 			});
