@@ -12,22 +12,9 @@ import { _word_en } from './lib/index';
 export const lang = '';
 
 /**
- * 其他用途
- *
- * @type {{chapter_id: string; chapter_title: string; volume_id: string; volume_title: string}}
- */
-export const value = {
-	chapter_id: '第{{0}}話',
-	chapter_title: `$t(chapter_id, [{{0}}])　{{title}}`,
-
-	volume_id: '第{{0}}章',
-	volume_title: `$t(chapter_id, [{{0}}])：{{title}}`,
-};
-
-/**
  * 在這裡放此小說專屬的取代樣本
  */
-export const words: IWords[] = sublib._word_zh_all([
+export const words_source: IWords[] = [
 
 	['芙拉姆|フラム', '芙拉姆'],
 	['亞普利柯特|アプリコット', '亞普利柯特'],
@@ -87,6 +74,15 @@ export const words: IWords[] = sublib._word_zh_all([
 	['Status|ステータス', 'Status'],
 	['エピック|史詩', '史詩'],
 
+];
+
+/**
+ * 實際使用的取代樣式
+ */
+export const words: IWords[] = sublib._word_zh_all([
+
+	...words_source,
+
 	['壹|一', '一'],
 
 	[/^ /gm, ''],
@@ -127,6 +123,19 @@ export const words_maybe: vMaybe = [
 	//'需要偵測的字',
 
 ] as vMaybe;
+
+/**
+ * 其他用途
+ *
+ * @type {{chapter_id: string; chapter_title: string; volume_id: string; volume_title: string}}
+ */
+export const value = {
+	chapter_id: '第{{0}}話',
+	chapter_title: `$t(chapter_id, [{{0}}])　{{title}}`,
+
+	volume_id: '第{{0}}章',
+	volume_title: `$t(chapter_id, [{{0}}])：{{title}}`,
+};
 
 /**
  * 分析取代完成後執行的代碼
