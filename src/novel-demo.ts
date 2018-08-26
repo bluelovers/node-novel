@@ -457,9 +457,12 @@ i18next.setDefaultNamespace('i18n');
 		})
 		.tap(async function ()
 		{
-			let { md, ret } = await make_pattern_md(myLocales.__file);
+			let data = await make_pattern_md(myLocales.__file);
 
-			await fs.outputFile(path.join(cwd_out, '整合樣式.md'), `__TOC__\n\n${md}`);
+			if (data && data.md)
+			{
+				await fs.outputFile(path.join(cwd_out, '整合樣式.md'), `__TOC__\n\n${data.md}`);
+			}
 		})
 	;
 

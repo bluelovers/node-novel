@@ -163,40 +163,45 @@ export function make_pattern_md(novelID: string, basePath: string = BASEPATH)
 {
 	let data = parse_data(novelID, basePath);
 
-	let body = data.reduce(function (a, b)
+	if (data && data.length)
 	{
-
-		let label = stringify(b.target);
-
-		delete b.target;
-
-		b.patterns = b.patterns.map(function (v)
+		let body = data.reduce(function (a, b)
 		{
-			return '`' +
-				stringify(v)
-					.replace(/[\[\]`]/g, '\\$&')
-				+ '`'
-			;
-		});
 
-		a[label] = b;
+			let label = stringify(b.target);
 
-		return a;
-	}, {});
+			delete b.target;
 
-	let ret = {
-		'Pattern': body,
-	};
+			b.patterns = b.patterns.map(function (v)
+			{
+				return '`' +
+					stringify(v)
+						.replace(/[\[\]`]/g, '\\$&')
+					+ '`'
+					;
+			});
 
-	let md = mdconf.stringify(ret);
+			a[label] = b;
 
-	//console.log(md);
-	//process.exit();
+			return a;
+		}, {});
 
-	return {
-		md,
-		ret,
+		let ret = {
+			'Pattern': body,
+		};
+
+		let md = mdconf.stringify(ret);
+
+		//console.log(md);
+		//process.exit();
+
+		return {
+			md,
+			ret,
+		}
 	}
+
+	return null;
 }
 
 export function getRawString(raw: string | TemplateStringsArray | any)
