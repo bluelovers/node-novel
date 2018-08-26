@@ -46,6 +46,8 @@ export function loadLocales(name, basepath = localesPath): {
 	words_maybe?,
 	words_arr?,
 	words_callback?: Function,
+
+	__file?: string,
 }
 {
 	if (name === null)
@@ -66,6 +68,8 @@ export function loadLocales(name, basepath = localesPath): {
 		{
 			i.lang = path.basename(id);
 		}
+
+		i.__file = id;
 
 		return i;
 	}

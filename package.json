@@ -52,6 +52,7 @@
     "node-novel-info": "^2.3.6",
     "novel-text": "^1.1.16",
     "regexp-cjk": "^2.0.8",
+    "regexp-parser-literal": "^1.0.0",
     "regexp2": "^1.2.0",
     "shortid": "^2.2.11",
     "str-util": "^2.3.16",

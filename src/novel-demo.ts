@@ -13,7 +13,7 @@ import * as JsDiff from 'diff';
 import { i18next, loadLocales, addResourceBundle, locales_def } from '../lib/i18n';
 import * as execall from 'execall';
 import * as JSON from 'json5';
-import novelInfo, { mdconf_parse, IMdconfMeta } from 'node-novel-info';
+import novelInfo, { mdconf_parse, IMdconfMeta, mdconf } from 'node-novel-info';
 
 import * as iconv from 'iconv-jschardet';
 
@@ -21,6 +21,7 @@ import novelText from 'novel-text';
 import * as deepmerge from 'deepmerge-plus';
 
 import * as novelGlobby from 'node-novel-globby';
+import * as PatternOutput from './pattern_output';
 
 import * as yargs from 'yargs';
 
@@ -456,6 +457,12 @@ i18next.setDefaultNamespace('i18n');
 				await fs.outputFile(path.join(cwd_out, '待修正屏蔽字.md'), '');
 			}
 		})
+		.tap(async function ()
+		{
+			let { md, ret } = await make_pattern_md();
+
+			await fs.outputFile(path.join(cwd_out, '整合樣式.md'), `__TOC__\n\n${md}`);
+		})
 	;
 
 	//console.log(ls);
@@ -786,7 +793,7 @@ function make_meta_md()
 	}
 
 	return Promise
-		.mapSeries(novelGlobby.globby(globby_patterns, globby_options), async function (file, index, len)
+		.mapSeries(novelGlobby.globby(globby_patterns, globby_options), async function (file: string, index, len)
 		{
 			let ext = path.extname(file);
 
@@ -869,4 +876,35 @@ function make_meta_md()
 function stringify(v)
 {
 	return JSON.stringify(v).replace(/^"|"$/g, '');
+}
+
+function make_pattern_md()
+{
+	let data = PatternOutput.parse_data(myLocales.__file);
+
+	let body = data.reduce(function (a, b)
+	{
+
+		let label = stringify(b.target);
+
+		delete b.target;
+
+		a[label] = b;
+
+		return a;
+	}, {});
+
+	let ret = {
+		'Pattern': body,
+	};
+
+	let md = mdconf.stringify(ret);
+
+	//console.log(md);
+	//process.exit();
+
+	return {
+		md,
+		ret,
+	}
 }
