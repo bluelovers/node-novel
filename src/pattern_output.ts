@@ -6,12 +6,13 @@ import { Disjunction } from 'regexpp2/src/ast';
 import * as IDemo from '../lib/locales/demo';
 import { project_root } from '../project.config';
 import * as mdconf from 'mdconf2';
+import { makeCodeBlock } from 'mdconf2/core';
 
 const BASEPATH = path.join(project_root, 'lib/locales');
 
-//let t = parse_data('四度目は嫌な死属性魔術師');
-
-//console.log(t);
+//let t = make_pattern_md('四度目は嫌な死属性魔術師');
+//
+//console.log(t.md);
 
 export type IDataRaw = {
 	group?: number,
@@ -140,6 +141,11 @@ export function get_path(novelID: string, basePath: string = BASEPATH)
 	}
 	catch (e)
 	{
+
+	}
+
+	if (typeof ret === 'undefined')
+	{
 		try
 		{
 			ret = require.resolve(path.join(basePath, novelID));
@@ -163,6 +169,15 @@ export function make_pattern_md(novelID: string, basePath: string = BASEPATH)
 		let label = stringify(b.target);
 
 		delete b.target;
+
+		b.patterns = b.patterns.map(function (v)
+		{
+			return '`' +
+				stringify(v)
+					.replace(/[\[\]`]/g, '\\$&')
+				+ '`'
+			;
+		});
 
 		a[label] = b;
 
@@ -201,3 +216,10 @@ export function stringify(v)
 	return JSON.stringify(v).replace(/^"|"$/g, '');
 }
 
+export function md_string_escape(text: string)
+{
+	return text.replace(/[\[\]]/g, function (s)
+	{
+		return '\\' + s;
+	})
+}
