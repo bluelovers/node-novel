@@ -3,27 +3,25 @@
  */
 
 import * as Promise from 'bluebird';
-//import Promise = require('bluebird');
-
-import * as fs from 'fs-extra';
-import path from 'upath2';
-import * as projectConfig from '../project.config';
-import * as StrUtil from 'str-util';
+import * as deepmerge from 'deepmerge-plus';
 import * as JsDiff from 'diff';
-import { i18next, loadLocales, addResourceBundle, locales_def } from '../lib/i18n';
 import * as execall from 'execall';
-import * as JSON from 'json5';
-import novelInfo, { mdconf_parse, IMdconfMeta, mdconf } from 'node-novel-info';
+import * as fs from 'fs-extra';
 
 import * as iconv from 'iconv-jschardet';
-
-import novelText from 'novel-text';
-import * as deepmerge from 'deepmerge-plus';
+import * as JSON from 'json5';
 
 import * as novelGlobby from 'node-novel-globby';
-import * as PatternOutput from './pattern_output';
+import novelInfo, { IMdconfMeta, mdconf_parse } from 'node-novel-info';
+
+import novelText from 'novel-text';
+import path from 'upath2';
 
 import * as yargs from 'yargs';
+import { addResourceBundle, i18next, loadLocales, locales_def } from '../lib/i18n';
+import * as projectConfig from '../project.config';
+import { make_pattern_md } from './pattern_output';
+//import Promise = require('bluebird');
 
 const DEBUG = true;
 
@@ -459,7 +457,7 @@ i18next.setDefaultNamespace('i18n');
 		})
 		.tap(async function ()
 		{
-			let { md, ret } = await make_pattern_md();
+			let { md, ret } = await make_pattern_md(myLocales.__file);
 
 			await fs.outputFile(path.join(cwd_out, '整合樣式.md'), `__TOC__\n\n${md}`);
 		})
@@ -878,33 +876,3 @@ function stringify(v)
 	return JSON.stringify(v).replace(/^"|"$/g, '');
 }
 
-function make_pattern_md()
-{
-	let data = PatternOutput.parse_data(myLocales.__file);
-
-	let body = data.reduce(function (a, b)
-	{
-
-		let label = stringify(b.target);
-
-		delete b.target;
-
-		a[label] = b;
-
-		return a;
-	}, {});
-
-	let ret = {
-		'Pattern': body,
-	};
-
-	let md = mdconf.stringify(ret);
-
-	//console.log(md);
-	//process.exit();
-
-	return {
-		md,
-		ret,
-	}
-}

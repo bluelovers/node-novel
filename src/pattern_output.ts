@@ -1,16 +1,15 @@
-/**
- * Created by user on 2018/8/26/026.
- */
+
 import * as path from 'path';
-import { project_root } from '../project.config';
-import * as IDemo from '../lib/locales/demo';
-import { isRegExp, zhRegExp } from 'regexp-cjk';
-import { IAstToStringOptions, parseRegExp } from 'regexp-parser-literal';
+import { zhRegExp } from 'regexp-cjk';
+import { parseRegExp } from 'regexp-parser-literal';
 import { Disjunction } from 'regexpp2/src/ast';
+import * as IDemo from '../lib/locales/demo';
+import { project_root } from '../project.config';
+import * as mdconf from 'mdconf2';
 
 const BASEPATH = path.join(project_root, 'lib/locales');
 
-let t = parse_data('四度目は嫌な死属性魔術師');
+//let t = parse_data('四度目は嫌な死属性魔術師');
 
 //console.log(t);
 
@@ -22,18 +21,6 @@ export type IDataRaw = {
 	target: string,
 	patterns: string[],
 };
-
-export function getRawString(raw: string | TemplateStringsArray | any)
-{
-	try
-	{
-		return String.raw(raw as any as TemplateStringsArray);
-	}
-	catch (e)
-	{
-
-	}
-}
 
 export function parse_data(novelID: string, basePath: string = BASEPATH)
 {
@@ -165,3 +152,52 @@ export function get_path(novelID: string, basePath: string = BASEPATH)
 
 	return ret;
 }
+
+export function make_pattern_md(novelID: string, basePath: string = BASEPATH)
+{
+	let data = parse_data(novelID, basePath);
+
+	let body = data.reduce(function (a, b)
+	{
+
+		let label = stringify(b.target);
+
+		delete b.target;
+
+		a[label] = b;
+
+		return a;
+	}, {});
+
+	let ret = {
+		'Pattern': body,
+	};
+
+	let md = mdconf.stringify(ret);
+
+	//console.log(md);
+	//process.exit();
+
+	return {
+		md,
+		ret,
+	}
+}
+
+export function getRawString(raw: string | TemplateStringsArray | any)
+{
+	try
+	{
+		return String.raw(raw as any as TemplateStringsArray);
+	}
+	catch (e)
+	{
+
+	}
+}
+
+export function stringify(v)
+{
+	return JSON.stringify(v).replace(/^"|"$/g, '');
+}
+
