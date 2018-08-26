@@ -20,7 +20,7 @@ import path from 'upath2';
 import * as yargs from 'yargs';
 import { addResourceBundle, i18next, loadLocales, locales_def } from '../lib/i18n';
 import * as projectConfig from '../project.config';
-import { make_pattern_md } from './pattern_output';
+import { load_pattern, make_pattern_md } from './pattern_output';
 //import Promise = require('bluebird');
 
 const DEBUG = true;
@@ -476,11 +476,18 @@ i18next.setDefaultNamespace('i18n');
 
 async function create_pattern_md()
 {
-	let data = await make_pattern_md(myLocales.__file);
+	let id = myLocales.__file;
+
+	let data = await make_pattern_md(id);
 
 	if (data && data.md)
 	{
-		await fs.outputFile(path.join(cwd_out, '整合樣式.md'), `__TOC__\n\n${data.md}\n\n`);
+		let data_source = load_pattern(id).words_source;
+
+		let md = `__TOC__\n\n總數：${data.data.length}／${data_source.length}\n\n${data.md}\n\n`;
+
+
+		await fs.outputFile(path.join(cwd_out, '整合樣式.md'), md);
 	}
 }
 

@@ -211,6 +211,7 @@ export function make_pattern_md(novelID: string, basePath: string = BASEPATH)
 		return {
 			md,
 			ret,
+			data,
 		}
 	}
 
