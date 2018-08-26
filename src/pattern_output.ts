@@ -1,7 +1,7 @@
 
 import * as path from 'path';
 import { zhRegExp } from 'regexp-cjk';
-import { parseRegExp } from 'regexp-parser-literal';
+import { parseRegExp, astToString } from 'regexp-parser-literal';
 import { Disjunction } from 'regexpp2/src/ast';
 import * as IDemo from '../lib/locales/demo';
 import { project_root } from '../project.config';
@@ -11,7 +11,7 @@ import { makeCodeBlock } from 'mdconf2/core';
 const BASEPATH = path.join(project_root, 'lib/locales');
 
 //let t = make_pattern_md('四度目は嫌な死属性魔術師');
-//
+
 //console.log(t.md);
 
 export type IDataRaw = {
@@ -72,7 +72,7 @@ export function parse_data(novelID: string, basePath: string = BASEPATH)
 							{
 								let c = b.reduce(function (a, b)
 								{
-									a.push(b.raw);
+									a.push(astToString(b));
 									return a;
 								}, []);
 
@@ -240,4 +240,9 @@ export function md_string_escape(text: string)
 	{
 		return '\\' + s;
 	})
+}
+
+function f()
+{
+
 }

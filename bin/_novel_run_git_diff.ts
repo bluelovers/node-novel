@@ -9,6 +9,11 @@ import * as Promise from 'bluebird';
 import * as fs from 'fs-extra';
 import { array_unique } from '../lib/func';
 import novelInfo, { mdconf_parse, IMdconfMeta } from 'node-novel-info';
+import * as yargs from 'yargs';
+
+let cli = yargs
+	.argv
+;
 
 let arr_ids = array_unique(ditDiffStagedDir()
 	.map(function (v)
@@ -129,6 +134,7 @@ Promise
 			myLocalesID || '',
 			'-n',
 			novelID || '',
+			'--patternOnly=' + (cli.patternOnly ? 1 : 0).toString(),
 		], {
 			stdio: 'inherit',
 		});

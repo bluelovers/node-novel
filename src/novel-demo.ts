@@ -94,6 +94,14 @@ i18next.setDefaultNamespace('i18n');
 
 (async () =>
 {
+	if (cli.patternOnly)
+	{
+		console.log(`本次僅生成 整合樣式`);
+		await create_pattern_md();
+
+		return;
+	}
+
 	await make_meta_md();
 
 	let meta: IMdconfMeta;
@@ -458,18 +466,23 @@ i18next.setDefaultNamespace('i18n');
 		})
 		.tap(async function ()
 		{
-			let data = await make_pattern_md(myLocales.__file);
-
-			if (data && data.md)
-			{
-				await fs.outputFile(path.join(cwd_out, '整合樣式.md'), `__TOC__\n\n${data.md}`);
-			}
+			await create_pattern_md()
 		})
 	;
 
 	//console.log(ls);
 
 })();
+
+async function create_pattern_md()
+{
+	let data = await make_pattern_md(myLocales.__file);
+
+	if (data && data.md)
+	{
+		await fs.outputFile(path.join(cwd_out, '整合樣式.md'), `__TOC__\n\n${data.md}\n\n`);
+	}
+}
 
 function cache_output1(_block, title): string
 {
