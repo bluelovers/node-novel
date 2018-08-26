@@ -379,8 +379,9 @@ i18next.setDefaultNamespace('i18n');
 				allow_bom: true,
 			});
 
-			if (changed)
+			if (0 && changed)
 			{
+				// 不再生成 .patch 檔案
 				await fs.outputFile(path.join(cwd_out, currentFile) + '.patch', JsDiff.createPatch(name, novelText.toStr(_t_old), _t, {
 					newlineIsToken: true
 				}));
