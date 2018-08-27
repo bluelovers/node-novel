@@ -53,7 +53,7 @@ export function parse_data(novelID: string, basePath: string = BASEPATH)
 						allowLocalRangeAutoZh: false,
 						disableZh: true,
 						on: {
-
+							// 雖然是空設定 但可以用來觸發優化 regexp
 						},
 					});
 
