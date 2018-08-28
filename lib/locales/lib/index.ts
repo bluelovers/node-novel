@@ -148,7 +148,7 @@ lazymarks[2] = [
 	[/[”]/g, '」'],
 
 	[/[‘]/g, '『'],
-	[/[’]/g, '』'],
+	[/[’](?![a-zＡ-Ｚａ-ｚ])/ig, '』'],
 
 	[/\[/g, '「'],
 	[/\]/g, '」'],
@@ -938,7 +938,7 @@ lazymarks['full_width_002'] = _word_zh_all([
 
 export function _word_en(search: string | RegExp, ret: string | IRegExpCallback = null, flag = 'ig'): [RegExp, string | any]
 {
-	return [new RegExp(`(^|[^\\w'])(${regex_str(search)})(?![\\w'])`, flag), ((ret !== null) ? ret : '$1' + search)];
+	return [new RegExp(`(^|[^\\w'’])(${regex_str(search)})(?![\\w'’])`, flag), ((ret !== null) ? ret : '$1' + search)];
 }
 
 /**
