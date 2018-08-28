@@ -17,6 +17,8 @@ export { tagTemplate }
 
 export const lazymarks = {} as IWords[][];
 
+export const EN_REGEXP = /\w\u0100-\u017F\u0400-\u04FF/.source;
+
 lazymarks[0] = [
 	[/([\u4E00-\u9FFF])\[([^\n【】<>\[\]\{\}『』「」“”'"]+)\]/g, '$1【$2】'],
 ];
@@ -148,7 +150,7 @@ lazymarks[2] = [
 	[/[”]/g, '」'],
 
 	[/[‘]/g, '『'],
-	[/[’](?![a-zＡ-Ｚａ-ｚ])/ig, '』'],
+	[`[’](?![a-zＡ-Ｚａ-ｚ${EN_REGEXP}])`, '』'],
 
 	[/\[/g, '「'],
 	[/\]/g, '」'],
@@ -939,6 +941,11 @@ lazymarks['full_width_002'] = _word_zh_all([
 export function _word_en(search: string | RegExp, ret: string | IRegExpCallback = null, flag = 'ig'): [RegExp, string | any]
 {
 	return [new RegExp(`(^|[^\\w'’])(${regex_str(search)})(?![\\w'’])`, flag), ((ret !== null) ? ret : '$1' + search)];
+}
+
+export function _word_en2(search: string | RegExp, ret: string | IRegExpCallback = null, flag = 'ig'): [RegExp, string | any]
+{
+	return [new RegExp(`(^|[^\\w'’${EN_REGEXP}])(${regex_str(search)})(?![\\w'’${EN_REGEXP}])`, flag), ((ret !== null) ? ret : '$1' + search)];
 }
 
 /**
