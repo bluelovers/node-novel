@@ -98,7 +98,10 @@ export function parse_data(novelID: string, basePath: string = BASEPATH)
 					// 從結果中移除僅能用作調整字體的條目
 					if (
 						row.patterns.length == 1
-						&& row.patterns[0] == title
+						&& (
+							row.patterns[0] == title
+						|| row.patterns[0].toLowerCase() === title.toLowerCase()
+						)
 					)
 					{
 						//console.log(row);
