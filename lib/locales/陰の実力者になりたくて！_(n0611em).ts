@@ -24,10 +24,7 @@ export const value = {
 	volume_title: `$t(chapter_id, [{{0}}])：{{title}}`,
 };
 
-/**
- * 在這裡放此小說專屬的取代樣本
- */
-export const words: IWords[] = sublib._word_zh_all([
+export const words_source: IWords[] = [
 
 	['陰の実力者|影之实力者', '影之實力者'],
 
@@ -62,20 +59,30 @@ export const words: IWords[] = sublib._word_zh_all([
 	['奧利雅納|オリアナ', '奧利雅納'],
 
 	['オリヴィエ|奧利維埃|奧勞拉|奧利維婭', '奧利維埃'],
-	['安妮洛潔', '安妮洛潔'],
+	['安妮洛潔|アンネローゼ', '安妮洛潔'],
+	['維加爾泰|ベガルタ', '維加爾泰'],
 
-	['奧蘿拉', '奧蘿拉'],
+	['奧蘿拉|アウロラ', '奧蘿拉'],
 
 	['ガンマ|伽瑪', '伽瑪'],
 
 	['七陰|七阴', '七陰'],
 
-	['全\\*果', '全裸'],
-
 	['リンドブルム|林德布爾穆', '林德布爾穆'],
 	['ベアートリクス|貝婭特麗克', '貝婭特麗克'],
 
+];
+
+/**
+ * 實際使用的取代樣式
+ */
+export const words: IWords[] = sublib._word_zh_all([
+
+	...words_source,
+
 	[/^　/gm, ''],
+
+	['全\\*果', '全裸'],
 
 	...sublib.lazymarks['class'],
 
