@@ -24,6 +24,8 @@ export const words_source: IWords[] = [
 
 	[`（NāGarāJa）|[\[（\(](NāGarāJa|Naga Raja)[\)\]）]`, '', 'ig'],
 
+	[/^\?$/gm, '---'],
+
 ];
 
 /**
