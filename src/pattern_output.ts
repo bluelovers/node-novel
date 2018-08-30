@@ -1,4 +1,3 @@
-
 import * as path from 'path';
 import { zhRegExp } from 'regexp-cjk';
 import { parseRegExp, astToString } from 'regexp-parser-literal';
@@ -39,7 +38,7 @@ export function parse_data(novelID: string, basePath: string = BASEPATH)
 				let label: string;
 				let row: IDataRaw;
 
-				if (value && typeof title == 'string')
+				if (value && title && typeof title == 'string')
 				{
 					let raw = getRawString(value[0]);
 
@@ -99,8 +98,10 @@ export function parse_data(novelID: string, basePath: string = BASEPATH)
 					if (
 						row.patterns.length == 1
 						&& (
-							row.patterns[0] == title
-						|| row.patterns[0].toLowerCase() === title.toLowerCase()
+							!row.patterns[0]
+							|| !title
+							//|| row.patterns[0] == title
+							|| row.patterns[0].toLowerCase() === title.toLowerCase()
 						)
 					)
 					{

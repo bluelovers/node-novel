@@ -17,7 +17,12 @@ export const lang = '';
 export const words_source: IWords[] = [
 
 	[`里${sp}耶斯提傑`, '里・耶斯提傑'],
+	[`威賈${sp}拉蔣達拉`, '威賈・拉蔣達拉'],
+	[`穆阿${sp}普拉庫夏`, '穆阿・普拉庫夏'],
+
 	[`蛇发人`, '蛇髮人'],
+
+	[`（NāGarāJa）|[\[（\(](NāGarāJa|Naga Raja)[\)\]）]`, '', 'ig'],
 
 ];
 
