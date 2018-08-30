@@ -19,12 +19,16 @@ export const words_source: IWords[] = [
 	[`里${sp}耶斯提傑`, '里・耶斯提傑'],
 	[`威賈${sp}拉蔣達拉`, '威賈・拉蔣達拉'],
 	[`穆阿${sp}普拉庫夏`, '穆阿・普拉庫夏'],
+	[`赫克托維傑斯${sp}阿${sp}拉加拉`, '赫克托維傑斯・阿・拉加拉'],
 
 	[`蛇发人`, '蛇髮人'],
 
-	[`（NāGarāJa）|[\[（\(](NāGarāJa|Naga Raja)[\)\]）]`, '', 'ig'],
+	[`埃里希弦`, '埃里希弦'],
+	[`里尤洛`, '里尤洛'],
 
-	[/^\?$/gm, '---'],
+	[`YGGDRASIL`, 'YGGDRASIL', 'ig'],
+
+	[`（NāGarāJa）|[\[（\(](NāGarāJa|Naga Raja)[\)\]）]`, '', 'ig'],
 
 ];
 
@@ -34,6 +38,15 @@ export const words_source: IWords[] = [
 export const words: IWords[] = sublib._word_zh_all([
 
 	...words_source,
+
+	[/^\?$/gm, '---'],
+
+	[/[发]/g, '發'],
+
+	[/[<>]/g, function (s)
+	{
+		return StrUtil.toFullWidth(s)
+	}],
 
 	...sublib.lazymarks['class'],
 
