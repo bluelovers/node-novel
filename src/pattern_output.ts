@@ -1,7 +1,7 @@
 import * as path from 'path';
 import { zhRegExp } from 'regexp-cjk';
 import { parseRegExp, astToString } from 'regexp-parser-literal';
-import { Disjunction } from 'regexpp2/src/ast';
+import { Disjunction, RegExpLiteral, Group } from 'regexpp2/src/ast';
 import * as IDemo from '../lib/locales/demo';
 import { project_root } from '../project.config';
 import * as mdconf from 'mdconf2';
@@ -58,13 +58,36 @@ export function parse_data(novelID: string, basePath: string = BASEPATH)
 
 					let p = parseRegExp(r.toString());
 
+					let d: Disjunction;
+
+					if (p.pattern.elements.length == 1)
+					{
+						let p2 = p.pattern.elements[0];
+
+						if (p2.type === 'Disjunction')
+						{
+							d = p2;
+						}
+						else if (p2.type == 'Group'
+							&& p2.elements.length == 1
+							&& p2.elements[0].type === 'Disjunction')
+						{
+							d = p2.elements[0] as Disjunction;
+						}
+						else if (0)
+						{
+							console.log({
+								p2,
+								d,
+							});
+						}
+					}
+
 					if (
-						p.pattern.elements.length == 1
-						&& p.pattern.elements[0].type === 'Disjunction'
+						d
+						&& d.type === 'Disjunction'
 					)
 					{
-						let d = p.pattern.elements[0] as Disjunction;
-
 						if (d.alternatives)
 						{
 							let c = d.alternatives.reduce(function (a, b)
