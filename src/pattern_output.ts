@@ -2,6 +2,7 @@ import * as path from 'path';
 import { zhRegExp } from 'regexp-cjk';
 import { parseRegExp, astToString } from 'regexp-parser-literal';
 import { Disjunction, RegExpLiteral, Group } from 'regexpp2/src/ast';
+import { array_unique } from '../lib/func';
 import * as IDemo from '../lib/locales/demo';
 import { project_root } from '../project.config';
 import * as mdconf from 'mdconf2';
@@ -105,7 +106,7 @@ export function parse_data(novelID: string, basePath: string = BASEPATH)
 
 							if (c.length)
 							{
-								row.patterns = c;
+								row.patterns = array_unique(c);
 							}
 						}
 					}
