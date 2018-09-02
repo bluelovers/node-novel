@@ -950,6 +950,11 @@ export function _word_en2(search: string | RegExp, ret: string | IRegExpCallback
 	return [new RegExp(`(^|[^\\w'’${EN_REGEXP}])(${regex_str(search)})(?![\\w'’${EN_REGEXP}])`, flag), ((ret !== null) ? ret : '$1' + search)];
 }
 
+export function _word_jp1(search: string | RegExp, ret: string | IRegExpCallback = null, flag = 'ig'): [RegExp, string | any]
+{
+	return [new RegExp(`(?<![ァ-ヴーｱ-ﾝﾞｰ])(${search})(?![ァ-ヴーｱ-ﾝﾞｰ])`, flag), ((ret !== null) ? ret : search)];
+}
+
 /**
  * 最好只用在全新腳本內
  *
