@@ -27,7 +27,7 @@ export const value = {
 /**
  * 在這裡放此小說專屬的取代樣本
  */
-export const words: IWords[] = sublib._word_zh_all([
+export const words_source: IWords[] = [
 
 	['豬(公爵)', '豚$1'],
 	['(史諾|白|黑)豬', '$1豚'],
@@ -178,6 +178,14 @@ export const words: IWords[] = sublib._word_zh_all([
 	[/([^\n]+)(?:（譯：\1）)/g, '$1', 'ig'],
 
 	['ガール＆シューヤ|女孩＆修亞|Girl＆修亞', '女孩＆修亞'],
+];
+
+/**
+ * 實際使用的取代樣式
+ */
+export const words: IWords[] = sublib._word_zh_all([
+
+	...words_source,
 
 	...sublib.lazymarks['class'],
 
