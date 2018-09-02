@@ -27,7 +27,7 @@ export const value = {
 /**
  * 在這裡放此小說專屬的取代樣本
  */
-export const words: IWords[] = sublib._word_zh_all([
+export const words_source: IWords[] = [
 
 	['カイヴォン|凱馮|馮凱', '凱馮'],
 
@@ -206,6 +206,15 @@ export const words: IWords[] = sublib._word_zh_all([
 	['職業', '職業'],
 
 	['註意|注意', '注意'],
+
+];
+
+/**
+ * 實際使用的取代樣式
+ */
+export const words: IWords[] = sublib._word_zh_all([
+
+	...words_source,
 
 	['藍', '藍'],
 	['達', '達'],
