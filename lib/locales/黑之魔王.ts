@@ -38,7 +38,10 @@ export const resource = {
 
 };
 
-export const words: IWords[] = sublib._word_zh_all([
+/**
+ * 在這裡放此小說專屬的取代樣本
+ */
+export const words_source: IWords[] = [
 
 	//['[黑黒]', '黑'],
 
@@ -856,6 +859,15 @@ export const words: IWords[] = sublib._word_zh_all([
 		return $0;
 	}
 	],
+
+];
+
+/**
+ * 實際使用的取代樣式
+ */
+export const words: IWords[] = sublib._word_zh_all([
+
+	...words_source,
 
 	[
 		/\d+/g, function (...m)
