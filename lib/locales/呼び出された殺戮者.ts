@@ -45,8 +45,10 @@ export const words_source: IWords[] = [
 	/**
 	 * @todo 第二部
 	 */
-	[`(?:梅古納特|メグナード)${sp}遠野`, '$1・遠野'],
 	[`梅古納特|メグナード`, '梅古納特'],
+	[`維斯那|ウェスナー`, '維斯那'],
+
+	[`(?:梅古納特|維斯那)${sp}遠野`, '$1・遠野'],
 
 	[`シク|希克`, '希克'],
 
@@ -192,7 +194,7 @@ export const words_source: IWords[] = [
 	 */
 	['布露库拉|布鲁库拉|ブロクラ', '布露庫拉'],
 	['帕莉優|帕莉优|パリュ', '帕莉優'],
-	['繆迦蕾|缪迦蕾', '繆迦蕾'],
+	['繆迦蕾|缪迦蕾|ミュカレ', '繆迦蕾'],
 
 	/**
 	 * @todo 维希
@@ -336,6 +338,13 @@ export const words_source: IWords[] = [
 	['納爾格魯|納爾格魯|ネルガル', '納爾格魯'],
 
 	/**
+	 * @todo 第二部
+	 *
+	 * グネの町
+	 */
+	['グネ|古涅', '古涅'],
+
+	/**
 	 * @todo 国
 	 *
 	 * 奥斯库兰德（オーソングランデ）
@@ -390,6 +399,9 @@ export const words: IWords[] = sublib._word_zh_all([
 	{
 		return m[1] + StrUtil.toFullNumber(m[2]);
 	}],
+
+	...sublib.lazymarks['full_width_001'],
+	...sublib.lazymarks['full_width_002'],
 
 	[/[\!\(\):,~]/g, function (...m)
 	{
