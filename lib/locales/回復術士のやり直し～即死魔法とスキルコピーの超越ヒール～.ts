@@ -4,7 +4,7 @@
 
 import { sp, IWords, vMaybe, sublib } from './index';
 import * as StrUtil from 'str-util';
-import { lazymarks } from './lib/index';
+import { _word_jp1, lazymarks } from './lib/index';
 
 /**
  * 改成小說名字
@@ -124,7 +124,7 @@ export const words_source: IWords[] = [
 	 *
 	 */
 	['布?拉尼卡|ブラニッカ|布兰尼卡', '布拉尼卡'],
-	['夏娃|依芙|伊夫', '依芙'],
+	_word_jp1('夏娃|依芙|伊夫|イヴ', '依芙'),
 	['利斯|莉絲', '莉絲'],
 
 	[`依芙${sp}(?:莉絲|瑞斯)`, '依芙・莉絲'],
