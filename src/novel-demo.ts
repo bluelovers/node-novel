@@ -19,9 +19,14 @@ import path from 'upath2';
 
 import * as yargs from 'yargs';
 import { addResourceBundle, i18next, loadLocales, locales_def } from '../lib/i18n';
+import { freeGC } from '../lib/util';
 import * as projectConfig from '../project.config';
 import { load_pattern, make_pattern_md } from './pattern_output';
 //import Promise = require('bluebird');
+import prettyuse = require('prettyuse');
+import { console } from 'debug-color2';
+
+console.enabledColor = true;
 
 const DEBUG = true;
 
@@ -75,7 +80,7 @@ let myLocales = loadLocales(myLocalesID);
 
 if (!myLocales)
 {
-	console.warn(`load default demo`);
+	console.red(`load default demo`);
 	myLocales = loadLocales('demo');
 }
 
@@ -199,7 +204,7 @@ i18next.setDefaultNamespace('i18n');
 
 			if (_t_old.toString() === '')
 			{
-				console.warn(currentFile, '此檔案無內容');
+				console.gray(currentFile, '此檔案無內容');
 
 				return currentFile;
 			}
@@ -209,7 +214,7 @@ i18next.setDefaultNamespace('i18n');
 
 				if (chk.encoding != 'UTF-8' && chk.encoding != 'ascii')
 				{
-					console.error(currentFile, '此檔案可能不是 UTF8 請檢查編碼或利用 MadEdit 等工具轉換', chk);
+					console.red(currentFile, '此檔案可能不是 UTF8 請檢查編碼或利用 MadEdit 等工具轉換', chk);
 				}
 			}
 
@@ -406,7 +411,10 @@ i18next.setDefaultNamespace('i18n');
 				delete _cache.block[_cache_key_];
 			}
 
-			console[changed ? 'log' : 'error'](currentFile, index, len);
+			console[changed ? 'log' : 'red'](currentFile, index, len);
+
+			console.debug(prettyuse());
+			freeGC();
 
 			return currentFile;
 
@@ -467,6 +475,10 @@ i18next.setDefaultNamespace('i18n');
 		.tap(async function ()
 		{
 			await create_pattern_md()
+		})
+		.tap(function ()
+		{
+			console.debug(prettyuse());
 		})
 	;
 
@@ -765,7 +777,7 @@ function my_words(html): string
 		});
 		*/
 
-		console.log(novelText._words_r1);
+		//console.log(novelText._words_r1);
 
 		fs.outputFile(path.join(projectConfig.project_root, 'test', './temp/words.json'), JSON.stringify(words, function (k,
 			v

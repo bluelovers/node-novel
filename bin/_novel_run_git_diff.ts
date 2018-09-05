@@ -10,6 +10,8 @@ import * as fs from 'fs-extra';
 import { array_unique } from '../lib/func';
 import novelInfo, { mdconf_parse, IMdconfMeta } from 'node-novel-info';
 import * as yargs from 'yargs';
+import { console } from 'debug-color2';
+import prettyuse = require('prettyuse');
 
 let cli = yargs
 	.argv
@@ -54,7 +56,7 @@ if (arr_ids.length == 1)
 else if (arr_ids.length == 0 && fs.existsSync(_cache_file))
 {
 	arr_ids = fs.readJSONSync(_cache_file);
-	console.log(`使用上次執行的目錄`, arr_ids);
+	console.info(`使用上次執行的目錄`, arr_ids);
 }
 
 const localesPath = path.join(ProjectConfig.project_root, './lib/locales');
@@ -121,7 +123,7 @@ Promise
 
 				if (myLocalesID)
 				{
-					console.log(`自動將 myLocalesID 設置為 ${myLocalesID}`);
+					console.debug(`自動將 myLocalesID 設置為 ${myLocalesID}`);
 				}
 			}
 		}

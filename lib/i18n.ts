@@ -5,6 +5,7 @@
 import * as i18next from 'i18next';
 import * as StrUtil from 'str-util';
 import * as path from 'path';
+import { console } from 'debug-color2';
 
 export const localesPath = path.join(__dirname, './locales');
 
@@ -77,7 +78,7 @@ export function loadLocales(name, basepath = localesPath): {
 	{
 		if (e.code == 'MODULE_NOT_FOUND')
 		{
-			console.error(e.toString());
+			console.red(e.toString());
 		}
 		else
 		{
