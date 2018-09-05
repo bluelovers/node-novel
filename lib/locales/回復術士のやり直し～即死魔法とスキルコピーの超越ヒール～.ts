@@ -27,7 +27,7 @@ export const value = {
 /**
  * 在這裡放此小說專屬的取代樣本
  */
-export const words: IWords[] = sublib._word_zh_all([
+export const words_source: IWords[] = [
 
 	//ケアル
 	['ケアルラ|克婭萝菈', '克婭萝菈'],
@@ -269,6 +269,15 @@ export const words: IWords[] = sublib._word_zh_all([
 
 	['鷹眼', '鷹眼'],
 
+];
+
+/**
+ * 實際使用的取代樣式
+ */
+export const words: IWords[] = sublib._word_zh_all([
+
+	...words_source,
+
 	['圌', ''],
 	['涩情', '色情'],
 	['淦', '幹'],
@@ -364,7 +373,7 @@ export const words_maybe: vMaybe = [
 
 	//'需要偵測的字',
 
-	'打到',
+	//'打到',
 
 ] as vMaybe;
 
