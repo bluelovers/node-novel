@@ -21,6 +21,9 @@ import { trimFilename, regex_str } from '../../lib/func';
 import { zhRegExp } from 'regexp-cjk';
 import novelFilename from 'cjk-conv/lib/novel/filename';
 import { cn2tw_min } from 'cjk-conv/lib/zh/convert/min';
+import { console } from 'debug-color2';
+
+console.enabledColor = true;
 
 let myLocalesID: string;
 let pathMain = 'user';
@@ -45,6 +48,9 @@ novelID = 'カルマの塔';
 
 pathMain = 'dmzj';
 novelID = '幻想世界的愛麗絲緹露';
+
+pathMain = 'syosetu';
+novelID = '望まぬ不死の冒険者/z.raw/00000 null';
 
 if (!novelID)
 {
@@ -73,7 +79,7 @@ i18next.setDefaultNamespace('i18n');
 
 let _zh_num = '一二三四五六七八九十';
 let _full_num = '０-９';
-let _space = ' 　\\t';
+let _space = ' 　\\t \\s';
 
 (async () =>
 {
@@ -87,11 +93,11 @@ let _space = ' 　\\t';
 		`(`,
 		[
 			//`[序终][曲章]`,
-			//`(?:第?(?:[${_zh_num}]+|\\d+(?:\.\\d+)?|[${_full_num}]+(?:[\\.．][${_full_num}]+)?)(?:话|集|章))`,
+			`(?:第?(?:[${_zh_num}]+|\\d+(?:\.\\d+)?|[${_full_num}]+(?:[\\.．][${_full_num}]+)?)(?:话|集|章))`,
 			//`６[${_full_num}]+`,
 			//`20`
 			//`\\d+[${_space}\\-]`,
-			'\\d{3}',
+//			'\\d{3}',
 		].join('|'),
 		`)`,
 		`[${_space}]*`,
@@ -109,6 +115,15 @@ let _space = ' 　\\t';
 	//r = new zhRegExp(`^()(\\d{3}) (.+)$`);
 
 	console.log(r);
+
+	if (0)
+	{
+		let m = r.exec('00960_第87話 奇妙的委託和庭園廣場');
+
+		console.log(m);
+
+		process.exit();
+	}
 
 	let ls = await Promise
 		.mapSeries(globby([
@@ -172,16 +187,45 @@ let _space = ' 　\\t';
 					name = ido + name;
 				}
 			}
+			else if (1 && m)
+			{
+				let [src, ido, id, desc] = m;
 
-			name = novelFilename.filename(name, {
-				skip: '娘志',
-				//safe: false,
-				})
-				.replace(/后(記|宮)/g, '後$1')
-				.replace(/“/g, '『')
-				.replace(/”/g, '』')
+				id = StrUtil.toFullNumber(id);
 
-				.replace(/レポート/g, '記事')
+				name = `${id}`;
+
+				let c = '　';
+
+				if (desc)
+				{
+					name += c + `${desc}`;
+				}
+			}
+			else if (m)
+			{
+				console.debug(m);
+			}
+
+			name = (index + 2)
+				.toString()
+				.padStart(4, '0')
+				+ '0'
+				+ '_'
+				+ name
+			;
+
+			if (0)
+			{
+				name = novelFilename.filename(name, {
+						skip: '娘志',
+						//safe: false,
+					})
+					.replace(/后(記|宮)/g, '後$1')
+					.replace(/“/g, '『')
+					.replace(/”/g, '』')
+
+					.replace(/レポート/g, '記事')
 
 				/*
 				.replace(/(\d+)/g, function (...m)
@@ -189,7 +233,8 @@ let _space = ' 　\\t';
 					return StrUtil.toFullNumber(m[1]);
 				})
 				*/
-			;
+				;
+			}
 
 			name = novelText.trim(name, {
 				trim: true,
@@ -203,13 +248,13 @@ let _space = ' 　\\t';
 
 			if (name_old != name)
 			{
-				//await fs.move(file, path.join(file_dir, name + ext));
+//				await fs.move(file, path.join(file_dir, name + ext));
 
 				await console.log(`${index}, "${name_old}"\n=> "${name}"`);
 			}
 			else
 			{
-				await console.error(`${index}, skip`, name_old);
+				await console.red(`${index}, skip`, name_old);
 			}
 		})
 	;
