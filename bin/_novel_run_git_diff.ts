@@ -31,7 +31,7 @@ let arr_ids = array_unique(ditDiffStagedDir()
 		}
 
 		if (d.length >= 3
-			&& pathMain != 'cm'
+			//&& pathMain != 'cm'
 			&& pathMain != 'docs'
 			&& !pathMain.match(/_out$|^\./))
 		{
