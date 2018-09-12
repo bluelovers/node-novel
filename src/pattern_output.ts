@@ -212,6 +212,7 @@ export function make_pattern_md(novelID: string, basePath: string = BASEPATH)
 			let label = stringify(b.target);
 
 			delete b.target;
+			delete b.index;
 
 			b.patterns = b.patterns.map(function (v)
 			{
