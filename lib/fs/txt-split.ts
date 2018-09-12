@@ -6,13 +6,15 @@ import * as globby from 'globby';
 import * as fs from 'fs-extra';
 import path from 'upath2';
 import * as StrUtil from 'str-util';
-import * as execall from 'execall';
+import * as execall from 'execall2';
 import novelText from 'novel-text';
-import * as Promise from 'bluebird';
+//import * as Promise from 'bluebird';
 import * as iconv from 'iconv-jschardet';
 import fsIconv, { trimFilename } from 'fs-iconv';
 
 import * as self from './txt-split';
+import { console } from 'debug-color2';
+console.enabledColor = true;
 
 export interface IOptions
 {
@@ -343,9 +345,9 @@ export function split(txt: string, cache: IOptions, _m, cb: ISplitCB): {
 
 	if (idx < txt.length - 1)
 	{
-		ii = (parseInt(i) + ix).toString();
+		ii = (parseInt(i) + ix + 1).toString();
 
-		let id = ii.padStart(4, '0') + '5';
+		let id = ii.padStart(4, '0') + '0';
 		let name = fix_name(m_last.match);
 
 		if (cb)

@@ -7,19 +7,43 @@ import path from 'upath2';
 import * as projectConfig from '../../project.config';
 import txtSplit, { IOptions } from '../../lib/fs/txt-split';
 import * as StrUtil from 'str-util';
+import { isRegExp, zhRegExp } from 'regexp-cjk';
+import { cn2tw_min } from 'cjk-conv/lib/zh/convert/min';
+import { trimFilename, regex_str } from '../../lib/func';
+import novelFilename from 'cjk-conv/lib/novel/filename';
+import { console } from 'debug-color2';
+console.enabledColor = true;
 
-let _zh_num = '一二三四五六七八十';
+let _zh_num = '一二三四五六七八九十';
 let _space = ' 　\\t';
 
 let inputFile = path.join(projectConfig.dist_novel_root,
-	'user',
-	'暗黒騎士物語　～勇者を倒すために魔王に召喚されました～',
-	'raw/暗黒騎士物語 1.1-4.7.txt',
+	'syosetu',
+	'吸血姫は薔薇色の夢をみる',
+	'z.raw/raw.txt',
 );
+
+const c = '　';
 
 let options: IOptions = {
 	volume: {
-		r: new RegExp(`(?:^|\\n)[${_space}]*(第?(?:[序终]|[${_zh_num}]+|\\d+)章)([^\\n]*)`, 'igm'),
+		r: new zhRegExp([
+			//`(?:^|\\n)[${_space}]*(第?(?:[序终]|[${_zh_num}]+|\\d+)章)([^\\n]*)`,
+
+
+			`(?:^)[${_space}]*`,
+			`(`,
+			[
+				`(?:第?(?:序|终)|第[${_zh_num}\\d]+)章`,
+			].join('|'),
+			`)`,
+			`[${_space}\\-]*`,
+			`([^\\n]*)`,
+			`[${_space}]*`,
+			`$`,
+
+
+		].join(''), 'igm'),
 		cb({
 			i,
 			id,
@@ -32,27 +56,54 @@ let options: IOptions = {
 		{
 			if (m_last)
 			{
-				let id = novelText.trim(StrUtil.zh2num(m_last.sub[0]) as string, {
-					trim: true,
-				});
+				let src = m_last.match;
+				let [ido, desc] = m_last.sub;
 
-				if (/\d+/.test(id))
+//				console.log(m_last);
+
+				let id = StrUtil.zh2num(ido)
+					.toString()
+					.replace(/^\D+/, '')
+					.replace(/\D+$/, '')
+					.trim()
+				;
+
+				let idn: string;
+				let ids = ido;
+
+				if (/^\d+$/.test(id))
 				{
-					id = id
-						.replace(/^\D+/, '')
-						.replace(/\D+$/, '')
-					;
+					idn = StrUtil.toFullNumber(id.toString());
+				}
 
-					name = `第${StrUtil.toFullNumber(id)}章`;
+				if (idn)
+				{
+					ids = `第${idn}章`;
 				}
 				else
 				{
-					name = novelText.trim(m_last.sub[0], {
-						trim: true,
-					})
+					ids = ido;
 				}
 
-				name = name + '　' + novelText.trim(m_last.sub[1], {
+				desc = novelText.trim(desc, {
+					trim: '；：：~～　 .',
+				});
+
+				desc = StrUtil.toFullNumber(desc);
+
+				name = [
+					ids,
+					desc,
+				].filter(v => v !== '').join(c);
+
+//				name = novelFilename.filename(name);
+				//name = trimFilename(name);
+
+				name = cn2tw_min(name);
+
+				name = replaceName(name);
+
+				name = novelText.trim(name, {
 					trim: true,
 				});
 			}
@@ -69,7 +120,22 @@ let options: IOptions = {
 
 	chapter: {
 		//r: new RegExp(`[${_space}]*(第?(?:[序终]|[${_zh_num}]+)节)([^\\n]*)`, 'igm'),
-		r: new RegExp(`(?:^|\\n)[${_space}]*(\\d+\\-\\d+)([^\\n]*)`, 'igm'),
+		r: new zhRegExp([
+			//`[${_space}]*(第?(?:(?:序|终)|[${_zh_num}\\d]+)话)([^\\n]*)`,
+			//`(?:^|\\n)[${_space}]*(\\d+\\-\\d+)([^\\n]*)`,
+
+			`(?:^)[${_space}]*`,
+			`(`,
+			[
+				`(?:(?:第|最)?(?:序|终)|第[${_zh_num}\\d]+)话`,
+				`幕间`,
+			].join('|'),
+			`)`,
+			`[${_space}\\-]*`,
+			`([^\\n]*)`,
+			`[${_space}]*`,
+			`$`,
+		].join(''), 'igm'),
 		cb({
 			i,
 			id,
@@ -82,19 +148,67 @@ let options: IOptions = {
 		{
 			if (m_last)
 			{
-				let id = StrUtil.zh2num(m_last.sub[0])
+				let src = m_last.match;
+				let [ido, desc] = m_last.sub;
+
+//				console.log(m_last);
+
+				let id = StrUtil.zh2num(ido)
 					.toString()
 					.replace(/^\D+/, '')
 					.replace(/\D+$/, '')
+					.trim()
 				;
 
-				id = novelText.trim(id, {
+				let idn: string;
+				let ids = ido;
+
+				if (/^\d+$/.test(id))
+				{
+					idn = id.toString().padStart(3, '0');
+				}
+
+				if (idn)
+				{
+					ids = `第${idn}話`;
+				}
+				else
+				{
+					ids = ido;
+				}
+
+				desc = novelText.trim(desc, {
+					trim: '；：：~～　 .',
+				});
+
+				desc = StrUtil.toFullNumber(desc);
+
+				name = [
+					ids,
+					desc,
+				].filter(v => v !== '').join(c);
+
+//				name = novelFilename.filename(name);
+//				name = trimFilename(name);
+
+				name = cn2tw_min(name);
+
+				name = replaceName(name);
+
+				name = novelText.trim(name, {
 					trim: true,
 				});
 
-				name = `${id}` + '　' + novelText.trim(m_last.sub[1], {
-					trim: '；',
-				});
+//				console.dir({
+//					id,
+//					idn,
+//					ids,
+//					name,
+//				});
+
+//				process.exit();
+
+
 
 				idx += m_last.match.length;
 			}
@@ -110,8 +224,16 @@ let options: IOptions = {
 	},
 };
 
-console.log(options);
+console.dir(options);
 
 txtSplit.autoFile(inputFile, options)
 	.then(ret => console.log(ret))
 ;
+
+function replaceName(name: string)
+{
+	return name
+		.replace(new zhRegExp(/最後/g), '最後')
+		.replace(new zhRegExp(/後記/g), '後記')
+	;
+}
