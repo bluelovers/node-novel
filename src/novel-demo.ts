@@ -160,6 +160,8 @@ i18next.setDefaultNamespace('i18n');
 
 	//console.log(globby_patterns);
 
+	let _last_empty: string[] = [];
+
 	let ls = await Promise
 		.mapSeries(novelGlobby
 			.globbyASync(globby_patterns, globby_options)
@@ -167,7 +169,7 @@ i18next.setDefaultNamespace('i18n');
 			{
 				if (DEBUG)
 				{
-						await fs.writeJSON(path.join(projectConfig.temp_root, 'log.1.json'), ls, {
+					await fs.writeJSON(path.join(projectConfig.temp_root, 'log.1.json'), ls, {
 						spaces: "\t",
 					});
 				}
@@ -204,12 +206,26 @@ i18next.setDefaultNamespace('i18n');
 
 			if (_t_old.toString() === '')
 			{
-				console.gray(currentFile, '此檔案無內容');
+				_last_empty.push(currentFile);
+
+				//console.gray(currentFile, '此檔案無內容');
 
 				return currentFile;
 			}
 			else
 			{
+				if (_last_empty.length)
+				{
+					_last_empty
+						.forEach(function (currentFile)
+						{
+							console.red(currentFile, '此檔案無內容');
+						})
+					;
+
+					_last_empty = [];
+				}
+
 				let chk = iconv.detect(_t_old);
 
 				if (chk.encoding != 'UTF-8' && chk.encoding != 'ascii')
@@ -270,7 +286,7 @@ i18next.setDefaultNamespace('i18n');
 				_cache.block[_cache_key_] = chk_words_maybe(_t, []
 					.concat(myLocales.words_maybe || [])
 					.concat(locales_def.words_maybe || []),
-					_cache.block[_cache_key_] = {}
+					_cache.block[_cache_key_] = {},
 				)
 					.cache
 				;
@@ -396,7 +412,7 @@ i18next.setDefaultNamespace('i18n');
 			{
 				// 不再生成 .patch 檔案
 				await fs.outputFile(path.join(cwd_out, currentFile) + '.patch', JsDiff.createPatch(name, novelText.toStr(_t_old), _t, {
-					newlineIsToken: true
+					newlineIsToken: true,
 				}));
 			}
 
@@ -422,6 +438,18 @@ i18next.setDefaultNamespace('i18n');
 		})
 		.then(function (ls)
 		{
+			if (_last_empty.length)
+			{
+				_last_empty
+					.forEach(function (currentFile)
+					{
+						console.grey(currentFile, '此檔案無內容');
+					})
+				;
+
+				_last_empty = [];
+			}
+
 			//console.log(-1);
 
 			return ls;
@@ -500,7 +528,6 @@ async function create_pattern_md()
 [${data.novelID.replace(/[\[\]]/g, '\\$&')}](https://github.com/bluelovers/node-novel/blob/master/lib/locales/${encodeURIComponent(data.novelID)}.ts)  
 總數：${data.data.length}／${data_source.length}
 \n${data.md}\n\n`;
-
 
 		await fs.outputFile(path.join(cwd_out, '整合樣式.md'), md);
 	}
@@ -780,7 +807,7 @@ function my_words(html): string
 		//console.log(novelText._words_r1);
 
 		fs.outputFile(path.join(projectConfig.project_root, 'test', './temp/words.json'), JSON.stringify(words, function (k,
-			v
+			v,
 		)
 		{
 			if (v instanceof RegExp)
