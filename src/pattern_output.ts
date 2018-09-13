@@ -7,6 +7,7 @@ import * as IDemo from '../lib/locales/demo';
 import { project_root } from '../project.config';
 import * as mdconf from 'mdconf2';
 import { makeCodeBlock } from 'mdconf2/core';
+import novelPatternSplit = require('@node-novel/pattern-split');
 
 const BASEPATH = path.join(project_root, 'lib/locales');
 
@@ -49,73 +50,120 @@ export function parse_data(novelID: string, basePath: string = BASEPATH)
 						patterns: [],
 					} as IDataRaw;
 
-					let r = new zhRegExp(value[0], value[2], {
-						allowLocalRangeAutoZh: false,
-						disableZh: true,
-						on: {
-							// 雖然是空設定 但可以用來觸發優化 regexp
-						},
-					});
-
-					let p = parseRegExp(r.toString());
-
-					let d: Disjunction;
-
-					if (p.pattern.elements.length == 1)
+					if (1)
 					{
-						let p2 = p.pattern.elements[0];
-
-						if (p2.type === 'Disjunction')
-						{
-							d = p2;
-						}
-						else if (p2.type == 'Group'
-							&& p2.elements.length == 1
-							&& p2.elements[0].type === 'Disjunction')
-						{
-							d = p2.elements[0] as Disjunction;
-						}
-						else if (0)
-						{
-							console.log({
-								p2,
-								d,
-							});
-						}
+						row.patterns = novelPatternSplit(value[0], {
+							useRawString: true,
+							breakingMode: true,
+						});
 					}
-
-					if (
-						d
-						&& d.type === 'Disjunction'
-					)
+					else if (0)
 					{
-						if (d.alternatives)
+
+						let r = new zhRegExp(value[0], value[2], {
+							allowLocalRangeAutoZh: false,
+							disableZh: true,
+							on: {
+								// 雖然是空設定 但可以用來觸發優化 regexp
+							},
+						});
+
+						let p = parseRegExp(r.toString());
+
+						let d: Disjunction;
+						let list = p.pattern.elements.slice();
+
+						if (p.pattern.elements.length > 1)
 						{
-							let c = d.alternatives.reduce(function (a, b)
+							let d0 = list[0];
+
+							while (
+								d0.type == 'Assertion'
+								&& d0.kind == 'lookbehind'
+								)
 							{
-								let c = b.reduce(function (a, b)
-								{
-									a.push(astToString(b));
-									return a;
-								}, []);
+								list.shift();
+								d0 = list[0];
+							}
 
-								a.push(c.join(''));
+							d0 = list[list.length - 1];
 
-								return a;
-							}, [] as string[]);
-
-							if (c.length)
+							while (
+								d0.type == 'Assertion'
+								&& d0.kind == 'lookahead'
+								)
 							{
-								row.patterns = array_unique(c);
+								list.pop();
+								d0 = list[list.length - 1];
 							}
 						}
-					}
 
-					if (!row.patterns.length)
-					{
-						row.patterns.push(typeof raw !== 'undefined' ? raw : r.source);
+						if (list.length == 1)
+						{
+							let p2 = list[0];
 
-						//console.log(row);
+							if (p2.type === 'Disjunction')
+							{
+								d = p2;
+							}
+							else if (p2.type == 'Group'
+								&& p2.elements.length == 1
+								&& p2.elements[0].type === 'Disjunction')
+							{
+								d = p2.elements[0] as Disjunction;
+							}
+							else if (p2.type == 'CapturingGroup'
+								&& p2.elements.length == 1
+								&& p2.elements[0].type === 'Disjunction'
+							)
+							{
+								d = p2.elements[0] as Disjunction;
+							}
+							else if (0)
+							{
+								console.dir({
+									p2,
+									d,
+								}, {
+									depth: 4,
+								});
+							}
+						}
+
+						if (
+							d
+							&& d.type === 'Disjunction'
+						)
+						{
+							if (d.alternatives)
+							{
+								let c = d.alternatives.reduce(function (a, b)
+								{
+									let c = b.reduce(function (a, b)
+									{
+										a.push(astToString(b));
+										return a;
+									}, []);
+
+									a.push(c.join(''));
+
+									return a;
+								}, [] as string[]);
+
+								if (c.length)
+								{
+									row.patterns = array_unique(c);
+								}
+							}
+						}
+
+						if (!row.patterns.length)
+						{
+							row.patterns.push(typeof raw !== 'undefined' ? raw : r.source);
+
+							//console.log(row);
+						}
+
 					}
 
 					// 從結果中移除僅能用作調整字體的條目
@@ -133,6 +181,11 @@ export function parse_data(novelID: string, basePath: string = BASEPATH)
 					}
 					else
 					{
+//						console.dir({
+//							row,
+//							d,
+//						});
+
 						ret.push(row);
 					}
 				}

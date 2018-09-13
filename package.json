@@ -32,6 +32,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
+    "@node-novel/pattern-split": "^1.1.0",
     "@types/cross-spawn": "^6.0.0",
     "array-hyper-unique": "^1.0.2",
     "blank-line": "^1.0.0",
