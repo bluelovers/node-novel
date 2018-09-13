@@ -217,7 +217,8 @@ lazymarks[4] = [
 		});
 	}],
 
-	[/([^\d])(,)(?!\d)/g, function (...m)
+	/*
+	[/([^\d０-９])(,)(?![\d０-９])/g, function (...m)
 	{
 		return m[1] + StrUtil.toFullWidth(m[2], {
 			skip: {
@@ -227,6 +228,7 @@ lazymarks[4] = [
 	}, 'g', {
 		useNativeRegExp: true,
 	}],
+	*/
 
 	[/([\d０-９])([\/\-~\+])([\d０-９])/g, function (...m)
 	{
@@ -327,7 +329,7 @@ lazymarks['ln'] = [
 
 	[/\n{3,}([　 ]*[\-\=＝－─＊◇▲◆☆◊\*─＝=══－～\-─—\*＊＊↣◇★◆■□☆◊]+[\-\=＝－─＊◇◆☆◊\*─＝=══－\-─—\*＊＊◇◆■□☆◊　 ]*)\n+/g, '\n\n\n$1\n\n'],
 
-	[/\n+([　 ]*[＊◇◆☆◊\*～\*＊＊↣◇★◆■□☆◊＝＝=══]+[＊◇◆☆◊\*～　\*＊＊↣◇★◆■□☆◊＝＝=══]*)\n+/g, '\n\n\n$1\n\n'],
+	[/\n+([　 ]*[＊◇◆☆◊\*～\*＊＊↣◇★◆■□☆◊＝＝=══▼]+[＊◇◆☆◊\*～　\*＊＊↣◇★◆■□☆◊＝＝=══▼]*)\n+/g, '\n\n\n$1\n\n'],
 
 
 ];
@@ -946,7 +948,7 @@ lazymarks['c100'] = _word_zh_all([
 
 lazymarks['full_width_001'] = _word_zh_all([
 
-	_word_en(/\d+/g, function (...m)
+	_word_en(/\d+(?:,\d+)+/g, function (...m)
 	{
 		return m[1] + StrUtil.toFullNumber(m[2]);
 	}),
