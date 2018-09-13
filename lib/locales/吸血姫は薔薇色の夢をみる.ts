@@ -28,6 +28,7 @@ export const words_source: IWords[] = [
 	[`(?:伊帕利亞爾|インペリアル|帝国)${sp}(?:古里姆索|クリムゾン|深紅|緋紅)`, '真紅帝國', 'ig'],
 
 	['タメゴロー|德米哥羅', '德米哥羅'],
+	['ラポック|拉帕古|らぽっく|拉伯庫', '拉帕古'],
 
 	['壱岐', '壱岐'],
 	['双樹', '双樹'],
@@ -56,9 +57,9 @@ export const words_source: IWords[] = [
 
 	_word_jp1('アーラ|亞拉', '亞拉'),
 
-	_word_jp1('ミーア|米亞', '米亞'),
+	_word_jp1('ミーア|米亞|米婭', '米婭'),
 
-	_word_jp1('ガルテ|迦魯迪', '迦魯迪'),
+	_word_jp1('ガルテ|迦魯迪|迦魯德', '迦魯迪'),
 	_word_jp1('バッソ|巴索', '巴索'),
 
 	_word_jp1('コラード|格拿特|科拉德', '科拉德'),
@@ -92,6 +93,9 @@ export const words_source: IWords[] = [
 	 *
 	 */
 	['ケンスルーナ|森斯露娜|森斯路那|肯思魯娜', '森斯露娜'],
+	_word_jp1('克萊斯|クレス|克里斯(?!德)', '克萊斯'),
+
+	['法布拉', '法布拉'],
 
 	/**
 	 *
@@ -104,6 +108,10 @@ export const words_source: IWords[] = [
 	['イーオン|伊歐|伊昂|AEON|伊甕', '伊昂'],
 	['ファクシミレ|哈克西米爾', '哈克西米爾'],
 
+	/**
+	 *
+	 */
+	['兄丸|兄丸', '兄丸'],
 
 
 ];
@@ -125,6 +133,8 @@ export const words: IWords[] = sublib._word_zh_all([
 	[`安潔莉卡${sp}伊利斯${sp}阿米提亞`, '安潔莉卡・伊利斯・阿米提亞', 'ig'],
 	[`阿西爾${sp}克勞德${sp}阿米提亞`, '阿西爾・克勞德・阿米提亞', 'ig'],
 
+	[`克萊斯${sp}森斯露娜`, '克萊斯＝森斯露娜', 'ig'],
+
 	/**
 	 *
 	 */
@@ -132,6 +142,8 @@ export const words: IWords[] = sublib._word_zh_all([
 	[`喪失世紀`, '喪失世紀', 'ig'],
 
 	['蒼き神の塔|蒼神之塔', '蒼神之塔'],
+
+	['薔薇の罪人|薔薇的罪人', '薔薇的罪人'],
 
 	[`Naga${sp}Raja`, '黃金龍', 'ig'],
 	[`(?:ETERNAL|永恆)${sp}(?:HORIZON|地平線)${sp}ONLINE`, 'ETERNAL・HORIZON・ONLINE', 'ig'],
@@ -141,6 +153,7 @@ export const words: IWords[] = sublib._word_zh_all([
 
 	[`天嬢典雅|天娘典雅`, '天嬢典雅', 'ig'],
 	[`三毛猫の足音`, '三毛猫の足音', 'ig'],
+	[`独壇戦功|獨壇戰功`, '獨壇戰功', 'ig'],
 
 	[`豬骨大王|豚骨大王`, '豚骨大王', 'ig'],
 	[`豬骨|豚骨`, '豚骨', 'ig'],
@@ -170,8 +183,7 @@ export const words: IWords[] = sublib._word_zh_all([
 
 	[/^[　 ]+/gm, ''],
 
-	[/[\[【]/g, '「'],
-	[/[\]】]/g, '」'],
+
 
 	...sublib.lazymarks['class'],
 
@@ -185,6 +197,9 @@ export const words: IWords[] = sublib._word_zh_all([
 	...sublib.lazymarks[2],
 	...sublib.lazymarks[3],
 	...sublib.lazymarks[5],
+
+	[/[\[【]/g, '「'],
+	[/[\]】]/g, '」'],
 
 ] as IWords[]);
 
