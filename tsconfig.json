@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "module": "CommonJS",
-    "target": "es2017",
+    "target": "es2018",
 
     "moduleResolution": "node",
     "allowJs": false,
@@ -16,6 +16,8 @@
     "allowSyntheticDefaultImports": true,
 
     "strict": false,
+
+    "resolveJsonModule": true,
 
     //"forceConsistentCasingInFileNames": true,
 

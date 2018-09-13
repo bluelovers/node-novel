@@ -948,7 +948,7 @@ lazymarks['c100'] = _word_zh_all([
 
 lazymarks['full_width_001'] = _word_zh_all([
 
-	_word_en(/\d+(?:,\d+)+/g, function (...m)
+	_word_en(/\d+(?:,\d+)*/g, function (...m)
 	{
 		return m[1] + StrUtil.toFullNumber(m[2]);
 	}),
@@ -958,6 +958,11 @@ lazymarks['full_width_001'] = _word_zh_all([
 lazymarks['full_width_002'] = _word_zh_all([
 
 	_word_en(/[a-z]/ig, function (...m)
+	{
+		return m[1] + StrUtil.toFullEnglish(m[2]);
+	}),
+
+	_word_en(/(?:s|x){2,3}/ig, function (...m)
 	{
 		return m[1] + StrUtil.toFullEnglish(m[2]);
 	}),
