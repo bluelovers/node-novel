@@ -30,3 +30,4 @@ test/temp*
 **/dist_novel
 dist_novel
 **/dist_novel/**
+/yarn.lock

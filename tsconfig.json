@@ -31,7 +31,9 @@
 //    "rootDir": ".",
 //    "outDir": ".",
 
-
+    "lib": [
+      "es2018"
+    ],
 
     "traceResolution": true,
     "newLine": "lf"
