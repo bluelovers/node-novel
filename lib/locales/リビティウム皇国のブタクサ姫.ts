@@ -5,6 +5,7 @@
 import { sp, IWords, vMaybe, sublib } from './index';
 import * as StrUtil from 'str-util';
 import { _word_en, lazymarks, _word_jp1 } from './lib/index';
+import { words_source as import_words_source } from './吸血姫は薔薇色の夢をみる';
 
 /**
  * 改成小說名字 (可留白 則自動設定為檔案名稱)
@@ -81,7 +82,7 @@ export const words_source: IWords[] = [
 	['安迪|アンディ', '安迪'],
 	['查德|札德|チャド', '查德'],
 
-	['艾蓮|エレン|艾倫', '艾蓮'],
+	_word_jp1('艾蓮|エレン|艾倫', '艾蓮'),
 	['亞羅德|亞羅路德|アロルド', '亞羅路德'],
 	['巴雷吉|バレージ', '巴雷吉'],
 	['卡麗娜', '卡麗娜'],
@@ -125,7 +126,7 @@ export const words_source: IWords[] = [
 
 
 	[`格魯拉德|コルラード|弗魯那多`, '格魯拉德'],
-	[`西蒙|シモン`, '西蒙'],
+	_word_jp1(`西蒙|シモン`, '西蒙'),
 	[`オーランシュ|奧蘭修|奧蘭休`, '奧蘭修'],
 
 	[`格魯拉德・西蒙・奧蘭修`, '格魯拉德・西蒙・奧蘭修'],
@@ -308,10 +309,10 @@ export const words_source: IWords[] = [
 
 	[`絳魯卡`, '絳魯卡'],
 
-	[`超神?帝国`, '超帝國'],
+	[`超神?帝(国)`, '超帝$1'],
 	[`カーディナル・?ローゼ|真紅玫瑰|鮮紅玫瑰`, '真紅玫瑰'],
 
-	[`(深|真)紅帝國`, '真紅帝國'],
+	[`(?:深|真)紅帝(國)`, '真紅帝$1'],
 
 	[`ダニエル|丹尼爾`, '丹尼爾'],
 
@@ -410,6 +411,8 @@ export const words_source: IWords[] = [
 export const words: IWords[] = sublib._word_zh_all([
 
 	...words_source,
+
+	...(import_words_source || []),
 
 	...sublib.lazymarks['class'],
 

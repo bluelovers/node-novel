@@ -6,6 +6,7 @@
 import { sp, IWords, vMaybe, sublib } from './index';
 import * as StrUtil from 'str-util';
 import { _word_en, lazymarks, _word_jp1 } from './lib/index';
+import { words_source as import_words_source } from './リビティウム皇国のブタクサ姫';
 
 /**
  * 改成小說名字 (可留白 則自動設定為檔案名稱)
@@ -210,8 +211,6 @@ export const words_source: IWords[] = [
 	['兄丸|兄丸', '兄丸'],
 	['音丸', '音丸'],
 
-
-
 	['迪烏塔|ディーヴータ', '迪烏塔'],
 	['莫凱|モーンガイ', '莫凱'],
 
@@ -235,7 +234,7 @@ export const words: IWords[] = sublib._word_zh_all([
 
 	...words_source,
 
-
+	...(import_words_source || []),
 
 	[`喬伊${sp}阿蘭特`, '喬伊・阿蘭特', 'ig'],
 
@@ -312,8 +311,6 @@ export const words: IWords[] = sublib._word_zh_all([
 	[/(?<=MP：[^\n]+)(\n)(?![^\s]+：|\s)/igm, '\n\n'],
 
 	[/^[　 ]+/gm, ''],
-
-
 
 	...sublib.lazymarks['class'],
 
