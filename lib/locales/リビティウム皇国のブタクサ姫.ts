@@ -412,7 +412,7 @@ export const words: IWords[] = sublib._word_zh_all([
 
 	...words_source,
 
-	...(import_words_source || []),
+	//...(import_words_source || []),
 
 	...sublib.lazymarks['class'],
 
