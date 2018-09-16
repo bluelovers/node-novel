@@ -4,6 +4,7 @@
 
 import * as crossSpawn from 'cross-spawn';
 import * as path from 'path';
+import gitDiffIDNovelID from '../lib/git';
 import ProjectConfig from '../project.config';
 import * as Promise from 'bluebird';
 import * as fs from 'fs-extra';
@@ -17,32 +18,7 @@ let cli = yargs
 	.argv
 ;
 
-let arr_ids = array_unique(ditDiffStagedDir()
-	.map(function (v)
-	{
-		let d = v.split(/\//);
-
-		let pathMain = d[0];
-		let novelID = d[1];
-
-		if (pathMain.match(/_out$/))
-		{
-			pathMain = pathMain.replace(/_out$/, '');
-		}
-
-		if (d.length >= 3
-			//&& pathMain != 'cm'
-			&& pathMain != 'docs'
-			&& !pathMain.match(/_out$|^\./))
-		{
-			return {
-				pathMain,
-				novelID,
-			}
-		}
-	}))
-	.filter(v => v)
-;
+let arr_ids = gitDiffIDNovelID(ProjectConfig.dist_novel_root);
 
 let _cache_file = path.join(
 	ProjectConfig.temp_root,
@@ -166,46 +142,4 @@ function searchLocalesID(ids: string[])
 	}
 
 	return myLocalesID;
-}
-
-function ditDiffStaged(): string[]
-{
-	let cp = crossSpawn.sync('git', 'diff --cached --name-only'.split(' '), {
-		cwd: ProjectConfig.dist_novel_root
-	});
-
-	return cp.stdout.toString()
-		.split(/[\n\r]+/)
-		.filter(v => v !== '')
-		;
-}
-
-function ditDiffStagedDir(): string[]
-{
-	let cp = crossSpawn.sync('git',
-		'diff --cached --dirstat=files,0'.split(' '),
-		{
-			cwd: ProjectConfig.dist_novel_root,
-		}
-	);
-
-	let cp2 = crossSpawn.sync('git',
-		'diff --dirstat=files,0'.split(' '),
-		{
-			cwd: ProjectConfig.dist_novel_root,
-		}
-	);
-
-	return [
-		cp.stdout.toString(),
-		cp2.stdout.toString()
-	]
-		.join('\n')
-		.split(/[\n\r]+/)
-		.map(function (v)
-		{
-			return v.replace(/^\s+\d+(\.\d+)%\s+/, '');
-		})
-		.filter(v => v !== '')
-		;
 }
