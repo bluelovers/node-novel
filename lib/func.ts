@@ -2,6 +2,7 @@
  * Created by user on 2017/12/7/007.
  */
 
+import * as StrUtil from 'str-util';
 import { trimFilename } from 'fs-iconv';
 import { isRegExp } from 'regexp-cjk';
 export { array_unique, lazy_unique } from 'array-hyper-unique';
@@ -40,3 +41,17 @@ export function regex_str(str): string
 }
 
 export default trimFilename;
+
+export function killBadPx(str: string): string
+{
+	str = StrUtil.toHalfWidth(str);
+
+	let m = str.match(/^(\d+)(px)$/i);
+
+	if (m)
+	{
+		return (parseInt(m[1]) / 25) + 'cm';
+	}
+
+	return null;
+}

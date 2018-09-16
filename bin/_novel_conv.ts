@@ -84,6 +84,16 @@ Promise
 
 		let TIME_LABEL = novelID;
 
+		let STAT_CACHE = {
+			all: 0,
+			file: 0,
+			changed: 0,
+			skip: 0,
+			error: 0,
+		};
+
+		console.info(pathMain, novelID);
+
 		console.time(TIME_LABEL);
 
 		let ls = await Promise
@@ -113,6 +123,8 @@ Promise
 						_last_empty.push(currentFile);
 
 						//console.gray(currentFile, '此檔案無內容');
+
+						STAT_CACHE.skip++;
 
 						return currentFile;
 					}
@@ -145,7 +157,32 @@ Promise
 
 					let changed = _t != _t_old;
 
-					console[changed ? 'log' : 'red'](currentFile, index, len);
+					if (!_t.replace(/\s+/g, ''))
+					{
+						STAT_CACHE.error++;
+
+						console
+							.yellow
+							.bgRed(currentFile, index, len)
+						;
+
+						await fs.outputFile(file, '');
+					}
+					else if (changed)
+					{
+						console[changed ? 'log' : 'red'](currentFile, index, len);
+
+						await fs.outputFile(file, _t);
+					}
+					else
+					{
+						console[changed ? 'log' : 'red'](currentFile, index, len);
+					}
+
+					if (changed)
+					{
+						STAT_CACHE.changed++;
+					}
 
 					return currentFile;
 				})
@@ -163,11 +200,16 @@ Promise
 					_last_empty = [];
 				}
 
+				STAT_CACHE.all = ls.length;
+
+				STAT_CACHE.file = STAT_CACHE.all - STAT_CACHE.skip;
+
 				return ls;
 			})
 			.tap(function ()
 			{
 				console.debug(prettyuse());
+				console.debug(STAT_CACHE);
 			})
 		;
 
