@@ -4,7 +4,7 @@
 
 import { IWords } from '../';
 import * as StrUtil from 'str-util';
-import { regex_str, array_unique } from '../../func';
+import { regex_str, array_unique, killBadPx } from '../../func';
 import { IRegExpCallback } from 'novel-text';
 
 //import * as regexpCjkLib from 'regexp-cjk/lib/v1';
@@ -947,6 +947,17 @@ lazymarks['c100'] = _word_zh_all([
 	[/([ 　])\-([\u4E00-\u9FFF])/g, '$1─$2'],
 
 
+
+]);
+
+lazymarks['unit'] = _word_zh_all([
+
+	[/(?<!\w)[\d０-９]+(?:px|ｐｘ)(?!\w)/ig, function (...m)
+	{
+		let s = killBadPx(m[0]);
+
+		return StrUtil.toFullWidth(s || m[0]);
+	}],
 
 ]);
 
