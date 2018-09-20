@@ -215,8 +215,7 @@ export const words: IWords[] = [
 
 
 
-	[/(.+)[（\(【]\1[）\)】]/g, '$1'],
-	[/([「『](.+)[』」])[（\(【]\2[）\)】]/g, '$1'],
+	...sublib.lazymarks['replace_001'],
 
 	[/，([”』」])/g, '$1'],
 
@@ -465,5 +464,6 @@ export const words_maybe: vMaybe = [
 //console.log(words_maybe);
 
 import * as self from './index';
+import { lazymarks } from './lib/index';
 
 export default self;
