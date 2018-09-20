@@ -34,7 +34,7 @@ export const words_source: IWords[] = [
 	_word_jp1('シュタインハルト|斯坦哈特', '斯坦哈特', 'ig'),
 
 
-	_word_jp1('米娜|ミーナ|曼娜', '米娜', 'ig'),
+	_word_jp1('米娜|ミーナ|曼娜|蜜娜', '米娜', 'ig'),
 
 	// -----------
 
