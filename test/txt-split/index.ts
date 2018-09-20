@@ -12,6 +12,7 @@ import { cn2tw_min } from 'cjk-conv/lib/zh/convert/min';
 import { trimFilename, regex_str } from '../../lib/func';
 import novelFilename from 'cjk-conv/lib/novel/filename';
 import { console } from 'debug-color2';
+
 console.enabledColor = true;
 
 let _zh_num = '一二三四五六七八九十';
@@ -19,17 +20,17 @@ let _space = ' 　\\t';
 
 let inputFile = path.join(projectConfig.dist_novel_root,
 	'syosetu',
-	'吸血姫は薔薇色の夢をみる',
-	'z.raw/raw.txt',
+	'帰ってきた元勇者',
+	'z.raw/日常(笑)的原勇者 web1-196+万圣节番外(1).txt',
 );
 
 const c = '　';
 
 let options: IOptions = {
-	volume: {
+	// @ts-ignore
+	_volume: {
 		r: new zhRegExp([
 			//`(?:^|\\n)[${_space}]*(第?(?:[序终]|[${_zh_num}]+|\\d+)章)([^\\n]*)`,
-
 
 			`(?:^)[${_space}]*`,
 			`(`,
@@ -41,7 +42,6 @@ let options: IOptions = {
 			`([^\\n]*)`,
 			`[${_space}]*`,
 			`$`,
-
 
 		].join(''), 'igm'),
 		cb({
@@ -125,10 +125,34 @@ let options: IOptions = {
 			//`(?:^|\\n)[${_space}]*(\\d+\\-\\d+)([^\\n]*)`,
 
 			`(?:^)[${_space}]*`,
+			//`(?:WEB[ ]*)?`,
+
+			`(?:`,
+			[
+				`\\[google姐\\+(?:度娘\\+)?(?:腦補)?\\+渣翻(?:plus)?(?:腦補)?\\]`,
+				`\\[google姐\\+度娘\\+渣翻plus腦補\\]`,
+				`\\[google姐\\+腦補\\+渣翻\\]`,
+				`\\[google姐\\+度娘\\+腦補\\+渣翻\\]`,
+				`\\[google姐\\+度娘\\+渣翻plus腦補\\]`,
+
+				`\\[google姐\\+度娘\\+渣翻plus腦補\\]`,
+
+			].join('|'),
+			`)?`,
+			`[${_space}]*`,
 			`(`,
 			[
-				`(?:(?:第|最)?(?:序|终)|第[${_zh_num}\\d]+)话`,
-				`幕间`,
+				//`(?:(?:第|最)?(?:序|终)|第[${_zh_num}\\d]+)话`,
+				//`幕间`,
+				`WEB[ ]*\\d+`,
+				`#?\\d+(?:\\.\\d+)?\\.?[ ]*(?=(?:元|原)勇者?)`,
+				`\\d{2,}、[ ]*`,
+				`\\d{2,}[ ]+(?!\\:)`,
+				`#?\\d{3,}[\\.。 ：]`,
+				`\\d{2,}(?=\\n)`,
+				`番外`,
+				`原(?:勇|者)\\d{3,}`,
+				`（web\\d+）`,
 			].join('|'),
 			`)`,
 			`[${_space}\\-]*`,
@@ -170,7 +194,7 @@ let options: IOptions = {
 
 				if (idn)
 				{
-					ids = `第${idn}話`;
+					ids = `${idn}`;
 				}
 				else
 				{
@@ -182,6 +206,8 @@ let options: IOptions = {
 				});
 
 				desc = StrUtil.toFullNumber(desc);
+
+				let c = '.';
 
 				name = [
 					ids,
@@ -208,8 +234,6 @@ let options: IOptions = {
 
 //				process.exit();
 
-
-
 				idx += m_last.match.length;
 			}
 
@@ -235,5 +259,5 @@ function replaceName(name: string)
 	return name
 		.replace(new zhRegExp(/最後/g), '最後')
 		.replace(new zhRegExp(/後記/g), '後記')
-	;
+		;
 }
