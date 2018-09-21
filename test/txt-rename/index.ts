@@ -49,8 +49,10 @@ novelID = 'カルマの塔';
 pathMain = 'dmzj';
 novelID = '幻想世界的愛麗絲緹露';
 
-pathMain = 'syosetu';
-novelID = '望まぬ不死の冒険者/z.raw/00000 null';
+novelID = '29歲單身漢在異世界想自由生活卻事與願違！？';
+
+//pathMain = 'syosetu';
+//novelID = '望まぬ不死の冒険者/z.raw/00000 null';
 
 if (!novelID)
 {
@@ -93,16 +95,21 @@ let _space = ' 　\\t \\s';
 		`(`,
 		[
 			//`[序终][曲章]`,
-			`(?:第?(?:[${_zh_num}]+|\\d+(?:\.\\d+)?|[${_full_num}]+(?:[\\.．][${_full_num}]+)?)(?:话|集|章))`,
+			//`(?:第?(?:[${_zh_num}]+|\\d+(?:\.\\d+)?|[${_full_num}]+(?:[\\.．][${_full_num}]+)?)(?:话|集|章))`,
 			//`６[${_full_num}]+`,
 			//`20`
 			//`\\d+[${_space}\\-]`,
 //			'\\d{3}',
+
+			`第[${_zh_num}]+话`,
+			`後記`,
+			`尾聲`,
+
 		].join('|'),
 		`)`,
 		`[${_space}]*`,
 		//`[：~～]*`,
-		`([^\\n]*)`,
+		`([^\\n]*?)`,
 		//`[：~～]*`,
 		`[${_space}]*`,
 		`$`,
@@ -147,6 +154,8 @@ let _space = ' 　\\t \\s';
 			const name_old = name;
 			let file_dir = path.dirname(file);
 
+			r.lastIndex = 0;
+
 			let m = r.exec(name);
 
 			//const c = '　';
@@ -187,7 +196,7 @@ let _space = ' 　\\t \\s';
 					name = ido + name;
 				}
 			}
-			else if (1 && m)
+			else if (0 && m)
 			{
 				let [src, ido, id, desc] = m;
 
@@ -202,20 +211,37 @@ let _space = ' 　\\t \\s';
 					name += c + `${desc}`;
 				}
 			}
-			else if (m)
+			else if (1 && m)
+			{
+				let [src, ido, id, desc] = m;
+
+				//id = StrUtil.toFullNumber(id);
+
+				name = ido + `${id}`;
+
+				//console.log(m);
+
+				let c = '　';
+
+				if (desc)
+				{
+					name += c + `${desc}`;
+				}
+			}
+			else if (0 && m)
 			{
 				console.debug(m);
 			}
 
-			name = (index + 2)
-				.toString()
-				.padStart(4, '0')
-				+ '0'
-				+ '_'
-				+ name
-			;
+//			name = (index + 2)
+//				.toString()
+//				.padStart(4, '0')
+//				+ '0'
+//				+ '_'
+//				+ name
+//			;
 
-			if (0)
+			if (1)
 			{
 				name = novelFilename.filename(name, {
 						skip: '娘志',
@@ -226,6 +252,12 @@ let _space = ' 　\\t \\s';
 					.replace(/”/g, '』')
 
 					.replace(/レポート/g, '記事')
+					.replace(new zhRegExp('発', 'ig'), '發')
+					.replace(new zhRegExp('于', 'ig'), '於')
+					.replace(new zhRegExp('気', 'ig'), '氣')
+					.replace(new zhRegExp('処', 'ig'), '處')
+					.replace(new zhRegExp('獣', 'ig'), '獸')
+					.replace(new zhRegExp('団', 'ig'), '團')
 
 				/*
 				.replace(/(\d+)/g, function (...m)
@@ -248,7 +280,7 @@ let _space = ' 　\\t \\s';
 
 			if (name_old != name)
 			{
-//				await fs.move(file, path.join(file_dir, name + ext));
+				await fs.move(file, path.join(file_dir, name + ext));
 
 				await console.log(`${index}, "${name_old}"\n=> "${name}"`);
 			}
