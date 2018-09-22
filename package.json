@@ -71,5 +71,8 @@
     "@types/i18next": "^8.4.5",
     "randexp": "^0.5.3"
   },
-  "optionalDependencies": {}
+  "optionalDependencies": {},
+  "engines": {
+    "node": ">=10"
+  }
 }
