@@ -100,7 +100,7 @@ export const words: IWords[] = sublib._word_zh_all([
 	['犭虫裁|獨裁', '獨裁'],
 
 	[/(?<!\n)\n{1,2}(?=†)/gm, '\n\n\n'],
-	[/(?<=†)\n(?=\S)/gm, '\n\n'],23
+	[/(?<=†)\n(?=\S)/gm, '\n\n'],
 
 	...sublib.lazymarks['class'],
 
