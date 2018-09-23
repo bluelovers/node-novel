@@ -34,11 +34,11 @@
   "dependencies": {
     "@node-novel/pattern-split": "^1.1.1",
     "@types/cross-spawn": "^6.0.0",
-    "array-hyper-unique": "^1.0.2",
+    "array-hyper-unique": "^1.0.5",
     "blank-line": "^1.0.0",
     "bluebird": "^3.5.2",
     "child-process-promise": "^2.2.1",
-    "cjk-conv": "^1.0.99",
+    "cjk-conv": "^1.0.103",
     "cross-spawn": "^6.0.5",
     "debug-color2": "^1.0.6",
     "deepmerge-plus": "^2.1.2",
@@ -68,7 +68,7 @@
     "@types/bluebird": "^3.5.24",
     "@types/bluebird-global": "^3.5.9",
     "@types/fs-extra": "^5.0.4",
-    "@types/i18next": "^8.4.5",
+    "@types/i18next": "^11.9.0",
     "randexp": "^0.5.3"
   },
   "optionalDependencies": {},
