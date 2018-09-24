@@ -179,7 +179,7 @@ export const words: IWords[] = sublib._word_zh_all([
 	[/Rank|Ｒａｎｋ/ig, '級別'],
 
 	['魔石?线', '魔石線'],
-	['(阿(?:雷|瑞)[亚亞]?斯|阿瑞斯|那个椅子)家[的の之]?(?:宝|寶|直)劍', '阿雷亞斯家的宝剑'],
+	['(阿(?:雷|瑞)[亚亞]?斯|阿瑞斯|那个椅子)家の?(?:宝|寶|直)劍', '阿雷亞斯家的宝剑'],
 	['(阿(?:雷|瑞)[亚亞]?斯|阿瑞斯)', '阿雷亞斯'],
 	['(激突|撕裂)者?比德尔', '撕裂者比德爾'],
 
@@ -199,9 +199,9 @@ export const words: IWords[] = sublib._word_zh_all([
 	['魔石人类|魔石人间', '魔石人类'],
 	['Jewel Cross', '魔石人类'],
 
-	['[級级]别|等[級级]|レベル', '級别'],
+	['級别|等級|レベル', '級别'],
 
-	['天上[的の]?七?[骑騎]士', '天上的七骑士'],
+	['天上の?七?騎士', '天上的七骑士'],
 
 	['艾尔乌纳|阿尔十字', '艾尔乌纳'],
 
@@ -211,14 +211,14 @@ export const words: IWords[] = sublib._word_zh_all([
 
 	['姓名|名字|名称', '名字'],
 
-	['(圣诞|童話|生诞)[节祭]', '圣诞祭'],
+	['(圣诞|童話|生诞)(节|祭)', '圣诞祭'],
 	['祭典|庙会', '祭典'],
 
-	['[冒探][险索]者', '探索者'],
+	['(冒|探)(险|索)者', '探索者'],
 
 	['(?:米|弥)诺陶(?:洛|诺)斯|牛头人', '米諾陶洛斯'],
 
-	['[赤红][色之]米诺陶洛斯', '赤之米諾陶洛斯'],
+	['(赤|红)(色|之)米诺陶洛斯', '赤之米諾陶洛斯'],
 
 	//['『显示』', '『表示』'],
 	//['[『「](携带品|物品|所有物|持ち物)[』」]', '『携带品』'],
@@ -235,18 +235,22 @@ export const words: IWords[] = sublib._word_zh_all([
 			case '持有物品':
 			case '持ち物':
 			case '持有物':
-			case '持有物品':
+			case '攜帶品':
 				c = '所有物';
 				break;
 			case '表示':
 			case '显示':
 			case '注视':
+			case '顯示':
+			case '注視':
 				c = '表示';
 				break;
 			case '形式':
 			case '形态':
 			case '泡沫':
 			case '气泡':
+			case '形態':
+			case '氣泡':
 				c = '形式';
 				break;
 			case '人造品':
@@ -258,7 +262,10 @@ export const words: IWords[] = sublib._word_zh_all([
 			case '假货':
 			case '伪物':
 			case '赝品':
-				c = '伪物';
+			case '假貨':
+			case '偽物':
+			case '贋品':
+				c = '偽物';
 				break;
 			case '材料':
 			case '素体':
@@ -267,16 +274,20 @@ export const words: IWords[] = sublib._word_zh_all([
 			case '眼睛':
 			case '目':
 			case '锐利的目光':
+			case '銳利的目光':
 			case '炯眼':
 				c = '炯眼';
 				break;
 			case '连接':
 			case '联结':
-				c = '连接';
+			case '連接':
+			case '聯結':
+				c = '連接';
 				break;
 			case '感应':
 			case '感応':
-				c = '感应';
+			case '感應':
+				c = '感應';
 				break;
 			case '想起':
 			case '想起收束':
@@ -284,10 +295,11 @@ export const words: IWords[] = sublib._word_zh_all([
 				break;
 			case '新月琉璃直劍':
 			case '新月琉璃':
+			case '新月琉璃直剑':
 				c = m[1];
 				break;
 			case 'flamberge':
-				c = '炎之剑';
+				c = '炎之劍';
 				break;
 			case 'light':
 				c = '光';
@@ -296,7 +308,7 @@ export const words: IWords[] = sublib._word_zh_all([
 				c = '火焰';
 				break;
 			case 'wind':
-				c = '风';
+				c = '風';
 				break;
 			case '地图':
 			case '技能':
@@ -304,6 +316,9 @@ export const words: IWords[] = sublib._word_zh_all([
 			case '利特尔降雪':
 			case '次元・雪':
 			case '維度':
+			case '地圖':
+			case '利特爾降雪':
+			case '维度':
 				c = m[1];
 				break;
 			default:
@@ -424,7 +439,7 @@ export const words: IWords[] = sublib._word_zh_all([
 		return '幣' + StrUtil.toFullNumber(m[1]) + '枚';
 	}],
 
-	[/(等[級级]|Rank|[級级]别|水平)[　 ：]*([\d０１２３４５６７８９]+)/ig, function (...m)
+	[/(等級|Rank|級别|水平)[　 ：]*([\d０１２３４５６７８９]+)/ig, function (...m)
 	{
 		return m[1] + StrUtil.toFullNumber(m[2]);
 	}],
