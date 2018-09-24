@@ -14,10 +14,13 @@ import { i18next, loadLocales, addResourceBundle, locales_def } from '../../lib/
 import * as execall from 'execall';
 import * as JSON from 'json5';
 import * as iconv from 'iconv-jschardet';
+import * as crossSpawn from 'cross-spawn';
 
 import * as zhtext from 'novel-text/zhjp';
 import * as locales_lib from '../../lib/locales/lib';
 import { trimFilename, regex_str } from '../../lib/func';
+import { _word_zh_all, lazymarks } from '../../lib/locales/lib';
+
 import { zhRegExp } from 'regexp-cjk';
 import novelFilename from 'cjk-conv/lib/novel/filename';
 import { cn2tw_min } from 'cjk-conv/lib/zh/convert/min';
@@ -50,6 +53,9 @@ pathMain = 'dmzj';
 novelID = '幻想世界的愛麗絲緹露';
 
 novelID = '29歲單身漢在異世界想自由生活卻事與願違！？';
+
+pathMain = 'user';
+novelID = '異世界迷宮の最深部を目指そう';
 
 //pathMain = 'syosetu';
 //novelID = '望まぬ不死の冒険者/z.raw/00000 null';
@@ -211,7 +217,7 @@ let _space = ' 　\\t \\s';
 					name += c + `${desc}`;
 				}
 			}
-			else if (1 && m)
+			else if (0 && m)
 			{
 				let [src, ido, id, desc] = m;
 
@@ -247,9 +253,11 @@ let _space = ' 　\\t \\s';
 						skip: '娘志',
 						//safe: false,
 					})
-					.replace(/后(記|宮)/g, '後$1')
+					//.replace(/后(記|宮)/g, '後$1')
 					.replace(/“/g, '『')
 					.replace(/”/g, '』')
+
+					/*
 
 					.replace(/レポート/g, '記事')
 					.replace(new zhRegExp('発', 'ig'), '發')
@@ -258,6 +266,8 @@ let _space = ' 　\\t \\s';
 					.replace(new zhRegExp('処', 'ig'), '處')
 					.replace(new zhRegExp('獣', 'ig'), '獸')
 					.replace(new zhRegExp('団', 'ig'), '團')
+					.replace(new zhRegExp('囲', 'ig'), '圍')
+					*/
 
 				/*
 				.replace(/(\d+)/g, function (...m)
@@ -266,6 +276,12 @@ let _space = ' 　\\t \\s';
 				})
 				*/
 				;
+
+				name = replace_name_list().reduce(function (name, data)
+				{
+					// @ts-ignore
+					return name.replace(...data);
+				}, name);
 			}
 
 			name = novelText.trim(name, {
@@ -280,7 +296,27 @@ let _space = ' 　\\t \\s';
 
 			if (name_old != name)
 			{
-				await fs.move(file, path.join(file_dir, name + ext));
+				let name_new = path.join(file_dir, name + ext);
+
+				await crossSpawn.sync('git', [
+					'mv',
+					'-f',
+					'-v',
+					file,
+					name_new,
+				], {
+					cwd,
+					stdio: 'inherit',
+				});
+
+				if (fs.existsSync(name_new) && !fs.existsSync(file))
+				{
+
+				}
+				else
+				{
+					await fs.move(file, name_new);
+				}
 
 				await console.log(`${index}, "${name_old}"\n=> "${name}"`);
 			}
@@ -292,3 +328,65 @@ let _space = ' 　\\t \\s';
 	;
 
 })();
+
+let CACHE_REGEXP_LIST = [] as [RegExp, string | ((...argv: string[]) => string)][];
+
+function replace_name_list()
+{
+	if (!CACHE_REGEXP_LIST.length)
+	{
+		CACHE_REGEXP_LIST = [
+			[/后(記|宮)/g, '後$1'],
+			[/レポート/g, '記事'],
+			[new zhRegExp('発', 'ig'), '發'],
+			[/于/g, '於'],
+			[new zhRegExp('気', 'ig'), '氣'],
+			[new zhRegExp('処', 'ig'), '處'],
+			[new zhRegExp('獣', 'ig'), '獸'],
+			[new zhRegExp('団', 'ig'), '團'],
+			[new zhRegExp('囲', 'ig'), '圍'],
+			//[new zhRegExp('気', 'ig'), '氣'],
+
+			..._word_zh_all([
+
+				...lazymarks['zh'],
+				...lazymarks['zh2'],
+
+				//...lazymarks['c000'],
+
+				[/\uFEFF/g, ''],
+
+				[/[  \xA0]/g, ' '],
+				//[/[　\u3000]/g, '　'],
+				[/[·‧・···•˙●]/g, '・'],
+				[/[．]/g, '・'],
+				['[∶:]', ':'],
+				[/[：：︰﹕：]/ug, '：'],
+				[/[〔［]/g, '［'],
+				[/[〕］]/g, '］'],
+
+			]).map(function (data)
+			{
+				if (!(data[0] instanceof RegExp || data[0] instanceof zhRegExp))
+				{
+					data[0] = new zhRegExp(data[0], 'ig');
+				}
+
+				return data;
+			}) as typeof CACHE_REGEXP_LIST,
+
+		];
+
+		//console.log(CACHE_REGEXP_LIST);
+	}
+
+	CACHE_REGEXP_LIST.forEach(data => {
+
+		if (data[0] instanceof RegExp || data[0] instanceof zhRegExp)
+		{
+			data[0].lastIndex = 0;
+		}
+	});
+
+	return CACHE_REGEXP_LIST;
+}
