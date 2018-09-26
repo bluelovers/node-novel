@@ -50,7 +50,12 @@ export function killBadPx(str: string): string
 
 	if (m)
 	{
-		return (parseInt(m[1]) / 25) + 'cm';
+		let i = (parseInt(m[1]) / 25);
+
+		if (i > 0)
+		{
+			return i + 'cm';
+		}
 	}
 
 	return null;
