@@ -18,6 +18,7 @@ import novelText from 'novel-text';
 import path from 'upath2';
 
 import * as yargs from 'yargs';
+import { array_unique } from '../lib/func';
 import { addResourceBundle, i18next, loadLocales, locales_def } from '../lib/i18n';
 import { freeGC } from '../lib/util';
 import * as projectConfig from '../project.config';
@@ -592,10 +593,174 @@ function cache_output1(_block, title): string
 
 function cache_output2(_block, title): string
 {
+	let _fillter_1 = array_unique([
+		'cg',
+		'ok',
+		'rpg',
+		'play',
+		'max',
+		'cosplay',
+		'cos',
+		'loli',
+		'golem',
+		'xl',
+		'lv',
+		'ice',
+		'boss',
+		'xdd',
+		'xd',
+		'vs',
+		'party',
+		'fate',
+		'hentai',
+		'shadow', 'gate',
+		'high',
+		'monster',
+		'player',
+		'killer',
+		'kill',
+		'solo',
+		'gl',
+		'gay',
+		'by',
+		'black', 'box',
+		'power',
+		'wall',
+		'auto',
+		'angel',
+		'unlock',
+		'skill',
+		'cm',
+		'mode',
+		'ku',
+		'flag',
+		'tm',
+		'no',
+		'lucky',
+		'luck',
+		'kiss',
+		'elf',
+		'level',
+		'cool',
+		'buff',
+		'magic', 'item',
+		'bad', 'status',
+		'summon',
+		'lz',
+		'extra',
+		'life',
+		'heal',
+		'the',
+		'reply',
+		'dark',
+		'healer',
+		'evil',
+		'chaos',
+		'debuff',
+		'go',
+		'show',
+		'call',
+		'full',
+		'ai',
+		'orz',
+		'here',
+		'spell', 'book',
+		'undead',
+		'dead',
+		'silver',
+		'bgm',
+		'nice',
+		'in',
+		'potion',
+		'yes',
+		'ps',
+		'party', 'member',
+		'over', 'live',
+		'all',
+		'up',
+		'rank',
+		'open',
+		'sorry',
+		'my', 'lord',
+		'princess',
+		'pro',
+		'items',
+		'priest',
+		'last', 'rose',
+		'nightmare',
+		'elemental',
+		'sf',
+		'sex',
+		'berserker',
+		'pose',
+		'poi',
+		'eye',
+		'go', 'away',
+		'you',
+		'shit',
+		'holy',
+		'ng',
+		'hey',
+		'fight',
+		'mpk',
+		'maybe',
+		'sir',
+		'wait',
+		'allright',
+		'right',
+		'wait',
+		'original',
+		'ntr',
+		'tnt',
+		'arena',
+		'hound',
+		'order', 'made',
+		'monks',
+		'monk',
+		'and',
+		'full',
+		'boost',
+		'shadow', 'space',
+		'enemy',
+		'desu',
+		'morning', 'call',
+		'super',
+		'ice', 'zero', 'field',
+		'world',
+		'fall',
+		'face',
+		'fulu',
+		'kyu',
+		'sama',
+		'right', 'hand',
+		'mp',
+		'sp',
+		'hp',
+		'exp',
+		'xp',
+		'dp',
+		'desu',
+		'oak',
+		'gun',
+		'fire',
+		'ball',
+		'ice', 'shield',
+		'fuck',
+		'ogc',
+		'boom',
+		'charge',
+		'guard',
+		'break',
+		'angel', 'ring',
+
+	]);
+
 	_block = Object.keys(_block)
 		.reduce(function (a, b)
 		{
-			a[b] = a[b] || {};
+			let cache_ab = a[b] || {};
+
+			//a[b] = a[b] || {};
 
 			for (let m of _block[b])
 			{
@@ -604,24 +769,41 @@ function cache_output2(_block, title): string
 					continue;
 				}
 
-				let key = m.sub[1]
+				let key: string = m.sub[1]
 					.replace(/^[ 　・\.\'\"\:\-\+\=]+|[ 　・\.\'\"\:\-\+\=]+$/g, '')
 					.toLowerCase()
+
 				;
+
+				if (
+					/^(ku|fu|no|hu|ki|gi|ka|em+)+$/i.test(key)
+					|| key.split(/\s|・/).every(v => _fillter_1.includes(v))
+				)
+				{
+					continue;
+				}
 
 				if (/^\d+(?:\.\d+)?$|^([a-z])\1+$/i.test(key) || key.length == 1)
 				{
 					continue;
 				}
 
-				a[b][key] = a[b][key] || [];
+				cache_ab[key] = cache_ab[key] || [];
 
-				a[b][key].push(m.match);
+				cache_ab[key].push(m.match);
 			}
 
-			for (let m in a[b])
+			let bool: boolean;
+
+			for (let m in cache_ab)
 			{
-				a[b][m].sort();
+				cache_ab[m].sort();
+				bool = true;
+			}
+
+			if (bool)
+			{
+				a[b] = cache_ab;
 			}
 
 			return a;
