@@ -1368,6 +1368,14 @@ export const words_source: IWords[] = [
 	/**
 	 *
 	 */
+	['アルクレム|阿魯庫雷姆|阿爾克姆|阿爾克勒姆', '阿魯庫雷姆'],
+
+	/**
+	 *
+	 */
+
+
+
 	['商業吉爾德|商業基德', '商業公會'],
 	['吉爾德大師', '公會長'],
 	['吉爾德', '公會'],
@@ -1380,6 +1388,8 @@ export const words_source: IWords[] = [
 export const words: IWords[] = sublib._word_zh_all([
 
 	...words_source,
+
+	['水平(?!面)', '等級'],
 
 	[
 		[
