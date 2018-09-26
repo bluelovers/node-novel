@@ -777,9 +777,56 @@ function cache_output2(_block, title): string
 		'bug',
 		'event',
 		'love',
-
+		'ha',
+		'hard',
+		'oh',
+		'str',
+		'vit',
+		'agi',
+		'dex',
+		'pow',
+		'oh',
+		'fps',
+		'stop',
+		'new',
+		'ya',
+		'full' ,'burst',
+		'come', 'on',
+		'welcome',
+		'steam',
+		'mad',
+		'clover',
+		'cyberpunk',
+		'skype',
+		'go', 'back', 'home',
+		'san',
+		'please',
+		'stop',
+		'hurry', 'up',
+		'out',
+		'steam',
+		'vr',
+		'menu',
+		'plan',
+		'safe',
+		'ex',
+		'ooxx',
+		'xxoo',
+		'sorry',
+		'double',
+		'jojo',
+		'pass',
+		'bt',
+		'trpg',
 
 	]);
+
+	function _fillter_2(key: string)
+	{
+		return /^(ku|fu|no|hu|ki|gi|ka|em+|nico|um+|ha|ok|pa)+$/i.test(key)
+		|| /^(\w)\1*$/i.test(key)
+		;
+	}
 
 	_block = Object.keys(_block)
 		.reduce(function (a, b)
@@ -802,8 +849,8 @@ function cache_output2(_block, title): string
 				;
 
 				if (
-					/^(ku|fu|no|hu|ki|gi|ka|em+|nico|um+)+$/i.test(key)
-					|| key.split(/\s|・/).every(v => _fillter_1.includes(v))
+					_fillter_2(key)
+					|| key.split(/\s|・/).every(v => _fillter_1.includes(v) || _fillter_2(v))
 				)
 				{
 					continue;
