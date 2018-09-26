@@ -345,7 +345,3 @@ export function md_string_escape(text: string)
 	})
 }
 
-function f()
-{
-
-}

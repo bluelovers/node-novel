@@ -819,6 +819,14 @@ function cache_output2(_block, title): string
 		'bt',
 		'trpg',
 
+		'or',
+		'id',
+		'mother',
+		'doctor',
+		'or',
+		'origin',
+
+
 	]);
 
 	function _fillter_2(key: string)
