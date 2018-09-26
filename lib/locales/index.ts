@@ -266,7 +266,7 @@ export const words_maybe: vMaybe = [
 	'&(gt|lt|amp|nbsp);?',
 	//'&(gt|lt|amp);?',
 
-	'\n+[^\n・]{1,2}\n+',
+	'\n+[^\n・…◆]{1,2}\n+',
 
 	//'成保',
 	//'[裡裏里]社[會会]',
