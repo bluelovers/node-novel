@@ -287,7 +287,15 @@ export function make_pattern_md(novelID: string, basePath: string = BASEPATH)
 					;
 			});
 
-			a[label] = b;
+			if (a[label])
+			{
+				// 合併不同項目但相同 結果 的內容
+				a[label].patterns = array_unique([].concat(a[label].patterns, b.patterns));
+			}
+			else
+			{
+				a[label] = b;
+			}
 
 			return a;
 		}, {});
