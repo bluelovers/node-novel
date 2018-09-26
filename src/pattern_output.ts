@@ -40,7 +40,18 @@ export function parse_data(novelID: string, basePath: string = BASEPATH)
 				let label: string;
 				let row: IDataRaw;
 
-				if (value && title && typeof title == 'string')
+				if (
+					typeof title == 'string'
+					&& (
+						title == ''
+						|| /^(?:\$\d+)+$/.test(title)
+						|| /^\$\d+(?:[・]\$\d+)+$/.test(title)
+					)
+				)
+				{
+
+				}
+				else if (value && title && typeof title == 'string')
 				{
 					let raw = getRawString(value[0]);
 
