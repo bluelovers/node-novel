@@ -753,6 +753,32 @@ function cache_output2(_block, title): string
 		'break',
 		'angel', 'ring',
 
+		'states',
+		'cure',
+		'fantasy',
+		'game',
+		'kg',
+		'jpg',
+		'pet',
+
+		'nico',
+		'qaq',
+		'case',
+		'sm',
+		'km',
+		'knight',
+		'web',
+		'bad', 'end',
+		'ky',
+		'wyvern',
+		'get',
+		'aoe',
+		'ing',
+		'bug',
+		'event',
+		'love',
+
+
 	]);
 
 	_block = Object.keys(_block)
@@ -776,7 +802,7 @@ function cache_output2(_block, title): string
 				;
 
 				if (
-					/^(ku|fu|no|hu|ki|gi|ka|em+)+$/i.test(key)
+					/^(ku|fu|no|hu|ki|gi|ka|em+|nico|um+)+$/i.test(key)
 					|| key.split(/\s|・/).every(v => _fillter_1.includes(v))
 				)
 				{
