@@ -45,7 +45,7 @@ export function parse_data(novelID: string, basePath: string = BASEPATH)
 					&& (
 						title == ''
 						|| /^(?:\$\d+)+$/.test(title)
-						|| /^\$\d+(?:[・]\$\d+)+$/.test(title)
+						|| /^(?:\$\d+)*(?:[・]\$\d+)+$/.test(title)
 					)
 				)
 				{

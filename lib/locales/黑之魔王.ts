@@ -11,33 +11,6 @@ export const lang = '黑之魔王';
 
 //export const ns = '黑之魔王';
 
-export const value = {
-	chapter_id: '第{{0, toFullNumber}}話',
-	chapter_title: `$t(chapter_id, [{{0}}])　{{title}}`,
-
-	// 實驗性概念自動取代為已有的翻譯
-	chapter_title_i18n: `$t({{$t(chapter_id, [{{0}}])　title}})`,
-
-	volume_id: '第{{0, toFullNumber}}章',
-};
-
-export const resource = {
-
-	i18n: {
-		'リリィ': '莉莉',
-
-		'ディアボロス・エンブレス': '恶魔的拥抱',
-
-		'グリードゴア': '贪婪戈尔',
-
-		'クロノＶＳグリードゴア（２）': '黑乃 VS 贪婪戈尔 （２）',
-
-		'第３５２話　パーティー': '第３５２話　Party（队伍/宴会）',
-
-	},
-
-};
-
 /**
  * 在這裡放此小說專屬的取代樣本
  */
@@ -49,6 +22,7 @@ export const words_source: IWords[] = [
 	 * 菲奥娜•索蕾优 フィオナ・ソレイユ
 	 */
 
+	_word_jp1('クロノ', '黑乃'),
 	['克洛诺', '黑乃'],
 	['真乃真央|黒央真乃', '黑乃真央'],
 
@@ -103,7 +77,7 @@ export const words_source: IWords[] = [
 	['莫尔德雷德|莫德雷德特?|摩尔德雷', '莫德雷德'],
 
 	[`${sp}威尔西${sp}莫德雷德`, '$1・$2・$3'],
-	[/[华華]因/g, '华因'],
+	[/華因/g, '华因'],
 
 	/**
 	 * 黑魔女恩底弥翁
@@ -279,7 +253,7 @@ export const words_source: IWords[] = [
 	 */
 
 	['索菲亞|苏菲亞?', '索菲亞'],
-	['希利烏斯|西利[烏乌]斯', '希利烏斯'],
+	['希利烏斯|西利(烏|乌)斯', '希利烏斯'],
 	['帕西法爾|帕西法璐|巴西費魯|帕西菲爾', '帕西菲爾'],
 	//[`${sp}西利[烏乌]斯${sp}巴西費魯`, '$1・$2・$3'],
 	[`${sp}(?:希利烏斯|天狼星)${sp}(?:帕西菲爾|特拉法)`, '$1・希利烏斯・帕西菲爾'],
@@ -331,7 +305,7 @@ export const words_source: IWords[] = [
 
 	[/沙利叶|沙利葉|萨利叶|沙利业|サリエル/g, '沙利叶'],
 
-	[`([^丽])(亚伯|亚伯|埃布尔|阿贝尔)`, '$1亚伯'],
+	[`([^丽麗])(亚伯|亚伯|埃布尔|阿贝尔)`, '$1亚伯'],
 
 	[`白の勇者|白色勇者`, '白の勇者'],
 
@@ -535,7 +509,7 @@ export const words_source: IWords[] = [
 
 	['跨夏节|夏日祭|夏越祭', '夏越祭'],
 	//['[诅詛]?咒物品?[剑角角][斗鬥]大[会會]|詛咒武器競技大賽', '詛咒物品角鬥大會'],
-	['[诅詛]?咒物品?(?:剑|角|角)(斗|鬥|闘)大(会|會)|詛咒武器競技大賽', '詛咒物品剣闘大会'],
+	['詛?咒物品?(?:剑|角|角)(斗|鬥|闘)大(会|會)|詛咒武器競技大賽', '詛咒物品剣闘大会'],
 
 	['克朗|克兰', '克兰'],
 
@@ -683,6 +657,15 @@ export const words_source: IWords[] = [
 
 	[`(?:the|ザ)${sp}(?:greed|グリード)`, 'THE・GREED', 'ig'],
 
+];
+
+/**
+ * 實際使用的取代樣式
+ */
+export const words: IWords[] = sublib._word_zh_all([
+
+	...words_source,
+
 	...sublib.lazymarks['class'],
 
 	[
@@ -748,9 +731,9 @@ export const words_source: IWords[] = [
 		return a;
 	}, [])),
 
-	['问[道到]', '问到'],
+	//['问[道到]', '问到'],
 
-	['[黑黒]', '黒'],
+	['黒', '黒'],
 
 	['惡梦|噩梦', '噩梦'],
 	['戰士', '戰士'],
@@ -784,7 +767,7 @@ export const words_source: IWords[] = [
 	}
 	],
 	[
-		/(第)(\s*[\d][\d\s]+)([话話])/g, function (...m)
+		/(第)(\s*[\d][\d\s]+)(話)/g, function (...m)
 	{
 		m[2] = StrUtil.toFullNumber(m[2]).trim();
 
@@ -837,7 +820,7 @@ export const words_source: IWords[] = [
 
 	['[壹一]', '一'],
 
-	[/[·\?]([一二三四五六七八九十][式年型])/ig, '・$1'],
+	[/[·\?]([一二三四五六七八九十](?:式|年|型))/ig, '・$1'],
 
 	[
 		/(第)([\_\t\uFEFF\xA0　 \d０１２３４５６７８９]+)(话|頁|夜|章|集)/g, function ($0, $1, $2, $3)
@@ -865,15 +848,6 @@ export const words_source: IWords[] = [
 		return $0;
 	}
 	],
-
-];
-
-/**
- * 實際使用的取代樣式
- */
-export const words: IWords[] = sublib._word_zh_all([
-
-	...words_source,
 
 	[
 		/\d+/g, function (...m)
@@ -1056,13 +1030,40 @@ export const words: IWords[] = sublib._word_zh_all([
 
 ]);
 
+export const value = {
+	chapter_id: '第{{0, toFullNumber}}話',
+	chapter_title: `$t(chapter_id, [{{0}}])　{{title}}`,
+
+	// 實驗性概念自動取代為已有的翻譯
+	chapter_title_i18n: `$t({{$t(chapter_id, [{{0}}])　title}})`,
+
+	volume_id: '第{{0, toFullNumber}}章',
+};
+
+export const resource = {
+
+	i18n: {
+		'リリィ': '莉莉',
+
+		'ディアボロス・エンブレス': '恶魔的拥抱',
+
+		'グリードゴア': '贪婪戈尔',
+
+		'クロノＶＳグリードゴア（２）': '黑乃 VS 贪婪戈尔 （２）',
+
+		'第３５２話　パーティー': '第３５２話　Party（队伍/宴会）',
+
+	},
+
+};
+
 // 需要人工確認的屏蔽字或錯字用語等等
 export const words_maybe = [
 
 	// 沒有成功貼上的咒文
 	/([^\n]{1,2})?([\?\—]{3,})([^\n]{1,2})?/mg,
 
-	'咒物',
+	//'咒物',
 
 ];
 
