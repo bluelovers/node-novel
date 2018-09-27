@@ -52,7 +52,7 @@
     "iconv-jschardet": "^1.0.6",
     "json5": "latest",
     "node-novel-globby": "^2.0.2",
-    "node-novel-info": "^2.3.6",
+    "node-novel-info": "^2.3.10",
     "novel-text": "^1.1.16",
     "prettyuse": "^0.0.0",
     "regexp-cjk": "^2.0.11",

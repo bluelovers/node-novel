@@ -10,9 +10,11 @@ import { IRegExpCallback } from 'novel-text';
 //import * as regexpCjkLib from 'regexp-cjk/lib/v1';
 import * as regexpCjkLib from 'regexp-cjk/lib';
 import { isRegExp, zhRegExp } from 'regexp-cjk';
+
 export const _word_zh = regexpCjkLib._word_zh;
 
 import { tagTemplate } from './tag';
+
 export { tagTemplate }
 
 export const lazymarks = {} as IWords[][];
@@ -53,11 +55,11 @@ lazymarks[0] = [
 
 		[
 			/"([^\n"']*)'([^'"\n]+)'/gm,
-			'"$1『$2』'
+			'"$1『$2』',
 		],
 		[
 			/"([^\n"']*)'([^'"\n]+)'/gm,
-			'"$1『$2』'
+			'"$1『$2』',
 		],
 
 		[/^([“])([^\n"“”‘’「」『』'\[\]［］]+)\1$/gm, '$1$2”'],
@@ -171,7 +173,6 @@ lazymarks[3] = [
 	 */
 	[/(「[^」]*)「([^」]*)」/g, '$1『$2』'],
 
-
 	[
 		/([「『]{2,})([^「『\n』」]+)([』」]{2,})/g, function (...m)
 	{
@@ -193,7 +194,7 @@ lazymarks[3] = [
 		}
 
 		return m[0];
-	}
+	},
 	],
 
 ];
@@ -210,17 +211,19 @@ lazymarks[4] = [
 				space: true,
 			},
 		});
-	}
+	},
 	],
 
-	[/([^\d０-９])(,)(?![\d０-９])/ig, function (...m)
+	[
+		/([^\d０-９])(,)(?![\d０-９])/ig, function (...m)
 	{
 		return m[1] + StrUtil.toFullWidth(m[2], {
 			skip: {
 				space: true,
 			},
 		});
-	}],
+	},
+	],
 
 	/*
 	[/([^\d０-９])(,)(?![\d０-９])/g, function (...m)
@@ -235,26 +238,30 @@ lazymarks[4] = [
 	}],
 	*/
 
-	[/([\d０-９])([\/\-~\+])([\d０-９])/g, function (...m)
+	[
+		/([\d０-９])([\/\-~\+])([\d０-９])/g, function (...m)
 	{
 		return m[1] + StrUtil.toFullWidth(m[2], {
 			skip: {
 				space: true,
 			},
 		}) + m[3];
-	}],
+	},
+	],
 
 	[/([\d０-９\u4E00-\u9FFF])([xX])([\d０-９])/g, '$1×$3'],
 	[/([\u4E00-\u9FFF\w\d０-９])\*([\d０-９]+)/g, '$1×$2'],
 
-	[/([\u4E00-\u9FFF！？…－—])([a-z])(?=[\u4E00-\u9FFF])/ig, function (...m)
+	[
+		/([\u4E00-\u9FFF！？…－—])([a-z])(?=[\u4E00-\u9FFF])/ig, function (...m)
 	{
 		return m[1] + StrUtil.toFullWidth(m[2], {
 			skip: {
 				space: true,
 			},
 		});
-	}],
+	},
+	],
 
 	[
 		/\?+(?=[』」\n])/g, function (...m)
@@ -264,7 +271,7 @@ lazymarks[4] = [
 				space: true,
 			},
 		});
-	}
+	},
 	],
 
 	[
@@ -275,7 +282,7 @@ lazymarks[4] = [
 				space: true,
 			},
 		});
-	}
+	},
 	],
 
 	[/(？) (！)/g, '$1$2'],
@@ -287,10 +294,12 @@ lazymarks[4] = [
 
 	['○', '◯'],
 
-	['([\\u4E00-\\u9FFF])([Oo]+)(?=[\\u4E00-\\u9FFF])', function (...m)
+	[
+		'([\\u4E00-\\u9FFF])([Oo]+)(?=[\\u4E00-\\u9FFF])', function (...m)
 	{
 		return m[1] + '◯'.repeat(m[2].length);
-	}],
+	},
+	],
 ];
 
 lazymarks[5] = [
@@ -311,7 +320,6 @@ lazymarks['clear_001'] = [
 	[/\n+[\(（\[]*(?:完毕?|FIN)[\)）\]]*[。\-]\s*$/ig, ''],
 
 	[/^\s*[~【《（「『〈<─\-－=＝…\.]*\s*(?:始)\s*[~〉』」》）】>─\-－=＝…\.]*\s*/ig, ''],
-
 
 	[/\n+\s*[~【《（「『〈<─\-－=＝…\.]*\s*(?:(?:本|\d+)話.?)?(?:完毕?|fin|END|終わり)\s*[~〉』」》）】>─\-－=＝…\.]*\s*$/ig, ''],
 
@@ -341,12 +349,17 @@ lazymarks['ln'] = [
 
 	[/([─—])\n([\u4E00-\u9FFF])(?![^\n]*?[─—]|[^\n]*\n\n)/g, '$1\n\n$2'],
 
-	[/\n{1,2}([　 ]*[\-\=＝－─＊◇▲◆☆◊\*─＝=══－～\-─—\*＊＊↣◇★◆■□☆◊]+[\-\=＝－─＊◇◆☆◊\*─＝=══－\-─—\*＊＊◇◆■□☆◊　 ]*)\n+/g, '\n\n$1\n\n'],
+	[
+		/\n{1,2}([　 ]*[\-\=＝－─＊◇▲◆☆◊\*─＝=══－～\-─—\*＊＊↣◇★◆■□☆◊]+[\-\=＝－─＊◇◆☆◊\*─＝=══－\-─—\*＊＊◇◆■□☆◊　 ]*)\n+/g,
+		'\n\n$1\n\n',
+	],
 
-	[/\n{3,}([　 ]*[\-\=＝－─＊◇▲◆☆◊\*─＝=══－～\-─—\*＊＊↣◇★◆■□☆◊]+[\-\=＝－─＊◇◆☆◊\*─＝=══－\-─—\*＊＊◇◆■□☆◊　 ]*)\n+/g, '\n\n\n$1\n\n'],
+	[
+		/\n{3,}([　 ]*[\-\=＝－─＊◇▲◆☆◊\*─＝=══－～\-─—\*＊＊↣◇★◆■□☆◊]+[\-\=＝－─＊◇◆☆◊\*─＝=══－\-─—\*＊＊◇◆■□☆◊　 ]*)\n+/g,
+		'\n\n\n$1\n\n',
+	],
 
 	[/\n+([　 ]*[＊◇◆☆◊\*～\*＊＊↣◇★◆■□☆◊＝＝=══▼]+[＊◇◆☆◊\*～　\*＊＊↣◇★◆■□☆◊＝＝=══▼]*)\n+/g, '\n\n\n$1\n\n'],
-
 
 ];
 
@@ -484,7 +497,6 @@ lazymarks['zh'] = _word_zh_all([
 	['馬', '馬'],
 	['[证]', '証'],
 	['貫|贯', '貫'],
-
 
 	//['[觉覚覺]', '覺'],
 
@@ -669,49 +681,49 @@ lazymarks['zh'] = _word_zh_all([
 	['[种]', '種'],
 	['[卢]', '盧'],
 
-	['[决]', '決' ],
+	['[决]', '決'],
 
-	['[麪麵麺]', '麵' ],
+	['[麪麵麺]', '麵'],
 
-	['戰', '戰' ],
+	['戰', '戰'],
 
-	['刹|剎', '刹' ],
+	['刹|剎', '刹'],
 
-	['実|實', '實' ],
+	['実|實', '實'],
 
-	['買', '買' ],
-	['賣', '賣' ],
-	['劳', '勞' ],
-	['结', '結' ],
-	['[觉]', '覺' ],
+	['買', '買'],
+	['賣', '賣'],
+	['劳', '勞'],
+	['结', '結'],
+	['[觉]', '覺'],
 
-	['蘿', '蘿' ],
+	['蘿', '蘿'],
 
-	['蓋', '蓋' ],
-	['願', '願' ],
-	['独', '獨' ],
+	['蓋', '蓋'],
+	['願', '願'],
+	['独', '獨'],
 
-	['衛', '衛' ],
-	['[当]', '當' ],
+	['衛', '衛'],
+	['[当]', '當'],
 
-	['護', '護' ],
-	['華', '華' ],
+	['護', '護'],
+	['華', '華'],
 
-	['躶', '裸' ],
-	['關', '關' ],
+	['躶', '裸'],
+	['關', '關'],
 
-	['[齐]', '齊' ],
+	['[齐]', '齊'],
 
-	['線|綫', '線' ],
+	['線|綫', '線'],
 
-	['隨', '隨' ],
+	['隨', '隨'],
 
-	['單', '單' ],
-	['[逊]', '遜' ],
+	['單', '單'],
+	['[逊]', '遜'],
 
-	['[莱]', '萊' ],
+	['[莱]', '萊'],
 
-	['[风]', '風' ],
+	['[风]', '風'],
 
 	['隶', '隷'],
 
@@ -747,6 +759,26 @@ lazymarks['zh'] = _word_zh_all([
 	['学', '學'],
 
 	['衆|众', '眾'],
+
+]);
+
+lazymarks['zh_cht'] = _word_zh_all([
+
+	['國', '國'],
+	['姫|姬', '姬'],
+	['壞', '壞'],
+	['學', '學'],
+	['險', '險'],
+	//['證', '證'],
+	['剎', '剎'],
+	['絕', '絕'],
+	['殼', '殼'],
+	['歲', '歲'],
+	['隸', '隸'],
+	['靈', '靈'],
+	['[歴]', '歷'],
+	['屬', '屬'],
+	['樂', '樂'],
 
 ]);
 
@@ -835,7 +867,6 @@ lazymarks['zh2'] = _word_zh_all([
 	['図書', '圖書'],
 	['恩寵', '恩寵'],
 
-
 ]);
 
 lazymarks['class'] = _word_zh_all([
@@ -884,10 +915,12 @@ lazymarks['c000'] = _word_zh_all([
 
 	// 單一橫線
 	[/[―—]/g, '—'],
-	[/([\u4E00-\u9FFF])(ー+)/g, function (...m)
+	[
+		/([\u4E00-\u9FFF])(ー+)/g, function (...m)
 	{
 		return m[1] + '─'.repeat(m[2].length)
-	}],
+	},
+	],
 	[/([^ぁ-んァ-ヴーｱ-ﾝﾞｰ])ー(?=[\u4E00-\u9FFF])/g, '$1─'],
 
 	// 無視線之間的空白
@@ -903,14 +936,17 @@ lazymarks['c050'] = _word_zh_all([
 	[/…[\.・。]{1,2}/g, '……'],
 	[/[\.・。]{2}/g, '…'],
 
-	[/([…─師賴也額吗么近是得嗎處備了題色組激生来本由謊幣币麼思伙人君呵恩呣中樣噢喏个容子嘞跑聊咧話的蛤哦技哎喵狂熱要地系勒毒妹誒呀萬笑者雄办喔我營恋道心帥變會則女害做個族策車蹈具哈对事破嗯辦喲嘛欸著咦船家貓到能呢來啊數阿用辈何裡忙好場吶加裏吧了哟趣里做样诶谁量見醬在～！？][\?!]+|[\?!]+[」…）！])/ug, function (...m)
-	{
-		return StrUtil.toFullWidth(m[0], {
-			skip: {
-				space: true,
-			},
-		});
-	}],
+	[
+		/([…─師賴也額吗么近是得嗎處備了題色組激生来本由謊幣币麼思伙人君呵恩呣中樣噢喏个容子嘞跑聊咧話的蛤哦技哎喵狂熱要地系勒毒妹誒呀萬笑者雄办喔我營恋道心帥變會則女害做個族策車蹈具哈对事破嗯辦喲嘛欸著咦船家貓到能呢來啊數阿用辈何裡忙好場吶加裏吧了哟趣里做样诶谁量見醬在～！？][\?!]+|[\?!]+[」…）！])/ug,
+		function (...m)
+		{
+			return StrUtil.toFullWidth(m[0], {
+				skip: {
+					space: true,
+				},
+			});
+		},
+	],
 
 	[/[\.．・]([』」》）】])/g, '。$1'],
 	[/([』」》）】])[\.．・](?![\.．・])/g, '$1。'],
@@ -923,41 +959,57 @@ lazymarks['c050'] = _word_zh_all([
 
 lazymarks['c100'] = _word_zh_all([
 
-	[/^[ ]*([─＝═=══－\-─—\*＊＊◇◆☆◊▃\.…\.─]+)(?:這?是?作者的?分隔線|我?是?分(?:隔|割)线|以下正文|华丽+分割线|分割|華麗+分割線|作者自加的分割線|正文)+([──＝═=══－\-─—\*＊＊◇◆☆◊▃…\.]+)[ ]*$/gm, '$1$2'],
+	[
+		/^[ ]*([─＝═=══－\-─—\*＊＊◇◆☆◊▃\.…\.─]+)(?:這?是?作者的?分隔線|我?是?分(?:隔|割)线|以下正文|华丽+分割线|分割|華麗+分割線|作者自加的分割線|正文)+([──＝═=══－\-─—\*＊＊◇◆☆◊▃…\.]+)[ ]*$/gm,
+		'$1$2',
+	],
 
-	[/^([─＝═=══－\-─—\*＊＊◇◆☆◊▃…]+)分([─＝═=══－\-─—\*＊＊◇◆☆◊▃…]*)割([─＝═=══－\-─—\*＊＊◇◆☆◊▃…]*)线([─＝═=══－\-─—\*＊＊◇◆☆◊▃…]*)$/gm, '$1$2$3$4'],
+	[
+		/^([─＝═=══－\-─—\*＊＊◇◆☆◊▃…]+)分([─＝═=══－\-─—\*＊＊◇◆☆◊▃…]*)割([─＝═=══－\-─—\*＊＊◇◆☆◊▃…]*)线([─＝═=══－\-─—\*＊＊◇◆☆◊▃…]*)$/gm,
+		'$1$2$3$4',
+	],
 
 	// 無間斷的 -
-	[/[－\-─—–]{2,}|[－\-─—–](?=[』」》）])/g, function (...m)
+	[
+		/[－\-─—–]{2,}|[－\-─—–](?=[』」》）])/g, function (...m)
 	{
 		//return m[0].replace(/[－\-─—]/g, '─');
 		return '─'.repeat(m[0].length);
-	}],
+	},
+	],
 
-	[/^([_]+)$/gm, function (...m)
+	[
+		/^([_]+)$/gm, function (...m)
 	{
 		//return m[0].replace(/[－\-─—]/g, '─');
 		return '─'.repeat(m[0].length);
-	}],
+	},
+	],
 
-	[/([─＝=══－\-─—\*＊＊◇◆☆◊▃–_])\1{9,}/g, function (...m)
+	[
+		/([─＝=══－\-─—\*＊＊◇◆☆◊▃–_])\1{9,}/g, function (...m)
 	{
 		//return m[0].replace(/[－\-─—]/g, '─');
 		return m[1].repeat(20 || 51);
-	}],
+	},
+	],
 
 	// 無間斷的等號
-	[/([＝=══]){4,}/g, function (...m)
+	[
+		/([＝=══]){4,}/g, function (...m)
 	{
 		//return m[0].replace(/[－\-─—]/g, '─');
 		return '═'.repeat(m[0].length);
-	}],
+	},
+	],
 
-	[/^(\/+)$/gm, function (...m)
+	[
+		/^(\/+)$/gm, function (...m)
 	{
 		//return m[0].replace(/[－\-─—]/g, '─');
 		return '═'.repeat(m[0].length);
-	}],
+	},
+	],
 
 	[/([\u4E00-\u9FFF])[－–](?=[！。？\s』」》）】\u4E00-\u9FFF……－，])/g, '$1─'],
 	[/([\u4E00-\u9FFF])[—–](?=[！。？』」》）】……－，])/g, '$1─'],
@@ -971,12 +1023,14 @@ lazymarks['c100'] = _word_zh_all([
 
 lazymarks['unit'] = _word_zh_all([
 
-	[/(?<!\w)[\d０-９]+(?:px|ｐｘ)(?!\w)/ig, function (...m)
+	[
+		/(?<!\w)[\d０-９]+(?:px|ｐｘ)(?!\w)/ig, function (...m)
 	{
 		let s = killBadPx(m[0]);
 
 		return StrUtil.toFullWidth(s || m[0]);
-	}],
+	},
+	],
 
 ]);
 
@@ -1003,17 +1057,29 @@ lazymarks['full_width_002'] = _word_zh_all([
 
 ]);
 
-export function _word_en(search: string | RegExp, ret: string | IRegExpCallback = null, flag = 'ig'): [RegExp, string | any]
+export function _word_en(search: string | RegExp,
+	ret: string | IRegExpCallback = null,
+	flag = 'ig',
+): [RegExp, string | any]
 {
 	return [new RegExp(`(^|[^\\w'’])(${regex_str(search)})(?![\\w'’])`, flag), ((ret !== null) ? ret : '$1' + search)];
 }
 
-export function _word_en2(search: string | RegExp, ret: string | IRegExpCallback = null, flag = 'ig'): [RegExp, string | any]
+export function _word_en2(search: string | RegExp,
+	ret: string | IRegExpCallback = null,
+	flag = 'ig',
+): [RegExp, string | any]
 {
-	return [new RegExp(`(^|[^\\w'’${EN_REGEXP}])(${regex_str(search)})(?![\\w'’${EN_REGEXP}])`, flag), ((ret !== null) ? ret : '$1' + search)];
+	return [
+		new RegExp(`(^|[^\\w'’${EN_REGEXP}])(${regex_str(search)})(?![\\w'’${EN_REGEXP}])`, flag),
+		((ret !== null) ? ret : '$1' + search),
+	];
 }
 
-export function _word_jp1(search: string | RegExp, ret: string | IRegExpCallback = null, flag = 'ig'): [RegExp, string | any]
+export function _word_jp1(search: string | RegExp,
+	ret: string | IRegExpCallback = null,
+	flag = 'ig',
+): [RegExp, string | any]
 {
 	return [new RegExp(`(?<![ァ-ヴーｱ-ﾝﾞｰ])(${search})(?![ァ-ヴーｱ-ﾝﾞｰ])`, flag), ((ret !== null) ? ret : search)];
 }
