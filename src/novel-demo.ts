@@ -838,6 +838,9 @@ function cache_output2(_block, title): string
 
 		'bbq',
 
+		'cd',
+		'km',
+
 	]);
 
 	function _fillter_2(key: string)
@@ -868,7 +871,7 @@ function cache_output2(_block, title): string
 				;
 
 				if (
-					/^(\d+lv|lv\d+)$/.test(key)
+					/^(\d+(?:lv|km|kg)|(?:lv|km|kg)\d+)$/.test(key)
 					|| _fillter_2(key)
 					|| key.split(/\s|・/).every(v => _fillter_1.includes(v) || _fillter_2(v))
 				)
