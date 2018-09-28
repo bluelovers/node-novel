@@ -826,6 +826,17 @@ function cache_output2(_block, title): string
 		'or',
 		'origin',
 
+		'gps',
+		'king',
+
+		'sns',
+
+		'dungeon',
+		'earth',
+		'ghost',
+		'iron',
+
+
 
 	]);
 
