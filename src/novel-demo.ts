@@ -836,7 +836,7 @@ function cache_output2(_block, title): string
 		'ghost',
 		'iron',
 
-
+		'bbq',
 
 	]);
 
@@ -868,7 +868,8 @@ function cache_output2(_block, title): string
 				;
 
 				if (
-					_fillter_2(key)
+					/^(\d+lv|lv\d+)$/.test(key)
+					|| _fillter_2(key)
 					|| key.split(/\s|・/).every(v => _fillter_1.includes(v) || _fillter_2(v))
 				)
 				{
