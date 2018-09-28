@@ -841,6 +841,27 @@ function cache_output2(_block, title): string
 		'cd',
 		'km',
 
+		'numbers',
+		'hit',
+		'am',
+		'3rd',
+		'body',
+		'follower',
+		'children',
+		'2nd',
+		'1st',
+		'named',
+		'tpo',
+		'place',
+		'fashion',
+
+		'mission', 'complete',
+		'vip',
+		'byebye',
+		'bye',
+		're',
+		'time',
+
 	]);
 
 	function _fillter_2(key: string)
@@ -871,7 +892,7 @@ function cache_output2(_block, title): string
 				;
 
 				if (
-					/^(\d+(?:lv|km|kg)|(?:lv|km|kg)\d+)$/.test(key)
+					/^(\d+(?:lv|km|kg|m|mm)|(?:lv|km|kg|m|mm)\d+)$/.test(key)
 					|| _fillter_2(key)
 					|| key.split(/\s|・/).every(v => _fillter_1.includes(v) || _fillter_2(v))
 				)

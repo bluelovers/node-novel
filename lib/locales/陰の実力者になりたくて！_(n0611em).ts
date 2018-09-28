@@ -80,6 +80,8 @@ export const words: IWords[] = sublib._word_zh_all([
 
 	...words_source,
 
+	_word_en('BOOS', '$1BOSS', 'ig'),
+
 	[/^　/gm, ''],
 
 	['全\\*果', '全裸'],
