@@ -311,7 +311,22 @@ i18next.setDefaultNamespace('i18n');
 				}
 				*/
 
-				v = /([^\w]{1,3})?((?:\d*[a-z]+\w*)[ 　\w・\.\'\"\:\-\+\=]*)([^\w]{1,3})?/ig;
+				//v = /([^\w]{1,3})?((?:\d*[a-z]+\w*)[ 　\w・\.\'\"\:\-\+\=]*)([^\w]{1,3})?/ig;
+
+				const EN_REGEXP2 = /\u0100-\u017F\u0400-\u04FF/.source;
+
+				v = new RegExp([
+					`([^\\w]{1,3})?`,
+
+					`(`,
+					[
+						`(?:\\d*[a-z${EN_REGEXP2}]+[\\w${EN_REGEXP2}]*)[ 　\\w${EN_REGEXP2}・\\.\\'\\"\\:\\-\\+\\=]*`,
+					].join('|'),
+					`)`,
+
+					`([^\\w]{1,3})`,
+				].join(''), 'ig');
+
 				if ((_m = execall(v, _t)) && _m.length)
 				{
 					let k = v.toString();
