@@ -1076,6 +1076,14 @@ export function _word_en2(search: string | RegExp,
 	];
 }
 
+export function _word_en3(search: string | RegExp,
+	ret: string | IRegExpCallback = null,
+	flag = 'ig',
+): [RegExp, string | any]
+{
+	return [new RegExp(`(?<![^\\w'’])(${search})(?![^\\w'’])`, flag), ((ret !== null) ? ret : search)];
+}
+
 export function _word_jp1(search: string | RegExp,
 	ret: string | IRegExpCallback = null,
 	flag = 'ig',

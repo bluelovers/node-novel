@@ -790,7 +790,7 @@ function cache_output2(_block, title): string
 		'stop',
 		'new',
 		'ya',
-		'full' ,'burst',
+		'full', 'burst',
 		'come', 'on',
 		'welcome',
 		'steam',
@@ -862,13 +862,74 @@ function cache_output2(_block, title): string
 		're',
 		'time',
 
+		'wind', 'dance',
+
+		'master',
+
+		'knight',
+		'tree',
+		'top',
+		'miss',
+		'yaho',
+		'water', 'doll',
+
+		'no', 'sound',
+		'guardian',
+		'sword',
+		'wind',
+		'elemental',
+
+		'ko',
+		'continue',
+
+		'dragon',
+		'cloud',
+		'arrow',
+		'enchanted',
+		'slayer',
+		'god',
+		'hot',
+		'poison',
+
+		'neta',
+
+		'test',
+
+		'living', 'dead',
+		'yeah',
+		'mvp',
+		'heal',
+		'lich',
+		'zombie', 'soldier',
+		'general',
+		'demon', 'land',
+		'vampire',
+		'ultra', 'red',
+		'flame',
+		'stone',
+		'heal',
+		'no', 'touch', 'blue', 'light',
+
+		'second', 'runner',
+		'arc',
+		'wind', 'air', 'bind',
+		'hyper',
+		'change',
+		'guild', 'master',
+		'sleep',
+		'girl',
+		'clear',
+		'triple', 'master',
+		'ring',
+		'alright',
+
 	]);
 
 	function _fillter_2(key: string)
 	{
-		return /^(ku|fu|no|hu|ki|gi|ka|em+|nico|um+|ha|ok|pa)+$/i.test(key)
-		|| /^(\w)\1*$/i.test(key)
-		;
+		return /^(ku|fu|no|hu|ki|gi|ka|em+|nico|um+|ok|pa|kyu+|ha+|ma+|kya+|yaho+|heal|sa+|gya+|hei+)+$/i.test(key)
+			|| /^(\w)\1*$/i.test(key)
+			;
 	}
 
 	_block = Object.keys(_block)

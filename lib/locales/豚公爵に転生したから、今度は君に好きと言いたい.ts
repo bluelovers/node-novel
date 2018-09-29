@@ -4,7 +4,7 @@
 
 import { sp, IWords, vMaybe, sublib } from './index';
 import * as StrUtil from 'str-util';
-import { _word_en } from './lib/index';
+import { _word_en, _word_en3 } from './lib/index';
 
 /**
  * 改成小說名字
@@ -188,6 +188,8 @@ export const words: IWords[] = sublib._word_zh_all([
 	...words_source,
 
 	...sublib.lazymarks['class'],
+
+	_word_en3('eelemental', 'Elemental', 'ig'),
 
 	[/(\S)\n{1,2}(?=　+●)/gm, '$1\n\n\n'],
 	[/^(　+●[^\n]*)\n{1}(?=\S)/gm, '$1\n\n'],
