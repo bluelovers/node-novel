@@ -26,7 +26,7 @@ export const value = {
 /**
  * 在這裡放此小說專屬的取代樣本
  */
-export const words: IWords[] = sublib._word_zh_all([
+export const words_source: IWords[] = [
 
 	//['要取代的字', '取代後的字'],
 
@@ -105,6 +105,16 @@ export const words: IWords[] = sublib._word_zh_all([
 	['加姆|加尔姆', '加尔姆'],
 
 	['威尔|韦尔|維尔', '威尔'],
+
+
+];
+
+/**
+ * 實際使用的取代樣式
+ */
+export const words: IWords[] = sublib._word_zh_all([
+
+	...words_source,
 
 	[/([^\w\u00C0-\u017F\.])([\w])(?![\w\u00C0-\u017F\.])/g, function (...m)
 	{

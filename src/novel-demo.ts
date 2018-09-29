@@ -936,14 +936,22 @@ function cache_output2(_block, title): string
 		'real',
 
 		'we', 'are',
-
+		'hero',
+		'boot',
+		'nb',
+		'girls', 'talk',
+		'pain',
+		'eye', 'contact',
+		'kong',
+		'buster',
 
 	]);
 
 	function _fillter_2(key: string)
 	{
-		return /^(ku|fu|no|hu|ki|gi|ka|em+|nico|um+|ok|pa|kyu+|ha+|ma+|kya+|yaho+|heal|sa+|gya+|hei+|ho+|ta|shi*)+$/i.test(key)
+		return /^(ku|fu|no|hu|ki|gi|ka|em+|nico|um+|ok|pa|kyu+|ha+|ma+|kya+|yaho+|heal|sa+|gya+|hei+|ho+|ta|shi*|[bd]oo+m)+$/i.test(key)
 			|| /^(\w)\1*$/i.test(key)
+			|| /^\d+$/i.test(key)
 			;
 	}
 
@@ -968,9 +976,9 @@ function cache_output2(_block, title): string
 				;
 
 				if (
-					/^(\d+(?:lv|km|kg|m|mm)|(?:lv|km|kg|m|mm)\d+)$/.test(key)
+					/^(\d+(?:lv|km|kg|m|mm|[hsm]p)|(?:lv|km|kg|m|mm|[hsm]p)\d+)$/.test(key)
 					|| _fillter_2(key)
-					|| key.split(/\s|・/).every(v => _fillter_1.includes(v) || _fillter_2(v))
+					|| key.split(/[\s・\.　]+/).every(v => _fillter_1.includes(v) || _fillter_2(v))
 				)
 				{
 					continue;
