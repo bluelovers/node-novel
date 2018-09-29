@@ -951,7 +951,7 @@ lazymarks['c050'] = _word_zh_all([
 	[/[\.．・]([』」》）】])/g, '。$1'],
 	[/([』」》）】])[\.．・](?![\.．・])/g, '$1。'],
 
-	[/([^\n．・\.])[．・]$/gm, '$1。'],
+	[/([^\n．・\.　])[．・]$/gm, '$1。'],
 
 	[/　。$/gm, '。'],
 
@@ -1045,14 +1045,14 @@ lazymarks['full_width_001'] = _word_zh_all([
 
 lazymarks['full_width_002'] = _word_zh_all([
 
-	_word_en(/[a-z]/ig, function (...m)
+	_word_en3(/[a-z]/ig, function (...m)
 	{
-		return m[1] + StrUtil.toFullEnglish(m[2]);
+		return StrUtil.toFullEnglish(m[1]);
 	}),
 
-	_word_en(/(?:s|x){2,3}/ig, function (...m)
+	_word_en3(/(?:s|x){2,3}/ig, function (...m)
 	{
-		return m[1] + StrUtil.toFullEnglish(m[2]);
+		return StrUtil.toFullEnglish(m[1]);
 	}),
 
 ]);
@@ -1081,7 +1081,7 @@ export function _word_en3(search: string | RegExp,
 	flag = 'ig',
 ): [RegExp, string | any]
 {
-	return [new RegExp(`(?<![^\\w'’])(${search})(?![^\\w'’])`, flag), ((ret !== null) ? ret : search)];
+	return [new RegExp(`(?<![\\w'’${EN_REGEXP}])(${search})(?![\\w'’${EN_REGEXP}])`, flag), ((ret !== null) ? ret : search)];
 }
 
 export function _word_jp1(search: string | RegExp,

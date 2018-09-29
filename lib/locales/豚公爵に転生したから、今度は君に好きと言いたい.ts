@@ -104,7 +104,7 @@ export const words_source: IWords[] = [
 
 	['巨體豪傑|巨体豪杰|巨人豪傑', '巨體豪傑'],
 
-	['娜娜托莉潔|納納托利傑|ナナトリージュ', '娜娜托莉潔'],
+	['娜娜托莉潔|納納托利傑|ナナトリージュ|娜娜托麗潔', '娜娜托莉潔'],
 	['娜娜莉|納納利', '娜娜莉'],
 
 
@@ -155,10 +155,13 @@ export const words_source: IWords[] = [
 	/**
 	 *
 	 */
-	['魔法学院|魔法学園', '魔法学園'],
-	['学院|学園', '学園'],
-	['王女|公主', '王女'],
+	['ドライバック|多萊巴克|托萊巴克', '多萊巴克'],
+	['修泰貝爾特|シュタイベルト', '修泰貝爾特'],
+	['德帕', '德帕'],
 
+	/**
+	 *
+	 */
 	['水豬騎士|水豚騎士|水豬頭騎士', '水豚騎士'],
 
 	['夢魔|サキュバス', '夢魔'],
@@ -169,14 +172,6 @@ export const words_source: IWords[] = [
 	['ORC|奧克', '奧克', 'ig'],
 	['豬頭?人', '豬人', 'ig'],
 
-	['Royal Knights?', 'Royal Knight', 'ig'],
-
-	['DUNGEON MASTER', '迷宮主', 'ig'],
-	['DUNGEON CORE', '迷宮核', 'ig'],
-	['DUNGEON', '迷宮', 'ig'],
-
-	[/([^\n]+)(?:（譯：\1）)/g, '$1', 'ig'],
-
 	['ガール＆シューヤ|女孩＆修亞|Girl＆修亞', '女孩＆修亞'],
 ];
 
@@ -186,6 +181,27 @@ export const words_source: IWords[] = [
 export const words: IWords[] = sublib._word_zh_all([
 
 	...words_source,
+
+	_word_en3('Royal ?Knights?', 'Royal Knight', 'ig'),
+
+	['DUNGEON MASTER', '迷宮主', 'ig'],
+	['DUNGEON CORE', '迷宮核', 'ig'],
+	['DUNGEON', '迷宮', 'ig'],
+
+	['魔法学院|魔法学園', '魔法学園'],
+	['学院|学園', '学園'],
+	['王女|公主', '王女'],
+
+	_word_en3('Enchant ?Sword', 'ENCHANT SWORD', 'ig'),
+	_word_en3('ELEMENTAL ?MASTER', 'ELEMENTAL MASTER', 'ig'),
+	_word_en3('CONTINUES?', 'CONTINUE', 'ig'),
+	_word_en3('DRAGON ?SLAYER', 'DRAGON SLAYER', 'ig'),
+	_word_en3('SECOND ?RUNNER', 'SECOND RUNNER', 'ig'),
+	_word_en3('TOP ?RUNNER', 'TOP RUNNER', 'ig'),
+	_word_en3('WHITE ?LILY', 'WHITE LILY', 'ig'),
+	_word_en3('PRINCESS', 'PRINCESS', 'ig'),
+
+	[/([^\n]+)(?:（譯：\1）)/g, '$1', 'ig'],
 
 	...sublib.lazymarks['class'],
 

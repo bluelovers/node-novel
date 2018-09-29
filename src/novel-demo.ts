@@ -922,12 +922,25 @@ function cache_output2(_block, title): string
 		'triple', 'master',
 		'ring',
 		'alright',
+		'royal',
+		'diviner',
+		'mix',
+		'bind',
+		'giant', 'man',
+		'explosion',
+		'quadruple', 'master',
+		'gold',
+
+		'rock',
+		'succubus',
+		'real',
+
 
 	]);
 
 	function _fillter_2(key: string)
 	{
-		return /^(ku|fu|no|hu|ki|gi|ka|em+|nico|um+|ok|pa|kyu+|ha+|ma+|kya+|yaho+|heal|sa+|gya+|hei+)+$/i.test(key)
+		return /^(ku|fu|no|hu|ki|gi|ka|em+|nico|um+|ok|pa|kyu+|ha+|ma+|kya+|yaho+|heal|sa+|gya+|hei+|ho+|ta|shi*)+$/i.test(key)
 			|| /^(\w)\1*$/i.test(key)
 			;
 	}
