@@ -960,6 +960,46 @@ function cache_output2(_block, title): string
 		'kong',
 		'buster',
 
+		'dive', 'to', 'game',
+
+		'pc',
+		'npc',
+		'hdd',
+		'hard', 'disk', 'drive',
+		'administrator',
+		'admin',
+		'first', 'skill',
+		'third',
+		'fin',
+		'rpg',
+		'element',
+		'queen',
+		'white',
+		'fire', 'bird',
+		'or',
+		'mmo',
+		'cp',
+		'star', 'player',
+		'command',
+		'normal',
+		'unique',
+		'legend',
+		'gal',
+		'tv',
+		'love', 'prison',
+		'special', 'end',
+		'item', 'file',
+		'level',
+		'neet',
+		'big', 'eye',
+		'snow', 'kiss',
+		'jack',
+		'milk',
+		'rpg-7',
+		'rpg-29',
+		'sand', 'wolf',
+		'final', 'judgement',
+
 	]);
 
 	function _fillter_2(key: string)
@@ -967,6 +1007,7 @@ function cache_output2(_block, title): string
 		return /^(ku|fu|no|hu|ki|gi|ka|em+|nico|um+|ok|pa|kyu+|ha+|ma+|kya+|yaho+|heal|sa+|gya+|hei+|ho+|ta|shi*|[bd]oo+m)+$/i.test(key)
 			|| /^(\w)\1*$/i.test(key)
 			|| /^\d+$/i.test(key)
+			|| /^(\d+(?:lv|km|kg|m|mm|[hsm]p|x+|p|no|\+|[a-z]|level)|(?:lv|km|kg|m|mm|[hsm]p|x+|p|no|\+|[a-z]|level)\d+)$/.test(key)
 			;
 	}
 
@@ -991,8 +1032,7 @@ function cache_output2(_block, title): string
 				;
 
 				if (
-					/^(\d+(?:lv|km|kg|m|mm|[hsm]p)|(?:lv|km|kg|m|mm|[hsm]p)\d+)$/.test(key)
-					|| _fillter_2(key)
+					_fillter_2(key)
 					|| key.split(/[\s・\.　]+/).every(v => _fillter_1.includes(v) || _fillter_2(v))
 				)
 				{

@@ -40,6 +40,19 @@ export function regex_str(str): string
 		;
 }
 
+export function regex_str2(str: RegExp): string
+export function regex_str2(str: string): string
+export function regex_str2(str: string | RegExp): string
+export function regex_str2(str): string
+{
+	if (isRegExp(str))
+	{
+		return str.source;
+	}
+
+	return str;
+}
+
 export default trimFilename;
 
 export function killBadPx(str: string): string

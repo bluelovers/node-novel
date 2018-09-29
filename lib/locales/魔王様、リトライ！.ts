@@ -124,6 +124,7 @@ export const words_source: IWords[] = [
 	[`尤里蒂耶斯`, '尤里蒂耶斯'],
 	[`尤里`, '尤里'],
 	[`傑克商會`, '傑克商會'],
+	[`傑克`, '傑克'],
 
 	[`艾茲`, '艾茲'],
 
@@ -147,11 +148,24 @@ export const words_source: IWords[] = [
 	['红斑的?蛇|赤链蛇|赤斑の?蛇|赤煉蛇', '赤煉蛇'],
 	['拉姆达聖货|拉姆达聖币', '拉姆達聖幣'],
 
+	['時尚檢查', '時尚檢查'],
+
+	['情報の一部が公開されました。|一部份的情報已公開。', '一部份的情報已公開。'],
+
+
+
+];
+
+/**
+ * 實際使用的取代樣式
+ */
+export const words: IWords[] = sublib._word_zh_all([
+
+	...words_source,
+
 	['兔[儿]', '兔耳'],
 	['野戦病院|野戰醫院', '野戰病院'],
 	['冷水浴|冷泉浴', '冷泉浴'],
-
-	['時尚檢查', '時尚檢查'],
 
 	[/对冰\.魔防/g, '对冰・魔防'],
 	['記録改竄|記錄竄改', '記錄竄改'],
@@ -162,18 +176,7 @@ export const words_source: IWords[] = [
 	[/W?usa/ig, 'Wusa'],
 	[/(\W)maa(?!\w)/ig, '$1嘛'],
 
-	['情報の一部が公開されました。|一部份的情報已公開。', '一部份的情報已公開。'],
-
 	['貝者場|賭場', '賭場'],
-
-];
-
-/**
- * 實際使用的取代樣式
- */
-export const words: IWords[] = sublib._word_zh_all([
-
-	...words_source,
 
 	['悪', '惡'],
 	[`玛`, '瑪'],
@@ -191,6 +194,9 @@ export const words: IWords[] = sublib._word_zh_all([
 	...sublib.lazymarks['class'],
 
 	...sublib.lazymarks[4],
+
+	...sublib.lazymarks['full_width_001'],
+	...sublib.lazymarks['full_width_002'],
 
 	...sublib.lazymarks[0],
 	...sublib.lazymarks[1],

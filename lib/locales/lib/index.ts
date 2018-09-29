@@ -4,7 +4,7 @@
 
 import { IWords } from '../';
 import * as StrUtil from 'str-util';
-import { regex_str, array_unique, killBadPx } from '../../func';
+import { regex_str, array_unique, killBadPx, regex_str2 } from '../../func';
 import { IRegExpCallback } from 'novel-text';
 
 //import * as regexpCjkLib from 'regexp-cjk/lib/v1';
@@ -1081,7 +1081,7 @@ export function _word_en3(search: string | RegExp,
 	flag = 'ig',
 ): [RegExp, string | any]
 {
-	return [new RegExp(`(?<![\\w'’${EN_REGEXP}])(${search})(?![\\w'’${EN_REGEXP}])`, flag), ((ret !== null) ? ret : search)];
+	return [new RegExp(`(?<![\\w'’${EN_REGEXP}])(${regex_str2(search)})(?![\\w'’${EN_REGEXP}])`, flag), ((ret !== null) ? ret : search)];
 }
 
 export function _word_jp1(search: string | RegExp,
@@ -1089,7 +1089,7 @@ export function _word_jp1(search: string | RegExp,
 	flag = 'ig',
 ): [RegExp, string | any]
 {
-	return [new RegExp(`(?<![ァ-ヴーｱ-ﾝﾞｰ])(${search})(?![ァ-ヴーｱ-ﾝﾞｰ])`, flag), ((ret !== null) ? ret : search)];
+	return [new RegExp(`(?<![ァ-ヴーｱ-ﾝﾞｰ])(${regex_str2(search)})(?![ァ-ヴーｱ-ﾝﾞｰ])`, flag), ((ret !== null) ? ret : search)];
 }
 
 /**
