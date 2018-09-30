@@ -313,7 +313,7 @@ i18next.setDefaultNamespace('i18n');
 
 				//v = /([^\w]{1,3})?((?:\d*[a-z]+\w*)[ 　\w・\.\'\"\:\-\+\=]*)([^\w]{1,3})?/ig;
 
-				const EN_REGEXP2 = /\u0100-\u017F\u0400-\u04FF/.source;
+				const EN_REGEXP2 = /\u0100-\u017F\u0400-\u04FF\u00A1-\u00FF/.source;
 
 				v = new RegExp([
 					`([^\\w]{1,3})?`,
@@ -1009,13 +1009,55 @@ function cache_output2(_block, title): string
 		'archer',
 		'zombie', 'warrior',
 		'bravers',
-
+		'off',
+		'ice', 'circle',
+		'okay',
+		'pk',
+		'kitty',
+		'leader',
+		'come', 'on', 'boy',
+		'mana',
+		'when',
+		'dragon', 'tail',
+		'rune',
+		'card',
+		'start',
+		'fx',
+		'boyfriend',
+		'boy',
+		'friend',
+		'happy',
+		'mr',
+		'is', 'justice',
+		'don\'t', 'touch',
+		'nice',
+		'fan',
+		'google',
+		'number',
+		'wiki',
+		'speed',
+		'dt',
+		'led',
+		'ps3',
+		'ps2',
+		'so',
+		'good', 'job',
+		'bl',
+		'rmb',
+		'city',
+		'sos',
+		'holiday',
+		'out', 'of',
+		'ptsd',
+		'one', 'man', 'play',
+		'ova',
+		'ancient', 'dragon',
 
 	]);
 
 	function _fillter_2(key: string)
 	{
-		return /^(ku|fu|no|hu|ki|gi|ka|em+|nico|um+|ok|pa|kyu+|ha+|ma+|kya+|yaho+|heal|sa+|gya+|hei+|ho+|ta|shi*|[bd]oo+m|wo+|ao+|ga+)+$/i.test(key)
+		return /^(ku|fu|no|hu|ki|gi|ka|em+|nico|um+|ok|pa|kyu+|ha+|ma+|kya+|yaho+|heal|sa+|gya+|hei+|ho+|ta|shi*|[bd]oo+m|wo+|ao+|ga+|hi+|poi|mu|kunu|yo+)+$/i.test(key)
 			|| /^(\w)\1*$/i.test(key)
 			|| /^\d+$/i.test(key)
 			|| /^(\d+(?:lv|km|kg|m|mm|[hsm]p|x+|p|no|\+|[a-z]|level)|(?:lv|km|kg|m|mm|[hsm]p|x+|p|no|\+|[a-z]|level)\d+)$/.test(key)
@@ -1044,7 +1086,7 @@ function cache_output2(_block, title): string
 
 				if (
 					_fillter_2(key)
-					|| key.split(/[\s・\.　]+/).every(v => _fillter_1.includes(v) || _fillter_2(v))
+					|| key.split(/[\s・\.　\-]+/).every(v => _fillter_1.includes(v) || _fillter_2(v))
 				)
 				{
 					continue;
