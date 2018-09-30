@@ -1346,6 +1346,8 @@ export const words: IWords[] = sublib._word_zh_all([
 
 	...words_source,
 
+	_word_jp1('手製品|アーティファクト|神器', '神器'),
+
 	['BLACK GOBLIN SCOUT|暗黒哥布林偵察兵', '暗黒哥布林偵察兵', 'ig'],
 	['BLACK GOBLIN NINJA|暗黒哥布林忍者', '暗黒哥布林忍者', 'ig'],
 	['BLACK GOBLIN ASSASSIN|暗黒哥布林刺客', '暗黒哥布林刺客', 'ig'],
