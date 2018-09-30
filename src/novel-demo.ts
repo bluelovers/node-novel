@@ -999,12 +999,23 @@ function cache_output2(_block, title): string
 		'rpg-29',
 		'sand', 'wolf',
 		'final', 'judgement',
+		'kozi',
+		'maker',
+		'an',
+		'curse', 'tool',
+		'skeleton',
+		'living', 'bone',
+		'beast',
+		'archer',
+		'zombie', 'warrior',
+		'bravers',
+
 
 	]);
 
 	function _fillter_2(key: string)
 	{
-		return /^(ku|fu|no|hu|ki|gi|ka|em+|nico|um+|ok|pa|kyu+|ha+|ma+|kya+|yaho+|heal|sa+|gya+|hei+|ho+|ta|shi*|[bd]oo+m)+$/i.test(key)
+		return /^(ku|fu|no|hu|ki|gi|ka|em+|nico|um+|ok|pa|kyu+|ha+|ma+|kya+|yaho+|heal|sa+|gya+|hei+|ho+|ta|shi*|[bd]oo+m|wo+|ao+|ga+)+$/i.test(key)
 			|| /^(\w)\1*$/i.test(key)
 			|| /^\d+$/i.test(key)
 			|| /^(\d+(?:lv|km|kg|m|mm|[hsm]p|x+|p|no|\+|[a-z]|level)|(?:lv|km|kg|m|mm|[hsm]p|x+|p|no|\+|[a-z]|level)\d+)$/.test(key)
