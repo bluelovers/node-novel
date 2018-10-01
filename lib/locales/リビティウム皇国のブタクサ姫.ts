@@ -134,7 +134,7 @@ export const words_source: IWords[] = [
 	[`西蒙內塔|シモネッタ|茜蒙莉塔`, '西蒙內塔'],
 	[`格莉索菈|Griselda`, '格莉索菈'],
 
-	_word_jp1(`殷尤利婭|インユリア|界內尤莉亞|殷尤莉亞`, '殷尤莉亞'),
+	_word_jp1(`殷尤利婭|インユリア|界內尤莉亞|殷尤莉亞|殷尤利亞`, '殷尤莉亞'),
 
 	[`埃烏菲米亞|エウフェーミア`, '埃烏菲米亞'],
 	_word_jp1(`露西亞|ルチア`, '露西亞'),
@@ -260,6 +260,14 @@ export const words_source: IWords[] = [
 	_word_jp1('リーダー|西姆拉', '西姆拉'),
 	_word_jp1('フムトアンデル|弗姆托安德魯', '弗姆托安德魯'),
 	_word_jp1('ヨルトホエール|尤魯托侯厄魯', '尤魯托侯厄魯'),
+
+	_word_jp1('瑪麗娜|マリナ', '瑪麗娜'),
+	_word_jp1('スタラーバ|史塔羅帕', '史塔羅帕'),
+
+	_word_jp1('科林|コリン|科倫', '科林'),
+	_word_jp1('湯姆森|トムスン', '湯姆森'),
+
+	_word_jp1('(?:北部日刊)+|デイリー・セプテントリオ|北部日刊|日刊北部', '北部日刊'),
 
 	/**
 	 *
@@ -412,6 +420,8 @@ export const words_source: IWords[] = [
 
 	_word_jp1('ゼクス|澤克斯', '澤克斯', 'ig'),
 
+	_word_jp1('エミュー|鴯鶓', '鴯鶓', 'ig'),
+
 	/**
 	 *
 	 */
@@ -466,6 +476,8 @@ export const words: IWords[] = sublib._word_zh_all([
 
 	...words_source,
 
+	[/【((?:注|譯)：[^\n【】]+)】/gm, '($1)'],
+
 	//...(import_words_source || []),
 
 	_word_en3('ランク|排位|級', '級'),
@@ -500,6 +512,8 @@ export const words: IWords[] = sublib._word_zh_all([
 	[/^\.$/gm, ''],
 
 	...sublib.lazymarks[4],
+
+	...sublib.lazymarks[8],
 
 	...sublib.lazymarks['full_width_001'],
 	...sublib.lazymarks['full_width_002'],
