@@ -313,7 +313,7 @@ i18next.setDefaultNamespace('i18n');
 
 				//v = /([^\w]{1,3})?((?:\d*[a-z]+\w*)[ 　\w・\.\'\"\:\-\+\=]*)([^\w]{1,3})?/ig;
 
-				const EN_REGEXP2 = /\u0100-\u017F\u0400-\u04FF\u00A1-\u00FF/.source;
+				const EN_REGEXP2 = /\u0100-\u017F\u0400-\u04FF\u00A1-\u00FF\u0370-\u03FF/.source;
 
 				v = new RegExp([
 					`([^\\w]{1,3})?`,
@@ -1053,11 +1053,44 @@ function cache_output2(_block, title): string
 		'ova',
 		'ancient', 'dragon',
 
+		'online',
+		'close',
+		'spa',
+		'class',
+		'1v1',
+		'quest',
+		'doll',
+		'bra',
+		'get',
+		'green',
+		'pink',
+		'yellow',
+		'purple',
+		'rabbit',
+		'alive', 'or',
+		'sexy',
+		'thank', 'you',
+		'iris',
+		'key',
+		'eye', 'of', 'the', 'sun',
+		'xv',
+		'raid',
+		'flower', 'star',
+		'myhome',
+		'pos',
+		'pv',
+		'two',
+		'three',
+		'baby',
+		'view',
+		'finish',
+		'marry', 'gift',
+
 	]);
 
 	function _fillter_2(key: string)
 	{
-		return /^(ku|fu|no|hu|ki|gi|ka|em+|nico|um+|ok|pa|kyu+|ha+|ma+|kya+|yaho+|heal|sa+|gya+|hei+|ho+|ta|shi*|[bd]oo+m|wo+|ao+|ga+|hi+|poi|mu|kunu|yo+)+$/i.test(key)
+		return /^(ku|fu|no|hu|ki|gi|ka|em+|nico|um+|ok|pa|kyu+|ha+|ma+|kya+|yaho+|heal|sa+|gya+|hei+|ho+|ta|shi*|[bd]oo+m|wo+|ao+|ga+|hi+|poi|mu|kunu|yo+|no+|goo+d)+$/i.test(key)
 			|| /^(\w)\1*$/i.test(key)
 			|| /^\d+$/i.test(key)
 			|| /^(\d+(?:lv|km|kg|m|mm|[hsm]p|x+|p|no|\+|[a-z]|level)|(?:lv|km|kg|m|mm|[hsm]p|x+|p|no|\+|[a-z]|level)\d+)$/.test(key)
