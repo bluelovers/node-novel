@@ -661,6 +661,10 @@ function cache_output2(_block, title): string
 		'magic', 'item',
 		'bad', 'status',
 		'summon',
+
+
+
+
 		'lz',
 		'extra',
 		'life',
@@ -1085,6 +1089,17 @@ function cache_output2(_block, title): string
 		'view',
 		'finish',
 		'marry', 'gift',
+		'real', 'time', 'arpg',
+		'cloth', 'out', 'saber',
+		'ep',
+		'dark', 'soul',
+		'storm',
+		'body', 'line',
+		'spider', 'girl',
+		'may',
+		'mayday',
+		'marvel',
+
 
 	]);
 

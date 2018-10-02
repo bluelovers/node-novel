@@ -18,7 +18,7 @@ export const words_source: IWords[] = [
 
 	['里諾斯|リノス', '里諾斯'],
 
-	['Cross Out・Savior|クロスアウト・セイバー', 'Cross Out・Savior'],
+	['Cross Out・Savior|クロスアウト・セイバー|Cloth Out・Saber', 'Cloth Out・Saber'],
 
 	['利普雅托斯|リプアトス', '利普雅托斯'],
 

@@ -4,7 +4,7 @@
 
 import { sp, IWords, vMaybe, sublib } from './index';
 import * as StrUtil from 'str-util';
-import { _word_en, _word_jp1, lazymarks } from './lib/index';
+import { _word_en, _word_en3, _word_jp1, lazymarks } from './lib/index';
 
 /**
  * 改成小說名字
@@ -62,7 +62,7 @@ export const words_source: IWords[] = [
 	['普隆', '普隆'],
 
 	_word_jp1('芙蕾娅|芙蕾雅|芙莱亚|芙雷亚|美善雅|弗雷亞|弗拉雷|芙蕾亞|フレア(?!ア)|弗雷尔', '芙蕾雅'),
-	_word_jp1('芙莉雅|美莉雅|芙莉亞|フレイア|芙利亞|芙蕾依雅', '芙莉雅'),
+
 
 	['アールグランデ|阿魯古兰迪', '阿魯古兰迪'],
 	['クラタリッサ|庫拉塔利萨', '庫拉塔利萨'],
@@ -76,6 +76,9 @@ export const words_source: IWords[] = [
 	['艾伦|艾蓮|愛蓮|埃伦', '艾蓮'],
 
 	['オーパーツ|欧帕茲', '欧帕茲'],
+
+	_word_jp1('ワチルダ|馬齊爾拉', '馬齊爾拉'),
+
 
 	/**
 	 * 庫因塔（クインタ）
@@ -168,6 +171,10 @@ export const words_source: IWords[] = [
 
 	['Rainara Room|拉伊納拉的房間', '拉伊納拉的房間', 'ig'],
 	['Rainara|拉伊納拉', '拉伊納拉'],
+
+	['素質值|天賦值', '天賦值'],
+
+	_word_en3('status|states', 'Status')
 
 ];
 
