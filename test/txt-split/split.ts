@@ -36,9 +36,11 @@ let options: IOptions = {
 
 				//`第[${_zh_num}${_full_num}0-9]+章[${_space}]*第[${_zh_num}${_full_num}0-9]+话`,
 
-				`(?:第(?:[${_zh_num}]+|\\d+|[${_full_num}]+)(?:话|集|章))`,
+				`(?:第(?:[${_zh_num}${_full_num}]+|\\d+|[${_full_num}${_full_num}]+)(?:话|集|章))`,
 
-				`\\d{2} `,
+				//`\\d{2} `,
+
+				`序曲`,
 
 			].join('|'),
 			`)`,

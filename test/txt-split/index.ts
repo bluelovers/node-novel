@@ -16,12 +16,13 @@ import { console } from 'debug-color2';
 console.enabledColor = true;
 
 let _zh_num = '一二三四五六七八九十';
+let _full_num = '０-９';
 let _space = ' 　\\t';
 
 let inputFile = path.join(projectConfig.dist_novel_root,
-	'syosetu',
-	'帰ってきた元勇者',
-	'z.raw/日常(笑)的原勇者 web1-196+万圣节番外(1).txt',
+	'user',
+	'黑之魔王',
+	'z.raw/黑魔1-488粗校对简体字版.txt',
 );
 
 const c = '　';
@@ -144,15 +145,24 @@ let options: IOptions = {
 			[
 				//`(?:(?:第|最)?(?:序|终)|第[${_zh_num}\\d]+)话`,
 				//`幕间`,
-				`WEB[ ]*\\d+`,
-				`#?\\d+(?:\\.\\d+)?\\.?[ ]*(?=(?:元|原)勇者?)`,
-				`\\d{2,}、[ ]*`,
-				`\\d{2,}[ ]+(?!\\:)`,
-				`#?\\d{3,}[\\.。 ：]`,
-				`\\d{2,}(?=\\n)`,
-				`番外`,
-				`原(?:勇|者)\\d{3,}`,
-				`（web\\d+）`,
+
+//				`WEB[ ]*\\d+`,
+//				`#?\\d+(?:\\.\\d+)?\\.?[ ]*(?=(?:元|原)勇者?)`,
+//				`\\d{2,}、[ ]*`,
+//				`\\d{2,}[ ]+(?!\\:)`,
+//				`#?\\d{3,}[\\.。 ：]`,
+//				`\\d{2,}(?=\\n)`,
+//				`番外`,
+//				`原(?:勇|者)\\d{3,}`,
+//				`（web\\d+）`,
+
+				`(?:第(?:[\\d${_zh_num}${_full_num}]+|\\d+|[${_full_num}\\d]+)(?:话|集|章))`,
+
+				`\\d{2,} `,
+
+				`序曲`,
+
+
 			].join('|'),
 			`)`,
 			`[${_space}\\-]*`,
@@ -209,10 +219,10 @@ let options: IOptions = {
 
 				let c = '.';
 
-				name = [
-					ids,
-					desc,
-				].filter(v => v !== '').join(c);
+//				name = [
+//					ids,
+//					desc,
+//				].filter(v => v !== '').join(c);
 
 //				name = novelFilename.filename(name);
 //				name = trimFilename(name);
