@@ -4,6 +4,7 @@
 
 import { sp, IWords, vMaybe, sublib } from '.';
 import * as StrUtil from 'str-util';
+import { _word_jp1 } from './lib/index';
 
 /**
  * 改成小說名字
@@ -114,7 +115,10 @@ export const words_source: IWords[] = [
 	['严翁|嚴翁', '嚴翁'],
 	['伊賀崎', '伊賀崎'],
 
-	['魯提斯|諾提斯', '諾提斯'],
+	_word_jp1('ノティス|魯提斯|諾提斯|諾蒂斯', '諾提斯'),
+
+	_word_jp1('グレッグ|格雷戈', '格雷戈'),
+	_word_jp1('ムーア|摩爾|穆亞', '穆亞'),
 
 	//['沃特尼亚'],
 
@@ -178,6 +182,8 @@ export const words_source: IWords[] = [
 	['暴風', '暴風'],
 	['エクレシア|艾絲妮婭', '艾絲妮婭'],
 	['マリネール|瑪蓮娜', '瑪蓮娜'],
+
+
 
 ];
 
