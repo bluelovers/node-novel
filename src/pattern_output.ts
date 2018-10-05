@@ -40,16 +40,21 @@ export function parse_data(novelID: string, basePath: string = BASEPATH)
 				let label: string;
 				let row: IDataRaw;
 
+				let title2 = (title || '')
+					.toString()
+					.replace(/[\s　]+/g, '')
+				;
+
 				if (
 					typeof title == 'string'
 					&& (
-						title == ''
-						|| /^(?:\$\d+)+$/.test(title)
-						|| /^(?:\$\d+)*(?:[・]\$\d+)+$/.test(title)
+						title2 == ''
+						|| /^(?:\$\d+)+$/.test(title2)
+						|| /^(?:\$\d+)*(?:[・]\$\d+)+$/.test(title2)
 					)
 				)
 				{
-
+					//
 				}
 				else if (value && title && typeof title == 'string')
 				{
