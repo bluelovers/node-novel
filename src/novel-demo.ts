@@ -1100,6 +1100,12 @@ function cache_output2(_block, title): string
 		'mayday',
 		'marvel',
 
+		'easy',
+		'body', 'blow',
+		'perfect',
+		'stylish',
+
+
 
 	]);
 
