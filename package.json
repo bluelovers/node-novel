@@ -40,6 +40,7 @@
     "child-process-promise": "^2.2.1",
     "cjk-conv": "^1.0.103",
     "cross-spawn": "^6.0.5",
+    "cross-spawn-extra": "^1.0.1",
     "debug-color2": "^1.0.6",
     "deepmerge-plus": "^2.1.2",
     "diff": "^3.5.0",

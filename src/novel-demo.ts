@@ -435,7 +435,8 @@ i18next.setDefaultNamespace('i18n');
 			if (_t.replace(/\s+/g, ''))
 			{
 				//console.log('save', currentFile);
-				await fs.outputFile(path.join(cwd_out, currentFile) + '.txt', novelText.toStr(_t, "\r\n"));
+				//await fs.outputFile(path.join(cwd_out, currentFile) + '.txt', novelText.toStr(_t, "\r\n"));
+				await fs.outputFile(path.join(cwd_out, currentFile) + '.txt', novelText.toStr(_t, "\n"));
 			}
 
 			if (_cache.block[_cache_key_] && !Object.keys(_cache.block[_cache_key_]).length)
