@@ -20,9 +20,9 @@ let _full_num = '０-９';
 let _space = ' 　\\t';
 
 let inputFile = path.join(projectConfig.dist_novel_root,
-	'user',
-	'黑之魔王',
-	'z.raw/黑魔1-488粗校对简体字版.txt',
+	'z.abandon',
+	'邪竜転生',
+	'z.raw/23-53.txt',
 );
 
 const c = '　';
