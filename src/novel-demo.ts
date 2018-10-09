@@ -663,9 +663,6 @@ function cache_output2(_block, title): string
 		'bad', 'status',
 		'summon',
 
-
-
-
 		'lz',
 		'extra',
 		'life',
@@ -1107,15 +1104,39 @@ function cache_output2(_block, title): string
 		'stylish',
 		'faction',
 		'monter',
+		'name',
+		'´・ω',
+		'http',
+		'html',
+		'´', 'ω',
+		'enter',
+		'tb',
+		'ver',
+		'pig',
+		'otz',
+		'pm',
+		'pvp',
+		'style',
+		'goodjob',
+		'https',
+		'en',
+		'ja',
+		'url',
+		'girl\'s', 'talk',
+		'badend',
+		'ending',
+		'cooking',
+
 
 	]);
 
 	function _fillter_2(key: string)
 	{
-		return /^(ku|fu|no|hu|ki|gi|ka|em+|nico|um+|ok|pa|kyu+|ha+|ma+|kya+|yaho+|heal|sa+|gya+|hei+|ho+|ta|shi*|[bd]oo+m|wo+|ao+|ga+|hi+|poi|mu|kunu|yo+|no+|goo+d|go+)+$/i.test(key)
+		return /^(ku|fu|no|hu|ki|gi|ka|em+|nico|um+|ok|pa|kyu+|ha+|ma+|kya+|yaho+|heal|sa+|gya+|hei+|ho+|ta|shi*|[bd]oo+m|wo+|ao+|ga+|hi+|poi|mu|kunu|yo+|no+|goo+d|go+|§)+$/i.test(key)
 			|| /^(\w)\1*$/i.test(key)
 			|| /^\d+$/i.test(key)
 			|| /^(\d+(?:lv|km|kg|m|mm|[hsm]p|x+|p|no|\+|[a-z]|level)|(?:lv|km|kg|m|mm|[hsm]p|x+|p|no|\+|[a-z]|level)\d+)$/.test(key)
+			|| _fillter_1.includes(key)
 			;
 	}
 
