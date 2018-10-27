@@ -1127,6 +1127,9 @@ function cache_output2(_block, title): string
 		'ending',
 		'cooking',
 
+		'ready',
+		'chance',
+
 
 	]);
 
