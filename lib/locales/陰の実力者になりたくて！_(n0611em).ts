@@ -4,7 +4,7 @@
 
 import { sp, IWords, vMaybe, sublib } from './index';
 import * as StrUtil from 'str-util';
-import { _word_en, _word_jp1 } from './lib/index';
+import { _word_en, _word_en3, _word_jp1 } from './lib/index';
 
 /**
  * 改成小說名字
@@ -50,11 +50,11 @@ export const words_source: IWords[] = [
 	['シェリー|雪莉', '雪莉'],
 	['巴内特|バーネット', '巴内特'],
 
-	_word_en('希德|シド', '希德'),
+	_word_jp1('希德|シド', '希德'),
 	['加里', '加里'],
-	_word_en('紐|ニュー', '紐'),
+	_word_jp1('紐|ニュー', '紐'),
 
-	_word_en('ローズ|萝茲', '蘿茲'),
+	_word_jp1('ローズ|萝茲', '蘿茲'),
 	['奧利雅納|オリアナ', '奧利雅納'],
 
 	['オリヴィエ|奧利維埃|奧利維婭', '奧利維埃'],
@@ -68,6 +68,8 @@ export const words_source: IWords[] = [
 	['リンドブルム|林德布爾穆', '林德布爾穆'],
 	['ベアートリクス|貝婭特麗克絲?', '貝婭特麗克絲'],
 	['ベアトリクス|貝雅托麗克絲', '貝雅托麗克絲'],
+
+	_word_jp1('イータ|伊塔', '伊塔'),
 
 	/**
 	 *
@@ -91,7 +93,20 @@ export const words_source: IWords[] = [
 	/**
 	 *
 	 */
+	_word_jp1('ガーター|嘉泰', '嘉泰'),
+
+	_word_jp1('ジョン|約翰', '約翰'),
+	_word_jp1('スミス|史密斯', '史密斯'),
+
+	/**
+	 *
+	 */
 	_word_jp1('ゼニー|澤尼', '澤尼'),
+
+	// 【譯注：宣布實體書化以後，Web所有的Taepodong全都被改成了Atomic】
+	_word_en3('Taepodong|Atomic', 'Atomic'),
+
+	_word_en3('I ?am ?(?:Taepodong|Atomic)', 'I am Atomic'),
 
 ];
 
@@ -102,6 +117,8 @@ export const words: IWords[] = sublib._word_zh_all([
 
 	...words_source,
 
+	['【】', ''],
+
 	['陰の実力者|影之实力者', '影之實力者'],
 
 	['七陰|七阴', '七陰'],
@@ -109,6 +126,9 @@ export const words: IWords[] = sublib._word_zh_all([
 	['紅の塔|紅塔', '紅之塔'],
 
 	['魔剣士協会|魔劍士協會', '魔劍士協會'],
+
+	['余灰', '餘灰'],
+	['共[斗]', '共鬥'],
 
 	_word_en('BOOS', '$1BOSS', 'ig'),
 
