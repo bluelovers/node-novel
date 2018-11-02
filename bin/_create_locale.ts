@@ -24,6 +24,17 @@ let cli = yargs
 
 let arr_ids = gitDiffIDNovelID(ProjectConfig.dist_novel_root);
 
+let _cache_file = path.join(
+	ProjectConfig.temp_root,
+	path.basename('_novel_run_git_diff.js') + '.json'
+);
+
+if (arr_ids.length == 0 && fs.existsSync(_cache_file))
+{
+	arr_ids = fs.readJSONSync(_cache_file);
+	console.info(`使用上次執行的目錄`, arr_ids);
+}
+
 if (arr_ids.length != 1)
 {
 	throw new Error();

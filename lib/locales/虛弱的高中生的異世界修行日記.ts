@@ -34,7 +34,7 @@ export const words: IWords[] = sublib._word_zh_all([
 	...sublib.lazymarks['full_width_001'],
 	//...sublib.lazymarks['full_width_002'],
 
-	//...sublib.lazymarks['unit'],
+	...sublib.lazymarks['unit'],
 
 	...sublib.lazymarks[0],
 	...sublib.lazymarks[1],
