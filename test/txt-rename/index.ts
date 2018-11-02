@@ -25,6 +25,7 @@ import { zhRegExp } from 'regexp-cjk';
 import novelFilename from 'cjk-conv/lib/novel/filename';
 import { cn2tw_min } from 'cjk-conv/lib/zh/convert/min';
 import { console } from 'debug-color2';
+import jsdiff = require('diff');
 
 console.enabledColor = true;
 
@@ -59,6 +60,12 @@ novelID = '異世界迷宮の最深部を目指そう';
 
 //pathMain = 'syosetu';
 //novelID = '望まぬ不死の冒険者/z.raw/00000 null';
+
+pathMain = 'dmzj';
+novelID = '蜘蛛ですが、なにか？';
+
+let DEBUG_MODE = true
+//DEBUG_MODE = false
 
 if (!novelID)
 {
@@ -250,7 +257,7 @@ let _space = ' 　\\t \\s';
 			if (1)
 			{
 				name = novelFilename.filename(name, {
-						skip: '娘志',
+						skip: '娘志里卷',
 						//safe: false,
 					})
 					//.replace(/后(記|宮)/g, '後$1')
@@ -277,11 +284,20 @@ let _space = ' 　\\t \\s';
 				*/
 				;
 
-				name = replace_name_list().reduce(function (name, data)
+				name = name.replace(/^(\d+_)?(.+)$/, function (...args)
 				{
-					// @ts-ignore
-					return name.replace(...data);
-				}, name);
+					return args[1] + replace_name_list().reduce(function (name, data)
+					{
+						// @ts-ignore
+						return name.replace(...data);
+					}, args[2])
+				})
+
+//				name = replace_name_list().reduce(function (name, data)
+//				{
+//					// @ts-ignore
+//					return name.replace(...data);
+//				}, name);
 			}
 
 			name = novelText.trim(name, {
@@ -298,27 +314,31 @@ let _space = ' 　\\t \\s';
 			{
 				let name_new = path.join(file_dir, name + ext);
 
-				await crossSpawn.sync('git', [
-					'mv',
-					'-f',
-					'-v',
-					file,
-					name_new,
-				], {
-					cwd,
-					stdio: 'inherit',
-				});
-
-				if (fs.existsSync(name_new) && !fs.existsSync(file))
+				if (!DEBUG_MODE)
 				{
+					await crossSpawn.sync('git', [
+						'mv',
+						'-f',
+						'-v',
+						file,
+						name_new,
+					], {
+						cwd,
+						stdio: 'inherit',
+					});
 
-				}
-				else
-				{
-					await fs.move(file, name_new);
+					if (fs.existsSync(name_new) && !fs.existsSync(file))
+					{
+
+					}
+					else
+					{
+						await fs.move(file, name_new);
+					}
 				}
 
-				await console.log(`${index}, "${name_old}"\n=> "${name}"`);
+				console.log(`${index}, "${name_old}"`);
+				console.log(`=>`, diff_log(name_old, name));
 			}
 			else
 			{
@@ -336,7 +356,8 @@ function replace_name_list()
 	if (!CACHE_REGEXP_LIST.length)
 	{
 		CACHE_REGEXP_LIST = [
-			[/后(記|宮)/g, '後$1'],
+			[/后(記|宮|篇)/g, '後$1'],
+			[/(背)后/g, '$1後'],
 			[/レポート/g, '記事'],
 			[new zhRegExp('発', 'ig'), '發'],
 			[/于/g, '於'],
@@ -365,9 +386,13 @@ function replace_name_list()
 				[/[〔［]/g, '［'],
 				[/[〕］]/g, '］'],
 
+				...lazymarks['full_width_001'],
+
+				['[,!?]', StrUtil.toFullWidth],
+
 			]).map(function (data)
 			{
-				if (!(data[0] instanceof RegExp || data[0] instanceof zhRegExp))
+				if (!(data[0] instanceof RegExp) || (data[0] instanceof zhRegExp))
 				{
 					data[0] = new zhRegExp(data[0], 'ig');
 				}
@@ -382,11 +407,33 @@ function replace_name_list()
 
 	CACHE_REGEXP_LIST.forEach(data => {
 
-		if (data[0] instanceof RegExp || data[0] instanceof zhRegExp)
+		// @ts-ignore
+		if ((data[0] instanceof RegExp) || (data[0] instanceof zhRegExp))
 		{
 			data[0].lastIndex = 0;
 		}
 	});
 
 	return CACHE_REGEXP_LIST;
+}
+
+function diff_log(src_text: string, new_text: string): string
+{
+	let diff = jsdiff.diffChars(src_text, new_text);
+
+	let diff_arr = diff
+		.reduce(function (a, part)
+		{
+			let color = part.added ? 'green' :
+				part.removed ? 'red' : 'grey';
+
+			let t = console[color].chalk(part.value);
+
+			a.push(t);
+
+			return a;
+		}, [])
+	;
+
+	return diff_arr.join('');
 }
