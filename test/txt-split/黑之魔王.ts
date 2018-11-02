@@ -22,7 +22,7 @@ let _space = ' 　\\t';
 let inputFile = path.join(projectConfig.dist_novel_root,
 	'user',
 	'黑之魔王',
-	'z.raw/1-490.txt',
+	'z.raw/黑魔1-499 粗校对简体字版.txt',
 );
 
 const c = '　';
@@ -137,6 +137,7 @@ let options: IOptions = {
 				`\\[google姐\\+度娘\\+渣翻plus腦補\\]`,
 
 				`\\[google姐\\+度娘\\+渣翻plus腦補\\]`,
+				'WEB',
 
 			].join('|'),
 			`)?`,
