@@ -27,6 +27,9 @@ export const words: IWords[] = sublib._word_zh_all([
 
 	...words_source,
 
+	[/(?<=[^〉\s]\n)(?=〈)/gm, '\n'],
+	[/(?<=〉\n)(?=[^〈\s])/gm, '\n'],
+
 	...sublib.lazymarks['class'],
 	...sublib.lazymarks['zh_cht'],
 
