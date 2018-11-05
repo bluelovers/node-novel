@@ -35,6 +35,8 @@ export const words: IWords[] = sublib._word_zh_all([
 
 	...words_source,
 
+	['[炮]', '砲'],
+
 	[/^　+(?!：)/gm, ''],
 
 	[/(?<=[^〉\s]\n)(?=〈)/gm, '\n'],
