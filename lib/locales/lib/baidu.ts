@@ -20,6 +20,18 @@ export function getTable(options: tiebaHarmony.IOptions = {}): IWords[]
 			'傻瓜',
 			'厮杀',
 
+			'子宮',
+			'催淫',
+			'隂道',
+			'隂蒂',
+			'隂唇',
+			'雌性',
+			'小穴',
+			'乳房',
+			'乳頭',
+
+			'內褲',
+			'全裸',
 
 		],
 	});

@@ -20,9 +20,9 @@ let _full_num = '０-９';
 let _space = ' 　\\t';
 
 let inputFile = path.join(projectConfig.dist_novel_root,
-	'z.abandon',
-	'邪竜転生',
-	'z.raw/23-53.txt',
+	'h',
+	'想被侵犯的勇者',
+	'z.raw/想被侵犯的勇者.txt',
 );
 
 const c = '　';
@@ -156,11 +156,13 @@ let options: IOptions = {
 //				`原(?:勇|者)\\d{3,}`,
 //				`（web\\d+）`,
 
-				`(?:第(?:[\\d${_zh_num}${_full_num}]+|\\d+|[${_full_num}\\d]+)(?:话|集|章))`,
+				//`(?:第(?:[\\d${_zh_num}${_full_num}]+|\\d+|[${_full_num}\\d]+)(?:话|集|章))`,
 
-				`\\d{2,} `,
+				//`\\d{2,} `,
 
-				`序曲`,
+				//`序曲`,
+
+				`[${_full_num}\\d]+[．.]`,
 
 
 			].join('|'),
@@ -185,9 +187,11 @@ let options: IOptions = {
 				let src = m_last.match;
 				let [ido, desc] = m_last.sub;
 
+				//console.log(ido, desc);
+
 //				console.log(m_last);
 
-				let id = StrUtil.zh2num(ido)
+				let id = StrUtil.zh2num(StrUtil.toHalfWidth(ido))
 					.toString()
 					.replace(/^\D+/, '')
 					.replace(/\D+$/, '')
@@ -217,12 +221,12 @@ let options: IOptions = {
 
 				desc = StrUtil.toFullNumber(desc);
 
-				let c = '.';
+				let c = '．';
 
-//				name = [
-//					ids,
-//					desc,
-//				].filter(v => v !== '').join(c);
+				name = [
+					ids,
+					desc,
+				].filter(v => v !== '').join(c);
 
 //				name = novelFilename.filename(name);
 //				name = trimFilename(name);
