@@ -74,6 +74,11 @@ export const words_source: IWords[] = [
 	['ラミアス|菈米亞絲', '菈米亞絲'],
 	['蘭加|ランガ', '蘭加'],
 
+	/**
+	 *
+	 */
+	_word_jp1('アルフレッド|阿爾弗雷德', '阿爾弗雷德'),
+
 
 	/**
 	 *
@@ -96,12 +101,7 @@ export const words_source: IWords[] = [
 	['地盘|シマなん', '地盤'],
 	['颤抖|ガクガク', '顫抖'],
 
-	/**
-	 *
-	 */
-	['笨淡|笨蛋', '笨蛋'],
-	['魂淡|混蛋', '混蛋'],
-
+	_word_jp1('フロア', '階層'),
 
 ];
 
@@ -111,6 +111,12 @@ export const words_source: IWords[] = [
 export const words: IWords[] = sublib._word_zh_all([
 
 	...words_source,
+
+	/**
+	 *
+	 */
+	['笨淡|笨蛋', '笨蛋'],
+	['魂淡|混蛋', '混蛋'],
 
 	...sublib.lazymarks['class'],
 
