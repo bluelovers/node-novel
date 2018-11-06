@@ -27,11 +27,10 @@ export const value = {
 /**
  * 在這裡放此小說專屬的取代樣本
  */
-export const words: IWords[] = sublib._word_zh_all([
+export const words_source: IWords[] = [
 
 	['愛麗絲|愛莉斯|艾莉絲|アリス', '愛麗絲'],
 
-	['Guild|公会|行會', '公會'],
 	['紫嫣|紫苑|シオン', '紫苑'],
 
 	['尼克魯|ニコル|Nicole', '尼克魯'],
@@ -132,9 +131,20 @@ export const words: IWords[] = sublib._word_zh_all([
 	['芙爾雷蒂', '芙爾雷蒂'],
 	['雷蒂', '雷蒂'],
 
+];
+
+/**
+ * 實際使用的取代樣式
+ */
+export const words: IWords[] = sublib._word_zh_all([
+
+	...words_source,
+
 	['[发]', '發'],
 
 	['髮旋', '髮旋'],
+
+	['Guild|公会|行會', '公會'],
 
 	...sublib.lazymarks['class'],
 
