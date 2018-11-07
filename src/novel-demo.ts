@@ -1134,6 +1134,25 @@ function cache_output2(_block, title): string
 		'mag',
 		'size',
 
+		'empty',
+		'if',
+		'reaper',
+		'ol',
+		'help',
+		'pet', 'system',
+		'default',
+		'drop',
+		'will',
+		'overlord',
+		'perfect', 'sister',
+		'poker', 'face',
+		'ace',
+		'remove',
+		'zone',
+		'area',
+		'simple', 'is', 'the', 'best',
+		'main',
+		'room',
 
 	]);
 
