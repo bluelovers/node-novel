@@ -783,6 +783,8 @@ lazymarks['zh'] = _word_zh_all([
 	['鴯', '鴯'],
 	['鶓', '鶓'],
 
+	['[爲]', '為'],
+
 ]);
 
 lazymarks['zh_cht'] = _word_zh_all([
