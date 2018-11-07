@@ -4,7 +4,7 @@
 
 import { sp, IWords, vMaybe, sublib } from './index';
 import * as StrUtil from 'str-util';
-import { _word_en } from './lib/index';
+import { _word_en, _word_jp1 } from './lib/index';
 
 /**
  * 改成小說名字
@@ -27,7 +27,7 @@ export const value = {
 /**
  * 在這裡放此小說專屬的取代樣本
  */
-export const words: IWords[] = sublib._word_zh_all([
+export const words_source: IWords[] = [
 
 	['庫魯利', '庫魯利'],
 
@@ -159,12 +159,47 @@ export const words: IWords[] = sublib._word_zh_all([
 	 */
 
 	/**
+	 * チューイスト·カラサス 喬伊斯托·卡拉薩斯，卡拉薩斯領領主
+	 * パーパネル牧場 帕帕尼爾牧場
+	 *
+	 * ジャング 強古，犯罪者代表。 ジャング也有廢品、**的意思。
+	 *
+	 * グラシュー 格拉修，當托兒的工匠青年
+	 *
+	 * プーベエ 普貝，庫魯利養的幼龍。
+	 *
+	 * カラサス 卡拉薩斯領，海蘭領西邊接壤的領地。
+	 */
+	_word_jp1('チューイスト|喬伊斯托', '喬伊斯托'),
+	_word_jp1('カラサス|卡拉薩斯', '卡拉薩斯'),
+
+	_word_jp1('パーパネル|帕帕尼爾', '帕帕尼爾'),
+
+	_word_jp1('ジャング|強古', '強古'),
+
+	_word_jp1('ヌーノ|努諾', '努諾'),
+	_word_jp1('トリスターナ|崔絲塔納', '崔絲塔納'),
+
+	_word_jp1('グラシュー|格拉修', '格拉修'),
+
+	_word_jp1('プーベエ|普貝', '普貝'),
+
+	/**
 	 *
 	 */
 	['銀圓|銀币|銀貨', '銀币'],
 	['植物|植株', '植物'],
 	['名子|名字', '名字'],
 	['王国騎士長|国王騎士长', '王国騎士長'],
+
+];
+
+/**
+ * 實際使用的取代樣式
+ */
+export const words: IWords[] = sublib._word_zh_all([
+
+	...words_source,
 
 	['据然|竟然', '竟然'],
 
