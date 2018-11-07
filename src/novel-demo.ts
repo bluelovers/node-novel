@@ -1130,6 +1130,10 @@ function cache_output2(_block, title): string
 		'ready',
 		'chance',
 
+		'win',
+		'mag',
+		'size',
+
 
 	]);
 

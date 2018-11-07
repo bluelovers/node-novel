@@ -27,8 +27,7 @@ export const value = {
 /**
  * 在這裡放此小說專屬的取代樣本
  */
-export const words: IWords[] = sublib._word_zh_all([
-
+export const words_source: IWords[] = [
 
 	/**
 	 * 馬尔蓮族
@@ -365,6 +364,15 @@ export const words: IWords[] = sublib._word_zh_all([
 	['结构結界|構造結界', '構造結界'],
 
 	['小和尚|小子', '小子'],
+
+];
+
+/**
+ * 實際使用的取代樣式
+ */
+export const words: IWords[] = sublib._word_zh_all([
+
+	...words_source,
 
 	// --------------
 
