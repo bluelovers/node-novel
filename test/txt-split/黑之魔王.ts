@@ -22,10 +22,15 @@ let _space = ' 　\\t';
 let inputFile = path.join(projectConfig.dist_novel_root,
 	'user',
 	'黑之魔王',
-	'z.raw/黑魔1-499 粗校对简体字版.txt',
+	'z.raw',
+	'1-490.txt',
+	//'黑魔1-499 粗校对简体字版.txt',
+//	'黑魔第1-11章校润20181110.txt',
 );
 
 const c = '　';
+
+let _cache: any = {};
 
 let options: IOptions = {
 	// @ts-ignore
@@ -128,6 +133,8 @@ let options: IOptions = {
 			`(?:^)[${_space}]*`,
 			//`(?:WEB[ ]*)?`,
 
+			`(?!第23章就此完結|361 END|第18章開始了|90話完|第5章開始羅~|第396話《転職為賢者》|第395話《可愛就是0義》|第6章結束)`,
+
 			`(?:`,
 			[
 				`\\[google姐\\+(?:度娘\\+)?(?:腦補)?\\+渣翻(?:plus)?(?:腦補)?\\]`,
@@ -139,9 +146,21 @@ let options: IOptions = {
 				`\\[google姐\\+度娘\\+渣翻plus腦補\\]`,
 				'WEB',
 
+				`4-1苹果箱之谜 +`,
+				`4-2夏天的开始 +`,
+
+				`【渣翻】`,
+
+				`圣夜决战 其一 骚乱的开幕`,
+
+				`【永恒的花火】`,
+
 			].join('|'),
 			`)?`,
 			`[${_space}]*`,
+
+			`(?!第23章就此完結|361 END|第18章開始了|90話完|第5章開始羅~|第396話《転職為賢者》|第395話《可愛就是0義》|第6章結束)`,
+
 			`(`,
 			[
 				//`(?:(?:第|最)?(?:序|终)|第[${_zh_num}\\d]+)话`,
@@ -159,10 +178,20 @@ let options: IOptions = {
 
 				`(?:第(?:[\\d${_zh_num}${_full_num}]+|\\d+|[${_full_num}\\d]+)(?:话|集|章))`,
 
-				`\\d{2,} `,
+				`\\d{2,}[ 　]+(?!日)`,
+				`\\d{2,}话`,
+				//`\\d{2,}话 `,
+				`第\\d{2,}回[ 　]+`,
+
+				`[${_full_num}]+话`,
 
 				`序曲`,
 
+				'282|292|310',
+
+				`（449）`,
+
+				`第472 `,
 
 			].join('|'),
 			`)`,
@@ -198,18 +227,62 @@ let options: IOptions = {
 				let idn: string;
 				let ids = ido;
 
-				if (/^\d+$/.test(id))
+				let is_vol = zhRegExp.create(/章/).test(ido);
+				let is_num = /^\d+$/.test(id);
+
+				_cache.last = _cache.last || {};
+
+				if (is_num)
 				{
-					idn = id.toString().padStart(3, '0');
+					// @ts-ignore
+					id = id | 0;
+
+					if (is_vol && is_num)
+					{
+						// @ts-ignore
+						if (_cache.last.vol && _cache.last.vol != (id - 1))
+						{
+							is_vol = false;
+						}
+
+						if (is_vol)
+						{
+							_cache.last.vol = id;
+						}
+					}
+
+					if (!is_vol)
+					{
+						if (_cache.last.ch && (_cache.last.ch+1) != id)
+						{
+							console.red(id, name, _cache.last);
+						}
+
+						_cache.last.ch = id;
+					}
+
+					if (is_num)
+					{
+						idn = id.toString().padStart(is_vol ? 2 : 3, '0');
+					}
+
+					_cache.last.name = name
 				}
 
 				if (idn)
 				{
-					ids = `${idn}`;
+					if (is_vol)
+					{
+						ids = `第${StrUtil.toFullNumber(idn)}章`;
+					}
+					else
+					{
+						ids = `第${StrUtil.toFullNumber(idn)}話`;
+					}
 				}
 				else
 				{
-					ids = ido;
+					ids = ido.trim();
 				}
 
 				desc = novelText.trim(desc, {
@@ -218,12 +291,12 @@ let options: IOptions = {
 
 				desc = StrUtil.toFullNumber(desc);
 
-				let c = '.';
+				let c = '　';
 
-//				name = [
-//					ids,
-//					desc,
-//				].filter(v => v !== '').join(c);
+				name = [
+					ids,
+					desc,
+				].filter(v => v !== '').join(c);
 
 //				name = novelFilename.filename(name);
 //				name = trimFilename(name);
@@ -262,7 +335,7 @@ let options: IOptions = {
 console.dir(options);
 
 txtSplit.autoFile(inputFile, options)
-	.then(ret => console.log(ret))
+	//.then(ret => console.log(ret))
 ;
 
 function replaceName(name: string)
