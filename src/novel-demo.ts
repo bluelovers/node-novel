@@ -1154,6 +1154,11 @@ function cache_output2(_block, title): string
 		'main',
 		'room',
 
+		'character',
+		'made', 'in', 'japan',
+		'spy',
+		'email',
+
 	]);
 
 	function _fillter_2(key: string)
