@@ -101,6 +101,11 @@ export const words_source: IWords[] = [
 	/**
 	 *
 	 */
+	_word_jp1('都艾姆|ドエム', '都艾姆'),
+
+	/**
+	 *
+	 */
 	_word_jp1('ゼニー|澤尼', '澤尼'),
 
 	// 【譯注：宣布實體書化以後，Web所有的Taepodong全都被改成了Atomic】
