@@ -47,6 +47,13 @@ Promise
 
 		let cwd_path = path.join(ProjectConfig.dist_novel_root, pathMain, novelID);
 
+		if (!await fs.pathExists(cwd_path))
+		{
+			console.error(`資料夾不存在`, pathMain, novelID);
+
+			return;
+		}
+
 		let meta: IMdconfMeta;
 
 		if (fs.existsSync(path.join(cwd_path, 'meta.md')))
