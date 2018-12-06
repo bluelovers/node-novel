@@ -61,8 +61,8 @@ novelID = '異世界迷宮の最深部を目指そう';
 //pathMain = 'syosetu';
 //novelID = '望まぬ不死の冒険者/z.raw/00000 null';
 
-pathMain = 'dmzj';
-novelID = '蜘蛛ですが、なにか？';
+//pathMain = 'dmzj';
+//novelID = '蜘蛛ですが、なにか？';
 
 let DEBUG_MODE = true
 //DEBUG_MODE = false
@@ -257,7 +257,7 @@ let _space = ' 　\\t \\s';
 			if (1)
 			{
 				name = novelFilename.filename(name, {
-						skip: '娘志里卷',
+						skip: '娘志里卷發處說氣圍',
 						//safe: false,
 					})
 					//.replace(/后(記|宮)/g, '後$1')
@@ -284,14 +284,14 @@ let _space = ' 　\\t \\s';
 				*/
 				;
 
-				name = name.replace(/^(\d+_)?(.+)$/, function (...args)
-				{
-					return args[1] + replace_name_list().reduce(function (name, data)
-					{
-						// @ts-ignore
-						return name.replace(...data);
-					}, args[2])
-				})
+//				name = name.replace(/^(\d+_)?(.+)$/, function (...args)
+//				{
+//					return (args[1] || '') + replace_name_list().reduce(function (name, data)
+//					{
+//						// @ts-ignore
+//						return name.replace(...data);
+//					}, args[2])
+//				})
 
 //				name = replace_name_list().reduce(function (name, data)
 //				{
