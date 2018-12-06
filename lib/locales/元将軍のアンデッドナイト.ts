@@ -26,7 +26,7 @@ export const value = {
 /**
  * 在這裡放此小說專屬的取代樣本
  */
-export const words: IWords[] = sublib._word_zh_all([
+export const words_source: IWords[] = [
 
 	['蘭貝爾|蘭伯特', '蘭貝爾'],
 	['朵拉庫洛華|德拉庫洛瓦|德拉克罗瓦', '德拉庫洛瓦'],
@@ -168,20 +168,25 @@ export const words: IWords[] = sublib._word_zh_all([
 	['妖魔|魔物', '魔物'],
 	['魔銀', '魔銀'],
 	['秘絲利尔|ミスリル', '秘絲利尔'],
+];
 
-	/**
-	 *
-	 */
+/**
+ * 實際使用的取代樣式
+ */
+export const words: IWords[] = sublib._word_zh_all([
+
+	...words_source,
+
 	...sublib.lazymarks['class'],
 
 	['登録|登陸', '登録'],
 	['製度', '制度'],
 	['製服', '制服'],
-	['這里', '這裡'],
+	//['這里', '這裡'],
 	['(里|裏|裡)公會', '裏公會'],
 	['工会|公会|行会', '公會'],
 	['靈|霊', '靈'],
-	['(長|紫)發', '$1髮'],
+	//['(長|紫)發', '$1髮'],
 	['悪', '惡'],
 
 	[/^　+/gm, ''],
