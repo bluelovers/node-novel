@@ -54,6 +54,8 @@ Promise
 
 		console.info(pathMain, novelID);
 
+		NovelSegmentCli.enableDebug(true);
+
 		let _files = await novelGlobby.globbyASync([
 			'**/*.txt',
 		], {
@@ -65,13 +67,15 @@ Promise
 
 			const full_path = path.join(cwd_path, file);
 
-			const old = await fs.readFile(full_path, 'utf8');
+			const old = await NovelSegmentCli.readFile(full_path).then(v => v.toString());
+
+			let n = arrayLength.toString().length;
 
 			return NovelSegmentCli
 				.processText(old)
 				.tap(async function (text)
 				{
-					let msg = `[${index+1}/${arrayLength}] ${file}`;
+					let msg = `[${(index+1).toString().padStart(n, '0')}/${arrayLength}] ${file}`;
 
 					if (text.length && old !== text)
 					{
