@@ -16,3 +16,8 @@ export function freeGC()
 		}
 	}
 }
+
+export function isGCMode()
+{
+	return (global && typeof global.gc === 'function')
+}

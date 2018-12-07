@@ -5,7 +5,7 @@
 import * as crossSpawn from 'cross-spawn-extra';
 import * as path from 'path';
 import gitDiffIDNovelID, { localesPath, searchLocalesID } from '../lib/git';
-import { freeGC } from '../lib/util';
+import { freeGC, isGCMode } from '../lib/util';
 import ProjectConfig from '../project.config';
 import Promise = require('bluebird');
 import * as fs from 'fs-extra';
@@ -46,6 +46,8 @@ else if (arr_ids.length === 1)
 {
 	fs.outputJSONSync(_cache_file, arr_ids);
 }
+
+console.debug(`gc mode:`, isGCMode());
 
 Promise
 	.mapSeries(arr_ids, async function ({
