@@ -14,9 +14,11 @@ import novelInfo, { mdconf_parse, IMdconfMeta } from 'node-novel-info';
 import * as yargs from 'yargs';
 import { console } from 'debug-color2';
 import prettyuse = require('prettyuse');
-import * as novelGlobby from 'node-novel-globby';
+import * as novelGlobby from 'node-novel-globby/g';
 import * as iconv from 'iconv-jschardet';
 import { tw2cn_min, cn2tw_min, tableCn2TwDebug, tableTw2CnDebug } from 'cjk-conv/lib/zh/convert/min';
+
+import * as NovelSegmentCli from 'novel-segment-cli';
 
 let cli = yargs
 	.argv
@@ -50,7 +52,53 @@ Promise
 
 		let meta: IMdconfMeta;
 
-		console.log(pathMain, novelID);
+		console.info(pathMain, novelID);
+
+		let _files = await novelGlobby.globbyASync([
+			'**/*.txt',
+		], {
+			cwd: cwd_path,
+			//absolute: true,
+			useDefaultPatternsExclude: true,
+		}).mapSeries(async function (file, index, arrayLength)
+		{
+
+			const full_path = path.join(cwd_path, file);
+
+			const old = await fs.readFile(full_path, 'utf8');
+
+			return NovelSegmentCli
+				.processText(old)
+				.tap(async function (text)
+				{
+					let msg = `[${index+1}/${arrayLength}] ${file}`;
+
+					if (text.length && old !== text)
+					{
+						await fs.writeFile(full_path, text);
+
+						console.success(msg);
+					}
+					else if (text.length)
+					{
+						console.gray(msg);
+					}
+					else
+					{
+						console.red(msg);
+					}
+
+					//console.debug(prettyuse());
+					//freeGC();
+				})
+				.thenReturn(file)
+			;
+
+		});
+
+		return _files;
+
+		process.exit();
 
 		return crossSpawn.async('npx', [
 			'--expose-gc',
@@ -58,9 +106,10 @@ Promise
 			'novel-segment-cli',
 			'--createDir', 'false',
 			//'--outDir', cwd_path,
-			'--glob', '**/*.txt',
-			'--glob', '!**/*.raw',
-			'--glob', '!**/*.raw/**',
+			//'--glob', '**/*.txt',
+			//'--glob', '!**/*.raw',
+			//'--glob', '!**/*.raw/**',
+			_files,
 		], {
 			cwd: cwd_path,
 			stdio: 'inherit',
