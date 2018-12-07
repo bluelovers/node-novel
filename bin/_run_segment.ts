@@ -17,6 +17,7 @@ import prettyuse = require('prettyuse');
 import * as novelGlobby from 'node-novel-globby/g';
 import * as iconv from 'iconv-jschardet';
 import { tw2cn_min, cn2tw_min, tableCn2TwDebug, tableTw2CnDebug } from 'cjk-conv/lib/zh/convert/min';
+import { crlf } from 'crlf-normalize';
 
 import * as NovelSegmentCli from 'novel-segment-cli';
 
@@ -87,7 +88,7 @@ Promise
 
 			const old = await NovelSegmentCli.readFile(full_path, {
 				disableWarn: true,
-			}).then(v => v.toString());
+			}).then(v => crlf(v.toString()));
 
 			let n = arrayLength.toString().length;
 
