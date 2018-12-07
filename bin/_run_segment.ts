@@ -85,14 +85,14 @@ Promise
 		{
 			const full_path = path.join(cwd_path, file);
 
-			const old = await NovelSegmentCli.readFile(full_path).then(v => v.toString());
+			const old = await NovelSegmentCli.readFile(full_path, {
+				disableWarn: true,
+			}).then(v => v.toString());
 
 			let n = arrayLength.toString().length;
 
 			return NovelSegmentCli
-				.processText(old, {
-					disableWarn: true,
-				})
+				.processText(old)
 				.tap(async function (text)
 				{
 					let msg = `[${(index+1).toString().padStart(n, '0')}/${arrayLength}] ${file}`;
