@@ -39,6 +39,10 @@ if (arr_ids.length != 1)
 {
 	throw new Error();
 }
+else if (arr_ids.length === 1)
+{
+	fs.outputJSONSync(_cache_file, arr_ids);
+}
 
 Promise
 	.mapSeries(arr_ids, async function ({

@@ -41,6 +41,10 @@ if (arr_ids.length != 1)
 {
 	throw new Error();
 }
+else if (arr_ids.length === 1)
+{
+	fs.outputJSONSync(_cache_file, arr_ids);
+}
 
 Promise
 	.mapSeries(arr_ids, async function ({
@@ -56,6 +60,21 @@ Promise
 
 		NovelSegmentCli.enableDebug(true);
 
+		await NovelSegmentCli.getSegment({
+			ttl: 3600 * 1000,
+		});
+
+		//process.exit();
+
+		//await NovelSegmentCli.removeCache();
+
+		let cache_states = {
+			changed: 0,
+			empty: 0,
+			skip: 0,
+			total: 0,
+		};
+
 		let _files = await novelGlobby.globbyASync([
 			'**/*.txt',
 		], {
@@ -64,7 +83,6 @@ Promise
 			useDefaultPatternsExclude: true,
 		}).mapSeries(async function (file, index, arrayLength)
 		{
-
 			const full_path = path.join(cwd_path, file);
 
 			const old = await NovelSegmentCli.readFile(full_path).then(v => v.toString());
@@ -72,7 +90,9 @@ Promise
 			let n = arrayLength.toString().length;
 
 			return NovelSegmentCli
-				.processText(old)
+				.processText(old, {
+					disableWarn: true,
+				})
 				.tap(async function (text)
 				{
 					let msg = `[${(index+1).toString().padStart(n, '0')}/${arrayLength}] ${file}`;
@@ -81,14 +101,20 @@ Promise
 					{
 						await fs.writeFile(full_path, text);
 
+						cache_states.changed++;
+
 						console.success(msg);
 					}
 					else if (text.length)
 					{
+						cache_states.skip++;
+
 						console.gray(msg);
 					}
 					else
 					{
+						cache_states.empty++;
+
 						console.red(msg);
 					}
 
@@ -97,8 +123,14 @@ Promise
 				})
 				.thenReturn(file)
 			;
+		})
+			.tap(function (ls)
+			{
+				cache_states.total = ls.length;
 
-		});
+				console.dir(cache_states);
+			})
+		;
 
 		return _files;
 
