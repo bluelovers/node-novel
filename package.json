@@ -30,7 +30,7 @@
     "create-new-locale": "ts-node ./bin/_create_locale",
     "run-conv": "ts-node ./bin/_novel_conv",
     "run-epub": "ts-node ./bin/_run_epub",
-    "run-segment": "ts-node --max-old-space-size=2048 --expose-gc ./bin/_run_segment",
+    "run-segment": "node -r ts-node/register --max-old-space-size=2048 --expose-gc ./bin/_run_segment",
     "reset-segment-cache": "ts-node ./bin/_reset_segment_cache",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
