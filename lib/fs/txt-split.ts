@@ -26,6 +26,8 @@ export interface IOptions
 
 	dirname?: string,
 	ix?: number,
+
+	readFileAfter?(txt: string): string | void,
 }
 
 export interface ISplitOption
@@ -63,7 +65,7 @@ export async function readFile(inputFile: string, options: IOptions)
 {
 	let cache = makeOptions(inputFile, options);
 
-	let txt = await fsIconv.readFile(cache.file)
+	let txt: string = await fsIconv.readFile(cache.file)
 		.then(function (data)
 		{
 			{
@@ -76,6 +78,20 @@ export async function readFile(inputFile: string, options: IOptions)
 			}
 
 			return novelText.trim(data);
+		})
+		.then(async (txt) => {
+
+			if (options.readFileAfter)
+			{
+				let ret = await options.readFileAfter(txt);
+
+				if (typeof ret === 'string')
+				{
+					return ret;
+				}
+			}
+
+			return txt;
 		})
 	;
 

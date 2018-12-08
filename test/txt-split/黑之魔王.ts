@@ -26,6 +26,8 @@ let inputFile = path.join(projectConfig.dist_novel_root,
 	'1-490.txt',
 	//'黑魔1-499 粗校对简体字版.txt',
 //	'黑魔第1-11章校润20181110.txt',
+
+//	'黑魔1-518精校_20181208.txt'
 );
 
 const c = '　';
@@ -33,6 +35,14 @@ const c = '　';
 let _cache: any = {};
 
 let options: IOptions = {
+
+	readFileAfter(txt)
+	{
+		return txt
+			.replace(/^　+/gm, '')
+		;
+	},
+
 	// @ts-ignore
 	_volume: {
 		r: new zhRegExp([
