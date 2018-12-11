@@ -4,7 +4,13 @@
 
 import * as crossSpawn from 'cross-spawn-extra';
 import * as path from 'path';
-import gitDiffIDNovelID, { localesPath, searchLocalesID } from '../lib/git';
+import gitDiffIDNovelID, {
+	gitDiffStaged,
+	gitDiffStagedDir,
+	gitDiffStagedFile,
+	localesPath,
+	searchLocalesID,
+} from '../lib/git';
 import { freeGC, isGCMode } from '../lib/util';
 import ProjectConfig from '../project.config';
 import Promise = require('bluebird');
@@ -58,10 +64,16 @@ Promise
 	{
 		let cwd_path = path.join(ProjectConfig.dist_novel_root, pathMain, novelID);
 
+		let files = gitDiffStagedFile(cwd_path)
+			.filter(v => path.extname(v) === '.txt')
+		;
+
 		console.info(pathMain, novelID);
 
 		return globSegment([
-			'**/*.txt',
+			...files,
+			'!**/*.md',
+			'!*.md',
 		], {
 			cwd: cwd_path,
 		});

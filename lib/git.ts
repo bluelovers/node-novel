@@ -2,11 +2,13 @@
  * Created by user on 2018/9/16/016.
  */
 
-import * as crossSpawn from 'cross-spawn';
+import * as crossSpawn from 'cross-spawn-extra';
 import * as path from 'path';
 import ProjectConfig from '../project.config';
 import { array_unique, lazy_unique } from 'array-hyper-unique';
+import { defaultSortCallback } from '@node-novel/sort';
 import * as fs from 'fs-extra';
+import { sortTree } from 'node-novel-globby/lib/glob-sort';
 
 export const localesPath = path.join(ProjectConfig.project_root, './lib/locales');
 
@@ -52,7 +54,8 @@ export function gitDiffStaged(git_root: string): string[]
 	}
 
 	let cp = crossSpawn.sync('git', 'diff --cached --name-only'.split(' '), {
-		cwd: git_root
+		cwd: git_root,
+		stripAnsi: true,
 	});
 
 	return cp.stdout.toString()
@@ -72,6 +75,7 @@ export function gitDiffStagedDir(git_root: string): string[]
 		'diff --cached --dirstat=files,0'.split(' '),
 		{
 			cwd: git_root,
+			stripAnsi: true,
 		}
 	);
 
@@ -79,6 +83,7 @@ export function gitDiffStagedDir(git_root: string): string[]
 		'diff --dirstat=files,0'.split(' '),
 		{
 			cwd: ProjectConfig.dist_novel_root,
+			stripAnsi: true,
 		}
 	);
 
@@ -153,6 +158,43 @@ export function _searchLocalesID(ids: string[])
 	}
 
 	return myLocalesID;
+}
+
+export function gitDiffStagedFile(git_root: string): string[]
+{
+	if (!git_root)
+	{
+		throw new Error();
+	}
+
+	let cp = crossSpawn.sync('git',
+		'diff --cached --name-only --relative'.split(' '),
+		{
+			cwd: git_root,
+			stripAnsi: true,
+		}
+	);
+
+	let cp2 = crossSpawn.sync('git',
+		'diff --name-only --relative'.split(' '),
+		{
+			cwd: git_root,
+			stripAnsi: true,
+		}
+	);
+
+	return sortTree(array_unique([
+		cp.stdout.toString(),
+		cp2.stdout.toString()
+	]
+		.join('\n')
+		.split(/[\n\r]+/)
+		.map(function (v)
+		{
+			return v;
+		})
+		.filter(v => v !== '')))
+		;
 }
 
 export default gitDiffIDNovelID

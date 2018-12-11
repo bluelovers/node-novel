@@ -4,7 +4,7 @@
 
 import * as crossSpawn from 'cross-spawn';
 import * as path from 'path';
-import gitDiffIDNovelID from '../lib/git';
+import gitDiffIDNovelID, { gitDiffStagedFile } from '../lib/git';
 import { freeGC, trimTxtLine } from '../lib/util';
 import ProjectConfig from '../project.config';
 import Promise = require('bluebird');
@@ -50,6 +50,8 @@ Promise
 	})
 	{
 		let cwd_path = path.join(ProjectConfig.dist_novel_root, pathMain, novelID);
+
+		let files = gitDiffStagedFile(cwd_path);
 
 		let meta: IMdconfMeta;
 
@@ -98,7 +100,11 @@ Promise
 
 		let ls = await Promise
 			.mapSeries(novelGlobby
-				.globbyASync(globby_patterns, globby_options)
+				.globbyASync([
+					...files,
+					'!**/*.md',
+					'!*.md',
+				], globby_options)
 				.tap(async function (ls)
 				{
 

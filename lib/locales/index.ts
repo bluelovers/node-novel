@@ -212,8 +212,7 @@ export const words: IWords[] = [
 	//['奴隶|奴隷', '奴隷'],
 
 
-
-
+	['圌', ''],
 
 	...sublib.lazymarks['replace_001'],
 

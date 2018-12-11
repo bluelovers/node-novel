@@ -21,3 +21,13 @@ export function isGCMode()
 {
 	return (global && typeof global.gc === 'function')
 }
+
+export function trimTxtLine(txt: string)
+{
+	return txt
+		.replace(/(?<=^\s*)[\-= \xa0＝－\*　—+]+(?=\n)/g, '')
+		.replace(/(?<=\n)[\-= \xa0＝－\*　—+]+(?=\s*$)/g, '')
+		.replace(/^\n+/g, '')
+		.replace(/\n{2,}$/g, '\n')
+		;
+}

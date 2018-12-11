@@ -386,6 +386,9 @@ function replace_name_list()
 				[/[〔［]/g, '［'],
 				[/[〕］]/g, '］'],
 
+				['後続', '後續'],
+				['(剣|角)闘', '剣闘'],
+
 				...lazymarks['full_width_001'],
 
 				['[,!?]', StrUtil.toFullWidth],
