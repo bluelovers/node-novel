@@ -3,13 +3,52 @@
  */
 
 import * as path from 'path';
+import * as fs from 'fs-extra';
+import { IProjectConfig } from './project.config.base';
 
-export const project_root = path.join(__dirname);
+export { IProjectConfig }
 
-export const dist_root = path.join(project_root, 'dist');
-export const temp_root = path.join(project_root, 'test/temp');
+export const ProjectConfig = loadProjectConfig();
 
-export const dist_novel_root = path.join(project_root, 'dist_novel');
+export const project_root = ProjectConfig.project_root;
 
-import * as ProjectConfig from './project.config'
+export const dist_root = ProjectConfig.dist_root;
+export const temp_root = ProjectConfig.temp_root;
+
+export const dist_novel_root = ProjectConfig.dist_novel_root;
+
 export default ProjectConfig;
+
+function loadProjectConfig(): Readonly<IProjectConfig>
+{
+	let b = require('./project.config.base').default;
+
+	let conf: IProjectConfig = Object.assign({}, b);
+
+	try
+	{
+		let m = require('./project.config.local');
+
+		if (m && m.default && Object.keys(m.default).length)
+		{
+
+			Object.entries(m.default)
+				.forEach(([k, v]) =>
+					{
+						if (v && typeof v === 'string')
+						{
+							conf[k] = v;
+						}
+					})
+			;
+		}
+	}
+	catch (e)
+	{
+
+	}
+
+	return Object.freeze(conf);
+}
+
+Object.freeze(exports);

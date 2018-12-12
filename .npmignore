@@ -19,3 +19,4 @@ package-lock.json
 
 test
 /yarn.lock
+project.config.local.*
