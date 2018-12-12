@@ -21,7 +21,7 @@ export default ProjectConfig;
 
 function loadProjectConfig(): Readonly<IProjectConfig>
 {
-	let b = require('./project.config.base').default;
+	let b: IProjectConfig = require('./project.config.base').default;
 
 	let conf: IProjectConfig = Object.assign({}, b);
 
@@ -37,6 +37,18 @@ function loadProjectConfig(): Readonly<IProjectConfig>
 					{
 						if (v && typeof v === 'string')
 						{
+							v = path.resolve(v);
+
+							// @ts-ignore
+							if (!fs.pathExistsSync(v))
+							{
+								throw new Error(`${k} , path not exists, v`)
+							}
+							else
+							{
+								console.debug(`[ProjectConfig]`, `overwrite ${k} by local setting`, v);
+							}
+
 							conf[k] = v;
 						}
 					})

@@ -1486,6 +1486,7 @@ export const words: IWords[] = sublib._word_zh_all([
 			'$',
 		].join(''),
 		'',
+		'igm',
 	],
 
 	[`二米半`, '兩米半'],

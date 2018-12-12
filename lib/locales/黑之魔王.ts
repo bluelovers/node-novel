@@ -772,7 +772,7 @@ export const words_source: IWords[] = [
 	[`Y?ale Over Blast`, 'Ale・Over Blast', 'ig'],
 	[`エール${sp}オーヴァブラスト`, 'Ale・Over Blast', 'ig'],
 
-	_word_jp1('安達里士|アンタレス', '安達里士'),
+	_word_jp1('安達里士|アンタレス|Antares', '安達里士'),
 
 	[/流星劍『(?:蠍之心|安達里士)』/, '流星劍『安達里士』'],
 
