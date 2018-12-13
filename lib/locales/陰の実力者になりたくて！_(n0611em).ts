@@ -137,7 +137,7 @@ export const words: IWords[] = sublib._word_zh_all([
 
 	_word_en('BOOS', '$1BOSS', 'ig'),
 
-	[/^　/gm, ''],
+	[/^[　 ]+/gm, ''],
 
 	['全\\*果', '全裸'],
 
