@@ -455,6 +455,11 @@ export const words: IWords[] = sublib._word_zh_all([
 			return m[0];
 		}
 
+		if (m[1] == null)
+		{
+			return '絕不';
+		}
+
 		return m[1] + '絕不';
 	}],
 
