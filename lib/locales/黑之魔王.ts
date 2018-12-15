@@ -352,7 +352,7 @@ export const words_source: IWords[] = [
 	[`${sp}(?:希利烏斯|天狼星)${sp}(?:帕西菲爾|特拉法)`, '$1・希利烏斯・帕西菲爾'],
 	[`・(?:希利烏斯|天狼星)・(?:帕西菲爾|特拉法)`, '・希利烏斯・帕西菲爾'],
 
-	[`(?:(?:皇家|王(?:立|丽))斯巴达|斯巴达(?:皇家|王(?:立|丽)))神?学+(?:院|校|园)`, '王立斯巴达神學院'],
+	[`(?:(?:皇家|王(?:立|丽))斯巴达|斯巴达(?:皇家|王(?:立|丽)))神?学+(?:院|校|园)`, '王立斯巴達神學院'],
 	[`神学+(?:院|校|园)`, '神學院'],
 
 	/**
@@ -724,7 +724,7 @@ export const words_source: IWords[] = [
 	[/(?:漆黒|黒色|黒之)(?:夢魘|噩梦|悪梦)的?狂(?:戰|戦)士/g, '漆黑夢魘的狂戰士'],
 
 	[/Element\s*master|Elemental\s*Master/ig, 'Elemental Master'],
-	[/エレメントマスター|元素大师|元素掌控者|元素之主|元?素支配者|元素大師|Elemental Master|元素掌握者|元素主宰者?|元素掌握者/ig, '元素支配者'],
+	[/エレメントマスター|元素大师|元素掌控者|元素之主|元?素支配者|元素大師|Elemental Master|元素掌握者|元素主宰者?|元素掌握者|元素主人/ig, '元素支配者'],
 
 
 
@@ -749,7 +749,7 @@ export const words_source: IWords[] = [
 	[/Haunted\s*grave/ig, 'Haunted Grave'],
 
 	['ブ儿ーム|ブルーム', 'ブルーム'],
-	[/(Ains|艾因茲|アインズ|ainz|艾因茨)[・\?]?(B[rl]oom|布魯姆|ブルーム|ブ儿ーム|ブ兒ーム)|愛因布魯姆|愛因・布魯姆/ig, '艾因茲・布魯姆'],
+	[/(Ains|艾因茲|アインズ|ainz|艾因茨)[・\?]?(B[rl]oom|布魯姆|ブルーム|ブ儿ーム|ブ兒ーム)|愛因布魯姆|愛因・布魯姆|艾因・布魯姆/ig, '艾因茲・布魯姆'],
 
 	_word_en3('AINZBLOOM', '艾因茲・布魯姆'),
 
@@ -826,8 +826,10 @@ export const words_source: IWords[] = [
 	['逆十字反?', '逆十字'],
 	['ANTICROSS|Anti cross', 'ANTI・CROSS', 'ig'],
 	[`Anti${sp}cross`, 'ANTI・CROSS', 'ig'],
-	_word_jp1('アンチクロス', 'ANTI・CROSS')
+	_word_jp1('アンチクロス', 'ANTI・CROSS'),
 
+	['不滅闘士', '不滅闘士'],
+	_word_jp1('スヴァルディアス', '蘇威爾迪亞斯'),
 
 ];
 
@@ -925,6 +927,13 @@ export const words: IWords[] = sublib._word_zh_all([
 		{
 			let c = [
 				`(${b[0][0]})(?:[』」》）】]?[《（「『【？?・]+)(${b[0][1]})[』」》）】]?`,
+				b[1] as string,
+			];
+
+			a.push(sublib._word_zh.apply(null, c));
+
+			c = [
+				`(${b[0][0]})(${b[0][1]})`,
 				b[1] as string,
 			];
 

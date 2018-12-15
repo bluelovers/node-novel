@@ -28,6 +28,7 @@ export function trimTxtLine(txt: string)
 		.replace(/(?<=^\s*)[\-= \xa0＝－\*　—+]+(?=\n)/g, '')
 		.replace(/(?<=\n)[\-= \xa0＝－\*　—+]+(?=\s*$)/g, '')
 		.replace(/^\n+/g, '')
+		.replace(/^ (?!\s)/g, '')
 		.replace(/\n{2,}$/g, '\n')
 		;
 }
