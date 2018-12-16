@@ -753,6 +753,8 @@ export const words_source: IWords[] = [
 
 	_word_en3('AINZBLOOM', '艾因茲・布魯姆'),
 
+	_word_jp1(`デュアルイーグル|二元之鷹|雙鷹`, '雙鷹'),
+
 	[/custom ・fireball|改造火球杖/g, '定制・火球杖'],
 	[/定制・火焰水晶球/g, '定制・火焰水晶球'],
 
