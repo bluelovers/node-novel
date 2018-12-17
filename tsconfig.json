@@ -19,6 +19,8 @@
 
     "resolveJsonModule": true,
 
+    "emitDecoratorMetadata": true,
+
     //"forceConsistentCasingInFileNames": true,
 
     "locale": "zh-TW",

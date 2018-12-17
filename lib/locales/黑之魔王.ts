@@ -692,7 +692,7 @@ export const words_source: IWords[] = [
 
 	['魔法学院|魔法学校', '魔法学院'],
 
-	['潘多拉|潘德拉', '潘多拉'],
+	_word_jp1('潘多拉|潘德拉|パンドラ|潘朵拉', '潘多拉'),
 
 	['斗技场|闘技場', '闘技場'],
 	['Grand・Coliseum|grand coliseum|古兰多克洛夏姆|grand colosseum', '古蘭多克洛夏姆', 'ig'],
