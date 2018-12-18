@@ -43,7 +43,7 @@ lazymarks[0] = [
 
 	//〖号〗
 
-	let word = `！？…⋯－─—\\w０-９ａ-ｚＡ-Ｚ『』\\u4E00-\\u9FFF\\u4E00-\\u9FAF\\u3000-\\u30FF\\u2200-\\u22FF\\u2e80-\\u33ffh`;
+	let word = `！？…⋯－─—\\w０-９ａ-ｚＡ-Ｚ『』·＝\\u4E00-\\u9FFF\\u4E00-\\u9FAF\\u3000-\\u30FF\\u2200-\\u22FF\\u2e80-\\u33ffh`;
 
 	lazymarks[1] = [
 
@@ -899,6 +899,12 @@ lazymarks['zh2'] = _word_zh_all([
 
 	['図書', '圖書'],
 	['恩寵', '恩寵'],
+
+]);
+
+lazymarks['jp1'] = _word_zh_all([
+
+	_word_jp1('プロローグ|序章', '序章'),
 
 ]);
 

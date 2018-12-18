@@ -216,6 +216,8 @@ export const words: IWords[] = [
 
 	...sublib.lazymarks['replace_001'],
 
+	...sublib.lazymarks['jp1'],
+
 	[/，([”』」])/g, '$1'],
 
 	[/(.)（·）(.)/g, '$1$2'],
