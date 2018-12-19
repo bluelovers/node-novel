@@ -793,6 +793,8 @@ lazymarks['zh'] = _word_zh_all([
 
 	['弾', '彈'],
 
+	['図', '圖'],
+
 ]);
 
 lazymarks['zh_cht'] = _word_zh_all([
