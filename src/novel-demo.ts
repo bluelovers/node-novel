@@ -95,7 +95,10 @@ else
 		lang: myLocalesID,
 	};
 }
+
+// @ts-ignore
 i18next.changeLanguage(myLocales.lang);
+// @ts-ignore
 i18next.setDefaultNamespace('i18n');
 
 (async () =>
@@ -129,7 +132,7 @@ i18next.setDefaultNamespace('i18n');
 		},
 	}, meta);
 
-	//console.log(meta.options.textlayout);
+	console.log(meta.options);
 
 	const TXT_PATH = cwd;
 
