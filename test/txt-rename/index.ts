@@ -6,6 +6,7 @@ import globby from 'node-novel-globby/g';
 import * as fs from 'fs-extra';
 import novelText from 'novel-text';
 import path from 'upath2';
+import { _word_en3 } from '../../lib/locales/lib/index';
 import * as projectConfig from '../../project.config';
 import * as Promise from 'bluebird';
 import * as StrUtil from 'str-util';
@@ -58,11 +59,14 @@ novelID = '29歲單身漢在異世界想自由生活卻事與願違！？';
 pathMain = 'user';
 novelID = '異世界迷宮の最深部を目指そう';
 
-//pathMain = 'syosetu';
-//novelID = '望まぬ不死の冒険者/z.raw/00000 null';
+pathMain = 'syosetu';
+novelID = 'ロリータ・ガンバレット　～魔弾幼女の異世界戦記～';
 
-//pathMain = 'dmzj';
-//novelID = '蜘蛛ですが、なにか？';
+pathMain = 'dmzj';
+novelID = '吃掉死神的少女';
+
+//pathMain = 'wenku8';
+//novelID = '勇者、或いは化物と呼ばれた少女';
 
 let DEBUG_MODE = true
 //DEBUG_MODE = false
@@ -89,7 +93,9 @@ else
 	};
 }
 
+// @ts-ignore
 i18next.changeLanguage(myLocales.lang);
+// @ts-ignore
 i18next.setDefaultNamespace('i18n');
 
 let _zh_num = '一二三四五六七八九十';
@@ -114,9 +120,11 @@ let _space = ' 　\\t \\s';
 			//`\\d+[${_space}\\-]`,
 //			'\\d{3}',
 
-			`第[${_zh_num}]+话`,
+			`第[${_zh_num}\\d]+话`,
+			`第[${_zh_num}\\d]+章`,
 			`後記`,
 			`尾聲`,
+			'最终章',
 
 		].join('|'),
 		`)`,
@@ -293,11 +301,12 @@ let _space = ' 　\\t \\s';
 //					}, args[2])
 //				})
 
-//				name = replace_name_list().reduce(function (name, data)
-//				{
-//					// @ts-ignore
-//					return name.replace(...data);
-//				}, name);
+				name = replace_name_list().reduce(function (name, data)
+				{
+					// @ts-ignore
+					return name.replace(...data);
+				}, name)
+				;
 			}
 
 			name = novelText.trim(name, {
@@ -368,6 +377,8 @@ function replace_name_list()
 			[new zhRegExp('囲', 'ig'), '圍'],
 			//[new zhRegExp('気', 'ig'), '氣'],
 
+			[/哪里/g, '哪裡'],
+
 			..._word_zh_all([
 
 				...lazymarks['zh'],
@@ -388,6 +399,14 @@ function replace_name_list()
 
 				['後続', '後續'],
 				['(剣|角)闘', '剣闘'],
+
+				['然后', '然後'],
+
+				['丑陋', '醜陋'],
+
+				['応', '應'],
+
+				_word_en3(' *(VS|ｖｓ|ＶＳ) *', 'ＶＳ'),
 
 				...lazymarks['full_width_001'],
 

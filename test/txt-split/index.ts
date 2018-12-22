@@ -5,13 +5,16 @@
 import novelText from 'novel-text';
 import path from 'upath2';
 import * as projectConfig from '../../project.config';
-import txtSplit, { IOptions } from '../../lib/fs/txt-split';
+//import txtSplit, { IOptions } from '../../lib/fs/txt-split';
 import * as StrUtil from 'str-util';
 import { isRegExp, zhRegExp } from 'regexp-cjk';
 import { cn2tw_min } from 'cjk-conv/lib/zh/convert/min';
 import { trimFilename, regex_str } from '../../lib/func';
 import novelFilename from 'cjk-conv/lib/novel/filename';
 import { console } from 'debug-color2';
+
+import * as txtSplit from '@node-novel/txt-split';
+import { IOptionsRequiredUser } from '@node-novel/txt-split';
 
 console.enabledColor = true;
 
@@ -20,14 +23,16 @@ let _full_num = '０-９';
 let _space = ' 　\\t';
 
 let inputFile = path.join(projectConfig.dist_novel_root,
-	'h',
-	'想被侵犯的勇者',
-	'z.raw/想被侵犯的勇者.txt',
+	'user',
+	'四度目は嫌な死属性魔術師',
+	'z.raw',
+	'4th.txt',
 );
 
 const c = '　';
 
-let options: IOptions = {
+let options: IOptionsRequiredUser = {
+
 	// @ts-ignore
 	_volume: {
 		r: new zhRegExp([
@@ -156,14 +161,17 @@ let options: IOptions = {
 //				`原(?:勇|者)\\d{3,}`,
 //				`（web\\d+）`,
 
-				//`(?:第(?:[\\d${_zh_num}${_full_num}]+|\\d+|[${_full_num}\\d]+)(?:话|集|章))`,
+				`(?:第(?:[\\d${_zh_num}${_full_num}]+|\\d+|[${_full_num}\\d]+)(?:话|集|章))`,
 
 				//`\\d{2,} `,
 
 				//`序曲`,
 
-				`[${_full_num}\\d]+[．.]`,
+				'序章',
 
+				//`[${_full_num}\\d]+[．.]`,
+
+				`\\d+话：`,
 
 			].join('|'),
 			`)`,
@@ -221,12 +229,15 @@ let options: IOptions = {
 
 				desc = StrUtil.toFullNumber(desc);
 
-				let c = '．';
+				if (0)
+				{
+					let c = '．';
 
-				name = [
-					ids,
-					desc,
-				].filter(v => v !== '').join(c);
+					name = [
+						ids,
+						desc,
+					].filter(v => v !== '').join(c);
+				}
 
 //				name = novelFilename.filename(name);
 //				name = trimFilename(name);

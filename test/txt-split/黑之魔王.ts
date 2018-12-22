@@ -4,6 +4,7 @@
 
 import novelText from 'novel-text';
 import path from 'upath2';
+import { trimTxtLine } from '../../lib/util';
 import * as projectConfig from '../../project.config';
 import txtSplit, { IOptions } from '../../lib/fs/txt-split';
 import * as StrUtil from 'str-util';
