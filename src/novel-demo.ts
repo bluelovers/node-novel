@@ -132,7 +132,7 @@ i18next.setDefaultNamespace('i18n');
 		},
 	}, meta);
 
-	console.log(meta.options);
+	//console.log(meta.options);
 
 	const TXT_PATH = cwd;
 
