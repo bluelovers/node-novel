@@ -13,6 +13,7 @@ export const locales_def = loadLocales('');
 
 export const defaultNS = 'translation';
 
+// @ts-ignore
 i18next.init({
 	//lng: locales_def.lang,
 	fallbackLng: [locales_def.lang],
@@ -101,6 +102,7 @@ export function addResourceBundle(locales, ns?, deep = true, overwrite = false)
 
 	if (locales.value)
 	{
+		// @ts-ignore
 		i18next.addResourceBundle(
 			_lng,
 			_ns,
@@ -114,6 +116,7 @@ export function addResourceBundle(locales, ns?, deep = true, overwrite = false)
 	{
 		for (let ns in locales.resource)
 		{
+			// @ts-ignore
 			i18next.addResourceBundle(
 				_lng,
 				ns,
