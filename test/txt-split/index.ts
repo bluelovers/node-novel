@@ -18,20 +18,25 @@ import { IOptionsRequiredUser } from '@node-novel/txt-split';
 
 console.enabledColor = true;
 
+console.inspectOptions = console.inspectOptions || {};
+console.inspectOptions.colors = true;
+
 let _zh_num = '一二三四五六七八九十';
 let _full_num = '０-９';
 let _space = ' 　\\t';
 
 let inputFile = path.join(projectConfig.dist_novel_root,
-	'user',
-	'四度目は嫌な死属性魔術師',
+	'lost',
+	'只是被勇者消滅的簡單工作',
 	'z.raw',
-	'4th.txt',
+	'只是被勇者消灭的简单工作 至310.txt',
 );
 
 const c = '　';
 
 let options: IOptionsRequiredUser = {
+
+	useRegExpCJK: true,
 
 	// @ts-ignore
 	_volume: {
@@ -124,7 +129,17 @@ let options: IOptionsRequiredUser = {
 		},
 	},
 
+	readFileAfter(txt)
+	{
+		return txt
+			.replace(/(?<=^\d+ *(?:[^\n]+))(?=（岚)/gm, '\n')
+			;
+	},
+
 	chapter: {
+
+		ignoreRe: /^\d+(人|点半|話過后|、|把白説成黒)|48话是魔神视角|\d+[（ ]?完）|310[（ ]?完/,
+
 		//r: new RegExp(`[${_space}]*(第?(?:[序终]|[${_zh_num}]+)节)([^\\n]*)`, 'igm'),
 		r: new zhRegExp([
 			//`[${_space}]*(第?(?:(?:序|终)|[${_zh_num}\\d]+)话)([^\\n]*)`,
@@ -168,6 +183,10 @@ let options: IOptionsRequiredUser = {
 				//`序曲`,
 
 				'序章',
+
+				'序幕',
+
+				'\\d+',
 
 				//`[${_full_num}\\d]+[．.]`,
 
@@ -229,9 +248,10 @@ let options: IOptionsRequiredUser = {
 
 				desc = StrUtil.toFullNumber(desc);
 
-				if (0)
+				if (1)
 				{
 					let c = '．';
+					c = '　';
 
 					name = [
 						ids,
@@ -276,7 +296,12 @@ let options: IOptionsRequiredUser = {
 console.dir(options);
 
 txtSplit.autoFile(inputFile, options)
-	.then(ret => console.log(ret))
+	.then(ret => {
+
+		delete ret.options.txt;
+
+		console.dir(ret.options);
+	})
 ;
 
 function replaceName(name: string)
