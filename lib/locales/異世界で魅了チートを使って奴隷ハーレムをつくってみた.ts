@@ -60,7 +60,7 @@ export const words: IWords[] = sublib._word_zh_all([
 
 ]);
 
-console.log(words);
+//console.log(words);
 
 /**
  * 需要人工確認的屏蔽字或錯字用語等等
