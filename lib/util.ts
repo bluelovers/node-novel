@@ -4,7 +4,7 @@
 
 export function freeGC()
 {
-	if (global && typeof global.gc === 'function')
+	if (isGCMode())
 	{
 		try
 		{
@@ -30,5 +30,6 @@ export function trimTxtLine(txt: string)
 		.replace(/^\n+/g, '')
 		.replace(/^ (?!\s)/g, '')
 		.replace(/\n{2,}$/g, '\n')
+		.replace(/^ (?=\S|\n|\s{2,})/, '')
 		;
 }
