@@ -5,7 +5,9 @@
 import * as Promise from 'bluebird';
 import * as deepmerge from 'deepmerge-plus';
 import * as JsDiff from 'diff';
-import * as execall from 'execall';
+//import * as execall from 'execall';
+//import execall = require('execall2');
+import { execall } from 'execall2';
 import * as fs from 'fs-extra';
 
 import * as iconv from 'iconv-jschardet';
@@ -63,12 +65,25 @@ if (!novelID)
 	throw new Error();
 }
 
-let _cache = {
+interface ICache
+{
 	rename: {},
 	block: {},
 	block2: {},
 	eng: {},
 	ja: {},
+	ja2: {
+		[key: string]: string[],
+	},
+}
+
+let _cache: ICache = {
+	rename: {},
+	block: {},
+	block2: {},
+	eng: {},
+	ja: {},
+	ja2: {},
 };
 
 let cwd = path.join(projectConfig.dist_novel_root, pathMain, novelID);
@@ -296,7 +311,7 @@ i18next.setDefaultNamespace('i18n');
 				;
 
 				let _m;
-				let v;
+				let v: RegExp;
 
 				/*
 				v = /(\S{1,2}(?![\?\*]))?(\?{3,}(?:[\s\?]+[\?])?|\S\*S|\*{2,})((?![\?\*])\S{1,2})?/g;
@@ -408,6 +423,20 @@ i18next.setDefaultNamespace('i18n');
 						}
 					}
 				}
+
+				v = new RegExp(/([^ァ-ヴーｱ-ﾝﾞｰ]{0,3})([ァ-ヴーｱ-ﾝﾞｰ]{2,}(?:[・＝=＝]+[ァ-ヴーｱ-ﾝﾞｰ]+)*)([^ァ-ヴーｱ-ﾝﾞｰ]{0,3})/iug, 'uigm');
+				if ((_m = execall(v, _t)) && _m.length)
+				{
+					(_m as ReturnType<typeof execall>)
+						.forEach(function (m)
+						{
+							let k = m[2];
+							_cache.ja2[k] = _cache.ja2[k] || [];
+							_cache.ja2[k].push(m[0])
+						})
+					;
+				}
+
 			}
 
 			if (typeof myLocales.words_callback == 'function')
@@ -502,6 +531,14 @@ i18next.setDefaultNamespace('i18n');
 
 				let out = await cache_output3(_cache.ja, '');
 				await fs.outputFile(path.join(cwd_out, 'ja.md'), out);
+			}
+
+			if (Object.keys(_cache.ja2).length)
+			{
+				//console.log(3);
+
+				let out = await cache_output4(_cache.ja2, '');
+				await fs.outputFile(path.join(cwd_out, 'ja2.md'), out);
 			}
 
 			if (Object.keys(_cache.block2).length)
@@ -1536,6 +1573,68 @@ function make_meta_md()
 			}
 		})
 		;
+}
+
+function cache_output4(_block: ICache["ja2"], title): string
+{
+	let out =Object.entries(_block)
+		.sort(function (a, b)
+		{
+			// @ts-ignore
+			return a[0] - b[0]
+		})
+		.reduce(function (a, b)
+		{
+			a.push(`\n## ${b[0]}`);
+
+			a.push('');
+
+			array_unique(b[1])
+				.slice(0, 4)
+				.forEach(function (s)
+				{
+					a.push(`- ${stringify(s)}`);
+				})
+			;
+
+			a.push('');
+
+			return a;
+		}, [
+			`# ${title}`,
+			'',
+			'[TOC]',
+		])
+		.join("\n")
+	;
+
+	return out;
+}
+
+function cache_output5(_block, title): string
+{
+	let out =Object.entries(_block)
+		.sort(function (a, b)
+		{
+			// @ts-ignore
+			return a[0] - b[0]
+		})
+		.reduce(function (a, b)
+		{
+			a.push(`- ${stringify(b[0])}`);
+
+			//a.push('');
+
+			return a;
+		}, [
+			`# ${title}`,
+			'',
+			'[TOC]',
+		])
+		.join("\n")
+	;
+
+	return out;
 }
 
 function stringify(v)
