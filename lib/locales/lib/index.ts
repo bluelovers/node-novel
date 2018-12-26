@@ -930,6 +930,8 @@ lazymarks['jp1'] = _word_zh_all([
 	_word_jp1('レベル|等級', '等級'),
 	_word_jp1('任務|クエスト', '任務'),
 
+	_word_jp1('矮人|ドワーフ', '矮人'),
+
 ]);
 
 lazymarks['class'] = _word_zh_all([

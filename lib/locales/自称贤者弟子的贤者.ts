@@ -5,6 +5,7 @@
 import { sp, IWords, vMaybe } from '.';
 import * as StrUtil from 'str-util';
 import sublib from './lib';
+import { _word_jp1 } from './lib/index';
 
 /**
  * 改成小說名字
@@ -224,15 +225,7 @@ export const words_source: IWords[] = [
 
 	[/瓦尔基里(\(女武神\))?/g, '女武神'],
 
-	['借口', '藉口'],
 
-	['仨人?', '三人'],
-	['壹', '一'],
-
-	['区蒸府', '區政府'],
-	['鱼唇', '愚蠢'],
-	['从新', '重新'],
-	['重複', '重覆'],
 
 	['静寂|寂静', '静寂'],
 
@@ -259,6 +252,21 @@ export const words_source: IWords[] = [
 
 	//['里(?!乌)', '裡'],
 
+
+
+	_word_jp1('ルナティックレイク|盧納提雷克', '盧納提雷克'),
+
+
+
+];
+
+/**
+ * 實際使用的取代樣式
+ */
+export const words: IWords[] = sublib._word_zh_all([
+
+	...words_source,
+
 	['十有八九', '十之八九'],
 
 	['始祖的?种子', '始祖种子'],
@@ -274,14 +282,17 @@ export const words_source: IWords[] = [
 	[/RAID\b/ig, 'RAID'],
 	['fantasy', 'Fantasy', 'ig'],
 
-];
+	['借口', '藉口'],
 
-/**
- * 實際使用的取代樣式
- */
-export const words: IWords[] = sublib._word_zh_all([
+	['仨人?', '三人'],
+	['壹', '一'],
 
-	...words_source,
+	['区蒸府', '區政府'],
+	['鱼唇', '愚蠢'],
+	['从新', '重新'],
+	['重複', '重覆'],
+
+	//--------------------
 
 	['(?:等级|Rank|ＲＡＮＫ(?:等级)?)[ \-—]?([a-zＡ-Ｚ])(?:等级)?', '$1级', 'ig'],
 	['(?:等级)?([a-zＡ-Ｚ])[ \-—]?(?:等?级|Rank|ＲＡＮＫ)(?:等级)?', '$1级', 'ig'],
