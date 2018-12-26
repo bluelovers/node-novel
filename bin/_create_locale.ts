@@ -68,6 +68,14 @@ Promise
 
 				console.log(`create`, path.basename(t));
 			}
+			else
+			{
+				console.warn(`exists`, path.basename(t));
+			}
+		}
+		else
+		{
+			console.warn(`exists`, myLocalesID);
 		}
 	})
 	;
