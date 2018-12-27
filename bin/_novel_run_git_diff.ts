@@ -125,7 +125,7 @@ Promise
 		});
 
 		console.log(cp.pid, pathMain, novelID,);
-		console.dir(meta);
+		//console.dir(meta);
 	})
 ;
 

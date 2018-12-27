@@ -17,6 +17,7 @@ import prettyuse = require('prettyuse');
 import * as novelGlobby from 'node-novel-globby';
 import * as iconv from 'iconv-jschardet';
 import { tw2cn_min, cn2tw_min, tableCn2TwDebug, tableTw2CnDebug } from 'cjk-conv/lib/zh/convert/min';
+import escapeGlob = require('glob-escape');
 
 let cli = yargs
 	.argv
@@ -98,10 +99,12 @@ Promise
 
 		console.time(TIME_LABEL);
 
+		console.log(files);
+
 		let ls = await Promise
 			.mapSeries(novelGlobby
 				.globbyASync([
-					...files,
+					...escapeGlob(files),
 					'!**/*.md',
 					'!*.md',
 				], globby_options)
