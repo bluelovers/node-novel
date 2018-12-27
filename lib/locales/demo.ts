@@ -4,7 +4,7 @@
 
 import { sp, IWords, vMaybe, sublib } from './index';
 import * as StrUtil from 'str-util';
-import { _word_en, lazymarks, _word_jp1 } from './lib/index';
+import { _word_en3, lazymarks, _word_jp1 } from './lib/index';
 
 /**
  * 改成小說名字 (可留白 則自動設定為檔案名稱)

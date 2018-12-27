@@ -4,7 +4,7 @@
 
 import { sp, IWords, vMaybe, sublib } from './index';
 import * as StrUtil from 'str-util';
-import { _word_en, lazymarks, _word_jp1 } from './lib/index';
+import { _word_en, lazymarks, _word_jp1, _word_en3 } from './lib/index';
 
 /**
  * 改成小說名字 (可留白 則自動設定為檔案名稱)
@@ -33,6 +33,9 @@ export const words_source: IWords[] = [
 	// アオイ・ゴウト
 	_word_jp1('豪徳寺|高島', '豪徳寺'),
 	_word_jp1('葵', '葵'),
+
+	_word_jp1('多嶋貴理子', '多嶋貴理子'),
+	_word_jp1('タジマ', '多嶋'),
 
 	/**
 	 *
@@ -90,6 +93,7 @@ export const words_source: IWords[] = [
 	_word_jp1('古羅沙|グロッソ', '古羅沙'),
 	_word_jp1('舒諾夫|スレイノフ', '舒諾夫'),
 
+	_word_jp1('ロンデルク|洛迪古', '洛迪古'),
 
 
 
@@ -122,6 +126,69 @@ export const words_source: IWords[] = [
 	_word_jp1('依哥魯|エゴール', '依哥魯'),
 	_word_jp1('格林卡|グリンカ', '格林卡'),
 
+	/**
+	 *
+	 */
+	_word_jp1('奧斯朗|オスロン', '奧斯朗'),
+	_word_jp1('撒烏拉|サウラン', '撒烏拉'),
+
+	_word_jp1('茶|チャイ', '茶'),
+	_word_jp1('包|パン', '包'),
+	_word_jp1('冠|クン', '冠'),
+
+	_word_jp1('加奧沙伊|カオサイ', '加奧沙伊'),
+	_word_jp1('雅拉卡茲那|ヤーラカンチャナ', '雅拉卡茲那'),
+	_word_jp1('蘭達娜|ラッタナ', '蘭達娜'),
+
+	_word_jp1('阿古溫魯|アンクワール', '阿古溫魯'),
+
+	_word_jp1('古薇亞|クメジア', '古薇亞'),
+
+	_word_jp1('拉茲撒姆特|ラチャサムット', '拉茲撒姆特'),
+
+	_word_jp1('帕米特|パミット', '帕米特'),
+
+	_word_jp1('克莉絲|グシュティ', '克莉絲'),
+
+	_word_jp1('幽碧|ヨビ', '幽碧'),
+
+	_word_jp1('艾莉露|エーリル', '艾莉露'),
+	_word_jp1('戈巴爾德|ゴルバルド', '戈巴爾德'),
+
+	_word_jp1('勒巴|ナバー', '勒巴'),
+	_word_jp1('路雲|ルワン', '路雲'),
+
+
+	_word_jp1('ナクロプ|納古羅普', '納古羅普'),
+	_word_jp1('伊古斯廸克|イグシデハーン', '伊古斯廸克'),
+	_word_jp1('ノクル|諾古魯', '諾古魯'),
+
+	_word_jp1('シンチャイ|沙千', '沙千'),
+	_word_jp1('プラサート|巴塞', '巴塞'),
+
+	_word_jp1('卡西諾|カジノ', '卡西諾'),
+	_word_en3('casino', '卡西諾'),
+
+	_word_jp1('嘉魯達|ガルーダ', '嘉魯達'),
+
+	_word_jp1('貝利|ベイリー', '貝利'),
+	_word_jp1('古德曼|グッドマン', '古德曼'),
+
+	_word_jp1('美爾|ミル', '美爾'),
+
+	_word_jp1('康妮|コニー', '康妮'),
+	_word_jp1('加索|カーゾン', '加索'),
+
+	_word_jp1('達奧|ダーオ', '達奧'),
+
+	_word_jp1('絲古|スック', '絲古'),
+	_word_jp1('古德蘭普|クンドラップ', '古德蘭普'),
+	_word_jp1('庫魯瑪|クールマ', '庫魯瑪'),
+
+	_word_jp1('塔烏|タウ', '塔烏'),
+	_word_jp1('優克|ヨック', '優克'),
+
+
 
 	/**
 	 *
@@ -132,7 +199,7 @@ export const words_source: IWords[] = [
 	_word_jp1('白幻|白色幻影', '白色幻影'),
 	_word_jp1('イルニーク|伊魯尼克|伊露尼克', '伊魯尼克'),
 
-	_word_jp1('アレルドゥリア|亞雷路多利亞|艾魯洛德里亞納', '亞雷路多利亞'),
+	_word_jp1('アレルドゥリア|亞雷路多利亞', '亞雷路多利亞'),
 
 	_word_jp1('厄利普斯|エリプス|艾利普斯', '艾利普斯'),
 	_word_jp1('桑德拉|サンドラ', '桑德拉'),
@@ -173,7 +240,13 @@ export const words_source: IWords[] = [
 
 	_word_jp1('伊斯旦卡|インステカ', '伊斯旦卡'),
 	_word_jp1('尤利弗朗茲|ユーリフランツ', '尤利弗朗茲'),
-	_word_jp1('阿古溫魯|アンクワール', '阿古溫魯'),
+
+
+	_word_jp1('美多|ミド', '美多'),
+
+	_word_jp1('廓爾喀刀|ククリ刀', '廓爾喀刀'),
+	_word_jp1('星球釘錘|星球メイス', '星球釘錘'),
+	_word_jp1('全板塊裝甲|フルプレートアーマー', '全板塊裝甲'),
 
 ];
 
@@ -189,6 +262,12 @@ export const words: IWords[] = sublib._word_zh_all([
 
 	['聯合王國|連合王国', '聯合王國'],
 
+	['生命精(?=魔|石)', '命精'],
+	['生命精(?!靈)', '命精'],
+
+	[/(?<=\S)\n(?=^─[^\n]*)/gm, '\n\n'],
+	[/(?<=^─[^\n]*)\n(?![─]|\n)/gm, '\n\n'],
+
 	...sublib.lazymarks['class'],
 	//...sublib.lazymarks['zh_cht'],
 
@@ -197,7 +276,7 @@ export const words: IWords[] = sublib._word_zh_all([
 	...sublib.lazymarks[4],
 
 	...sublib.lazymarks['full_width_001'],
-	//...sublib.lazymarks['full_width_002'],
+	...sublib.lazymarks['full_width_002'],
 
 	...sublib.lazymarks[0],
 	...sublib.lazymarks[1],
