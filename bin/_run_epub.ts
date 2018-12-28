@@ -52,6 +52,13 @@ Promise
 	{
 		let cwd_path = path.join(ProjectConfig.dist_novel_root, pathMain, novelID);
 
+		let cwd_path2 = path.join(ProjectConfig.dist_novel_root, pathMain + '_out', novelID);
+
+		if (fs.pathExistsSync(cwd_path2))
+		{
+			cwd_path = cwd_path2;
+		}
+
 		let meta: IMdconfMeta;
 
 		console.log(pathMain, novelID);

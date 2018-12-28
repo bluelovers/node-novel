@@ -393,6 +393,8 @@ let _en = [
 	'MMORPG',
 	'MMO',
 
+	'UFO',
+
 	'BGM',
 
 	'Golem',
