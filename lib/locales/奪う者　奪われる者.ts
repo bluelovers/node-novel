@@ -11,22 +11,9 @@ import * as StrUtil from 'str-util';
 export const lang = '奪う者　奪われる者';
 
 /**
- * 其他用途
- *
- * @type {{chapter_id: string; chapter_title: string; volume_id: string; volume_title: string}}
- */
-export const value = {
-	chapter_id: '第{{0}}話',
-	chapter_title: `$t(chapter_id, [{{0}}])　{{title}}`,
-
-	volume_id: '第{{0}}章',
-	volume_title: `$t(chapter_id, [{{0}}])：{{title}}`,
-};
-
-/**
  * 在這裡放此小說專屬的取代樣本
  */
-export const words: IWords[] = sublib._word_zh_all([
+export const words_source: IWords[] = [
 
 	//['要取代的字', '取代後的字'],
 
@@ -341,6 +328,7 @@ export const words: IWords[] = sublib._word_zh_all([
 	 *
 	 */
 
+	// @ts-ignore
 	(function ()
 	{
 		let jobclass = '(?:魔术师|盗贼|暗杀者|魔女|调教师|虫使)';
@@ -375,6 +363,15 @@ export const words: IWords[] = sublib._word_zh_all([
 	['黑色?哥布林', '黑色哥布林'],
 	['乌东灰熊|奧东灰熊', '乌东灰熊'],
 	['妖怪|怪物', '怪物'],
+
+];
+
+/**
+ * 實際使用的取代樣式
+ */
+export const words: IWords[] = sublib._word_zh_all([
+
+	...words_source,
 
 	...([
 		'LV',
@@ -427,6 +424,19 @@ export const words_maybe: vMaybe = [
 	//'需要偵測的字',
 
 ] as vMaybe;
+
+/**
+ * 其他用途
+ *
+ * @type {{chapter_id: string; chapter_title: string; volume_id: string; volume_title: string}}
+ */
+export const value = {
+	chapter_id: '第{{0}}話',
+	chapter_title: `$t(chapter_id, [{{0}}])　{{title}}`,
+
+	volume_id: '第{{0}}章',
+	volume_title: `$t(chapter_id, [{{0}}])：{{title}}`,
+};
 
 /**
  * 分析取代完成後執行的代碼
