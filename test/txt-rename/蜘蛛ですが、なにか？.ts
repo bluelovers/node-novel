@@ -64,7 +64,7 @@ novelID = '蜘蛛ですが、なにか？';
 subPath = '00010_WEB';
 
 let DEBUG_MODE = true;
-//DEBUG_MODE = false;
+DEBUG_MODE = false;
 
 if (!novelID)
 {
@@ -113,6 +113,15 @@ let _space = ' 　\\t \\s';
 			`尾聲`,
 			'最终章',
 
+			`[SＳ][${_full_num}\\d]+[ \\.]*`,
+			`[${_full_num}]+[ \\.]*`,
+
+			`[SＳ]{2,}(?:[${_full_num}\\d]*[ \\.]*)`,
+
+			`(?:血|鬼|B|Y|K)[${_full_num}\\d]+[ \\.]*`,
+
+			'贈品 ',
+
 		].join('|'),
 		`)`,
 		`[${_space}]*`,
@@ -121,7 +130,7 @@ let _space = ' 　\\t \\s';
 		//`[：~～]*`,
 		`[${_space}]*`,
 		`$`,
-	].join(''), 'ig');
+	].join(''), 'igm');
 
 	//r = new zhRegExp(`第?\\s*(\\d+)\\s*話\\s*(.+?)?\\s*$`);
 
@@ -129,7 +138,7 @@ let _space = ' 　\\t \\s';
 
 	//r = new zhRegExp(`^()(\\d{3}) (.+)$`);
 
-	console.log(r);
+	console.dir(r);
 
 	if (0)
 	{
@@ -166,11 +175,16 @@ let _space = ' 　\\t \\s';
 
 			let m = r.exec(name);
 
-			//const c = '　';
+			const c = '　';
 			//const c = ' ';
-			const c = ' ';
+			//const c = ' ';
 
-			if (0 && m)
+			if (m)
+			{
+				//console.dir(m);
+			}
+
+			if (m)
 			{
 				let id_str: string;
 
@@ -183,19 +197,52 @@ let _space = ' 　\\t \\s';
 
 				desc = StrUtil.toFullNumber(desc);
 
-				let idn = id;
-				if (typeof idn != 'undefined')
+				let idn = StrUtil.toHalfNumber(id);
+
+				if (/(?<=^)([ＳS]+\d+)/i.test(idn))
 				{
-					idn = idn.padStart(3, '0');
+					id_str = idn
+						.replace(/(?<=^)([ＳS]+\d+)/i, function (s)
+						{
+							return StrUtil.toFullWidth(s)
+						})
+					;
+				}
+				else if (typeof idn != 'undefined')
+				{
+					//idn = idn.padStart(3, '0');
+					//id_str = `${idn}`;
 				}
 
-				id_str = `${idn}`;
+				if (id_str)
+				{
+					name = id_str
+						.replace(/[\. 　．. 　\s]+$/g, '')
+					;
+				}
+				else
+				{
+					name = (id as string)
+						.replace(/[\. 　．. 　\s]+$/g, '')
+					;
+				}
 
-				name = '';
+				name = StrUtil.toFullEnglish(name);
+				name = StrUtil.toFullNumber(name);
+				name = name
+					.replace(/[\. 　．. 　\s]+$/g, '')
+				;
 
-				name = `${id_str}`;
+				//console.log(name, c, desc);
+
+				//name = `${id_str}`;
 				if (desc)
 				{
+					desc = (desc as string)
+						.replace(/[\. 　．. 　\s]+$/g, '')
+						.replace(/^[\. 　．. 　\s]+/g, '')
+					;
+
 					name += c + `${desc}`;
 				}
 
@@ -203,6 +250,8 @@ let _space = ' 　\\t \\s';
 				{
 					name = ido + name;
 				}
+
+				//console.dir(name);
 			}
 			else if (0 && m)
 			{
@@ -329,6 +378,8 @@ let _space = ' 　\\t \\s';
 						});
 					}
 
+					e1 = fs.pathExistsSync(file);
+
 					if (e2 && !e1)
 					{
 
@@ -364,6 +415,8 @@ let _space = ' 　\\t \\s';
 								});
 							}
 
+							e1 = fs.pathExistsSync(from);
+
 							if (e2 && !e1)
 							{
 
@@ -384,7 +437,8 @@ let _space = ' 　\\t \\s';
 				await console.red(`${index}, skip`, name_old);
 			}
 		})
+		.catch(e => console.error(e))
 	;
 
-})();
+})().catch(e => console.log(e));
 

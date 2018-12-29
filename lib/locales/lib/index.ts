@@ -395,6 +395,8 @@ let _en = [
 
 	'UFO',
 
+	'NEET',
+
 	'BGM',
 
 	'Golem',
