@@ -17,6 +17,8 @@ import prettyuse = require('prettyuse');
 import * as novelGlobby from 'node-novel-globby';
 import * as iconv from 'iconv-jschardet';
 import { tw2cn_min, cn2tw_min, tableCn2TwDebug, tableTw2CnDebug } from 'cjk-conv/lib/zh/convert/min';
+import novelEpub from 'novel-epub';
+import txtMerge from 'novel-txt-merge';
 
 let cli = yargs
 	.argv
@@ -63,6 +65,28 @@ Promise
 
 		console.log(pathMain, novelID);
 
+		const inputPath = cwd_path;
+		const outputPath = path.join(ProjectConfig.temp_root, 'epub');
+
+		return novelEpub({
+			inputPath,
+			outputPath,
+			padEndDate: false,
+			useTitle: true,
+			filenameLocal: novelID,
+			noLog: true,
+		})
+			.tap(async function (ret)
+			{
+				console.log(ret.filename);
+
+				let txt = await txtMerge(inputPath, outputPath, ret.basename);
+
+				console.log(txt.filename);
+			})
+		;
+
+		/*
 		return crossSpawn.async('npx', [
 			'novel-epub',
 			'--input', cwd_path,
@@ -72,6 +96,7 @@ Promise
 			cwd: cwd_path,
 			stdio: 'inherit',
 		})
+		*/
 	})
 	;
 

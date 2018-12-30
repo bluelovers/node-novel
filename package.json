@@ -64,6 +64,7 @@
     "node-novel-globby": "^2.0.4",
     "node-novel-info": "^2.3.14",
     "novel-text": "^1.1.22",
+    "novel-txt-merge": "^1.0.14",
     "prettyuse": "^0",
     "regexp-cjk": "^2.0.14",
     "regexp-parser-literal": "^1",
