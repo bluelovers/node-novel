@@ -424,15 +424,32 @@ i18next.setDefaultNamespace('i18n');
 					}
 				}
 
-				v = new RegExp(/([^ァ-ヴーｱ-ﾝﾞｰ]{0,3})([ァ-ヴーｱ-ﾝﾞｰ]{2,}(?:[・＝=＝]+[ァ-ヴーｱ-ﾝﾞｰ]+)*)([^ァ-ヴーｱ-ﾝﾞｰ]{0,3})/iug, 'uigm');
-				if ((_m = execall(v, _t)) && _m.length)
+				v = new RegExp(/(?<![ァ-ヴーｱ-ﾝﾞｰ])([ァ-ヴーｱ-ﾝﾞｰ]{2,}(?:[・＝=＝]+[ァ-ヴーｱ-ﾝﾞｰ]+)*)(?![ァ-ヴーｱ-ﾝﾞｰ])/iug, 'uig');
+				if ((_m = execall(v, _t, {
+					leftContext: true,
+					rightContext: true,
+				})) && _m.length)
 				{
 					(_m as ReturnType<typeof execall>)
 						.forEach(function (m)
 						{
-							let k = m[2];
+							let k = m[1];
+
 							_cache.ja2[k] = _cache.ja2[k] || [];
-							_cache.ja2[k].push(m[0])
+
+							let line = [
+								m.leftContext
+									.split('\n')
+									.pop(),
+								k,
+								m.rightContext
+									.split('\n')
+									.shift(),
+							].join('')
+								.replace(/^\s+|\s+$/g, '')
+							;
+
+							_cache.ja2[k].push(line)
 						})
 					;
 				}
