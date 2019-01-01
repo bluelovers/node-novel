@@ -12,19 +12,6 @@ import { _word_en, _word_en3, _word_jp1 } from './lib/index';
 export const lang = '';
 
 /**
- * 其他用途
- *
- * @type {{chapter_id: string; chapter_title: string; volume_id: string; volume_title: string}}
- */
-export const value = {
-	chapter_id: '第{{0}}話',
-	chapter_title: `$t(chapter_id, [{{0}}])　{{title}}`,
-
-	volume_id: '第{{0}}章',
-	volume_title: `$t(chapter_id, [{{0}}])：{{title}}`,
-};
-
-/**
  * 在這裡放此小說專屬的取代樣本
  */
 export const words_source: IWords[] = [
@@ -54,6 +41,8 @@ export const words_source: IWords[] = [
 
 	['普雷希德龍|プレシードドラゴン', '普雷希德龍'],
 	['普雷希德|プレシード', '普雷希德'],
+
+	[`(プレシード|預種|普雷希德)・(ドラゴン|龍)`, '預種・龍'],
 
 	['萊拉|蕾拉', '蕾拉'],
 	['布萊特', '布萊特'],
@@ -87,7 +76,7 @@ export const words_source: IWords[] = [
 	['麥肯齊|マッケンジー', '麥肯齊'],
 
 	['アーカム|阿卡姆', '阿卡姆'],
-	['フィナル|菲納魯', '菲納魯'],
+	_word_jp1('フィナル|菲納魯', '菲納魯'),
 	['蘭德希魯特|ランドシルト', '蘭德希魯特'],
 
 	['柯尼希|ケーニッヒ', '柯尼希'],
@@ -117,7 +106,7 @@ export const words_source: IWords[] = [
 	['ファストリア|法斯特利亞|法斯托利亞', '法斯特利亞'],
 
 	['エンドレシア|恩德雷希亞|恩格雷希亞|恩德雷西亞|エンドレ西亞', '恩德雷希亞'],
-	['瑟彌法那爾|セミフィナル|塞米菲爾|塞西菲爾|セミ菲納魯', '瑟彌法那爾'],
+	['瑟彌法那爾|セミフィナル|塞米菲爾|塞西菲爾|セミ菲納魯|瑟彌菲那爾', '瑟彌法那爾'],
 
 	['ウィング雷斯特|ウィングレスト|溫古・?雷斯特|溫古斯特|ウィング・?レスト', '溫古・雷斯特'],
 
@@ -152,6 +141,8 @@ export const words_source: IWords[] = [
 	_word_jp1('シシル|希露露|シルル', '希露露'),
 	_word_jp1('レイナ|蕾娜', '蕾娜'),
 
+	_word_jp1('ゴトー|梧桐', '梧桐'),
+
 	/**
 	 *
 	 */
@@ -161,12 +152,29 @@ export const words_source: IWords[] = [
 	/**
 	 *
 	 */
+	_word_jp1('レゾーネ|雷佐內', '雷佐內'),
+	_word_jp1('艾露|エル', '艾露'),
+
+	/**
+	 *
+	 */
+	_word_jp1('ディスラート|蒂斯拉特', '蒂斯拉特'),
+	_word_jp1('クレア|克蕾雅', '克蕾雅'),
+
+	_word_jp1('ロブス|羅布斯', '羅布斯'),
+
+
+	/**
+	 *
+	 */
 	['大媽媽|偉大母親|グランドマザー|伟大之母|偉大なる母|偉大的母親|GrandMother|Grandmother', '偉大母親', 'ig'],
 
 	['GRANDIA SEED|グランディアシード', 'GRANDIA SEED', 'ig'],
 	['Online Game|線上遊戲', '線上遊戲', 'ig'],
 
-	['盧庫斯|ルクス', '盧庫斯'],
+	_word_jp1('盧庫斯|ルクス', '盧庫斯'),
+
+
 
 	['Kujata|庫亞塔', '庫亞塔'],
 
@@ -221,6 +229,8 @@ export const words_source: IWords[] = [
 
 	_word_jp1('ハーフエルフ', '半精靈'),
 
+	_word_jp1('ドルディア|多爾蒂亞', '多爾蒂亞'),
+
 ];
 
 /**
@@ -231,6 +241,8 @@ export const words: IWords[] = sublib._word_zh_all([
 	...words_source,
 
 	['回復魔法', '回復魔法'],
+
+	['公會卡片', '公會卡'],
 
 	_word_jp1('ヒロイン', '女主角'),
 	_word_jp1('セクシー', '性感'),
@@ -275,6 +287,11 @@ export const words: IWords[] = sublib._word_zh_all([
 	[/　 /g, '　　'],
 	['──── ────', '────────'],
 
+	[/^(  )+/gm, function (s)
+	{
+		return '　'.repeat(s.length / 2)
+	}],
+
 	...sublib.lazymarks['class'],
 
 	_word_en(/\d+/g, function (...m)
@@ -305,6 +322,19 @@ export const words: IWords[] = sublib._word_zh_all([
 	[/([^\s\-─])\n{1,2}(?=【Name】)/gm, '$1\n\n\n'],
 
 ] as IWords[]);
+
+/**
+ * 其他用途
+ *
+ * @type {{chapter_id: string; chapter_title: string; volume_id: string; volume_title: string}}
+ */
+export const value = {
+	chapter_id: '第{{0}}話',
+	chapter_title: `$t(chapter_id, [{{0}}])　{{title}}`,
+
+	volume_id: '第{{0}}章',
+	volume_title: `$t(chapter_id, [{{0}}])：{{title}}`,
+};
 
 /**
  * 需要人工確認的屏蔽字或錯字用語等等

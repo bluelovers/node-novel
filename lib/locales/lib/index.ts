@@ -399,6 +399,10 @@ let _en = [
 
 	'BGM',
 
+	'SF',
+
+	'NETA',
+
 	'Golem',
 	'Rank',
 

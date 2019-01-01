@@ -35,6 +35,7 @@
     "run-segment": "node -r ts-node/register --max-old-space-size=2048 --expose-gc ./bin/_run_segment",
     "run-segment-fast": "node -r ts-node/register --max-old-space-size=2048 --expose-gc ./bin/_run_segment_fast",
     "reset-segment-cache": "ts-node ./bin/_reset_segment_cache",
+    "git-commit-msg-only": "git commit --only --allow-empty",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
