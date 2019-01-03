@@ -546,7 +546,7 @@ i18next.setDefaultNamespace('i18n');
 			{
 				//console.log(3);
 
-				let out = await cache_output3(_cache.ja, '');
+				let out = await cache_output3(_cache.ja, '含有日文的章節段落');
 				await fs.outputFile(path.join(cwd_out, 'ja.md'), out);
 			}
 
@@ -554,7 +554,7 @@ i18next.setDefaultNamespace('i18n');
 			{
 				//console.log(3);
 
-				let out = await cache_output4(_cache.ja2, '');
+				let out = await cache_output4(_cache.ja2, '未加入整合的日文');
 				await fs.outputFile(path.join(cwd_out, 'ja2.md'), out);
 			}
 
