@@ -11,6 +11,7 @@ import novelText from 'novel-text';
 import { zhRegExp } from 'regexp-cjk';
 import * as StrUtil from 'str-util';
 import path from 'upath2';
+import { win32_move } from '../../lib/fs/move';
 import { console, _getLoadLocales, diff_log, replace_name_list } from '../../lib/fs/txt-rename';
 import { trimFilename } from '../../lib/func';
 import { addResourceBundle, i18next, loadLocales } from '../../lib/i18n';
@@ -61,7 +62,10 @@ novelID = '蜘蛛ですが、なにか？';
 //pathMain = 'zh';
 //novelID = '如何在異世界殺死一個死宅';
 
-subPath = '00010_WEB';
+//subPath = '00010_WEB';
+
+pathMain = 'user';
+novelID = '四度目は嫌な死属性魔術師';
 
 let DEBUG_MODE = true;
 //DEBUG_MODE = false;
@@ -315,27 +319,35 @@ let _space = ' 　\\t \\s';
 					let e1 = fs.pathExistsSync(file);
 					let e2 = fs.pathExistsSync(name_new);
 
-					if (e1 || e2)
+					if (file != name_new)
 					{
-						await crossSpawn.sync('git', [
-							'mv',
-							'-f',
-							'-v',
-							file,
-							name_new,
-						], {
-							cwd,
-							stdio: 'inherit',
-						});
-					}
+						if (e1 || e2)
+						{
+							await crossSpawn.sync('git', [
+								'mv',
+								'-f',
+								'-v',
+								file,
+								name_new,
+							], {
+								cwd,
+								stdio: 'inherit',
+							});
 
-					if (e2 && !e1)
-					{
+							e1 = fs.pathExistsSync(file);
+							e2 = fs.pathExistsSync(name_new);
+						}
 
-					}
-					else if (e1)
-					{
-						await fs.move(file, name_new);
+						if (e2 && !e1)
+						{
+
+						}
+						else if (e1)
+						{
+							await win32_move(file, name_new, {
+								overwrite: false,
+							});
+						}
 					}
 
 					{
@@ -345,7 +357,7 @@ let _space = ' 　\\t \\s';
 						let from = path.join(cwd_out, base1);
 						let to = path.join(cwd_out, base2);
 
-						if (fs.pathExistsSync(cwd_out))
+						if (fs.pathExistsSync(cwd_out) && from != to)
 						{
 							let e1 = fs.pathExistsSync(from);
 							let e2 = fs.pathExistsSync(to);
@@ -362,6 +374,9 @@ let _space = ' 　\\t \\s';
 									cwd: cwd_out,
 									stdio: 'inherit',
 								});
+
+								e1 = fs.pathExistsSync(from);
+								e2 = fs.pathExistsSync(to);
 							}
 
 							if (e2 && !e1)
@@ -370,7 +385,9 @@ let _space = ' 　\\t \\s';
 							}
 							else if (e1)
 							{
-								await fs.move(from, to);
+								await win32_move(from, to, {
+									overwrite: false,
+								});
 							}
 						}
 					}

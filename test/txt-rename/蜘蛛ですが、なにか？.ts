@@ -61,10 +61,10 @@ novelID = '蜘蛛ですが、なにか？';
 //pathMain = 'zh';
 //novelID = '如何在異世界殺死一個死宅';
 
-subPath = '00010_WEB';
+subPath = '00010_WEB/00040_web518';
 
 let DEBUG_MODE = true;
-DEBUG_MODE = false;
+//DEBUG_MODE = false;
 
 if (!novelID)
 {
@@ -119,6 +119,8 @@ let _space = ' 　\\t \\s';
 			`[SＳ]{2,}(?:[${_full_num}\\d]*[ \\.]*)`,
 
 			`(?:血|鬼|B|Y|K)[${_full_num}\\d]+[ \\.]*`,
+
+			`[\\d]+[　]+`,
 
 			'贈品 ',
 

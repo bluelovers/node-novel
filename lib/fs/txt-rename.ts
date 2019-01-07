@@ -72,6 +72,7 @@ export function replace_name_list()
 				...lazymarks['full_width_001'],
 				...lazymarks['full_width_002'],
 				...lazymarks['en'],
+				...lazymarks['jp1'],
 
 				['[,!?]', StrUtil.toFullWidth],
 

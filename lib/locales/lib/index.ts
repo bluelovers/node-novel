@@ -47,6 +47,8 @@ lazymarks[0] = [
 
 	lazymarks[1] = [
 
+		[/^\t+/gm, ''],
+
 		[/ +$/gm, ''],
 
 		[/，(。)$/gm, '$1'],
@@ -809,6 +811,8 @@ lazymarks['zh'] = _word_zh_all([
 
 	['満', '滿'],
 
+	['暁', '曉'],
+
 ]);
 
 lazymarks['zh_cht'] = _word_zh_all([
@@ -930,7 +934,7 @@ lazymarks['jp1'] = _word_zh_all([
 
 	_word_jp1('ステータス|狀態', '狀態'),
 
-	_word_jp1('ギルド|公會', '公會'),
+	_word_jp1('ギルド', '公會'),
 
 	_word_jp1('ゴブリン|哥布林', '哥布林'),
 
@@ -941,6 +945,8 @@ lazymarks['jp1'] = _word_zh_all([
 	_word_jp1('任務|クエスト', '任務'),
 
 	_word_jp1('矮人|ドワーフ', '矮人'),
+
+	_word_jp1('キャラクター', '角色'),
 
 ]);
 

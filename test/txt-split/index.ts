@@ -26,10 +26,10 @@ let _full_num = '０-９';
 let _space = ' 　\\t';
 
 let inputFile = path.join(projectConfig.dist_novel_root,
-	'lost',
-	'只是被勇者消滅的簡單工作',
+	'syosetu',
+	'俺　VS　人類　～アンデッドを使役して王国を襲う俺～',
 	'z.raw',
-	'只是被勇者消灭的简单工作 至310.txt',
+	'俺vs人类1-103(缺59）.txt',
 );
 
 const c = '　';
@@ -138,7 +138,7 @@ let options: IOptionsRequiredUser = {
 
 	chapter: {
 
-		ignoreRe: /^\d+(人|点半|話過后|、|把白説成黒)|48话是魔神视角|\d+[（ ]?完）|310[（ ]?完/,
+		ignoreRe: /1.伊普斯郞王國的西北方領土會割讓給鈴木宇田|2.作為賠償，會馬上支付金幣50萬|3.國民一萬人作為奴隸支付給鈴木宇田|58是、58歲？還真看不出呀|1小時後|13個魔人が全員四肢著地|13人一體化し大量的手腳|10个雪人完成了|3人的笑声扩散在万|10人合力将水|10岁不到的孩子们向|100多架巨人踏响地面，|58是、58歲？/,
 
 		//r: new RegExp(`[${_space}]*(第?(?:[序终]|[${_zh_num}]+)节)([^\\n]*)`, 'igm'),
 		r: new zhRegExp([
