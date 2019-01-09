@@ -18,25 +18,57 @@ export const words_source: IWords[] = [
 
 	_word_jp1('ユキ|优纪', '優紀'),
 
-	_word_jp1('レフィシオス|雷菲亚斯', '雷菲亞斯'),
+	_word_jp1('レフィ|雷菲|蕾菲', '蕾菲'),
+	_word_jp1('レフィシオス|(蕾|雷)菲亚斯|(蕾|雷)菲西奧斯', '蕾菲亞斯'),
 	_word_jp1('イルーナ|依露娜', '依露娜'),
 	_word_jp1('レイエス|雷亚斯', '雷亞斯'),
 
 	_word_jp1('ルローレ|露罗菈', '露羅菈'),
 	_word_jp1('グリファ|格利法', '格利法'),
 
-	_word_jp1('レイラ|蕾拉', '蕾拉'),
+	_word_jp1('レイラ|蕾拉|雷拉', '蕾拉'),
 
 	_word_jp1('リューイン|蕾茵', '蕾茵'),
 	_word_jp1('ギロル|吉洛尔', '吉洛爾'),
 
 	[`蕾茵${sp}吉洛爾`, '蕾茵＝吉洛爾'],
 
+	_word_jp1('汐|シィ', '汐'),
+	_word_jp1('莫弗利爾|モフリル', '莫弗利爾'),
+	_word_jp1('利爾|リル', '利爾'),
+
+	_word_jp1('イグ|伊格', '伊格'),
+	_word_jp1('ドラジール|優基爾', '優基爾'),
+
+	[`伊格${sp}優基爾`, '伊格＝優基爾'],
+
+	_word_jp1('ネル|涅爾', '涅爾'),
+
+	/**
+	 *
+	 */
 	_word_jp1('レイド|雷德', '雷德'),
 	_word_jp1('グローリオ|格罗里奥', '格羅里奧'),
 	_word_jp1('アーリシア|亚利西亚', '亞利西亞'),
 
+	_word_jp1('リュート|雷特', '雷特'),
+
 	[`${sp}格羅里奧${sp}亞利西亞`, '＝格羅里奧＝亞利西亞'],
+
+	_word_jp1('ガムディア|卡姆迪亞', '卡姆迪亞'),
+	_word_jp1('ロストン|羅斯頓', '羅斯頓'),
+
+	[`卡姆迪亞${sp}羅斯頓`, '卡姆迪亞＝羅斯頓'],
+
+	/**
+	 *
+	 */
+	_word_jp1('艾爾菲羅|アルフィーロ|阿爾費羅', '艾爾菲羅'),
+
+	_word_jp1('レイロー|雷洛', '雷洛'),
+	_word_jp1('ルルービア|勒魯維亞', '勒魯維亞'),
+
+	[`雷洛${sp}勒魯維亞`, '雷洛＝勒魯維亞'],
 
 	/**
 	 *
@@ -44,6 +76,47 @@ export const words_source: IWords[] = [
 
 	_word_jp1('蝙蝠|コウモリ', '蝙蝠'),
 	_word_jp1('龍|ドラゴン', '龍'),
+
+	_word_jp1('アーク ?デーモン', '惡魔'),
+
+	_word_jp1('芬里爾|フェンリル', '芬里爾'),
+
+	_word_jp1('角虎|ホーンタイガー', '角虎'),
+	_word_jp1('吉夫提希兔|ギフティヒラビット', '吉夫提希兔'),
+
+	/**
+	 *
+	 */
+	_word_jp1('謝魯米|シェルミ', '謝魯米'),
+	_word_jp1('爆炸蘑菇|バクテングダケ', '爆炸蘑菇'),
+
+	/**
+	 *
+	 */
+	_word_jp1('クリエイト・ブルーム', 'Create・Bloom'),
+
+	/**
+	 *
+	 */
+	_word_jp1('ダンジョンポイント|迷宮點數', '迷宮點數'),
+	_word_jp1('スキルポイント', '技能點'),
+
+	_word_jp1('菜單|メニュー|選單', '選單'),
+	_word_jp1('扭蛋|ガチャ', '扭蛋'),
+
+	_word_jp1('(ＤＰ|dp)(カタログ|目錄)', 'ＤＰ目錄'),
+
+	_word_jp1('分析(?:アナライズ)?|アナライズ', '分析'),
+
+	_word_jp1('アイテムボックス|道具箱', '道具箱'),
+
+	_word_jp1('階級|クラス', '階級'),
+
+	['言語翻訳|語言翻譯', '語言翻譯'],
+
+	_word_jp1('タメィゴッチ', 'タメィゴッチ'),
+
+	['固有唯一技能|固有獨特技能|固有技能|固有ユニークスキル', '固有技能'],
 
 ];
 
@@ -54,6 +127,34 @@ export const words: IWords[] = sublib._word_zh_all([
 
 	...words_source,
 
+	['覇龍', '覇龍'],
+	['錬成', '錬成'],
+	['錬', '錬'],
+
+	_word_en3('DP', (s) => StrUtil.toFullEnglish(s.toUpperCase())),
+	_word_en3('\\d+DP', (s) => StrUtil.toFullEnglish(s)),
+
+	_word_en3('([a-z]) *[\\+\\+＋]', function (...m)
+	{
+		return StrUtil.toFullEnglish(m[2].toUpperCase()) + '＋'
+	}),
+
+	[/(?<![\u4E00-\u9FFF])一+(?![\u4E00-\u9FFF])/g, function (s)
+	{
+		return '─'.repeat(s.length)
+	}],
+
+	[/^[　 ]+/gm, ''],
+
+	[/(?<=\S)\n{1,2}(?=姓?名：)/gm, '\n\n\n'],
+	[/(?<=\S)\n(?=──)/gm, '\n\n'],
+
+	[/(?<=^──[^\n]+)\n(?![^\n]+──$|\n)/gm, '\n\n'],
+
+	[/^名：/gm, '姓名：'],
+
+	[/(?<=姓名：[^\n]*)\n+(?=種族：)/gm, '\n'],
+
 	...sublib.lazymarks['class'],
 	//...sublib.lazymarks['zh_cht'],
 
@@ -62,13 +163,15 @@ export const words: IWords[] = sublib._word_zh_all([
 	...sublib.lazymarks[4],
 
 	...sublib.lazymarks['full_width_001'],
-	//...sublib.lazymarks['full_width_002'],
+	...sublib.lazymarks['full_width_002'],
 
 	...sublib.lazymarks[0],
 	...sublib.lazymarks[1],
 	...sublib.lazymarks[2],
 	...sublib.lazymarks[3],
 	...sublib.lazymarks[5],
+
+	['>', (s) => StrUtil.toFullWidth(s)],
 
 ] as IWords[]);
 
