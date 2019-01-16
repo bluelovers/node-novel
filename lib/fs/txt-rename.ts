@@ -64,6 +64,8 @@ export function replace_name_list()
 
 				['幕后', '幕後'],
 
+				['鬥爭', '鬥爭'],
+
 				_word_en3(' *(VS|ｖｓ|ＶＳ) *', 'ＶＳ'),
 
 
