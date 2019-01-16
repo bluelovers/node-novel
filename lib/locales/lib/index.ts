@@ -954,6 +954,8 @@ lazymarks['jp1'] = _word_zh_all([
 
 	_word_jp1('ダンジョン', '迷宮'),
 
+	_word_jp1('スライム', '史萊姆'),
+
 ]);
 
 lazymarks['class'] = _word_zh_all([
