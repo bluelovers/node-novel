@@ -11,8 +11,6 @@ import novelText from 'novel-text';
 //import * as Promise from 'bluebird';
 import * as iconv from 'iconv-jschardet';
 import fsIconv, { trimFilename } from 'fs-iconv';
-
-import * as self from './txt-split';
 import { console } from 'debug-color2';
 console.enabledColor = true;
 
@@ -401,5 +399,4 @@ export function split(txt: string, cache: IOptions, _m, cb: ISplitCB): {
 }
 
 
-export default self;
-//export default exports;
+export default exports as typeof import('./txt-split');

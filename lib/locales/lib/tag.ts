@@ -17,7 +17,4 @@ export function tagTemplate(strings, ...keys)
 	});
 }
 
-import * as self from './tag';
-
-export default self;
-//export default exports;
+export default exports as typeof import('./tag');

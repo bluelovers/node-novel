@@ -13,6 +13,8 @@ import { trimTxtLine } from '../lib/util';
 import ProjectConfig from '../project.config';
 import { _replace_list_001, getNovel, globNovel } from './lib/util';
 import Bluebird = require('bluebird');
+import novelText from 'novel-text';
+import { _word_zh_all, lazymarks } from '../lib/locales/lib/index';
 
 let cli = yargs
 	.argv
@@ -97,6 +99,15 @@ Bluebird
 					// @ts-ignore
 					return name.replace(...data);
 				}, _t_old);
+
+				let words = [];
+
+				words = words.concat(lazymarks[1] || []);
+
+				words = novelText._words1([], words);
+				words = novelText._words2(words);
+
+				_text = novelText.replace_words(_text, words).value;
 
 				let _t = trimTxtLine(_text);
 

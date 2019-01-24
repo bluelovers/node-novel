@@ -1232,7 +1232,4 @@ export let _zh_num = '一二三四五六七八九十';
 export let _zh_num2 = '百十';
 export let _full_num = '０１２３４５６７８９';
 
-import * as self from './index';
-
-export default self;
-//export default exports;
+export default exports as typeof import('./index');

@@ -39,5 +39,4 @@ export function getTable(options: tiebaHarmony.IOptions = {}): IWords[]
 	return sublib._word_zh_all(tiebaHarmony.getTable(options));
 }
 
-import * as self from './baidu';
-export default self;
+export default exports as typeof import('./baidu');
