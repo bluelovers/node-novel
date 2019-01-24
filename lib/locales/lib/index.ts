@@ -430,6 +430,11 @@ let _en = [
 	'km',
 
 	'DVD',
+
+	'SOS',
+	'USB',
+	'CM',
+
 ];
 
 lazymarks['en'] = [
