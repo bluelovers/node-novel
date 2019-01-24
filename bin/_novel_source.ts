@@ -102,10 +102,18 @@ Bluebird
 
 				let words = [];
 
-				words = words.concat(lazymarks[1] || []);
+				words = words
+					.concat([
+						...lazymarks[1],
+						...lazymarks[2],
+						...lazymarks[33],
+					])
+				;
 
 				words = novelText._words1([], words);
 				words = novelText._words2(words);
+
+				_text = novelText.replace_words(_text, words).value;
 
 				_text = novelText.replace_words(_text, words).value;
 
