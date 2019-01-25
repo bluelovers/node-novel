@@ -441,6 +441,11 @@ let _en = [
 	'USB',
 	'CM',
 
+	'PC',
+
+	'S',
+	'Ｓ',
+
 ];
 
 lazymarks['en'] = [
