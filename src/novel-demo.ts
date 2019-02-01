@@ -598,8 +598,14 @@ async function create_pattern_md()
 	{
 		let data_source = load_pattern(id).words_source;
 
-		let md = `__TOC__\n
-[${data.novelID.replace(/[\[\]]/g, '\\$&')}](https://github.com/bluelovers/node-novel/blob/master/lib/locales/${encodeURIComponent(data.novelID)}.ts)  
+		let url = `https://github.com/bluelovers/node-novel/blob/master/lib/locales/${encodeURIComponent(data.novelID)}.ts`;
+
+		let md = `---
+LocalesID: ${data.novelID}
+LocalesURL: ${url}
+---
+__TOC__\n
+[${data.novelID.replace(/[\[\]~\`]/g, '\\$&')}](${url})  
 總數：${data.data.length}／${data_source.length}
 \n${data.md}\n\n`;
 
