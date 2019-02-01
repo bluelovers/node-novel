@@ -43,6 +43,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
+    "@node-novel/md-loader": "^1.0.0",
     "@node-novel/pattern-split": "^1.1.2",
     "@node-novel/txt-split": "^1.0.3",
     "@types/cross-spawn": "^6.0.0",
@@ -66,7 +67,7 @@
     "iconv-jschardet": "^1.0.7",
     "json5": "latest",
     "node-novel-globby": "^2.0.4",
-    "node-novel-info": "^2.3.21",
+    "node-novel-info": "^2.3.27",
     "novel-text": "^1.1.23",
     "novel-txt-merge": "^1.0.17",
     "prettyuse": "^0",
