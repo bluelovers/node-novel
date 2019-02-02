@@ -78,11 +78,15 @@ Promise
 		})
 			.tap(async function (ret)
 			{
-				console.log(ret.filename);
+				console.dir(ret.filename, {
+					colors: true,
+				});
 
 				let txt = await txtMerge(inputPath, outputPath, ret.basename);
 
-				console.log(txt.filename);
+				console.dir(txt.filename, {
+					colors: true,
+				});
 			})
 		;
 
