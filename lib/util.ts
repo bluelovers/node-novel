@@ -2,6 +2,8 @@
  * Created by user on 2018/9/5/005.
  */
 
+import { crlf } from 'crlf-normalize';
+
 export function freeGC()
 {
 	if (isGCMode())
@@ -24,7 +26,11 @@ export function isGCMode()
 
 export function trimTxtLine(txt: string)
 {
-	return txt
+	txt = crlf(txt)
+		.replace(/\uFEFF/g, '')
+	;
+
+	txt = txt
 		.replace(/(?<=^\s*)[\-= \xa0＝－\*　—+]+(?=\n)/g, '')
 		.replace(/(?<=\n)[\-= \xa0＝－\*　—+]+(?=\s*$)/g, '')
 		.replace(/^\n+/g, '')
@@ -32,4 +38,6 @@ export function trimTxtLine(txt: string)
 		.replace(/\n{2,}$/g, '\n')
 		.replace(/^ (?=\S|\n|\s{2,})/, '')
 		;
+
+	return txt;
 }
