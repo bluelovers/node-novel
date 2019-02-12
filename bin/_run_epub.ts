@@ -88,6 +88,15 @@ Promise
 					colors: true,
 				});
 			})
+			.tap(function ()
+			{
+				return crossSpawn.async('explorer', [
+					outputPath
+				], {
+					cwd: outputPath,
+					stdio: 'inherit',
+				}).catchReturn(null)
+			})
 		;
 
 		/*
