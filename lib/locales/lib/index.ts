@@ -1082,7 +1082,7 @@ lazymarks['c050'] = _word_zh_all([
 
 	[/(?<=[呢吧嗎吗了的])\.(?=[\u4E00-\u9FFF\u{20000}-\u{2FA1F}])/ug, '。'],
 
-	[/(?<=[\u4E00-\u9FFF\u{20000}-\u{2FA1F}])\?(?=[\u4E00-\u9FFF\u{20000}-\u{2FA1F}])/ug, '？'],
+	[/(?<=[\u4E00-\u9FFF\u{20000}-\u{2FA1F}])([?+])(?=[\u4E00-\u9FFF\u{20000}-\u{2FA1F}])/ug, s => StrUtil.toFullWidth(s)],
 
 	[/(?<=[\u4E00-\u9FFF\u{20000}-\u{2FA1F}])\.(?=[\u4E00-\u9FFF\u{20000}-\u{2FA1F}])/ug, '・'],
 
