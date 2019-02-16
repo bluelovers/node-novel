@@ -43,6 +43,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
+    "@bluelovers/tsconfig": "^1.0.1",
     "@node-novel/md-loader": "^1.0.0",
     "@node-novel/pattern-split": "^1.1.2",
     "@node-novel/txt-split": "^1.0.3",
@@ -67,7 +68,7 @@
     "iconv-jschardet": "^1.0.7",
     "json5": "latest",
     "node-novel-globby": "^2.0.5",
-    "node-novel-info": "^2.3.27",
+    "node-novel-info": "^2.3.28",
     "novel-text": "^1.1.23",
     "novel-txt-merge": "^1.0.18",
     "prettyuse": "^0",
