@@ -452,7 +452,7 @@ export const words_source: IWords[] = [
 
 	[`黒隷鞭`, `黒隷鞭`],
 
-	_word_jp1('パイルバンカー', 'Pile Bunker'),
+	_word_jp1('パイルバンカー|破壊杭', 'Pile Bunker'),
 
 	[`廻禍の?魔剣`, `廻禍魔劍`],
 	_word_jp1('アニマ・エルンテ|亞尼瑪・恩德|厄里瑪・埃倫提', '厄里瑪・埃倫提'),
