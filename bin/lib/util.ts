@@ -227,7 +227,11 @@ export function _replace_list_001()
 
 			]).map(function (data)
 			{
-				if (!(data[0] instanceof RegExp) || !(data[0] instanceof zhRegExp))
+				if (!(
+					(data[0] instanceof RegExp)
+						// @ts-ignore
+					|| (data[0] instanceof zhRegExp)
+				))
 				{
 					data[0] = new zhRegExp(data[0], 'ig');
 				}
