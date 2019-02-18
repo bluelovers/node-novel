@@ -67,6 +67,20 @@ novelID = '蜘蛛ですが、なにか？';
 pathMain = 'user';
 novelID = '四度目は嫌な死属性魔術師';
 
+pathMain = 'wenku8';
+novelID = '不吉波普系列';
+
+pathMain = 'dmzj';
+novelID = '不是真正同伴的我被逐出了勇者隊伍，因此決定在邊境過上慢生活';
+
+pathMain = 'wenku8';
+novelID = '平凡職業造就世界最強';
+
+//subPath = '01010_WEB';
+
+pathMain = 'user';
+novelID = '你這種傢伙別想打贏魔王';
+
 let DEBUG_MODE = true;
 //DEBUG_MODE = false;
 
@@ -111,11 +125,13 @@ let _space = ' 　\\t \\s';
 			//`\\d+[${_space}\\-]`,
 //			'\\d{3}',
 
-			`第[${_zh_num}\\d]+话`,
-			`第[${_zh_num}\\d]+章`,
-			`後記`,
-			`尾聲`,
-			'最终章',
+			//`第[${_zh_num}\\d]+话`,
+			//`第[${_zh_num}\\d]+章`,
+			//`後記`,
+			//`尾聲`,
+			//'最终章',
+
+			'\\d+-\\d+',
 
 		].join('|'),
 		`)`,
@@ -170,15 +186,17 @@ let _space = ' 　\\t \\s';
 
 			let m = r.exec(name);
 
-			//const c = '　';
+			const c = '　';
 			//const c = ' ';
-			const c = ' ';
+//			const c = ' ';
 
 			if (0 && m)
 			{
 				let id_str: string;
 
 				let [src, ido, id, desc] = m;
+
+				//console.log(m);
 
 				desc = novelText.trim(desc || '', {
 					//trim: true,
@@ -198,8 +216,27 @@ let _space = ' 　\\t \\s';
 				name = '';
 
 				name = `${id_str}`;
+
 				if (desc)
 				{
+					if (1)
+					{
+						desc = novelFilename.filename(desc, {
+								skip: '娘志里卷發處說氣圍',
+								//safe: false,
+							})
+							.replace(/“/g, '『')
+							.replace(/”/g, '』')
+						;
+
+						desc = replace_name_list().reduce(function (name, data)
+						{
+							// @ts-ignore
+							return name.replace(...data);
+						}, desc)
+						;
+					}
+
 					name += c + `${desc}`;
 				}
 
@@ -256,41 +293,12 @@ let _space = ' 　\\t \\s';
 			if (1)
 			{
 				name = novelFilename.filename(name, {
-						skip: '娘志里卷發處說氣圍',
+						skip: '娘志里卷發處說氣圍藏經廳輕碎',
 						//safe: false,
 					})
-					//.replace(/后(記|宮)/g, '後$1')
 					.replace(/“/g, '『')
 					.replace(/”/g, '』')
-
-					/*
-
-					.replace(/レポート/g, '記事')
-					.replace(new zhRegExp('発', 'ig'), '發')
-					.replace(new zhRegExp('于', 'ig'), '於')
-					.replace(new zhRegExp('気', 'ig'), '氣')
-					.replace(new zhRegExp('処', 'ig'), '處')
-					.replace(new zhRegExp('獣', 'ig'), '獸')
-					.replace(new zhRegExp('団', 'ig'), '團')
-					.replace(new zhRegExp('囲', 'ig'), '圍')
-					*/
-
-				/*
-				.replace(/(\d+)/g, function (...m)
-				{
-					return StrUtil.toFullNumber(m[1]);
-				})
-				*/
 				;
-
-//				name = name.replace(/^(\d+_)?(.+)$/, function (...args)
-//				{
-//					return (args[1] || '') + replace_name_list().reduce(function (name, data)
-//					{
-//						// @ts-ignore
-//						return name.replace(...data);
-//					}, args[2])
-//				})
 
 				name = replace_name_list().reduce(function (name, data)
 				{
