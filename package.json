@@ -69,6 +69,7 @@
     "json5": "latest",
     "node-novel-globby": "^2.0.5",
     "node-novel-info": "^2.3.28",
+    "novel-epub": "^1.1.20",
     "novel-text": "^1.1.23",
     "novel-txt-merge": "^1.0.18",
     "prettyuse": "^0",
