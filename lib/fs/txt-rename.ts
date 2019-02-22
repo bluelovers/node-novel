@@ -64,6 +64,8 @@ export function replace_name_list()
 
 				['応', '應'],
 
+				['[广]', '廣'],
+
 				['軽', '輕'],
 				['経', '經'],
 
