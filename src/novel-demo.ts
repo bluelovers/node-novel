@@ -255,6 +255,11 @@ i18next.setDefaultNamespace('i18n');
 
 			let _t = novelText.toStr(_t_old);
 
+			if (meta.options.textlayout && !meta.options.textlayout.allow_lf2)
+			{
+				_t = novelText.reduceLine(_t, meta.options.textlayout || {});
+			}
+
 			_t = my_words(_t);
 			_t = novelText.textlayout(_t, meta.options.textlayout || {});
 			_t = my_words(_t);
