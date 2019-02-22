@@ -81,6 +81,9 @@ novelID = '平凡職業造就世界最強';
 pathMain = 'user';
 novelID = '你這種傢伙別想打贏魔王';
 
+pathMain = 'ts';
+novelID = '幼女転生';
+
 let DEBUG_MODE = true;
 //DEBUG_MODE = false;
 
@@ -293,7 +296,7 @@ let _space = ' 　\\t \\s';
 			if (1)
 			{
 				name = novelFilename.filename(name, {
-						skip: '娘志里卷發處說氣圍藏經廳輕碎',
+						skip: '證娘志里卷發處說氣圍藏經廳輕碎餘廣广劃',
 						//safe: false,
 					})
 					.replace(/“/g, '『')
