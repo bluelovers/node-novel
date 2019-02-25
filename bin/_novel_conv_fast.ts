@@ -34,7 +34,7 @@ if (arr_ids.length == 1)
 {
 	fs.outputJSONSync(_cache_file, arr_ids);
 }
-else if (1)
+else if (0)
 {
 	throw new Error();
 }
