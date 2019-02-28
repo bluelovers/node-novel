@@ -907,6 +907,10 @@ lazymarks['zh'] = _word_zh_all([
 
 	['[麽]', '麼'],
 
+	['[徴]', '徵'],
+
+	['稅', '稅'],
+
 ]);
 
 lazymarks['zh_cht'] = _word_zh_all([
