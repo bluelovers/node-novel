@@ -56,6 +56,38 @@ lazymarks[0] = [
 		[/([』」])。$/gm, '$1'],
 
 		[
+			/^("{2,})([^\n"']+)("{2,})$/gm,
+			function (...m)
+			{
+				if (m[1].length == m[3].length)
+				{
+					return ['「'.repeat(m[1].length),
+						m[2],
+						'」'.repeat(m[3].length),
+					].join('')
+				}
+
+				return m[0];
+			},
+		],
+
+		[
+			/("{2,})([^\n"']+)("{2,})/gm,
+			function (...m)
+			{
+				if (m[1].length == m[3].length)
+				{
+					return ['「'.repeat(m[1].length),
+						m[2],
+						'」'.repeat(m[3].length),
+					].join('')
+				}
+
+				return m[0];
+			},
+		],
+
+		[
 			/"([^\n"']*)'([^'"\n]+)'/gm,
 			'"$1『$2』',
 		],
@@ -869,6 +901,12 @@ lazymarks['zh'] = _word_zh_all([
 	['営', '營'],
 	['圧', '壓'],
 
+	['犧', '犧'],
+
+	['[𫗭]', '餵'],
+
+	['[麽]', '麼'],
+
 ]);
 
 lazymarks['zh_cht'] = _word_zh_all([
@@ -888,8 +926,6 @@ lazymarks['zh_cht'] = _word_zh_all([
 	['[歴]', '歷'],
 	['屬', '屬'],
 	['樂', '樂'],
-
-	['[麽]', '麼'],
 
 ]);
 
@@ -1005,6 +1041,8 @@ lazymarks['jp1'] = _word_zh_all([
 	_word_jp1('矮人|ドワーフ', '矮人'),
 
 	_word_jp1('キャラクター', '角色'),
+
+	_word_jp1('キャラ', '角色'),
 
 	_word_jp1('ダンジョン', '迷宮'),
 
