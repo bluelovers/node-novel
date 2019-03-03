@@ -922,6 +922,8 @@ lazymarks['zh'] = _word_zh_all([
 
 	['[児]', '兒'],
 
+	['册', '冊'],
+
 ]);
 
 lazymarks['zh_cht'] = _word_zh_all([
