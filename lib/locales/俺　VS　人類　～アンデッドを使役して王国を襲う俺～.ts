@@ -16,7 +16,7 @@ export const lang = '';
  */
 export const words_source: IWords[] = [
 
-	_word_jp1('莉寧|リリン|莉琳|LILIN|ririn', '莉寧'),
+	_word_jp1('莉寧|リリン|莉琳|LILIN|ririn|莉林', '莉寧'),
 
 	['布里|布利(?=醬)', '布里'],
 
@@ -68,6 +68,7 @@ export const words_source: IWords[] = [
 
 	_word_jp1('石像鬼|ガーゴイル', '石像鬼'),
 
+	_word_jp1('滑爾頓|スケルトン', '滑爾頓'),
 
 
 	_word_jp1('瑞克|リック', '瑞克'),
