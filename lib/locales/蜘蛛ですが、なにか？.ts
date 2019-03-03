@@ -4,7 +4,7 @@
 
 import { sp, IWords, vMaybe, sublib } from './index';
 import * as StrUtil from 'str-util';
-import { _word_en, lazymarks, _word_jp1 } from './lib/index';
+import { _word_en, lazymarks, _word_jp1, _word_en3 } from './lib/index';
 
 /**
  * 改成小說名字 (可留白 則自動設定為檔案名稱)
@@ -15,6 +15,8 @@ export const lang = '';
  * 在這裡放此小說專屬的取代樣本
  */
 export const words_source: IWords[] = [
+
+	['愛麗児', '愛麗兒'],
 
 	/**
 	 * @todo 人偶蜘蛛
@@ -56,7 +58,52 @@ export const words_source: IWords[] = [
 	 */
 	['連古贊德|聯古占托|連克山杜', '連克山杜'],
 	_word_jp1('レングザンド', '連克山杜'),
+
+	_word_jp1('右果|由古', '由古'),
+	[`${sp}(?:邦恩|潘)${sp}連克山杜`, '・邦恩・連克山杜'],
+
+	/**
+	 *
+	 */
+	_word_jp1('沙利艾拉|薩利艾拉', '薩利艾拉'),
+
+	/**
+	 *
+	 */
+	_word_jp1('巴魯多|巴魯托|巴托魯', '巴魯托'),
+
+	_word_jp1('妮婭|尼亞', '妮婭'),
+
+	_word_jp1('艾露洛|艾爾羅', '艾爾羅'),
+
+	_word_jp1('阿古納|亞格納', '亞格納'),
+
+	_word_jp1('薩那托麗阿|薩納托利亞|沙娜多莉|薩(那|納)托(利|麗)(阿|亞)', '沙娜多莉'),
+
+	_word_jp1('庫郭|古豪', '古豪'),
+
+	_word_jp1('西悠|修維', '修維'),
+
+	_word_jp1('瓦克斯|瓦基斯', '瓦基斯'),
+
+
+	_word_en('gang', '岡'),
+
+	_word_jp1('斐涅斯多|フェネシスト', '斐涅斯多'),
+	_word_jp1('斐涅拉修|フェネラッシュ', '斐涅拉修'),
+	_word_jp1('斐涅格勒|フェネグラッド', '斐涅格勒'),
+
+	_word_jp1('亞雷烏斯|阿雷烏斯', '亞雷烏斯'),
+
+	_word_jp1('サリエル|莎麗兒|薩麗兒', '莎麗兒'),
+
+	/**
+	 *
+	 */
+
 	['公會老板', '公會長'],
+	['魔闘法', '魔闘法'],
+	['地竜', '地竜'],
 
 ];
 
@@ -67,7 +114,19 @@ export const words: IWords[] = sublib._word_zh_all([
 
 	...words_source,
 
+	_word_en3('lv(\\d+)', function (...m)
+	{
+
+		return 'Lv' + StrUtil.toFullNumber(m[2])
+	}),
+
 	['[炮]', '砲'],
+
+	['[煉炼]成', '錬成'],
+
+	['氣[斗]', '氣鬥'],
+
+	[/n% ?I ?= ?W/gm, 'n%I=W'],
 
 	['工會|公會', '公會'],
 
