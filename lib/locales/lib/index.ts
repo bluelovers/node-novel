@@ -455,6 +455,8 @@ let _en = [
 
 	'NETA',
 
+	'GALGAME',
+
 	'Golem',
 	'Rank',
 
