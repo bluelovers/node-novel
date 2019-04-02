@@ -3,7 +3,7 @@
  */
 
 import * as StrUtil from 'str-util';
-import { trimFilename } from 'fs-iconv';
+import { trimFilename } from 'fs-iconv/util';
 import { isRegExp } from 'regexp-cjk';
 export { array_unique, lazy_unique } from 'array-hyper-unique';
 
