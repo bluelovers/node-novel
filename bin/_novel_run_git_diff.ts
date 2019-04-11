@@ -2,7 +2,7 @@
  * Created by user on 2018/5/21/021.
  */
 
-import * as crossSpawn from 'cross-spawn';
+import * as crossSpawn from 'cross-spawn-extra';
 import * as path from 'path';
 import gitDiffIDNovelID from '../lib/git';
 import ProjectConfig from '../project.config';

@@ -26,10 +26,10 @@ let _full_num = '０-９';
 let _space = ' 　\\t';
 
 let inputFile = path.join(projectConfig.dist_novel_root,
-	'syosetu',
-	'俺　VS　人類　～アンデッドを使役して王国を襲う俺～',
+	'mirronight',
+	'只有無職是不會辭掉的',
 	'z.raw',
-	'俺vs人类1-103(缺59）.txt',
+	'7df93fc84425affc.txt',
 );
 
 const c = '　';
@@ -39,7 +39,10 @@ let options: IOptionsRequiredUser = {
 	useRegExpCJK: true,
 
 	// @ts-ignore
-	_volume: {
+	volume: {
+
+		ignoreRe: /第一章结束时的状态栏|第二章我是完全未看/,
+
 		r: new zhRegExp([
 			//`(?:^|\\n)[${_space}]*(第?(?:[序终]|[${_zh_num}]+|\\d+)章)([^\\n]*)`,
 
@@ -163,7 +166,7 @@ let options: IOptionsRequiredUser = {
 			`[${_space}]*`,
 			`(`,
 			[
-				//`(?:(?:第|最)?(?:序|终)|第[${_zh_num}\\d]+)话`,
+				`(?:(?:第|最)?(?:序|终)|第[${_zh_num}\\d]+)话`,
 				//`幕间`,
 
 //				`WEB[ ]*\\d+`,
@@ -176,21 +179,23 @@ let options: IOptionsRequiredUser = {
 //				`原(?:勇|者)\\d{3,}`,
 //				`（web\\d+）`,
 
-				`(?:第(?:[\\d${_zh_num}${_full_num}]+|\\d+|[${_full_num}\\d]+)(?:话|集|章))`,
+				//`(?:第(?:[\\d${_zh_num}${_full_num}]+|\\d+|[${_full_num}\\d]+)(?:话|集|章))`,
 
 				//`\\d{2,} `,
 
 				//`序曲`,
 
-				'序章',
+				//'序章',
 
-				'序幕',
+				//'序幕',
 
-				'\\d+',
+				//'\\d+',
 
 				//`[${_full_num}\\d]+[．.]`,
 
-				`\\d+话：`,
+				//`\\d+话：`,
+
+				`\\d+(?= ?【)`,
 
 			].join('|'),
 			`)`,

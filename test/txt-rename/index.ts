@@ -4,7 +4,7 @@
 
 import * as Promise from 'bluebird';
 import { cn2tw_min } from 'cjk-conv/lib/zh/convert/min';
-import * as crossSpawn from 'cross-spawn';
+import * as crossSpawn from 'cross-spawn-extra';
 import * as fs from 'fs-extra';
 import globby from 'node-novel-globby/g';
 import novelText from 'novel-text';
@@ -59,30 +59,42 @@ novelID = '吃掉死神的少女';
 
 novelID = '蜘蛛ですが、なにか？';
 
-//pathMain = 'zh';
-//novelID = '如何在異世界殺死一個死宅';
-
-//subPath = '00010_WEB';
-
-pathMain = 'user';
-novelID = '四度目は嫌な死属性魔術師';
-
+////pathMain = 'zh';
+////novelID = '如何在異世界殺死一個死宅';
+//
+////subPath = '00010_WEB';
+//
+//pathMain = 'user';
+//novelID = '四度目は嫌な死属性魔術師';
+//
+//pathMain = 'wenku8';
+//novelID = '不吉波普系列';
+//
+//pathMain = 'dmzj';
+//novelID = '不是真正同伴的我被逐出了勇者隊伍，因此決定在邊境過上慢生活';
+//
 pathMain = 'wenku8';
+//novelID = '平凡職業造就世界最強';
+//
+////subPath = '01010_WEB';
+//
+//pathMain = 'user';
+//novelID = '你這種傢伙別想打贏魔王';
+//
+//pathMain = 'ts';
+//novelID = '幼女転生';
+
+//pathMain = 'syosetu';
+//novelID = '悠閑農家與亂碼技能';
+
 novelID = '不吉波普系列';
+novelID = '森の魔獣に花束を';
+novelID = '書姬吟游錄';
 
-pathMain = 'dmzj';
-novelID = '不是真正同伴的我被逐出了勇者隊伍，因此決定在邊境過上慢生活';
+//pathMain = 'user';
+//novelID = '２９歳独身は異世界で自由に生きた…かった。';
 
-pathMain = 'wenku8';
-novelID = '平凡職業造就世界最強';
-
-//subPath = '01010_WEB';
-
-pathMain = 'user';
-novelID = '你這種傢伙別想打贏魔王';
-
-pathMain = 'ts';
-novelID = '幼女転生';
+//subPath = '00010_文庫/00070_第七卷';
 
 let DEBUG_MODE = true;
 //DEBUG_MODE = false;
@@ -318,6 +330,14 @@ let _space = ' 　\\t \\s';
 			name = trimFilename(name);
 
 			name = cn2tw_min(name);
+
+			/*
+			name = StrUtil.toFullWidth(name, {
+				only: {
+					space: true,
+				}
+			});
+			*/
 
 //			console.log(name, m);
 

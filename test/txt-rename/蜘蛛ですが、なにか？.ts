@@ -4,7 +4,7 @@
 
 import * as Promise from 'bluebird';
 import { cn2tw_min } from 'cjk-conv/lib/zh/convert/min';
-import * as crossSpawn from 'cross-spawn';
+import * as crossSpawn from 'cross-spawn-extra';
 import * as fs from 'fs-extra';
 import globby from 'node-novel-globby/g';
 import novelText from 'novel-text';

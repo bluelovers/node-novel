@@ -2,7 +2,7 @@
  * Created by user on 2018/10/6/006.
  */
 
-import * as crossSpawn from 'cross-spawn';
+import * as crossSpawn from 'cross-spawn-extra';
 import * as path from 'path';
 import gitDiffIDNovelID, { localesPath, searchLocalesID } from '../lib/git';
 import { freeGC } from '../lib/util';
