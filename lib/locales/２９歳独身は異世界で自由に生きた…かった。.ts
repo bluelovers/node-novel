@@ -169,6 +169,8 @@ export const words_source: IWords[] = [
 	 */
 	_word_jp1('曼特巴司|瑪昂多巴士|マウントバス', '曼特巴司'),
 
+	_word_jp1('里伊', '里伊'),
+
 	/**
 	 *
 	 */
