@@ -258,4 +258,4 @@ export const value = {
 	volume_title: `$t(chapter_id, [{{0}}])：{{title}}`,
 };
 
-export default exports as typeof import('./demo');
+export default exports;
