@@ -44,7 +44,8 @@ export const words_source: IWords[] = [
 	/**
 	 * ホルンって街
 	 */
-	_word_jp1('ホルンって', '圖號'),
+	_word_jp1('ホルンって|圖號|霍爾頓', '霍爾頓'),
+	_word_jp1('費斯特|ファウスト', '費斯特'),
 
 
 	/**
