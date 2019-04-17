@@ -16,7 +16,47 @@ export const lang = '';
  */
 export const words_source: IWords[] = [
 
-	//['要取代的字', '取代後的字'],
+	[`露娜${sp}雷斯頓`, '露娜・雷斯頓'],
+
+	['愛麗絲', '愛麗絲'],
+
+	/**
+	 *
+	 */
+	_word_jp1('巴勒西斯|帕雷西烏斯|バレシウス', '帕雷西烏斯'),
+
+	/**
+	 *
+	 */
+	_word_jp1('菲利艾露|菲利亞|フェリアル|菲利阿魯|維利亞|菲莉亞', '菲利艾露'),
+
+	_word_jp1('維斯怕|維斯拍|維斯帕', '維斯帕'),
+
+	_word_jp1('威魯|威爾', '威爾'),
+
+	_word_jp1('リン|磷', '琳'),
+
+	[`(?:リン|林|琳|磷)${sp}(?:リー|莉|琳|磷)`, '琳・莉'],
+	[`(?:リン|林|琳)(?:リー|莉)|林琳|琳琳`, '琳・莉'],
+
+	[`(?:威廉)${sp}(?:布蘭切特)`, '威廉・布蘭切特'],
+
+	/**
+	 * ホルンって街
+	 */
+	_word_jp1('ホルンって', '圖號'),
+
+
+	/**
+	 *
+	 */
+
+
+	_word_jp1('ニュクテリス'),
+
+
+	_word_jp1('庫拉肯|克萊根|クラーケン', '庫拉肯'),
+
 
 ];
 
@@ -26,6 +66,8 @@ export const words_source: IWords[] = [
 export const words: IWords[] = sublib._word_zh_all([
 
 	...words_source,
+
+	[/^[ 　]+/gm, ''],
 
 	...sublib.lazymarks['class'],
 	//...sublib.lazymarks['zh_cht'],
@@ -43,7 +85,7 @@ export const words: IWords[] = sublib._word_zh_all([
 	...sublib.lazymarks[3],
 	...sublib.lazymarks[5],
 
-	//...sublib.lazymarks[8],
+	...sublib.lazymarks[8],
 
 ] as IWords[]);
 
