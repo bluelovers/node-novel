@@ -4,7 +4,7 @@
 
 import { sp, IWords, vMaybe, sublib } from './index';
 import * as StrUtil from 'str-util';
-import { _word_en } from './lib/index';
+import { _word_en, _word_jp1 } from './lib/index';
 
 /**
  * 改成小說名字
@@ -220,7 +220,7 @@ export const words_source: IWords[] = [
 	['知恵と破滅の大?悪魔|智慧及破滅的大?惡魔|智慧和破滅的大?惡魔|智慧與破滅的大?惡魔', '智慧與破滅的大惡魔'],
 
 	['アンゲル|安蓋魯', '安蓋魯'],
-	['ペンラート|邦傑', '邦傑'],
+	_word_jp1('ペンラート|邦傑|本拉多', '邦傑'),
 
 	['アムリタ|阿姆里塔', '阿姆里塔'],
 	['エーテル|以太', '以太'],
@@ -357,6 +357,25 @@ export const words_source: IWords[] = [
 	[`莉芙|リヴ`, '莉芙'],
 	[`フォーグ|佛古|法格`, '佛古'],
 	[`莉芙${sp}佛古`, '莉芙・佛古'],
+
+	/**
+	 *
+	 */
+	_word_jp1('ドグラ', '都古拉'),
+	_word_jp1('マハラウン', '瑪哈拉努'),
+
+	_word_jp1('ルイン', '盧茵'),
+	_word_jp1('ルーペル', '盧貝爾'),
+
+	_word_jp1('アログア', '阿洛古雅'),
+
+	_word_jp1('ラスブート', 'ラスブート'),
+
+	_word_jp1('リヴアリン', '利維奧林'),
+
+	_word_jp1('レイングルム', '雷恩古魯姆'),
+
+	_word_jp1('ニャルン', '奈亞菈'),
 
 	/**
 	 *
