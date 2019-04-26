@@ -33,3 +33,4 @@ dist_novel
 /yarn.lock
 project.config.local.*
 
+/test/
