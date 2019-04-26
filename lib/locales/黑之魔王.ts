@@ -983,6 +983,7 @@ export const words: IWords[] = sublib._word_zh_all([
 				b[1] as string,
 			];
 
+			// @ts-ignore
 			a.push(sublib._word_zh.apply(null, c));
 
 			c = [
@@ -990,6 +991,7 @@ export const words: IWords[] = sublib._word_zh_all([
 				b[1] as string,
 			];
 
+			// @ts-ignore
 			a.push(sublib._word_zh.apply(null, c));
 
 			return a;

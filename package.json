@@ -43,7 +43,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "@bluelovers/tsconfig": "^1.0.2",
+    "@bluelovers/tsconfig": "^1.0.3",
     "@node-novel/md-loader": "^1.0.2",
     "@node-novel/pattern-split": "^1.1.2",
     "@node-novel/txt-split": "^1.0.11",

@@ -1,3 +1,13 @@
 {
-  "extends": "@bluelovers/tsconfig"
+  "extends": "@bluelovers/tsconfig",
+  "compilerOptions": {
+
+    "diagnostics": true,
+
+    "showConfig": true,
+
+    "locale": "zh-TW",
+    "preserveConstEnums": true
+  },
+  "locale": "zh-TW"
 }
