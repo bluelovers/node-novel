@@ -459,6 +459,8 @@ export const words_maybe: vMaybe = [
 	'',
 	'丶',
 
+	'好[象]',
+
 	///[\u4E00-\u9FFF]{1,3}[\?＝\=\-][\u4E00-\u9FFF]{1,3}/ig,
 
 ];

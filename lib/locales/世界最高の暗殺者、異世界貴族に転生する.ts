@@ -16,7 +16,10 @@ export const lang = '';
  */
 export const words_source: IWords[] = [
 
-	//['要取代的字', '取代後的字'],
+	_word_jp1('迪亞|ディア', '迪亞'),
+	_word_jp1('ヴィコーネ', '維科內'),
+
+	_word_jp1('[托]里', '托里'),
 
 ];
 
@@ -27,12 +30,17 @@ export const words: IWords[] = sublib._word_zh_all([
 
 	...words_source,
 
+	//[/(?<=\S)(\n)(?=[⋯…][^\n]+)/gm, '\n\n'],
+	//[/(?<=^[⋯…][^\n]+)(\n)(?=\S)/gm, '\n\n'],
+
+	[/(?<=」)\n{2}(?=「)/g, '\n'],
+
+	...sublib.lazymarks['ln_0010'],
+
 	...sublib.lazymarks['class'],
-	//...sublib.lazymarks['zh_cht'],
+	...sublib.lazymarks['zh_cht'],
 
 	//...sublib.lazymarks['unit'],
-
-	//...sublib.lazymarks['ln_0010'],
 
 	...sublib.lazymarks[4],
 
