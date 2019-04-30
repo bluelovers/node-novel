@@ -22,7 +22,13 @@ export const words_source: IWords[] = [
 	[`夏莉${sp}阿爾格雷`, '夏莉・阿爾格雷'],
 	[`(夏莉|愛麗絲)、阿爾格雷`, '$1・阿爾格雷'],
 
+	[`拉格多爾|拉魯多爾`, '拉格多爾'],
+
+	[`(愛麗絲)、拉格多爾`, '$1・拉格多爾'],
+
 	[`阿爾貝托、拉魯多爾`, '阿爾貝托・拉魯多爾'],
+
+	[`愛德華、潘德拉貢`, '愛德華・潘德拉貢'],
 
 ];
 
@@ -36,7 +42,7 @@ export const words: IWords[] = sublib._word_zh_all([
 	[`哥不林`, '哥布林'],
 
 	...sublib.lazymarks['class'],
-	//...sublib.lazymarks['zh_cht'],
+	...sublib.lazymarks['zh_cht'],
 
 	//...sublib.lazymarks['unit'],
 
