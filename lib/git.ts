@@ -9,6 +9,7 @@ import { array_unique, lazy_unique } from 'array-hyper-unique';
 import { defaultSortCallback } from '@node-novel/sort';
 import * as fs from 'fs-extra';
 import { sortTree } from 'node-novel-globby/lib/glob-sort';
+import { console } from 'debug-color2';
 
 export const localesPath = path.join(ProjectConfig.project_root, './lib/locales');
 
@@ -37,9 +38,16 @@ export function gitDiffIDNovelID(git_root: string)
 				&& pathMain != 'docs'
 				&& !pathMain.match(/_out$|^\./))
 			{
-				return {
-					pathMain,
-					novelID,
+				if (fs.pathExistsSync(path.join(ProjectConfig.dist_novel_root, pathMain, novelID)))
+				{
+					return {
+						pathMain,
+						novelID,
+					}
+				}
+				else
+				{
+					console.warn(`[資料夾不存在或已刪除]`, pathMain, novelID)
 				}
 			}
 		}))
