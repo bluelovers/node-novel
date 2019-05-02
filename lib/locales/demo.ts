@@ -32,7 +32,7 @@ export const words: IWords[] = sublib._word_zh_all([
 
 	//...sublib.lazymarks['unit'],
 
-	//...sublib.lazymarks['ln_0010'],
+	...sublib.lazymarks['ln_0010'],
 
 	...sublib.lazymarks[4],
 

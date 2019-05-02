@@ -33,7 +33,7 @@ if (arr_ids.length == 1)
 }
 else if (1)
 {
-	throw new Error();
+	throw new Error(`arr_ids.length (${arr_ids.length}) != 1`);
 }
 else if (arr_ids.length == 0 && fs.existsSync(_cache_file))
 {
