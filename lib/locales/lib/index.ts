@@ -498,6 +498,8 @@ let _en = [
 	'S',
 	'Ｓ',
 
+	'YouTuber',
+
 ];
 
 lazymarks['en'] = [
