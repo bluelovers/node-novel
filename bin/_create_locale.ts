@@ -17,6 +17,7 @@ import prettyuse = require('prettyuse');
 import * as novelGlobby from 'node-novel-globby';
 import * as iconv from 'iconv-jschardet';
 import { tw2cn_min, cn2tw_min, tableCn2TwDebug, tableTw2CnDebug } from 'cjk-conv/lib/zh/convert/min';
+import * as util from 'util';
 
 let cli = yargs
 	.argv
@@ -37,7 +38,9 @@ if (arr_ids.length == 0 && fs.existsSync(_cache_file))
 
 if (arr_ids.length != 1)
 {
-	throw new Error();
+	throw new Error(util.inspect(arr_ids, {
+		colors: true,
+	}));
 }
 
 Promise

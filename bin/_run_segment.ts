@@ -21,6 +21,7 @@ import { crlf } from 'crlf-normalize';
 
 import * as NovelSegmentCli from 'novel-segment-cli';
 import { globSegment } from './lib/segment';
+import * as util from 'util';
 
 let cli = yargs
 	.argv
@@ -39,9 +40,11 @@ if (arr_ids.length == 0 && fs.existsSync(_cache_file))
 	console.info(`使用上次執行的目錄`, arr_ids);
 }
 
-if (arr_ids.length != 1)
+if (1 && arr_ids.length != 1)
 {
-	throw new Error();
+	throw new Error(util.inspect(arr_ids, {
+		colors: true,
+	}));
 }
 else if (arr_ids.length === 1)
 {
