@@ -29,22 +29,27 @@ export interface IGetNovel<T = string>
 	callback: IGetNovelCallback<T>;
 }
 
+export interface IGetNovelCallbackData<T>
+{
+	file: string;
+	index: number;
+	len: number;
+	basename: string;
+	ext: string;
+	name: string;
+	file_dir: string;
+	currentFile: string;
+	idfile: string;
+
+	inputOptions: IGetNovel<T>,
+
+	_last_empty: ICacheLastEmpty,
+	STAT_CACHE: ICacjeStat,
+}
+
 export interface IGetNovelCallback<T>
 {
-	(data: {
-		file: string;
-		index: number;
-		len: number;
-		ext: string;
-		name: string;
-		file_dir: string;
-		currentFile: string;
-
-		inputOptions: IGetNovel<T>,
-
-		_last_empty: ICacheLastEmpty,
-		STAT_CACHE: ICacjeStat,
-	}): T
+	(data: IGetNovelCallbackData<T>): T
 }
 
 export interface ICacjeStat
@@ -156,20 +161,33 @@ export function globNovel<T>(inputOptions: IGetNovel<T>)
 		.mapSeries(novelGlobby
 			.globbyASync(globby_patterns, globby_options), function (file, index, len)
 		{
-			let ext = '.txt';
+			let basename = path.basename(file);
 
-			let name = path.basename(file, ext);
+			let ext = path.extname(basename);
+
+			let name = path.basename(basename, ext);
 			let file_dir = path.relative(cwd_path, path.dirname(file));
 
 			let currentFile = path.join(file_dir, name);
 
+			let idfile = currentFile;
+
+			if (ext != '.txt')
+			{
+				idfile += ext;
+			}
+
 			return callback({
 				file, index, len,
+
+				basename,
 
 				ext,
 				name,
 				file_dir,
 				currentFile,
+
+				idfile,
 
 				inputOptions,
 
