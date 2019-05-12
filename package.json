@@ -41,6 +41,7 @@
     "run-conv-fast": "ts-node ./bin/_novel_conv_fast",
     "run-epub": "ts-node ./bin/_run_epub",
     "run-fix-source": "ts-node ./bin/_novel_source",
+    "run-fix-trim": "ts-node ./bin/_novel_trim",
     "run-segment": "node -r ts-node/register --max-old-space-size=2048 --expose-gc ./bin/_run_segment",
     "run-segment-fast": "node -r ts-node/register --max-old-space-size=2048 --expose-gc ./bin/_run_segment_fast",
     "test": "echo \"Error: no test specified\" && exit 1"
