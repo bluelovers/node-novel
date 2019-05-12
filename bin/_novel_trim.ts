@@ -81,7 +81,7 @@ Bluebird
 						_last_empty
 							.forEach(function (currentFile)
 							{
-								console.red(idfile, '此檔案無內容');
+								console.red(currentFile, '此檔案無內容');
 							})
 						;
 
