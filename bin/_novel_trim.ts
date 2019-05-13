@@ -15,6 +15,7 @@ import { _replace_list_001, getNovel, globNovel } from './lib/util';
 import Bluebird = require('bluebird');
 import novelText from 'novel-text';
 import { _word_zh_all, lazymarks } from '../lib/locales/lib/index';
+import * as util from 'util';
 
 let cli = yargs
 	.argv
@@ -33,7 +34,9 @@ if (arr_ids.length == 1)
 }
 else if (1)
 {
-	throw new Error(`arr_ids.length (${arr_ids.length}) != 1`);
+	throw new Error(util.inspect(arr_ids, {
+		colors: true,
+	}));
 }
 else if (arr_ids.length == 0 && fs.existsSync(_cache_file))
 {
