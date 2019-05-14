@@ -10,6 +10,7 @@ import { IRegExpCallback } from 'novel-text';
 //import * as regexpCjkLib from 'regexp-cjk/lib/v1';
 import * as regexpCjkLib from 'regexp-cjk/lib';
 import { isRegExp, zhRegExp } from 'regexp-cjk';
+import { _re_cjk_conv as _re_cjk_conv2 } from 'regexp-helper/lib/cjk-conv';
 
 export const _word_zh = regexpCjkLib._word_zh;
 
@@ -44,6 +45,9 @@ lazymarks[0] = [
 	//〖号〗
 
 	let word = `！？…⋯－─—\\w０-９ａ-ｚＡ-Ｚ『』·＝\\u4E00-\\u9FFF\\u4E00-\\u9FAF\\u3000-\\u30FF\\u2200-\\u22FF\\u2e80-\\u33ffh`;
+
+	let word1 = _re_cjk_conv2().source;
+	let word2 = _re_cjk_conv2().source.replace(/^\[|\]$/g, '');
 
 	lazymarks[1] = [
 
@@ -184,6 +188,10 @@ lazymarks[0] = [
 		[/^\.$/gm, ''],
 
 		[/(?<=[」』])\n(?=[《【＜〈])/g, '\n\n'],
+
+		[new RegExp(`(?<=^${word1}+[「『][^\\n]+[」』])\\n(?=[「『][^\\n]+[」』]$)`, 'ugm'), '\n\n'],
+
+		[new RegExp(`(?<=^[「『][^\\n]+[」』]${word1}+)\\n(?=[「『][^\\n]+[」』]$)`, 'ugm'), '\n\n'],
 
 	];
 }
