@@ -90,6 +90,8 @@ export const words: IWords[] = sublib._word_zh_all([
 
 	...words_source,
 
+	[/^[　 ]+/gm, ''],
+
 	...sublib.lazymarks['class'],
 	//...sublib.lazymarks['zh_cht'],
 
