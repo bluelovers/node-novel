@@ -10,6 +10,7 @@ import { IOptionsWithReturnGlobList } from 'node-novel-globby/lib';
 import { crlf } from 'crlf-normalize';
 import { console } from 'debug-color2';
 import * as fs from 'fs-extra';
+import novelText from 'novel-text';
 
 export function _getSegment()
 {
@@ -61,6 +62,8 @@ export function globSegment(pattern: string[], options: IOptionsWithReturnGlobLi
 						.tap(async function (text)
 						{
 							let msg = `[${(index+1).toString().padStart(n, '0')}/${arrayLength}] ${file}`;
+
+							if (text) text = novelText.toStr(text);
 
 							if (text.length && old !== text)
 							{

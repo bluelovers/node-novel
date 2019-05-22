@@ -19,6 +19,7 @@ import * as iconv from 'iconv-jschardet';
 import { tw2cn_min, cn2tw_min, tableCn2TwDebug, tableTw2CnDebug } from 'cjk-conv/lib/zh/convert/min';
 import escapeGlob = require('glob-escape');
 import { do_cn2tw_min } from './lib/conv';
+import novelText from 'novel-text';
 
 let cli = yargs
 	.argv
@@ -163,7 +164,7 @@ Promise
 					// @ts-ignore
 					_t_old = _t_old.toString();
 
-					let _t = trimTxtLine(do_cn2tw_min(_t_old));
+					let _t = trimTxtLine(do_cn2tw_min(novelText.toStr(_t_old)));
 
 					let changed = _t != _t_old;
 
