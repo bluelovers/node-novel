@@ -4,7 +4,7 @@
 
 import * as crossSpawn from 'cross-spawn-extra';
 import * as path from 'path';
-import gitDiffIDNovelID, { localesPath, searchLocalesID } from '../lib/git';
+import gitDiffIDNovelID, { getLocalesPath, localesPath, searchLocalesID } from '../lib/git';
 import { freeGC } from '../lib/util';
 import ProjectConfig from '../project.config';
 import Promise = require('bluebird');
@@ -75,10 +75,13 @@ Promise
 			{
 				console.warn(`exists`, path.basename(t));
 			}
+
+			console.info(t);
 		}
 		else
 		{
 			console.warn(`exists`, myLocalesID);
+			console.info(getLocalesPath(myLocalesID));
 		}
 	})
 	;

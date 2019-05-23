@@ -168,6 +168,11 @@ export function _searchLocalesID(ids: string[])
 	return myLocalesID;
 }
 
+export function getLocalesPath(name: string)
+{
+	return require.resolve(path.join(localesPath, name));
+}
+
 export function gitDiffStagedFile(git_root: string): string[]
 {
 	if (!git_root)

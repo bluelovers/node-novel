@@ -65,7 +65,8 @@ lazymarks[0] = [
 			{
 				if (m[1].length == m[3].length)
 				{
-					return ['「'.repeat(m[1].length),
+					return [
+						'「'.repeat(m[1].length),
 						m[2],
 						'」'.repeat(m[3].length),
 					].join('')
@@ -81,7 +82,8 @@ lazymarks[0] = [
 			{
 				if (m[1].length == m[3].length)
 				{
-					return ['「'.repeat(m[1].length),
+					return [
+						'「'.repeat(m[1].length),
 						m[2],
 						'」'.repeat(m[3].length),
 					].join('')
@@ -390,6 +392,10 @@ lazymarks['clear_001'] = [
 
 	[/\n+\s*[~【《（「『〈<─\-－一=＝…⋯\._]*\s*(?:(?:本|\d+)話.?)?(?:完毕?|fin|END|終わり)\s*[~〉』」》）】>─\-－一=＝…⋯\._]*\s*$/ig, ''],
 
+];
+
+lazymarks['clear_002'] = [
+	[/^[　 ]+/gm, ''],
 ];
 
 lazymarks['replace_001'] = [
@@ -750,7 +756,6 @@ lazymarks['zh'] = _word_zh_all([
 	['螞', '螞'],
 	['数|數', '數'],
 
-
 	['戦', '戰'],
 
 	['魚', '魚'],
@@ -990,7 +995,6 @@ lazymarks['zh_cht'] = _word_zh_all([
 
 	['絕', '絕'],
 
-
 ]);
 
 lazymarks['zh2'] = _word_zh_all([
@@ -1215,7 +1219,10 @@ lazymarks['c050'] = _word_zh_all([
 
 	[/(?<=[ \u4E00-\u9FFF\u{20000}-\u{2FA1F}])\.(?=[ ])/ug, '。'],
 
-	[/(?<=[\u4E00-\u9FFF\u{20000}-\u{2FA1F}])([?+])(?=[\u4E00-\u9FFF\u{20000}-\u{2FA1F}])/ug, s => StrUtil.toFullWidth(s)],
+	[
+		/(?<=[\u4E00-\u9FFF\u{20000}-\u{2FA1F}])([?+])(?=[\u4E00-\u9FFF\u{20000}-\u{2FA1F}])/ug,
+		s => StrUtil.toFullWidth(s),
+	],
 
 	[/(?<=[\u4E00-\u9FFF\u{20000}-\u{2FA1F}])\.(?=[\u4E00-\u9FFF\u{20000}-\u{2FA1F}])/ug, '・'],
 
@@ -1292,8 +1299,6 @@ lazymarks['c100'] = _word_zh_all([
 
 	[/(?<=[\u4E00-\u9FFF])=(?=[\u4E00-\u9FFF])/g, '＝'],
 
-
-
 	[/^\s*(?=[─－\-─—–]+)/, ''],
 
 ]);
@@ -1358,7 +1363,10 @@ export function _word_en3(search: string | RegExp,
 	flag = 'ig',
 ): [RegExp, string | any]
 {
-	return [new RegExp(`(?<![\\w'’${EN_REGEXP}])(${regex_str2(search)})(?![\\w'’${EN_REGEXP}])`, flag), ((ret !== null) ? ret : search)];
+	return [
+		new RegExp(`(?<![\\w'’${EN_REGEXP}])(${regex_str2(search)})(?![\\w'’${EN_REGEXP}])`, flag),
+		((ret !== null) ? ret : search),
+	];
 }
 
 export function _word_jp1(search: string | RegExp,

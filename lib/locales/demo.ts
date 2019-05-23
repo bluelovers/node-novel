@@ -47,6 +47,8 @@ export const words: IWords[] = sublib._word_zh_all([
 
 	//...sublib.lazymarks[8],
 
+	...lazymarks['clear_002'],
+
 ] as IWords[]);
 
 /**
