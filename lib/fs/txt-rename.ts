@@ -21,8 +21,8 @@ export function replace_name_list()
 	if (!CACHE_REGEXP_LIST.length)
 	{
 		CACHE_REGEXP_LIST = [
-			[/后(記|宮|篇)/g, '後$1'],
-			[/(背)后/g, '$1後'],
+			[/后(記|宮|篇|记)/g, '後$1'],
+			[/(背|最)后/g, '$1後'],
 			[/レポート/g, '記事'],
 			[new zhRegExp('発', 'ig'), '發'],
 			[/于/g, '於'],
@@ -78,7 +78,7 @@ export function replace_name_list()
 
 				_word_en3('ELF', 'ELF'),
 
-				...lazymarks['full_width_001'],
+//				...lazymarks['full_width_001'],
 				...lazymarks['full_width_002'],
 				...lazymarks['en'],
 				...lazymarks['jp1'],
