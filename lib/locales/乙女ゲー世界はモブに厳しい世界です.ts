@@ -285,7 +285,7 @@ export const words_source: IWords[] = [
 	 *
 	 */
 
-	_word_jp1('パワードスーツ|力量套裝', '強力套裝'),
+	_word_jp1('パワードスーツ|力量套裝|動力裝甲|強力套裝', '動力裝甲'),
 	_word_en3('Power Suit', ''),
 
 	_word_jp1('フォウ', '馮'),
