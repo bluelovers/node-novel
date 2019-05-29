@@ -16,7 +16,8 @@ import * as JSON from 'json5';
 import * as novelGlobby from 'node-novel-globby';
 import novelInfo, { IMdconfMeta, mdconf_parse } from 'node-novel-info';
 
-import novelText from 'novel-text';
+//import novelText from 'novel-text';
+import novelText from '@node-novel/layout';
 import path from 'upath2';
 
 import * as yargs from 'yargs';
@@ -28,6 +29,8 @@ import { load_pattern, make_pattern_md } from './pattern_output';
 //import Promise = require('bluebird');
 import prettyuse = require('prettyuse');
 import { console } from 'debug-color2';
+
+
 
 console.enabledColor = true;
 
