@@ -33,13 +33,9 @@ export const words: IWords[] = sublib._word_zh_all([
 	[`梅璃尔${sp}柯德兰`, '梅璃尔・柯德兰'],
 	[`涅罗${sp}奧托路琪`, '涅罗・奧托路琪'],
 
-	[/(?<=[\u4E00-\u9FFF])\.(?=[\u4E00-\u9FFF])/ig, '・', , {
-		useNativeRegExp: true,
-	}],
+	[/(?<=[\u4E00-\u9FFF])\.(?=[\u4E00-\u9FFF])/ig, '・'],
 
-	[/(?<=[a-z])\.(?=[a-z])/ig, '・', , {
-		useNativeRegExp: true,
-	}],
+	[/(?<=[a-z])\.(?=[a-z])/ig, '・'],
 
 	...sublib.lazymarks['class'],
 

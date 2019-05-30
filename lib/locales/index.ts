@@ -9,15 +9,36 @@ import * as StrUtil from 'str-util';
 import sublib from './lib';
 import baidu from './lib/baidu';
 import { zhRegExp } from 'regexp-cjk';
+import { IWordsAll, IWordsArray2, IWordsArray, IWordsUser, IWordsFunction, IWordsRuntime } from '@node-novel/layout';
 
 export { sublib, IWordsOutput, IRegExpCallback }
 
+/*
 export interface IWords extends IWordsOutput
 {
 	[0]: string | RegExp,
 	[1]: string | IRegExpCallback,
 	[2]?: string,
 }
+ */
+
+/**
+ * @deprecated
+ */
+export interface IWordsOldUseNativeRegExp
+{
+	0: IWordsArray[0],
+	1: IWordsArray[1],
+	2: any,
+	3: {
+		useNativeRegExp: boolean,
+	},
+	length: 4,
+}
+
+export type IWords = IWordsAll;
+
+export { IWordsAll, IWordsArray2, IWordsArray, IWordsUser, IWordsFunction, IWordsRuntime }
 
 export type vMaybe = Array<string | RegExp | Function | Array<string | RegExp>>;
 
@@ -129,7 +150,6 @@ export const words: IWords[] = [
 
 	[/情[ ]?se[ ]?小说/, '情色小说'],
 
-
 	//['方變活動', '方便活動'],
 
 	//['初新者', '初心者'],
@@ -211,7 +231,6 @@ export const words: IWords[] = [
 
 	//['奴隶|奴隷', '奴隷'],
 
-
 	['圌', ''],
 
 	...sublib.lazymarks['replace_001'],
@@ -252,8 +271,6 @@ export function words_callback(text)
 
 		.replace(new zhRegExp(`\\n([＝－\\=\\-─]+)\\n+((?:[ \\t　]*)?${lightnovel_copy}：)`, 'g'), '\n$1\n$2')
 	;
-
-
 
 	//text = text.replace(/^(「[^\n」]+)\n*(\n[^\n「」]+)*\n*(\n[^\n「]+」)/gm, '$1$2$3');
 

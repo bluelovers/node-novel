@@ -11,6 +11,8 @@ import { IRegExpCallback } from 'novel-text';
 import * as regexpCjkLib from 'regexp-cjk/lib';
 import { isRegExp, zhRegExp } from 'regexp-cjk';
 import { _re_cjk_conv as _re_cjk_conv2 } from 'regexp-helper/lib/cjk-conv';
+import util = require('util');
+import * as JsDiff from 'diff';
 
 export const _word_zh = regexpCjkLib._word_zh;
 
@@ -57,12 +59,91 @@ lazymarks[0] = [
 		 */
 		[/(?<=[^\n「」【】《》“”『』（）\[\]"](?:[！？?!。]*)?)\n(?=(?:[—]+)?[「」“”【】《》（）『』])/ug, '\n\n'],
 
-		[/(?<=[「」【】《》“”『』（）―\[\]"](?:[！？?!。]*)?)\n(?=(?:\u3000*)[^\n「」“”【】《》（）『』])/ug, "\n\n"],
+		//[/(?<=[「」【】《》“”『』（）―\[\]"](?:[！？?!。]*)?)\n(?=(?:\u3000*)[^\n「」“”【】《》（）『』])/ug, "\n\n"],
+
+		[
+			/**
+			 * 此函數來處理複雜一點的
+			 * [/(?<=[「」【】《》“”『』（）―\[\]"](?:[！？?!。]*)?)\n(?=(?:\u3000*)[^\n「」“”【】《》（）『』])/ug, "\n\n"],
+			 *
+			 * 讓段落能更加依照前後文來判斷
+			 */
+			function (source)
+			{
+				//[/(?<=[「」【】《》“”『』（）―\[\]"](?:[！？?!。]*)?)\n(?=(?:\u3000*)[^\n「」“”【】《》（）『』])/ug, "\n\n"],
+
+				let bool = false;
+
+				let re3 = new RegExp(`^${word1}+[「」【】《》“”『』（）―\\[\\]"][^\n]+[「」【】《》“”『』（）―\\[\\]"]$`, 'u');
+				let re4 = /^(?:\u3000*)[^\\n「」“”【】《》（）『』]/u;
+				let re5 = /[「」【】《》“”『』（）―\[\]"](?:[！？?!。]*)$/u;
+
+				let lines = source
+					.split('\n')
+				;
+
+				let re_not_empty = /[^\s　]/;
+
+				let i = lines.length - 1;
+				let prev_line = lines[i];
+
+				i--;
+
+				while (i > -1)
+				{
+					let line = lines[i];
+					let add = false;
+
+					if (
+						re_not_empty.test(line)
+						&& re_not_empty.test(prev_line)
+						&& re5.test(line)
+					)
+					{
+						let b0 = re3.test(line);
+
+						if (b0)
+						{
+							if (!re3.test(prev_line))
+							{
+								add = true;
+							}
+						}
+						else if (re4.test(prev_line))
+						{
+							//console.dir(line);
+							//console.dir(prev_line);
+
+							add = true;
+						}
+					}
+
+					if (add)
+					{
+						lines.splice(i+1, 0, '');
+
+						bool = true;
+					}
+
+					i--;
+
+					prev_line = line;
+				}
+
+				if (bool)
+				{
+					let source_new = lines.join('\n');
+
+					source = source_new;
+				}
+
+				return source
+			},
+		],
 
 		[/(?<=[^\n「」【】《》“”『』（）\[\]"≪≫](?:[！？?!。]*)?)\n(?=(?:[—]+)?[≪≫「」“”【】《》（）『』])/ug, "\n\n"],
 
 		[/(?<=）(?:[！？?!。]*)?)\n(?=[「」【】《》『』“”])/ug, "\n\n"],
-
 
 		[/^\t+/gm, ''],
 
@@ -1412,15 +1493,16 @@ export function _word_zh_all(arr: IWords[]): IWords[]
 		{
 			let [s, ...a] = value.slice();
 
-			if (a.length > 2)
+			if (0 && a.length > 2)
 			{
+				// @ts-ignore
 				if (a[2].useNativeRegExp)
 				{
 					return [s, ...a];
 				}
 			}
 
-			s = regexpCjkLib._word_zh(s, null)[0];
+			s = regexpCjkLib._word_zh(s as RegExp, null)[0];
 
 			return [s, ...a];
 		}
