@@ -11,15 +11,16 @@
 // @ts-ignore
 /// <reference types="node" />
 
-import { chai, relative, expect, path, assert, util, mochaAsync, SymbolLogOutput } from './_local-dev';
-import { fsReadFile, getCwdPaths, getNovelMetaCache, handleContext, searchMyLocalesID } from '../src/core';
-import { getLocales, getLocalesCache } from '../src/util';
-import novelText from '@node-novel/layout';
-import Bluebird = require('bluebird');
-import escapeStringRegexp = require('escape-string-regexp');
-import { ITSUnpackedPromiseLike, ITSRequiredWith } from 'ts-type';
+import { expect, path, relative, SymbolLogOutput } from './_local-dev';
+import {
+	fixTargetFile,
+	ITestTargetNovelFileCaseArray,
+	ITestTargetNovelFileCaseReturn,
+	testTargetNovelFile,
+} from './lib/util';
+import { testCaseArray } from './data/layout-check';
 
-const inited = true;
+
 
 // @ts-ignore
 describe(relative(__filename), () =>
@@ -66,38 +67,7 @@ describe(relative(__filename), () =>
 	describe(`suite`, () =>
 	{
 
-		([
-
-			{
-				pathMain: 'syosetu',
-				novelID: '乙女ゲー世界はモブに厳しい世界です',
-				targetFile: '00040_第五章/00350_幕間　歐尼醬.txt',
-
-				match: /莉維亞：「歐、歐尼醬？」\n安潔：「──歐尼桑嘛」/,
-
-			},
-
-			{
-				title: null as string,
-				pathMain: 'syosetu',
-				novelID: '乙女ゲー世界はモブに厳しい世界です',
-				targetFile: '00030_第四章/00010_序章.txt',
-
-				match: /這樣的事件」\n「是特典嗎/,
-
-			},
-
-			{
-				title: null as string,
-				pathMain: 'syosetu',
-				novelID: '乙女ゲー世界はモブに厳しい世界です',
-				targetFile: '00040_第五章/00220_爆破.txt',
-
-				match: /那樣子──」\n『勝了會高興嗎/,
-
-			},
-
-		] as ITestTargetNovelFileCaseArray).forEach(testcase => {
+		testCaseArray.forEach(testcase => {
 
 			const { pathMain, novelID, cb = () => {} } = testcase;
 			const targetFile = fixTargetFile(testcase.pathMain, testcase.novelID, testcase.targetFile);
@@ -125,102 +95,5 @@ describe(relative(__filename), () =>
 	});
 });
 
-function fixTargetFile(pathMain: string, novelID: string, targetFile: string)
-{
-	return targetFile
-		.replace(/^dist_novel\//, '')
-		.replace(new RegExp(`^${escapeStringRegexp(pathMain)}(?:_out)?\\\/`, 'u'), '')
-		.replace(new RegExp(`^${escapeStringRegexp(novelID)}\\\/`, 'u'), '')
-		;
-}
-
-interface ITestTargetNovelFileCaseReturn<T = unknown>
-{
-	(ret: ITSUnpackedPromiseLike<ReturnType<typeof testTargetNovelFile>>): PromiseLike<T>
-}
-
-interface ITestTargetNovelFileCase<F extends ITestTargetNovelFileCaseReturn = ITestTargetNovelFileCaseReturn>
-{
-	title?: string,
-	pathMain: string,
-	novelID: string,
-	targetFile: string,
-
-	/**
-	 * 簡易配對 如需複雜一點的 請用 cb
-	 */
-	match?: RegExp,
-
-	cb?: ITestTargetNovelFileCaseReturn,
-}
-
-type ITestTargetNovelFileCaseArray = (ITSRequiredWith<ITestTargetNovelFileCase, 'cb'> | ITSRequiredWith<ITestTargetNovelFileCase, 'match'>)[]
-
-function testTargetNovelFile(pathMain: string, novelID: string, targetFile: string, currentTest)
-{
-	return Bluebird.resolve()
-		// @ts-ignore
-		.bind(this)
-		.then(async function()
-		{
-			targetFile = fixTargetFile(pathMain, novelID, targetFile);
-
-			if (!pathMain || !novelID || !targetFile)
-			{
-				throw new TypeError();
-			}
-
-			let { cwd_out, cwd } = getCwdPaths(pathMain, novelID);
-
-			const targetCwd = cwd;
-
-			let file = path.join(targetCwd, targetFile);
-			let meta = getNovelMetaCache(targetCwd);
-
-			console.log('file:', path.relative(targetCwd, file));
-
-			const { myLocales, myLocalesID } = getLocalesCache(searchMyLocalesID(meta, novelID), novelID);
-
-			const _t_old = await fsReadFile(file)
-				.then(ret => {
-					return novelText.toStr(ret._t_old.toString())
-				})
-			;
-
-			let { _t } = handleContext({ _t_old, inited, meta, myLocales });
-
-			return {
-
-				pathMain,
-				novelID,
-				targetFile,
-
-				cwd_out,
-				cwd,
-				targetCwd,
-				file,
-				meta,
-				myLocales,
-				myLocalesID,
-
-				/**
-				 * 排版處理前文字內容
-				 */
-				_t_old,
-				/**
-				 * 排版處理後文字內容
-				 */
-				_t,
-
-				currentTest,
-			}
-		})
-		.tap(function (ret)
-		{
-			expect(ret._t).to.be.ok;
-			expect(ret._t).to.be.not.deep.equal(ret._t_old);
-		})
-	;
-}
 
 

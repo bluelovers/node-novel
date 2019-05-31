@@ -39,3 +39,10 @@ project.config.local.*
 /.eslintrc.json.tpl
 /.browserslistrc
 !/test/data/
+!/test/data/*.ts
+
+!/test/lib/
+!/test/lib/*.ts
+
+/test/**/*.d.ts
+/test/**/*.js
