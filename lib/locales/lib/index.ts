@@ -13,6 +13,7 @@ import { isRegExp, zhRegExp } from 'regexp-cjk';
 import { _re_cjk_conv as _re_cjk_conv2 } from 'regexp-helper/lib/cjk-conv';
 import util = require('util');
 import * as JsDiff from 'diff';
+import { console } from 'debug-color2';
 
 export const _word_zh = regexpCjkLib._word_zh;
 
@@ -53,11 +54,14 @@ lazymarks[0] = [
 
 	lazymarks[1] = [
 
+		[/，(?=。)$/gm, ''],
+		[/(?<=[「」【】《》“”‘’『』（）\[\]"])。$/gm, ''],
+
 		/**
 		 * 總算到達了目的地白銀喇叭的街道，米菈一邊像門衛揮手一邊通過了敞開的們，街道發生的變化讓米菈的視線一瞬間模糊了。
 		 「三十年過去了，不是我記得的那樣也是當然的。」
 		 */
-		[/(?<=[^\n「」【】《》“”『』（）\[\]"](?:[！？?!。]*)?)\n(?=(?:[—]+)?[「」“”【】《》（）『』])/ug, '\n\n'],
+		[/(?<=[^\n「」【】《》“”‘’『』（）\[\]"](?:[！？?!。]+)|[^\n「」【】《》“”‘’『』（）\[\]"！？?!。])\n(?=(?:[—]+)?[「」“”【】《》（）『』])/ug, '\n\n'],
 
 		//[/(?<=[「」【】《》“”『』（）―\[\]"](?:[！？?!。]*)?)\n(?=(?:\u3000*)[^\n「」“”【】《》（）『』])/ug, "\n\n"],
 
@@ -74,9 +78,9 @@ lazymarks[0] = [
 
 				let bool = false;
 
-				let re3 = new RegExp(`^${word1}+[「」【】《》“”『』（）―\\[\\]"][^\n]+[「」【】《》“”『』（）―\\[\\]"]$`, 'u');
-				let re4 = /^(?:\u3000*)[^\\n「」“”【】《》（）『』]/u;
-				let re5 = /[「」【】《》“”『』（）―\[\]"](?:[！？?!。]*)$/u;
+				let re3 = new RegExp(`^${word1}+(?:[：:])?[「」【】《》“”‘’『』（）―\\[\\]"][^\n]+[「」【】《》“”‘’『』（）―\\[\\]"]$`, 'u');
+				let re4 = /^(?:\u3000*)[^\\n「」“”‘’【】《》（）『』]/u;
+				let re5 = /[「」【】《》“”‘’『』（）―\[\]"](?:[！？?!。]*)?$/u;
 
 				let lines = source
 					.split('\n')
@@ -86,6 +90,9 @@ lazymarks[0] = [
 
 				let i = lines.length - 1;
 				let prev_line = lines[i];
+
+				let debug: RegExp;
+				//debug = /這根本不是你的實力吧/;
 
 				i--;
 
@@ -102,6 +109,15 @@ lazymarks[0] = [
 					{
 						let b0 = re3.test(line);
 
+						if (debug && line.match(debug))
+						{
+							console.log('===========');
+							console.log(b0, line);
+							console.log(re3.test(prev_line), prev_line);
+							console.log(re4.test(prev_line));
+							console.log('===========');
+						}
+
 						if (b0)
 						{
 							if (!re3.test(prev_line))
@@ -111,10 +127,17 @@ lazymarks[0] = [
 						}
 						else if (re4.test(prev_line))
 						{
-							//console.dir(line);
-							//console.dir(prev_line);
-
 							add = true;
+						}
+					}
+					else
+					{
+						if (debug && line.match(debug))
+						{
+							console.log('----------');
+							console.red.dir(line);
+							console.red.dir(prev_line);
+							console.log('----------');
 						}
 					}
 
@@ -123,6 +146,14 @@ lazymarks[0] = [
 						lines.splice(i+1, 0, '');
 
 						bool = true;
+
+						if (debug && line.match(debug))
+						{
+							console.log('----------');
+							console.red.dir(line);
+							console.red.dir(prev_line);
+							console.log('----------');
+						}
 					}
 
 					i--;
@@ -148,10 +179,6 @@ lazymarks[0] = [
 		[/^\t+/gm, ''],
 
 		[/ +$/gm, ''],
-
-		[/，(。)$/gm, '$1'],
-
-		[/([』」])。$/gm, '$1'],
 
 		[
 			/^("{2,})([^\n"']+)("{2,})$/gm,

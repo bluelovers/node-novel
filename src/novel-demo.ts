@@ -2,35 +2,38 @@
  * Created by user on 2017/12/8/008.
  */
 
-import * as Promise from 'bluebird';
-import * as deepmerge from 'deepmerge-plus';
-import * as JsDiff from 'diff';
+import Bluebird = require('bluebird');
+//import Promise = require('bluebird');
+import prettyuse = require('prettyuse');
 //import * as execall from 'execall';
 //import execall = require('execall2');
 import { execall } from 'execall2';
 import * as fs from 'fs-extra';
 
 import * as iconv from 'iconv-jschardet';
-import * as JSON from 'json5';
 
 import * as novelGlobby from 'node-novel-globby';
-import novelInfo, { IMdconfMeta, mdconf_parse } from 'node-novel-info';
-
 //import novelText from 'novel-text';
 import novelText from '@node-novel/layout';
 import path from 'upath2';
 
 import * as yargs from 'yargs';
 import { array_unique } from '../lib/func';
-import { addResourceBundle, i18next, loadLocales, locales_def } from '../lib/i18n';
+import { loadLocales, locales_def } from '../lib/i18n';
 import { freeGC } from '../lib/util';
 import * as projectConfig from '../project.config';
-import { load_pattern, make_pattern_md } from './pattern_output';
-//import Promise = require('bluebird');
-import prettyuse = require('prettyuse');
 import { console } from 'debug-color2';
-
-
+import {
+	diffPatch,
+	fsReadFile,
+	getCwdPaths,
+	getNovelMeta,
+	handleContext,
+	isEmptyFile,
+	stringify,
+} from './core';
+import { cache_output4, create_pattern_md, ICache, make_meta_md } from './cache';
+import { getLocales } from './util';
 
 console.enabledColor = true;
 
@@ -68,18 +71,6 @@ if (!novelID)
 	throw new Error();
 }
 
-interface ICache
-{
-	rename: {},
-	block: {},
-	block2: {},
-	eng: {},
-	ja: {},
-	ja2: {
-		[key: string]: string[],
-	},
-}
-
 let _cache: ICache = {
 	rename: {},
 	block: {},
@@ -89,68 +80,27 @@ let _cache: ICache = {
 	ja2: {},
 };
 
-let cwd = path.join(projectConfig.dist_novel_root, pathMain, novelID);
-let cwd_out = path.join(projectConfig.dist_novel_root, `${pathMain}_out`, novelID);
+let { cwd, cwd_out } = getCwdPaths(pathMain, novelID, projectConfig);
 
-// 利用 i18next 來達到根據小說切換翻譯模板
-myLocalesID = myLocalesID || novelID;
+let myLocales: ReturnType<typeof loadLocales>;
 
-let myLocales = loadLocales(myLocalesID);
-
-if (!myLocales)
-{
-	console.red(`load default demo`);
-	myLocales = loadLocales('demo');
-}
-
-if (myLocales)
-{
-	addResourceBundle(myLocales);
-}
-else
-{
-	myLocales = {
-		lang: myLocalesID,
-	};
-}
-
-// @ts-ignore
-i18next.changeLanguage(myLocales.lang);
-// @ts-ignore
-i18next.setDefaultNamespace('i18n');
+({ myLocales, myLocalesID, novelID } = getLocales(myLocalesID, novelID));
 
 (async () =>
 {
 	if (cli.patternOnly)
 	{
 		console.log(`本次僅生成 整合樣式`);
-		await create_pattern_md();
+		await create_pattern_md(myLocales, cwd_out);
 
 		return;
 	}
 
-	await make_meta_md();
+	await make_meta_md(cwd, cwd_out);
 
-	let meta: IMdconfMeta;
-
-	if (fs.existsSync(path.join(cwd_out, 'meta.md')))
-	{
-		meta = await fs.readFile(path.join(cwd_out, 'meta.md'))
-			.then(mdconf_parse)
-	}
-	else if (fs.existsSync(path.join(cwd_out, 'README.md')))
-	{
-		meta = await fs.readFile(path.join(cwd_out, 'README.md'))
-			.then(mdconf_parse)
-	}
-
-	meta = deepmerge({
-		options: {
-			textlayout: {},
-		},
-	}, meta);
-
-	//console.log(meta.options);
+	let meta = getNovelMeta([
+		cwd_out,
+	]);
 
 	const TXT_PATH = cwd;
 
@@ -172,7 +122,7 @@ i18next.setDefaultNamespace('i18n');
 		{
 			if (ls.length)
 			{
-				return Promise.map(ls, function (file: string)
+				return Bluebird.map(ls, function (file: string)
 				{
 					return fs.copy(file, path.join(cwd_out, path.relative(globby_options.cwd, file)));
 				})
@@ -184,7 +134,7 @@ i18next.setDefaultNamespace('i18n');
 
 	let _last_empty: string[] = [];
 
-	let ls = await Promise
+	let ls = await Bluebird
 		.mapSeries(novelGlobby
 			.globbyASync(globby_patterns, globby_options)
 			.tap(async function (ls)
@@ -224,54 +174,48 @@ i18next.setDefaultNamespace('i18n');
 
 			const _cache_key_ = path.join(file_dir, name);
 
-			const _t_old = await fs.readFile(file);
+			const { _t_old, _cb_ret } = await fsReadFile(file, (_t_old) => {
 
-			if (_t_old.toString() === '')
-			{
-				_last_empty.push(currentFile);
-
-				//console.gray(currentFile, '此檔案無內容');
-
-				return currentFile;
-			}
-			else
-			{
-				if (_last_empty.length)
+				if (isEmptyFile(_t_old))
 				{
-					_last_empty
-						.forEach(function (currentFile)
-						{
-							console.red(currentFile, '此檔案無內容');
-						})
-					;
+					_last_empty.push(currentFile);
 
-					_last_empty = [];
+					//console.gray(currentFile, '此檔案無內容');
+
+					return currentFile;
+				}
+				else
+				{
+					if (_last_empty.length)
+					{
+						_last_empty
+							.forEach(function (currentFile)
+							{
+								console.red(currentFile, '此檔案無內容');
+							})
+						;
+
+						_last_empty = [];
+					}
+
+					let chk = iconv.detect(_t_old);
+
+					if (chk.encoding != 'UTF-8' && chk.encoding != 'ascii')
+					{
+						console.red(currentFile, '此檔案可能不是 UTF8 請檢查編碼或利用 MadEdit 等工具轉換', chk);
+					}
 				}
 
-				let chk = iconv.detect(_t_old);
-
-				if (chk.encoding != 'UTF-8' && chk.encoding != 'ascii')
-				{
-					console.red(currentFile, '此檔案可能不是 UTF8 請檢查編碼或利用 MadEdit 等工具轉換', chk);
-				}
-			}
-
-			let _t = novelText.toStr(_t_old);
-
-			if (meta.options.textlayout && !meta.options.textlayout.allow_lf2)
-			{
-				_t = novelText.reduceLine(_t, meta.options.textlayout || {});
-			}
-
-			_t = my_words(_t);
-			_t = novelText.textlayout(_t, meta.options.textlayout || {});
-			_t = my_words(_t);
-
-			_t = novelText.replace(_t, {
-				words: true,
 			});
 
-			_t = novelText.trim(_t);
+			if (_cb_ret)
+			{
+				return _cb_ret
+			}
+
+			let _t: string;
+
+			({ _t, inited } = handleContext({ _t_old, inited, meta, myLocales }));
 
 			{
 				/**
@@ -446,14 +390,14 @@ i18next.setDefaultNamespace('i18n');
 							_cache.ja2[k] = _cache.ja2[k] || [];
 
 							let line = [
-								m.leftContext
-									.split('\n')
-									.pop(),
-								k,
-								m.rightContext
-									.split('\n')
-									.shift(),
-							].join('')
+									m.leftContext
+										.split('\n')
+										.pop(),
+									k,
+									m.rightContext
+										.split('\n')
+										.shift(),
+								].join('')
 								.replace(/^\s+|\s+$/g, '')
 							;
 
@@ -484,9 +428,7 @@ i18next.setDefaultNamespace('i18n');
 			if (0 && changed)
 			{
 				// 不再生成 .patch 檔案
-				await fs.outputFile(path.join(cwd_out, currentFile) + '.patch', JsDiff.createPatch(name, novelText.toStr(_t_old), _t, {
-					newlineIsToken: true,
-				}));
+				await fs.outputFile(path.join(cwd_out, currentFile) + '.patch', diffPatch(name, _t_old, _t));
 			}
 
 			if (_t.replace(/\s+/g, ''))
@@ -584,7 +526,7 @@ i18next.setDefaultNamespace('i18n');
 		})
 		.tap(async function ()
 		{
-			await create_pattern_md()
+			await create_pattern_md(myLocales, cwd_out);
 		})
 		.tap(function ()
 		{
@@ -595,31 +537,6 @@ i18next.setDefaultNamespace('i18n');
 	//console.log(ls);
 
 })();
-
-async function create_pattern_md()
-{
-	let id = myLocales.__file;
-
-	let data = await make_pattern_md(id);
-
-	if (data && data.md)
-	{
-		let data_source = load_pattern(id).words_source;
-
-		let url = `https://github.com/bluelovers/node-novel/blob/master/lib/locales/${encodeURIComponent(data.novelID)}.ts`;
-
-		let md = `---
-LocalesID: ${data.novelID}
-LocalesURL: ${url}
----
-__TOC__\n
-[${data.novelID.replace(/[\[\]~\`]/g, '\\$&')}](${url})  
-總數：${data.data.length}／${data_source.length}
-\n${data.md}\n\n`;
-
-		await fs.outputFile(path.join(cwd_out, '整合樣式.md'), md);
-	}
-}
 
 function cache_output1(_block, title): string
 {
@@ -1447,229 +1364,4 @@ function chk_words_maybe(text, list, cache = {})
 }
 
 let inited = false;
-
-function my_words(html): string
-{
-	html = html.toString();
-
-	let sp = locales_def.sp || '#_@_#';
-
-	let words = [];
-	let arr = [];
-
-	words = words.concat(myLocales.words || []);
-	arr = arr.concat(myLocales.words_arr || []);
-
-	words = words.concat(locales_def.words || []);
-	arr = arr.concat(locales_def.words_arr || []);
-
-	if (!inited)
-	{
-		inited = true;
-
-		/*
-		fs.outputJSON(path.join(__dirname, './temp/words.json'), words, {
-			spaces: "\t",
-		});
-		*/
-
-		//console.log(novelText._words_r1);
-
-		fs.outputFile(path.join(projectConfig.project_root, 'test', './temp/words.json'), JSON.stringify(words, function (k,
-			v,
-		)
-		{
-			if (v instanceof RegExp)
-			{
-				//return `/${v.source}/${v.flags}`;
-				return v.toString();
-			}
-			else if (typeof v == 'function')
-			{
-				return v.toString();
-			}
-
-			return v;
-		}, '\t'));
-	}
-
-	words = words.concat(myLocales.words || []);
-	arr = arr.concat(myLocales.words_arr || []);
-
-	words = novelText._words1(arr, words);
-	words = novelText._words2(words);
-
-	let ret = novelText.replace_words(html, words);
-
-	html = ret.value;
-
-	return html;
-}
-
-function make_meta_md()
-{
-
-	let globby_patterns: string[];
-	let globby_options: novelGlobby.IOptions = {
-		cwd: cwd,
-		useDefaultPatternsExclude: true,
-		absolute: true,
-	};
-
-	globby_patterns = [
-		'**/meta.md',
-		'**/README.md',
-	];
-
-	{
-		[globby_patterns, globby_options] = novelGlobby.getOptions(globby_patterns, globby_options);
-	}
-
-	return Promise
-		.mapSeries(novelGlobby.globby(globby_patterns, globby_options), async function (file: string, index, len)
-		{
-			let ext = path.extname(file);
-
-			let name = path.basename(file);
-			let file_dir = path.relative(cwd, path.dirname(file));
-
-			await fs.copy(file, path.join(cwd_out, file_dir, name));
-
-			return path.join(file_dir, name);
-		})
-		.then(async function (ls)
-		{
-			if (!ls.length
-				&& !fs.existsSync(path.join(cwd_out, 'meta.md'))
-				&& !fs.existsSync(path.join(cwd_out, 'README.md'))
-			)
-			{
-
-				let globby_patterns: string[];
-				let globby_options: novelGlobby.IOptions = {
-					cwd: cwd,
-					useDefaultPatternsExclude: true,
-					absolute: true,
-				};
-
-				globby_patterns = [
-					'*.json',
-				];
-
-				{
-					[globby_patterns, globby_options] = novelGlobby.getOptions(globby_patterns, globby_options);
-				}
-
-				let ls = await novelGlobby.globby(globby_patterns, globby_options);
-
-				if (!ls.length)
-				{
-					return;
-				}
-
-				//console.log(ls[0], cwd);
-
-				let data = await fs.readJSON(ls[0]);
-				data.data = data.data || {};
-
-				//console.log(data);
-
-				let tags = [
-					'node-novel',
-				];
-
-				if (ls[0].match(/dmzj/))
-				{
-					tags.push('dmzj');
-				}
-				if (ls[0].match(/wenku8/))
-				{
-					tags.push('wenku8');
-				}
-
-				if (ls[0].match(/dist_novel\/([^\/]+)(?:_out)?/))
-				{
-					tags.push(RegExp.$1);
-				}
-
-//			let md = await json2md(data, {
-//				tags: tags,
-//			});
-
-				let md = novelInfo.stringify({}, data, {
-					tags: tags,
-				});
-
-				await fs.outputFile(path.join(cwd_out, 'README.md'), md);
-			}
-		})
-		;
-}
-
-function cache_output4(_block: ICache["ja2"], title): string
-{
-	let out =Object.entries(_block)
-		.sort(function (a, b)
-		{
-			// @ts-ignore
-			return a[0] - b[0]
-		})
-		.reduce(function (a, b)
-		{
-			a.push(`\n## ${b[0]}`);
-
-			a.push('');
-
-			array_unique(b[1])
-				.slice(0, 4)
-				.forEach(function (s)
-				{
-					a.push(`- ${stringify(s)}`);
-				})
-			;
-
-			a.push('');
-
-			return a;
-		}, [
-			`# ${title}`,
-			'',
-			'[TOC]',
-		])
-		.join("\n")
-	;
-
-	return out;
-}
-
-function cache_output5(_block, title): string
-{
-	let out =Object.entries(_block)
-		.sort(function (a, b)
-		{
-			// @ts-ignore
-			return a[0] - b[0]
-		})
-		.reduce(function (a, b)
-		{
-			a.push(`- ${stringify(b[0])}`);
-
-			//a.push('');
-
-			return a;
-		}, [
-			`# ${title}`,
-			'',
-			'[TOC]',
-		])
-		.join("\n")
-	;
-
-	return out;
-}
-
-function stringify(v)
-{
-	return JSON.stringify(v).replace(/^"|"$/g, '');
-}
 

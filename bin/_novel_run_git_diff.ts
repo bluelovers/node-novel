@@ -8,11 +8,10 @@ import gitDiffIDNovelID from '../lib/git';
 import ProjectConfig from '../project.config';
 import * as Promise from 'bluebird';
 import * as fs from 'fs-extra';
-import { array_unique } from '../lib/func';
-import novelInfo, { mdconf_parse, IMdconfMeta } from 'node-novel-info';
+import { IMdconfMeta, mdconf_parse } from 'node-novel-info';
 import * as yargs from 'yargs';
 import { console } from 'debug-color2';
-import prettyuse = require('prettyuse');
+import { searchLocalesID, searchMyLocalesID } from '../src/core';
 
 let cli = yargs
 	.argv
@@ -71,38 +70,7 @@ Promise
 		{
 			if (!myLocalesID)
 			{
-				myLocalesID = searchLocalesID([
-					meta.options && meta.options.novel && meta.options.novel.pattern,
-
-					novelID,
-
-					meta.novel.title,
-
-					meta.novel.title_short,
-					meta.novel.title_zh,
-					meta.novel.title_jp,
-
-					// @ts-ignore
-					meta.novel.title_output,
-
-					/**
-					 * 依據系列名稱來自動選擇檔案
-					 */
-					meta.novel.series && meta.novel.series.name,
-					meta.novel.series && meta.novel.series.name_short,
-
-					// @ts-ignore
-					meta.novel.title_tw,
-					// @ts-ignore
-					meta.novel.title_cn,
-					// @ts-ignore
-					meta.novel.title_other,
-					// @ts-ignore
-					meta.novel.title_source,
-
-					// @ts-ignore
-					meta.novel.title_en,
-				]);
+				myLocalesID = searchMyLocalesID(meta, novelID);
 
 				if (myLocalesID)
 				{
@@ -129,25 +97,3 @@ Promise
 	})
 ;
 
-function searchLocalesID(ids: string[])
-{
-	let myLocalesID: string;
-
-	for (let name of ids)
-	{
-		if (!name || typeof name !== 'string')
-		{
-			continue;
-		}
-
-		let p = path.join(localesPath, name);
-
-		if (fs.existsSync(p + '.ts'))
-		{
-			myLocalesID = name;
-			break;
-		}
-	}
-
-	return myLocalesID;
-}

@@ -33,4 +33,9 @@ dist_novel
 /yarn.lock
 project.config.local.*
 
-/test/
+/test/**/*
+!/test/_local-dev.ts
+!/test/**/*.test.ts
+/.eslintrc.json.tpl
+/.browserslistrc
+!/test/data/
