@@ -81,7 +81,14 @@ describe(relative(__filename), () =>
 
 						if (testcase.match)
 						{
-							expect(ret._t).to.match(testcase.match);
+							if (!Array.isArray(testcase.match))
+							{
+								testcase.match = [testcase.match];
+							}
+
+							testcase.match
+								.forEach(r => expect(ret._t).to.match(r))
+							;
 						}
 
 					})

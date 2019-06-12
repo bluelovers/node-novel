@@ -27,7 +27,7 @@ interface ITestTargetNovelFileCase<F extends ITestTargetNovelFileCaseReturn = IT
 	/**
 	 * 簡易配對 如需複雜一點的 請用 cb
 	 */
-	match?: RegExp,
+	match?: RegExp | RegExp[],
 
 	cb?: ITestTargetNovelFileCaseReturn,
 }
