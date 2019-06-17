@@ -133,6 +133,8 @@ export const words_source: IWords[] = [
 	_word_jp1('アデラ|阿黛拉', '阿黛拉'),
 	_word_jp1('エイトキン|艾德金', '艾德金'),
 
+	_word_jp1('ベリル', '貝利露'),
+
 	/**
 	 *
 	 */
@@ -266,6 +268,8 @@ export const words: IWords[] = sublib._word_zh_all([
 	...sublib.lazymarks[2],
 	...sublib.lazymarks[3],
 	...sublib.lazymarks[5],
+
+	...sublib.lazymarks['ln_0010'],
 
 ] as IWords[]);
 
