@@ -72,133 +72,12 @@ lazymarks[0] = [
 
 		[/^([「])([^\n"“”‘’「」『』'\[\]［］]+)["]$/gm, '「$2」'],
 
+		[/^(["])([^\n"“”‘’「」『』'\[\]［］]+)\1$/gm, '「$2」'],
+
 		[/^\[([^\n\[\]]+)\]$/gm, '「$1」'],
 
 		[/(?<=＜[^\n]+＞)\n(?=(?:[\u3000 ]*)[^＜\n])/ugm, "\n\n"],
 		[/(?<=[^＞\s][！？?!。]*)\n(?=＜[^\n]+＞)/ugm, "\n\n"],
-
-		/**
-		 * 總算到達了目的地白銀喇叭的街道，米菈一邊像門衛揮手一邊通過了敞開的們，街道發生的變化讓米菈的視線一瞬間模糊了。
-		 「三十年過去了，不是我記得的那樣也是當然的。」
-		 */
-		[/(?<=[^\n「」【】《》“”‘’『』（）\[\]"](?:[！？?!。]+)|[^\n「」【】《》“”‘’『』（）\[\]"！？?!。])\n(?=(?:[—]+)?[「」“”【】《》（）『』])/ug, '\n\n'],
-
-		//[/(?<=[「」【】《》“”『』（）―\[\]"](?:[！？?!。]*)?)\n(?=(?:\u3000*)[^\n「」“”【】《》（）『』])/ug, "\n\n"],
-
-		[
-			/**
-			 * 此函數來處理複雜一點的
-			 * [/(?<=[「」【】《》“”『』（）―\[\]"](?:[！？?!。]*)?)\n(?=(?:\u3000*)[^\n「」“”【】《》（）『』])/ug, "\n\n"],
-			 *
-			 * 讓段落能更加依照前後文來判斷
-			 */
-			function (source)
-			{
-				//[/(?<=[「」【】《》“”『』（）―\[\]"](?:[！？?!。]*)?)\n(?=(?:\u3000*)[^\n「」“”【】《》（）『』])/ug, "\n\n"],
-
-				let bool = false;
-
-				let re3 = new RegExp(`^${word1}+(?:[：:])?[「」【】《》“”‘’『』（）―\\[\\]"][^\n]+[「」【】《》“”‘’『』（）―\\[\\]"]$`, 'u');
-				let re4 = /^(?:\u3000*)[^\\n「」“”‘’【】《》（）『』]/u;
-				let re5 = /[「」【】《》“”‘’『』（）―\[\]"](?:[！？?!。]*)?$/u;
-
-				let lines = source
-					.split('\n')
-				;
-
-				let re_not_empty = /[^\s　]/;
-
-				let i = lines.length - 1;
-				let prev_line = lines[i];
-
-				let debug: RegExp;
-				//debug = /這根本不是你的實力吧/;
-
-				i--;
-
-				while (i > -1)
-				{
-					let line = lines[i];
-					let add = false;
-
-					if (
-						re_not_empty.test(line)
-						&& re_not_empty.test(prev_line)
-						&& re5.test(line)
-					)
-					{
-						let b0 = re3.test(line);
-
-						if (debug && line.match(debug))
-						{
-							console.log('===========');
-							console.log(b0, line);
-							console.log(re3.test(prev_line), prev_line);
-							console.log(re4.test(prev_line));
-							console.log('===========');
-						}
-
-						if (b0)
-						{
-							if (!re3.test(prev_line))
-							{
-								add = true;
-							}
-						}
-						else if (re4.test(prev_line))
-						{
-							add = true;
-						}
-					}
-					else
-					{
-						if (debug && line.match(debug))
-						{
-							console.log('----------');
-							console.red.dir(line);
-							console.red.dir(prev_line);
-							console.log('----------');
-						}
-					}
-
-					if (add)
-					{
-						lines.splice(i+1, 0, '');
-
-						bool = true;
-
-						if (debug && line.match(debug))
-						{
-							console.log('----------');
-							console.red.dir(line);
-							console.red.dir(prev_line);
-							console.log('----------');
-						}
-					}
-
-					i--;
-
-					prev_line = line;
-				}
-
-				if (bool)
-				{
-					let source_new = lines.join('\n');
-
-					source = source_new;
-				}
-
-				return source
-			},
-		],
-
-		[/(?<=[^\n「」【】《》“”『』（）\[\]"≪≫](?:[！？?!。]*)?)\n(?=(?:[—]+)?[≪≫「」“”【】《》（）『』])/ug, "\n\n"],
-
-		[/(?<=）(?:[！？?!。]*)?)\n(?=[「」【】《》『』“”])/ug, "\n\n"],
-
-		[/^\t+/gm, ''],
-
-		[/ +$/gm, ''],
 
 		[
 			/^("{2,})([^\n"']+)("{2,})$/gm,
@@ -234,7 +113,129 @@ lazymarks[0] = [
 			},
 		],
 
+		/**
+		 * 總算到達了目的地白銀喇叭的街道，米菈一邊像門衛揮手一邊通過了敞開的們，街道發生的變化讓米菈的視線一瞬間模糊了。
+		 「三十年過去了，不是我記得的那樣也是當然的。」
+		 */
+		[/(?<=[^\n「」【】《》“”‘’『』（）\[\]"](?:[！？?!。]+)|[^\n「」【】《》“”‘’『』（）\[\]"！？?!。])\n(?=(?:[—]+)?[「」“”【】《》（）『』])/ug, '\n\n'],
 
+		//[/(?<=[「」【】《》“”『』（）―\[\]"](?:[！？?!。]*)?)\n(?=(?:\u3000*)[^\n「」“”【】《》（）『』])/ug, "\n\n"],
+
+		[
+			/**
+			 * 此函數來處理複雜一點的
+			 * [/(?<=[「」【】《》“”『』（）―\[\]"](?:[！？?!。]*)?)\n(?=(?:\u3000*)[^\n「」“”【】《》（）『』])/ug, "\n\n"],
+			 *
+			 * 讓段落能更加依照前後文來判斷
+			 */
+			function (source)
+			{
+				//[/(?<=[「」【】《》“”『』（）―\[\]"](?:[！？?!。]*)?)\n(?=(?:\u3000*)[^\n「」“”【】《》（）『』])/ug, "\n\n"],
+
+				let bool = false;
+
+				let re3 = new RegExp(`^${word1}+(?:[：:])?[「」【】《》“”‘’『』（）―\\[\\]"][^\n]+[「」【】《》“”‘’『』（）―\\[\\]"]$`, 'u');
+				let re4 = /^(?:\u3000*)[^\\n「」“”‘’【】《》（）『』]/u;
+				let re5 = /[「」【】《》“”‘’『』（）―\[\]"](?:[！？?!。]*)$/u;
+
+				let lines = source
+					.split('\n')
+				;
+
+				let re_not_empty = /[^\s　]/;
+
+				let i = lines.length - 1;
+				let prev_line = lines[i];
+
+				let debug: RegExp;
+				//debug = /早會被你嚇停的/;
+
+				i--;
+
+				while (i > -1)
+				{
+					let line = lines[i];
+					let add = false;
+
+					if (
+						re_not_empty.test(line)
+						&& re_not_empty.test(prev_line)
+						&& re5.test(line)
+					)
+					{
+						let b0 = re3.test(line);
+
+						if (debug && line.match(debug))
+						{
+							console.log('1===========');
+							console.log(b0, line);
+							console.log(re3.test(prev_line), prev_line);
+							console.log(re4.test(prev_line));
+							console.log('===========');
+						}
+
+						if (b0)
+						{
+							if (!re3.test(prev_line))
+							{
+								add = true;
+							}
+						}
+						else if (re4.test(prev_line))
+						{
+							add = true;
+						}
+					}
+					else
+					{
+						if (debug && line.match(debug))
+						{
+							console.log('2----------');
+							console.red.dir(line);
+							console.red.dir(prev_line);
+							console.log('----------');
+						}
+					}
+
+					if (add)
+					{
+						if (debug && line.match(debug))
+						{
+							console.log('3----------');
+							console.red.dir(lines.slice(i-2, i+2));
+							//console.red.dir(line);
+							//console.red.dir(prev_line);
+							console.log('----------');
+						}
+
+						lines.splice(i+1, 0, '');
+
+						bool = true;
+					}
+
+					i--;
+
+					prev_line = line;
+				}
+
+				if (bool)
+				{
+					let source_new = lines.join('\n');
+
+					source = source_new;
+				}
+
+				return source
+			},
+		],
+
+		[/(?<=[^\n「」【】《》“”『』（）\[\]"≪≫](?:[！？?!。]*)?)\n(?=(?:[—]+)?[≪≫「」“”【】《》（）『』])/ug, "\n\n"],
+
+		[/(?<=）(?:[！？?!。]*)?)\n(?=[「」【】《》『』“”])/ug, "\n\n"],
+
+		[/^\t+/gm, ''],
+
+		[/ +$/gm, ''],
 
 		[
 			[
