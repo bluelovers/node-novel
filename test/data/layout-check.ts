@@ -92,6 +92,30 @@ export const testCaseArray: ITestTargetNovelFileCaseArray = [
 
 	},
 
+	{
+		title: null as string,
+		pathMain: 'girl',
+		novelID: '惡役轉生但是為什麼會變成這樣',
+		targetFile: '00000_web/00070_第二章/00160_32　見面.txt',
+
+		match: [
+			/嚇停的。」\n「艾莉莎小姐⋯⋯⋯」/,
+		],
+
+	},
+
+	{
+		title: null as string,
+		pathMain: 'girl',
+		novelID: '惡役轉生但是為什麼會變成這樣',
+		targetFile: '00000_web/00090_終章/00100_65　風の翼.txt',
+
+		match: [
+			/自己了！」\n「我知道/,
+		],
+
+	},
+
 ];
 
 export default ITestTargetNovelFileCaseArray

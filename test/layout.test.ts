@@ -19,8 +19,8 @@ import {
 	testTargetNovelFile,
 } from './lib/util';
 import { testCaseArray } from './data/layout-check';
-
-
+import Bluebird = require('bluebird');
+import { console } from 'debug-color2';
 
 // @ts-ignore
 describe(relative(__filename), () =>
@@ -77,7 +77,7 @@ describe(relative(__filename), () =>
 			{
 
 				await testTargetNovelFile.call(this, pathMain, novelID, targetFile, currentTest)
-					.tap(ret => {
+					.tap(async (ret) => {
 
 						if (testcase.match)
 						{
@@ -86,8 +86,25 @@ describe(relative(__filename), () =>
 								testcase.match = [testcase.match];
 							}
 
-							testcase.match
-								.forEach(r => expect(ret._t).to.match(r))
+							await Bluebird
+								.resolve(testcase.match)
+								.each(r => {
+
+									let mr = new RegExp('(\\n*[^\\n]*' + r.source.replace(/\\n/, '\\s*') + '[^\\n]*\\n*)', r.flags);
+
+									let m = ret._t.match(mr);
+
+									if (m)
+									{
+										console.dir(m[1]);
+									}
+									else
+									{
+										//console.dir(false);
+									}
+
+									return expect(m && m[1] || ret._t).to.match(r)
+								})
 							;
 						}
 
