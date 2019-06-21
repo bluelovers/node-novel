@@ -46,3 +46,4 @@ project.config.local.*
 
 /test/**/*.d.ts
 /test/**/*.js
+/tsconfig.tsbuildinfo

@@ -16,6 +16,7 @@ import Bluebird = require('bluebird');
 import novelText from 'novel-text';
 import { _word_zh_all, lazymarks } from '../lib/locales/lib/index';
 import * as util from 'util';
+import * as fsIconv from 'fs-iconv';
 
 let cli = yargs
 	.argv
@@ -65,7 +66,9 @@ Bluebird
 
 				let _t_old: string;
 				// @ts-ignore
-				_t_old = await fs.readFile(file);
+				_t_old = await fsIconv.loadFile(file, {
+					autoDecode: true,
+				});
 
 				if (_t_old.toString() === '')
 				{
