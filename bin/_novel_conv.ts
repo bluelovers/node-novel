@@ -20,6 +20,7 @@ import { tw2cn_min, cn2tw_min, tableCn2TwDebug, tableTw2CnDebug } from 'cjk-conv
 import * as util from 'util';
 import { do_cn2tw_min } from './lib/conv';
 import novelText from 'novel-text';
+import { contextEmpty, loadFileAutoDecode } from '../lib/fs/load';
 
 let cli = yargs
 	.argv
@@ -116,12 +117,13 @@ Promise
 
 					let currentFile = path.join(file_dir, name);
 
-					let _t_old: string;
+					const idfile = currentFile;
 
-					// @ts-ignore
-					_t_old = await fs.readFile(file);
+					let _t_old: string = await loadFileAutoDecode(file, {
+						idfile,
+					});
 
-					if (_t_old.toString() === '')
+					if (contextEmpty(_t_old))
 					{
 						_last_empty.push(currentFile);
 
@@ -129,7 +131,7 @@ Promise
 
 						STAT_CACHE.skip++;
 
-						return currentFile;
+						return idfile;
 					}
 					else
 					{
@@ -143,13 +145,6 @@ Promise
 							;
 
 							_last_empty = [];
-						}
-
-						let chk = iconv.detect(_t_old);
-
-						if (chk.encoding != 'UTF-8' && chk.encoding != 'ascii')
-						{
-							console.red(currentFile, '此檔案可能不是 UTF8 請檢查編碼或利用 MadEdit 等工具轉換', chk);
 						}
 					}
 

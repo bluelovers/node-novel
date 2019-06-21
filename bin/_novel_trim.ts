@@ -17,6 +17,7 @@ import novelText from 'novel-text';
 import { _word_zh_all, lazymarks } from '../lib/locales/lib/index';
 import * as util from 'util';
 import * as fsIconv from 'fs-iconv';
+import { contextEmpty, loadFileAutoDecode } from '../lib/fs/load';
 
 let cli = yargs
 	.argv
@@ -56,21 +57,19 @@ Bluebird
 			novelID,
 
 			patterns: [
-				'**/*.txt',
 				'**/README.md',
+				'**/*.txt',
 			],
 
 			async callback(rowData)
 			{
 				let { file, currentFile, _last_empty, STAT_CACHE, len, index, idfile } = rowData;
 
-				let _t_old: string;
-				// @ts-ignore
-				_t_old = await fsIconv.loadFile(file, {
-					autoDecode: true,
+				const _t_old: string = await loadFileAutoDecode(file, {
+					idfile,
 				});
 
-				if (_t_old.toString() === '')
+				if (contextEmpty(_t_old))
 				{
 					_last_empty.push(currentFile);
 
@@ -91,19 +90,9 @@ Bluebird
 							})
 						;
 
-						_last_empty = [];
-					}
-
-					let chk = iconv.detect(_t_old);
-
-					if (chk.encoding != 'UTF-8' && chk.encoding != 'ascii')
-					{
-						console.red(idfile, '此檔案可能不是 UTF8 請檢查編碼或利用 MadEdit 等工具轉換', chk);
+						_last_empty.splice(0, _last_empty.length);
 					}
 				}
-
-				// @ts-ignore
-				_t_old = _t_old.toString();
 
 				let _text = novelText.toStr(_t_old);
 
@@ -124,13 +113,11 @@ Bluebird
 				}
 				else if (changed)
 				{
-					console[changed ? 'log' : 'red'](idfile, index, len);
-
 					await fs.outputFile(file, _t);
 				}
 				else
 				{
-					console[changed ? 'log' : 'red'](idfile, index, len);
+					console.red(idfile, index, len);
 				}
 
 				if (changed)
