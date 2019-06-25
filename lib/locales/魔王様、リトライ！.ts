@@ -4,6 +4,7 @@
 
 import { sp, IWords, vMaybe, sublib } from './index';
 import * as StrUtil from 'str-util';
+import { _word_jp1 } from './lib/index';
 
 /**
  * 改成小說名字
@@ -35,7 +36,7 @@ export const words_source: IWords[] = [
 	[`零`, '零'],
 	[`悠`, '悠'],
 
-	[`阿庫`, '惡'],
+	[`阿庫|亞可`, '惡'],
 
 	...[
 		'桐野　悠',
@@ -60,7 +61,8 @@ export const words_source: IWords[] = [
 	 *
 	 */
 	[`托路|托珑|托泷|托拢|tron`, '托瓏'],
-	[`琼恩|裘恩`, '琼恩'],
+	[`琼恩|裘恩|瓊`, '琼恩'],
+	[`茉茉`, '沫沫'],
 
 	/**
 	 *
@@ -81,6 +83,8 @@ export const words_source: IWords[] = [
 	[`玛乌托福吉`, '瑪烏托・福吉'],
 	[`玛乌托${sp}福吉`, '瑪烏托・福吉'],
 	[`多納${sp}多納`, '多納・多納'],
+
+	[`多納|多鈉`, '多納'],
 
 	[`多那行館`, '多納行館'],
 
@@ -119,6 +123,11 @@ export const words_source: IWords[] = [
 	[`宾格|賓果`, '賓格'],
 
 	/**
+	 *
+	 */
+	_word_jp1('ヒヨリミ', '希由密里'),
+
+	/**
 	 * 尤里蒂耶斯王国
 	 */
 	[`尤里蒂耶斯`, '尤里蒂耶斯'],
@@ -152,7 +161,7 @@ export const words_source: IWords[] = [
 
 	['情報の一部が公開されました。|一部份的情報已公開。', '一部份的情報已公開。'],
 
-
+	['村莊小屋', '聚落小屋'],
 
 ];
 
