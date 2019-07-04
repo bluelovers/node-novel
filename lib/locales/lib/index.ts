@@ -330,6 +330,8 @@ lazymarks[0] = [
 
 		[new RegExp(`(?<=^${word1}[^\\n]+)\\n(?=《)`, 'gmu'), '\n\n'],
 
+		[new RegExp(`(?<=^〖[^\\n]+〗)\\n(?!〖|\\s)`, 'gmu'), '\n\n'],
+
 	];
 }
 
