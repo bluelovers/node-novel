@@ -116,6 +116,18 @@ export const testCaseArray: ITestTargetNovelFileCaseArray = [
 
 	},
 
+	{
+		title: null as string,
+		pathMain: 'ts',
+		novelID: '葉隠桜は嘆かない',
+		targetFile: '00000_一章/00180_018　畫面對面的你們.txt',
+
+		match: [
+			/是京都聖護院的名產。〗\n\n２７：無名國民/u,
+		],
+
+	},
+
 ];
 
 export default ITestTargetNovelFileCaseArray
