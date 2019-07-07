@@ -102,12 +102,8 @@ export function stringify(v)
 	return JSON.stringify(v).replace(/^"|"$/g, '');
 }
 
-export function my_words(html: Buffer | string, myLocales: IMyLocales, inited: boolean)
+export function _my_words(myLocales: IMyLocales, inited: boolean)
 {
-	html = html.toString();
-
-	let sp = locales_def.sp || '#_@_#';
-
 	let words = [];
 	let arr = [];
 
@@ -151,7 +147,17 @@ export function my_words(html: Buffer | string, myLocales: IMyLocales, inited: b
 	arr = arr.concat(myLocales.words_arr || []);
 
 	words = novelText._words1(arr, words);
-	words = novelText._words2(words);
+
+	return novelText._words2(words);
+}
+
+export function my_words(html: Buffer | string, myLocales: IMyLocales, inited: boolean)
+{
+	html = html.toString();
+
+	let sp = locales_def.sp || '#_@_#';
+
+	let words = _my_words(myLocales, inited);
 
 	let ret = novelText.replace_words(html, words);
 

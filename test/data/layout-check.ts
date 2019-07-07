@@ -7,7 +7,10 @@ export const testCaseArray: ITestTargetNovelFileCaseArray = [
 		novelID: '乙女ゲー世界はモブに厳しい世界です',
 		targetFile: '00040_第五章/00350_幕間　歐尼醬.txt',
 
-		match: /莉維亞：「歐、歐尼醬？」\n安潔：「──歐尼桑嘛」/,
+		match: [
+			///莉維亞：「歐、歐尼醬？」\n安潔：「──歐尼桑嘛」/,
+			/「歐、歐尼醬？」\n「──歐尼桑嘛」/,
+		],
 
 	},
 
@@ -17,7 +20,10 @@ export const testCaseArray: ITestTargetNovelFileCaseArray = [
 		novelID: '乙女ゲー世界はモブに厳しい世界です',
 		targetFile: '00030_第四章/00010_序章.txt',
 
-		match: /這樣的事件」\n「是特典嗎/,
+		match: [
+			///這樣的事件」\n「是特典嗎/,
+			/」\n「是對粉絲的殺必死嗎/,
+		],
 
 	},
 
@@ -124,6 +130,20 @@ export const testCaseArray: ITestTargetNovelFileCaseArray = [
 
 		match: [
 			/是京都聖護院的名產。〗\n\n２７：無名國民/u,
+		],
+
+	},
+
+	{
+		title: null as string,
+		pathMain: 'girl',
+		novelID: '裏世界郊游',
+		targetFile: '00000_第一卷 兩人的怪異探險檔案/00020_檔案1　彎彎曲曲Hunting.txt',
+
+		match: [
+			/。It's/u,
+			/「It's/u,
+			/Don't/u,
 		],
 
 	},
