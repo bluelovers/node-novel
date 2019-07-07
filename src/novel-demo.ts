@@ -117,6 +117,7 @@ let myLocales: ReturnType<typeof loadLocales>;
 
 	await novelGlobby.globby([
 			'cover.*',
+			'**/ATTACH.md',
 		], globby_options)
 		.then(ls =>
 		{
