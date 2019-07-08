@@ -45,9 +45,17 @@ export const words: IWords[] = sublib._word_zh_all([
 	...sublib.lazymarks[3],
 	...sublib.lazymarks[5],
 
+	/**
+	 * 無差別將 【】 轉為對話符號
+	 */
 	//...sublib.lazymarks[8],
 
 	...lazymarks['clear_002'],
+
+	/**
+	 * 適用於具有大量長段 而只縮減對話之間的空格使用
+	 */
+	//...lazymarks['ln_talk'],
 
 ] as IWords[]);
 
