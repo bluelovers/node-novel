@@ -94,6 +94,7 @@ export const words_source: IWords[] = [
 	_word_jp1(`勞拉|ラウラ|菈烏菈|勞菈`, '菈烏菈'),
 
 	_word_jp1(`伊扎克|イザーク|伊薩古|伊薩克`, '伊薩古'),
+	_word_jp1(`ハルト`, '哈爾特'),
 
 	/**
 	 *
@@ -140,6 +141,12 @@ export const words_source: IWords[] = [
 	_word_jp1('米莉雅|ミリア', '米莉雅'),
 
 	_word_jp1(`ギーリ|吉利`, '吉利'),
+
+	/**
+	 *
+	 */
+	_word_jp1(`ノエル`, '諾埃爾'),
+	_word_jp1(`クルージュ`, '克魯傑'),
 
 	/**
 	 *
