@@ -1,0 +1,136 @@
+/**
+ * Created by user on 2017/12/21/021.
+ */
+
+import { sp, IWords, vMaybe, sublib } from './index';
+import * as StrUtil from 'str-util';
+import { _word_en3, lazymarks, _word_jp1 } from './lib/index';
+
+/**
+ * 改成小說名字 (可留白 則自動設定為檔案名稱)
+ */
+export const lang = '';
+
+/**
+ * 在這裡放此小說專屬的取代樣本
+ */
+export const words_source: IWords[] = [
+
+	/**
+	 *
+	 */
+	['葛利夏', '葛利夏'],
+
+	['薇蕾塔', '薇蕾塔'],
+	['妮娜', '妮娜'],
+
+	['巴林', '巴林'],
+	['洛德', '洛德'],
+
+	/**
+	 *
+	 */
+
+	['伊斯提', '伊斯提'],
+	['吉珂妮亞|杰克尼亞|吉珂妮靈', '吉珂妮亞'],
+	['莉婕', '莉婕'],
+	['艾菈|艾苗', '艾菈'],
+
+	['艾薩克', '艾薩克'],
+
+
+	/**
+	 *
+	 */
+	['哈伯', '哈伯'],
+	['瑪麗', '瑪麗'],
+	['利維森', '利維森'],
+
+	/**
+	 *
+	 */
+	['伊斯提利亞', '伊斯提利亞'],
+
+	/**
+	 *
+	 */
+	['葛雷西歐爾', '葛雷西歐爾'],
+
+	['香氛鍊', '香氛鍊'],
+
+];
+
+/**
+ * 實際使用的取代樣式
+ */
+export const words: IWords[] = sublib._word_zh_all([
+
+	...words_source,
+
+	...sublib.lazymarks['class'],
+	//...sublib.lazymarks['zh_cht'],
+
+	//...sublib.lazymarks['unit'],
+
+	...sublib.lazymarks['ln_0010'],
+
+	...sublib.lazymarks[4],
+
+	...sublib.lazymarks['full_width_001'],
+	...sublib.lazymarks['full_width_002'],
+
+	...sublib.lazymarks[0],
+	...sublib.lazymarks[1],
+	...sublib.lazymarks[2],
+	...sublib.lazymarks[3],
+	...sublib.lazymarks[5],
+
+	/**
+	 * 無差別將 【】 轉為對話符號
+	 */
+	//...sublib.lazymarks[8],
+
+	...lazymarks['clear_002'],
+
+	/**
+	 * 適用於具有大量長段 而只縮減對話之間的空格使用
+	 */
+	//...lazymarks['ln_talk'],
+
+] as IWords[]);
+
+/**
+ * 需要人工確認的屏蔽字或錯字用語等等
+ */
+export const words_maybe: vMaybe = [
+
+	//'需要偵測的字',
+
+] as vMaybe;
+
+/**
+ * 分析取代完成後執行的代碼
+ *
+ * @param {string} text
+ * @returns {string}
+ */
+export function words_callback(text: string): string
+{
+	return text;
+}
+
+/**
+ * 其他用途
+ *
+ * @deprecated
+ * @type {{chapter_id: string; chapter_title: string; volume_id: string; volume_title: string}}
+ */
+export const value = {
+	chapter_id: '第{{0}}話',
+	chapter_title: `$t(chapter_id, [{{0}}])　{{title}}`,
+
+	volume_id: '第{{0}}章',
+	volume_title: `$t(chapter_id, [{{0}}])：{{title}}`,
+};
+
+export default exports;
