@@ -125,10 +125,10 @@ export function handleGlob(cwd: string, globby_patterns: string[] = [])
 		globby_patterns.push('!*/*');
 	}
 
-	console.dir({
-		globby_patterns,
-		globby_options,
-	});
+//	console.dir({
+//		globby_patterns,
+//		globby_options,
+//	});
 
 	let ruleData = loadPatternRule();
 	let _last_empty: string[] = [];
