@@ -21,11 +21,9 @@ export const words_source: IPatternRule["words_source"] = [
 ];
 
 /**
- * 實際使用的取代樣式
+ * @private
  */
-export const words: IPatternRule["words"] = _word_zh_all([
-
-	...words_source,
+export const _words_core: IPatternRule["words"] = [
 
 	...lazymarks['class'],
 	//...lazymarks['zh_cht'],
@@ -56,6 +54,17 @@ export const words: IPatternRule["words"] = _word_zh_all([
 	 * 適用於具有大量長段 而只縮減對話之間的空格使用
 	 */
 	//...lazymarks['ln_talk'],
+
+];
+
+/**
+ * 實際使用的取代樣式
+ */
+export const words: IPatternRule["words"] = _word_zh_all([
+
+	...words_source,
+
+	..._words_core,
 
 ] as IWords[]);
 
