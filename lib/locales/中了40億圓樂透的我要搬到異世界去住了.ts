@@ -16,6 +16,8 @@ export const lang = '';
  */
 export const words_source: IWords[] = [
 
+	_word_jp1('カズラ', '一良'),
+
 	/**
 	 *
 	 */
