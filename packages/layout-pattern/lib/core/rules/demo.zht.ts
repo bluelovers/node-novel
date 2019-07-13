@@ -4,22 +4,31 @@
 
 import { IPatternRule } from '@node-novel/layout-pattern/lib/core/types';
 import lazymarks from '@node-novel/layout-pattern/lib/core/pattern/index';
+
 export * from './demo'
 
-import demoRule, { lang, words_callback, words_maybe, words_source } from './demo';
-import { _word_zh_all } from '../word';
+import * as demoRule from './demo';
+import { lang, words_callback, words_maybe, words_source } from './demo';
+import { _word_zh_all, IWords } from '../word';
 
-export const words: IPatternRule["words"] = [
+/**
+ * @private
+ */
+export const _words_core: IPatternRule["words"] = [
 
-	...demoRule.words,
+	...demoRule._words_core,
 
-	..._word_zh_all([
-
-		...lazymarks['zh_cht'],
-
-	])
+	...lazymarks['zh_cht'],
 
 ];
+
+export const words: IPatternRule["words"] = _word_zh_all([
+
+	...words_source,
+
+	..._words_core,
+
+] as IWords[]);
 
 export default <IPatternRule>{
 	lang,
