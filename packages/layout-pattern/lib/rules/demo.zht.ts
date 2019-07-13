@@ -15,9 +15,9 @@ import { IWords, vMaybe, IWordsAll } from '@node-novel/layout-pattern/lib/core/w
 /**
  * @private
  */
-export const _words_core: IPatternRule["words"] = [
+export const words_layout: IPatternRule["words_layout"] = [
 
-	...demoRule._words_core,
+	...demoRule.words_layout,
 
 	...lazymarks['zh_cht'],
 
@@ -27,13 +27,14 @@ export const words: IPatternRule["words"] = _word_zh_all([
 
 	...words_source,
 
-	..._words_core,
+	...words_layout,
 
 ] as IWords[]);
 
 export default <IPatternRule>{
 	lang,
 	words_source,
+	words_layout,
 	words,
 	words_maybe,
 	words_callback,

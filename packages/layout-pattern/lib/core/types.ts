@@ -14,6 +14,8 @@ export interface IPatternRule
 	 */
 	words_source: IWords[];
 
+	words_layout?: IWords[];
+
 	/**
 	 * 實際使用的取代樣式
 	 */

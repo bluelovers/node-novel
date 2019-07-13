@@ -21,10 +21,9 @@ export const words_source: IPatternRule["words_source"] = [
 ];
 
 /**
- * 實際使用的取代樣式
+ * @private
  */
-export const words: IPatternRule["words"] = _word_zh_all([
-
+export const words_layout: IPatternRule["words_layout"] = [
 	// BOM
 	...lazymarks['c000'],
 
@@ -220,6 +219,14 @@ export const words: IPatternRule["words"] = _word_zh_all([
 	...lazymarks['c100'],
 
 	...lazymarks['ln'],
+	];
+
+/**
+ * 實際使用的取代樣式
+ */
+export const words: IPatternRule["words"] = _word_zh_all([
+
+	...words_layout,
 
 ] as IWords[]);
 
@@ -464,6 +471,7 @@ export function words_callback(text: string): string
 export default <IPatternRule>{
 	lang,
 	words_source,
+	words_layout,
 	words,
 	words_maybe,
 	words_callback,

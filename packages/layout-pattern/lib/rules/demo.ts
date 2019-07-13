@@ -23,7 +23,7 @@ export const words_source: IPatternRule["words_source"] = [
 /**
  * @private
  */
-export const _words_core: IPatternRule["words"] = [
+export const words_layout: IPatternRule["words_layout"] = [
 
 	...lazymarks['class'],
 	//...lazymarks['zh_cht'],
@@ -64,7 +64,7 @@ export const words: IPatternRule["words"] = _word_zh_all([
 
 	...words_source,
 
-	..._words_core,
+	...words_layout,
 
 ] as IWords[]);
 
@@ -91,6 +91,7 @@ export function words_callback(text: string): string
 export default <IPatternRule>{
 	lang,
 	words_source,
+	words_layout,
 	words,
 	words_maybe,
 	words_callback,
