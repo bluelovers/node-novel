@@ -18,6 +18,7 @@ import * as novelGlobby from 'node-novel-globby';
 import * as iconv from 'iconv-jschardet';
 import { tw2cn_min, cn2tw_min, tableCn2TwDebug, tableTw2CnDebug } from 'cjk-conv/lib/zh/convert/min';
 import * as util from 'util';
+import getBuildInRuleFileContext from '@node-novel/layout-pattern/lib/rules-copy';
 
 let cli = yargs
 	.argv
@@ -67,7 +68,7 @@ Promise
 
 			if (!fs.existsSync(t))
 			{
-				await fs.copy(path.join(localesPath, 'demo' + '.ts'), t);
+				await fs.outputFile(t, getBuildInRuleFileContext('demo'));
 
 				console.log(`create`, path.basename(t));
 			}

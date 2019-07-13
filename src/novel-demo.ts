@@ -62,6 +62,7 @@ if (cli.l == 'undefined')
 	cli.l = undefined;
 }
 
+// @ts-ignore
 myLocalesID = cli.l;
 pathMain = (cli.m || 'user').toString();
 novelID = (cli.n || '').toString();
