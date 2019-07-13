@@ -2,9 +2,12 @@
  * Created by user on 2017/12/21/021.
  */
 
-import { sp, IWords, vMaybe, sublib } from './index';
+import lazymarks from '@node-novel/layout-pattern/lib/core/pattern/index';
+import { _word_en, _word_en3, _word_jp1, _word_zh_all } from '@node-novel/layout-pattern/lib/core/word';
+import { IWords, vMaybe, IWordsAll } from '@node-novel/layout-pattern/lib/core/word';
+import { _zh_num2, sp, sp2, _zh_num, _full_num, EN_REGEXP } from '@node-novel/layout-pattern/lib/core/const';
+import { IPatternRule } from '@node-novel/layout-pattern/lib/core/types';
 import * as StrUtil from 'str-util';
-import { _word_en3, lazymarks, _word_jp1, _word_en } from './lib/index';
 
 /**
  * 改成小說名字 (可留白 則自動設定為檔案名稱)

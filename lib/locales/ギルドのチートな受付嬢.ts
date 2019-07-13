@@ -2,7 +2,12 @@
  * Created by user on 2017/12/21/021.
  */
 
-import { sp, IWords, vMaybe } from '.';
+import lazymarks from '@node-novel/layout-pattern/lib/core/pattern/index';
+import { _word_en, _word_en3, _word_jp1, _word_zh_all } from '@node-novel/layout-pattern/lib/core/word';
+import { IWords, vMaybe, IWordsAll } from '@node-novel/layout-pattern/lib/core/word';
+import { sp, sp2 } from '@node-novel/layout-pattern/lib/core/const';
+import { IPatternRule } from '@node-novel/layout-pattern/lib/core/types';
+import * as StrUtil from 'str-util';
 
 /**
  * 改成小說名字

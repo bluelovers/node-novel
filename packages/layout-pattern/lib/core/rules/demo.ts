@@ -1,8 +1,10 @@
 import lazymarks from '@node-novel/layout-pattern/lib/core/pattern/index';
-import { _word_en3, _word_jp1, _word_zh_all } from '@node-novel/layout-pattern/lib/core/word';
+import { _word_en, _word_en3, _word_jp1, _word_zh_all } from '@node-novel/layout-pattern/lib/core/word';
 import { IWords, vMaybe, IWordsAll } from '@node-novel/layout-pattern/lib/core/word';
-import { sp } from '@node-novel/layout-pattern/lib/core/const';
+import { _zh_num2, sp, sp2, _zh_num, _full_num, EN_REGEXP } from '@node-novel/layout-pattern/lib/core/const';
 import { IPatternRule } from '@node-novel/layout-pattern/lib/core/types';
+import * as StrUtil from 'str-util';
+import { _word_zh } from 'regexp-cjk/lib';
 
 /**
  * 改成小說名字 (可留白 則自動設定為檔案名稱)
@@ -26,9 +28,9 @@ export const words: IPatternRule["words"] = _word_zh_all([
 	...words_source,
 
 	...lazymarks['class'],
-	//...sublib.lazymarks['zh_cht'],
+	//...lazymarks['zh_cht'],
 
-	//...sublib.lazymarks['unit'],
+	//...lazymarks['unit'],
 
 	...lazymarks['ln_0010'],
 

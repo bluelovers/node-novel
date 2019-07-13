@@ -100,7 +100,8 @@
     "@types/cross-spawn": "^6.0.0",
     "@types/fs-extra": "^7",
     "@types/i18next": "^12",
-    "@types/mocha": "^5.2.7"
+    "@types/mocha": "^5.2.7",
+    "@types/node": "^12.6.2"
   },
   "optionalDependencies": {},
   "resolutions": {

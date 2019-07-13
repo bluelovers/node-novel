@@ -2,8 +2,13 @@
  * Created by user on 2017/12/21/021.
  */
 
-import { sp, IWords, vMaybe, sublib } from './index';
+import lazymarks from '@node-novel/layout-pattern/lib/core/pattern/index';
+import { _word_en, _word_en3, _word_jp1, _word_zh_all } from '@node-novel/layout-pattern/lib/core/word';
+import { IWords, vMaybe, IWordsAll } from '@node-novel/layout-pattern/lib/core/word';
+import { _zh_num2, sp, sp2, _zh_num, _full_num, EN_REGEXP } from '@node-novel/layout-pattern/lib/core/const';
+import { IPatternRule } from '@node-novel/layout-pattern/lib/core/types';
 import * as StrUtil from 'str-util';
+import { _word_zh } from 'regexp-cjk/lib';
 
 /**
  * 改成小說名字
@@ -242,7 +247,7 @@ export const words: IWords[] = _word_zh_all([
 				,
 			];
 
-			a.push(sublib._word_zh.apply(null, c));
+			a.push(_word_zh.apply(null, c as any));
 
 			return a;
 		}, [] as IWords[]);

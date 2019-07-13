@@ -2,11 +2,12 @@
  * Created by user on 2017/12/18/018.
  */
 
+import lazymarks from '@node-novel/layout-pattern/lib/core/pattern/index';
+import { _word_en, _word_en3, _word_jp1, _word_zh_all } from '@node-novel/layout-pattern/lib/core/word';
+import { IWords, vMaybe, IWordsAll } from '@node-novel/layout-pattern/lib/core/word';
+import { _zh_num2, sp, sp2, _zh_num, _full_num, EN_REGEXP } from '@node-novel/layout-pattern/lib/core/const';
+import { IPatternRule } from '@node-novel/layout-pattern/lib/core/types';
 import * as StrUtil from 'str-util';
-
-import { sp, IWords } from '.';
-import sublib from './lib';
-import { _word_en, _word_en3, _word_jp1 } from './lib/index';
 
 export const lang = '四度目は嫌な死属性魔術師';
 

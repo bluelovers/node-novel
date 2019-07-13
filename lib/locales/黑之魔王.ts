@@ -2,10 +2,13 @@
  * Created by user on 2017/12/9/009.
  */
 
-import { sp, IWords } from '.';
+import lazymarks from '@node-novel/layout-pattern/lib/core/pattern/index';
+import { _word_en, _word_en3, _word_jp1, _word_zh_all } from '@node-novel/layout-pattern/lib/core/word';
+import { IWords, vMaybe, IWordsAll } from '@node-novel/layout-pattern/lib/core/word';
+import { _zh_num2, sp, sp2, _zh_num, _full_num, EN_REGEXP } from '@node-novel/layout-pattern/lib/core/const';
+import { IPatternRule } from '@node-novel/layout-pattern/lib/core/types';
 import * as StrUtil from 'str-util';
-import sublib from './lib';
-import { _word_en, _word_en3, _word_jp1, lazymarks } from './lib/index';
+import { _word_zh } from 'regexp-cjk/lib';
 
 export const lang = '黑之魔王';
 
@@ -1181,7 +1184,7 @@ export const words: IWords[] = _word_zh_all([
 		'清水',
 	].reduce(function (a, b)
 	{
-		a.push(sublib._word_zh(`${b}の?月`, `${b}の月`));
+		a.push(_word_zh(`${b}の?月`, `${b}の月`));
 
 		return a;
 	}, [])),

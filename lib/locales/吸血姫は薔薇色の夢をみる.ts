@@ -3,9 +3,12 @@
  */
 ///<reference lib="es2018.regexp"/>
 
-import { sp, IWords, vMaybe, sublib } from './index';
+import lazymarks from '@node-novel/layout-pattern/lib/core/pattern/index';
+import { _word_en, _word_en3, _word_jp1, _word_zh_all } from '@node-novel/layout-pattern/lib/core/word';
+import { IWords, vMaybe, IWordsAll } from '@node-novel/layout-pattern/lib/core/word';
+import { _zh_num2, sp, sp2, _zh_num, _full_num, EN_REGEXP } from '@node-novel/layout-pattern/lib/core/const';
+import { IPatternRule } from '@node-novel/layout-pattern/lib/core/types';
 import * as StrUtil from 'str-util';
-import { _word_en, lazymarks, _word_jp1 } from './lib/index';
 import { words_source as import_words_source } from './リビティウム皇国のブタクサ姫';
 
 /**
