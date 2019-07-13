@@ -105,7 +105,7 @@ export const testCaseArray: ITestTargetNovelFileCaseArray = [
 		targetFile: '00000_web/00070_第二章/00160_32　見面.txt',
 
 		match: [
-			/嚇停的。」\n「艾莉莎小姐⋯⋯⋯」/,
+			/嚇停的。」\n「艾莉莎小姐/u,
 		],
 
 	},

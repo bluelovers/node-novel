@@ -1,15 +1,11 @@
 /**
  * Created by user on 2018/1/31/031.
  */
-
-import { IWords } from '../index';
+import { IWords, _word_zh_all } from '../word';
 
 export * from 'tieba-harmony';
 import tiebaHarmony from 'tieba-harmony';
-import * as deepmerge from 'deepmerge-plus';
-import sublib from './index';
-
-//console.log(tiebaHarmony.SP_REGEXP);
+import { deepmerge } from 'deepmerge-plus';
 
 export function getTable(options: tiebaHarmony.IOptions = {}): IWords[]
 {
@@ -36,7 +32,7 @@ export function getTable(options: tiebaHarmony.IOptions = {}): IWords[]
 		],
 	});
 
-	return sublib._word_zh_all(tiebaHarmony.getTable(options));
+	return _word_zh_all(tiebaHarmony.getTable(options));
 }
 
-export default exports as typeof import('./baidu');
+export default getTable

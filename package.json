@@ -11,6 +11,9 @@
     "sort",
     "txt"
   ],
+  "workspaces": [
+    "packages/*"
+  ],
   "homepage": "https://github.com/bluelovers/node-novel#readme",
   "bugs": {
     "url": "https://github.com/bluelovers/node-novel/issues"
@@ -79,9 +82,7 @@
     "json5": "latest",
     "node-novel-globby": "^2.0.9",
     "node-novel-info": "^2.3.33",
-    "novel-epub": "^1.1.26",
     "novel-segment-cli": "^1.0.19",
-    "novel-text": "^1.1.25",
     "novel-txt-merge": "^1.0.24",
     "prettyuse": "^0",
     "regexp-cjk": "^3.3.4",

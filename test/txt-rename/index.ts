@@ -74,7 +74,7 @@ novelID = '蜘蛛ですが、なにか？';
 //novelID = '不是真正同伴的我被逐出了勇者隊伍，因此決定在邊境過上慢生活';
 //
 pathMain = 'wenku8';
-//novelID = '平凡職業造就世界最強';
+novelID = '平凡職業造就世界最強';
 //
 ////subPath = '01010_WEB';
 //
@@ -87,14 +87,33 @@ pathMain = 'wenku8';
 //pathMain = 'syosetu';
 //novelID = '悠閑農家與亂碼技能';
 
-novelID = '不吉波普系列';
-novelID = '森の魔獣に花束を';
-novelID = '書姬吟游錄';
+//novelID = '不吉波普系列';
+//novelID = '森の魔獣に花束を';
+//novelID = '書姬吟游錄';
+//
+////pathMain = 'user';
+////novelID = '２９歳独身は異世界で自由に生きた…かった。';
+////
+////subPath = '00010_文庫/00080_第八卷';
+//
+//pathMain = 'ts';
+//novelID = '吸血少女は男に戻りたい！';
 
-//pathMain = 'user';
-//novelID = '２９歳独身は異世界で自由に生きた…かった。';
+//novelID = 'ガチャを回して仲間を増やす　最強の美少女軍団を作り上げろ';
+//
+//pathMain = 'dmzj';
+//novelID = '魔法師塔塔';
 
-//subPath = '00010_文庫/00070_第七卷';
+pathMain = 'girl';
+novelID = '勿論、慰謝料請求いたします！';
+
+pathMain = 'syosetu';
+novelID = '異世界薬局';
+
+pathMain = 'syosetu';
+novelID = '班級同學都被召喚到異世界，只有我倖存下來';
+
+subPath = 'z.raw/10000';
 
 let DEBUG_MODE = true;
 //DEBUG_MODE = false;
@@ -129,7 +148,7 @@ let _space = ' 　\\t \\s';
 
 	r = new zhRegExp([
 		`(?:^)[${_space}]*`,
-		`(\\d{4,}[ _])?`,
+		`(?:(\\d{4,}[ _]))`,
 		//`(?:【渣翻＋直译＋脑补】)?`,
 		`(`,
 		[
@@ -140,29 +159,31 @@ let _space = ' 　\\t \\s';
 			//`\\d+[${_space}\\-]`,
 //			'\\d{3}',
 
-			//`第[${_zh_num}\\d]+话`,
+			`第\\s*[${_zh_num}\\d０-９]+\\s*话?`,
 			//`第[${_zh_num}\\d]+章`,
 			//`後記`,
 			//`尾聲`,
 			//'最终章',
 
-			'\\d+-\\d+',
+			'\\d+',
 
 		].join('|'),
 		`)`,
-		`[${_space}]*`,
+		`[${_space}：：]*`,
 		//`[：~～]*`,
-		`([^\\n]*?)`,
+		`：?([^\\n]*?)`,
 		//`[：~～]*`,
 		`[${_space}]*`,
 		`$`,
 	].join(''), 'ig');
 
-	//r = new zhRegExp(`第?\\s*(\\d+)\\s*話\\s*(.+?)?\\s*$`);
+//	r = new zhRegExp(`第?\\s*(\\d+)\\s*話\\s*(.+?)?\\s*$`);
 
 //	r = new zhRegExp(`^(\\d{4,}[ _])()(.+)$`);
 
 	//r = new zhRegExp(`^()(\\d{3}) (.+)$`);
+
+
 
 	console.log(r);
 
@@ -205,13 +226,15 @@ let _space = ' 　\\t \\s';
 			//const c = ' ';
 //			const c = ' ';
 
-			if (0 && m)
+			if (1 && m)
 			{
 				let id_str: string;
 
 				let [src, ido, id, desc] = m;
 
-				//console.log(m);
+				console.dir({
+					ido, id, desc
+				});
 
 				desc = novelText.trim(desc || '', {
 					//trim: true,
@@ -220,13 +243,17 @@ let _space = ' 　\\t \\s';
 
 				desc = StrUtil.toFullNumber(desc);
 
-				let idn = id;
-				if (typeof idn != 'undefined')
+				id_str = id;
+
+				let idn = StrUtil.toHalfNumber(id)
+					.replace(/^\D+|\D+$/g, '')
+				;
+
+				if (/^\d+$/i.test(idn))
 				{
 					idn = idn.padStart(3, '0');
+					id_str = `${idn}`;
 				}
-
-				id_str = `${idn}`;
 
 				name = '';
 
@@ -237,7 +264,7 @@ let _space = ' 　\\t \\s';
 					if (1)
 					{
 						desc = novelFilename.filename(desc, {
-								skip: '娘志里卷發處說氣圍',
+								skip: '證娘志里卷發處說氣圍藏經廳輕碎餘廣广劃蟲豐富轉惱佛續妝',
 								//safe: false,
 							})
 							.replace(/“/g, '『')
@@ -296,6 +323,31 @@ let _space = ' 　\\t \\s';
 			{
 				console.debug(m);
 			}
+			else if (0)
+			{
+				name = name.replace(new zhRegExp(/(?<=第)\D+(?=话)/), function (s)
+				{
+					let id = StrUtil.zh2num(s);
+
+					return String(id).padStart(3, '0');
+				})
+			}
+			else if (0)
+			{
+				name = name.replace(new zhRegExp(/(?:第)([０-９]+)(?:话)/), function (s, n)
+				{
+					let id = StrUtil.toHalfNumber(n);
+
+					return String(id).padStart(3, '0');
+				});
+			}
+			else
+			{
+				console.red.dir({
+					name,
+					m,
+				})
+			}
 
 //			name = (index + 2)
 //				.toString()
@@ -308,7 +360,7 @@ let _space = ' 　\\t \\s';
 			if (1)
 			{
 				name = novelFilename.filename(name, {
-						skip: '證娘志里卷發處說氣圍藏經廳輕碎餘廣广劃',
+						skip: '證娘志里卷發處說氣圍藏經廳輕碎餘廣广劃蟲豐富轉惱佛續妝',
 						//safe: false,
 					})
 					.replace(/“/g, '『')
@@ -426,6 +478,7 @@ let _space = ' 　\\t \\s';
 
 				console.log(`${index}, "${name_old}"`);
 				console.log(`=>`, diff_log(name_old, name));
+				console.success(`=>`, name);
 			}
 			else
 			{
