@@ -7,9 +7,10 @@ import lazymarks from '@node-novel/layout-pattern/lib/core/pattern/index';
 
 export * from './demo'
 
-import * as demoRule from './demo';
-import { lang, words_callback, words_maybe, words_source } from './demo';
-import { _word_zh_all, IWords } from '../word';
+import * as demoRule from '@node-novel/layout-pattern/lib/rules/demo';
+import { lang, words_callback, words_maybe, words_source } from '@node-novel/layout-pattern/lib/rules/demo';
+import { _word_en, _word_en3, _word_jp1, _word_zh_all } from '@node-novel/layout-pattern/lib/core/word';
+import { IWords, vMaybe, IWordsAll } from '@node-novel/layout-pattern/lib/core/word';
 
 /**
  * @private

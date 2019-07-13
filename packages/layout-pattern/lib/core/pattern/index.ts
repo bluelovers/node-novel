@@ -5,8 +5,9 @@ import { IWords } from '../word';
 import { console } from 'debug-color2';
 import { _re_cjk_conv as _re_cjk_conv2 } from 'regexp-helper/lib/cjk-conv';
 import { EN_REGEXP, _full_num, _zh_num, _zh_num2 } from '../const';
+import { ILazyMarkKeys } from '../pattern-keys';
 
-export const lazymarks = {} as IWords[][];
+export const lazymarks = {} as Record<ILazyMarkKeys, IWords[]>;
 
 lazymarks[0] = [
 	[/([\u4E00-\u9FFF])\[([^\n【】<>\[\]\{\}『』「」“”'"]+)\]/g, '$1【$2】'],
