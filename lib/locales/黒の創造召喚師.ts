@@ -131,7 +131,7 @@ export const words: IWords[] = sublib._word_zh_all([
 	['姓名|名字', '名字'],
 	['公会大師|公会会長', '公会会長'],
 
-	...sublib.lazymarks['class'],
+	...lazymarks['class'],
 
 	[/^一+\n/g, ''],
 
@@ -158,13 +158,13 @@ export const words: IWords[] = sublib._word_zh_all([
 		return m[1] + StrUtil.toFullWidth(m[2].toUpperCase());
 	}),
 
-	...sublib.lazymarks[4],
+	...lazymarks[4],
 
-	...sublib.lazymarks[0],
-	...sublib.lazymarks[1],
-	...sublib.lazymarks[2],
-	...sublib.lazymarks[3],
-	...sublib.lazymarks[5],
+	...lazymarks[0],
+	...lazymarks[1],
+	...lazymarks[2],
+	...lazymarks[3],
+	...lazymarks[5],
 
 	[/【/g, '「'],
 	[/】/g, '」'],

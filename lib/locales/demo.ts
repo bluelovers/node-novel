@@ -26,9 +26,9 @@ export const words: IPatternRule["words"] = _word_zh_all([
 	...words_source,
 
 	...lazymarks['class'],
-	//...sublib.lazymarks['zh_cht'],
+	//...lazymarks['zh_cht'],
 
-	//...sublib.lazymarks['unit'],
+	//...lazymarks['unit'],
 
 	...lazymarks['ln_0010'],
 
@@ -46,7 +46,7 @@ export const words: IPatternRule["words"] = _word_zh_all([
 	/**
 	 * 無差別將 【】 轉為對話符號
 	 */
-	//...sublib.lazymarks[8],
+	//...lazymarks[8],
 
 	...lazymarks['clear_002'],
 

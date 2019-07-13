@@ -32,9 +32,9 @@ export const words: IWords[] = sublib._word_zh_all([
 	['隷属の印|奴隶之印', '隷属之印'],
 	['后宫', '後宮'],
 
-	...sublib.lazymarks['class'],
+	...lazymarks['class'],
 
-	...sublib.lazymarks[4],
+	...lazymarks[4],
 
 	[/(\S)\n(─+[ ]*[^─\n]+)/gm, '$1\n\n$2'],
 	[/^(─+[ ]*[^─\n]+)\n(\S)/gm, '$1\n\n$2'],
@@ -56,11 +56,11 @@ export const words: IWords[] = sublib._word_zh_all([
 		return m[1] + 'Ｏ'.repeat(m[2].length);
 	}),
 
-	...sublib.lazymarks[0],
-	...sublib.lazymarks[1],
-	...sublib.lazymarks[2],
-	...sublib.lazymarks[3],
-	...sublib.lazymarks[5],
+	...lazymarks[0],
+	...lazymarks[1],
+	...lazymarks[2],
+	...lazymarks[3],
+	...lazymarks[5],
 
 ]);
 

@@ -493,7 +493,7 @@ export const words: IWords[] = sublib._word_zh_all([
 
 	...words_source,
 
-	...sublib.lazymarks['zh'],
+	...lazymarks['zh'],
 
 	['勇者|勇士', '勇者'],
 	['(暗黒|黒暗)騎士', '暗黒騎士'],
@@ -535,19 +535,19 @@ export const words: IWords[] = sublib._word_zh_all([
 		return m[1] + StrUtil.toFullNumber(m[2]);
 	}],
 
-	...sublib.lazymarks[4],
+	...lazymarks[4],
 
-	...sublib.lazymarks['ltrim'],
+	...lazymarks['ltrim'],
 
 	[/^【([^【】\n]+)】/gm, '「$1」'],
 
-	...sublib.lazymarks[1],
-	...sublib.lazymarks[2],
+	...lazymarks[1],
+	...lazymarks[2],
 
 	[/[【]/g, '「'],
 	[/[】]/g, '」'],
 
-	...sublib.lazymarks[3],
+	...lazymarks[3],
 
 	[/([^】\n])(\n【[^\n]+】\n)/g, '$1\n$2'],
 	[/(\n【[^\n]+】\n)([^【\n])/g, '$1\n$2'],

@@ -589,22 +589,22 @@ export const words: IWords[] = sublib._word_zh_all([
 	},
 	],
 
-	...sublib.lazymarks[4],
+	...lazymarks[4],
 
 	[/(\n)[ \t　]+/g, '$1'],
 	[/^[ \t　]+/g, ''],
 
-	...sublib.lazymarks[0],
-	...sublib.lazymarks[1],
+	...lazymarks[0],
+	...lazymarks[1],
 
 	[/[【]/g, '「'],
 	[/[】]/g, '」'],
-	...sublib.lazymarks[2],
+	...lazymarks[2],
 
 	[/｛/g, '（'],
 	[/｝/g, '）'],
 
-	...sublib.lazymarks[3],
+	...lazymarks[3],
 
 	[/([^】\n])(\n【[^\n]+】\n)/g, '$1\n$2'],
 	[/(\n【[^\n]+】\n)([^【\n])/g, '$1\n$2'],

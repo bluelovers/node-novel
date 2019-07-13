@@ -268,7 +268,7 @@ export const words: IWords[] = sublib._word_zh_all([
 	['炮', '砲'],
 	['愈|癒', '癒'],
 
-	...sublib.lazymarks['class'],
+	...lazymarks['class'],
 
 	['武術家|武闘家', '武闘家'],
 	['魔(術|法)師', '魔術師'],
@@ -380,15 +380,15 @@ export const words: IWords[] = sublib._word_zh_all([
 
 	[/^“([^“”]+)“(?= *[(（])/gm, '「$1」'],
 
-	...sublib.lazymarks['ln_0010'],
+	...lazymarks['ln_0010'],
 
-	...sublib.lazymarks[4],
+	...lazymarks[4],
 
-	...sublib.lazymarks[0],
-	...sublib.lazymarks[1],
-	...sublib.lazymarks[2],
-	...sublib.lazymarks[3],
-	...sublib.lazymarks[5],
+	...lazymarks[0],
+	...lazymarks[1],
+	...lazymarks[2],
+	...lazymarks[3],
+	...lazymarks[5],
 
 	...lazymarks['clear_002'],
 

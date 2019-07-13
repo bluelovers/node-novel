@@ -240,9 +240,9 @@ export const words: IWords[] = sublib._word_zh_all([
 	['精灵の里', '精灵の里'],
 	['内政作弊|内政外挂', '内政作弊'],
 
-	...sublib.lazymarks['class'],
+	...lazymarks['class'],
 
-	...sublib.lazymarks[4],
+	...lazymarks[4],
 
 	[/(\S)\n(─+[ ]*[^─\n]+)/gm, '$1\n\n$2'],
 	[/^(─+[ ]*[^─\n]+)\n(\S)/gm, '$1\n\n$2'],
@@ -264,11 +264,11 @@ export const words: IWords[] = sublib._word_zh_all([
 		return m[1] + StrUtil.toFullEnglish(m[2]);
 	}),
 
-	...sublib.lazymarks[0],
-	...sublib.lazymarks[1],
-	...sublib.lazymarks[2],
-	...sublib.lazymarks[3],
-	...sublib.lazymarks[5],
+	...lazymarks[0],
+	...lazymarks[1],
+	...lazymarks[2],
+	...lazymarks[3],
+	...lazymarks[5],
 
 ]);
 

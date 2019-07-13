@@ -67,25 +67,25 @@ export const words: IWords[] = sublib._word_zh_all([
 
 	[/\*/g, '＊'],
 
-	...sublib.lazymarks['class'],
-	//...sublib.lazymarks['zh_cht'],
+	...lazymarks['class'],
+	//...lazymarks['zh_cht'],
 
-	//...sublib.lazymarks['unit'],
+	//...lazymarks['unit'],
 
-	...sublib.lazymarks['ln_0010'],
+	...lazymarks['ln_0010'],
 
-	...sublib.lazymarks[4],
+	...lazymarks[4],
 
-	...sublib.lazymarks['full_width_001'],
-	...sublib.lazymarks['full_width_002'],
+	...lazymarks['full_width_001'],
+	...lazymarks['full_width_002'],
 
-	...sublib.lazymarks[0],
-	...sublib.lazymarks[1],
-	...sublib.lazymarks[2],
-	...sublib.lazymarks[3],
-	...sublib.lazymarks[5],
+	...lazymarks[0],
+	...lazymarks[1],
+	...lazymarks[2],
+	...lazymarks[3],
+	...lazymarks[5],
 
-	//...sublib.lazymarks[8],
+	//...lazymarks[8],
 
 	...lazymarks['clear_002'],
 

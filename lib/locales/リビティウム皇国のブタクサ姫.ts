@@ -726,12 +726,12 @@ export const words: IWords[] = sublib._word_zh_all([
 
 	['克拉拉先生', '克拉拉大人', 'ig'],
 
-	...sublib.lazymarks['class'],
+	...lazymarks['class'],
 
 	_word_en3('boos|BOSS', 'BOSS'),
 	_word_en3('魔FA', '魔法'),
 
-	...sublib.lazymarks['zh_cht'],
+	...lazymarks['zh_cht'],
 
 	['公會|工會|ギルド', '公會', 'ig'],
 	['(商業|工匠|魔術師|工藝|盜賊|傭兵)行會', '$1公會', 'ig'],
@@ -755,23 +755,23 @@ export const words: IWords[] = sublib._word_zh_all([
 
 
 
-	...sublib.lazymarks[4],
+	...lazymarks[4],
 
-	...sublib.lazymarks[8],
+	...lazymarks[8],
 
-	...sublib.lazymarks['full_width_001'],
-	...sublib.lazymarks['full_width_002'],
+	...lazymarks['full_width_001'],
+	...lazymarks['full_width_002'],
 
 	_word_en('SS', '$1ＳＳ', 'ig'),
 	_word_en('US', '$1ＵＳ', 'ig'),
 
 	_word_en('iii', '$1Ⅲ', 'ig'),
 
-	...sublib.lazymarks[0],
-	...sublib.lazymarks[1],
-	...sublib.lazymarks[2],
-	...sublib.lazymarks[3],
-	...sublib.lazymarks[5],
+	...lazymarks[0],
+	...lazymarks[1],
+	...lazymarks[2],
+	...lazymarks[3],
+	...lazymarks[5],
 
 	[/[{]/g, '【'],
 	[/[}]/g, '】'],

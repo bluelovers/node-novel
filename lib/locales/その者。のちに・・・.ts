@@ -32,18 +32,18 @@ export const words: IWords[] = sublib._word_zh_all([
 
 	//['要取代的字', '取代後的字'],
 
-	...sublib.lazymarks['class'],
+	...lazymarks['class'],
 
 	[/(　) ([\wＡ-Ｚ])/g, '$1$2'],
 
 
-	...sublib.lazymarks[4],
+	...lazymarks[4],
 
-	...sublib.lazymarks[0],
-	...sublib.lazymarks[1],
-	...sublib.lazymarks[2],
-	...sublib.lazymarks[3],
-	...sublib.lazymarks[5],
+	...lazymarks[0],
+	...lazymarks[1],
+	...lazymarks[2],
+	...lazymarks[3],
+	...lazymarks[5],
 
 	[/(\n　[\wＡ-Ｚ][^\n]+)\n{2,}(?=　[\wＡ-Ｚ])/ig, '$1\n'],
 

@@ -151,7 +151,7 @@ export const words: IWords[] = sublib._word_zh_all([
 	 *
 	 */
 
-	...sublib.lazymarks['class'],
+	...lazymarks['class'],
 
 	['(料理|飯菜)王?(比|競)技?賽|料理競賽|料理王競技賽|料理王比賽|料理大賽', '料理競賽'],
 	['(料理|飯菜)', '料理'],
@@ -248,13 +248,13 @@ export const words: IWords[] = sublib._word_zh_all([
 
 	[/^　/gm, ''],
 
-	...sublib.lazymarks[4],
+	...lazymarks[4],
 
-	...sublib.lazymarks[0],
-	...sublib.lazymarks[1],
-	...sublib.lazymarks[2],
-	...sublib.lazymarks[3],
-	...sublib.lazymarks[5],
+	...lazymarks[0],
+	...lazymarks[1],
+	...lazymarks[2],
+	...lazymarks[3],
+	...lazymarks[5],
 
 ]);
 

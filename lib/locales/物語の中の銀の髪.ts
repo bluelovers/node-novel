@@ -118,7 +118,7 @@ export const words: IWords[] = sublib._word_zh_all([
 	/**
 	 *
 	 */
-	...sublib.lazymarks['class'],
+	...lazymarks['class'],
 
 	['视(角|点)(变|转)(换|更)|視点変更|视角变更', '視点變更'],
 
@@ -153,13 +153,13 @@ export const words: IWords[] = sublib._word_zh_all([
 
 	[/^[　 ]+/gm, ''],
 
-	...sublib.lazymarks[4],
+	...lazymarks[4],
 
-	...sublib.lazymarks[0],
-	...sublib.lazymarks[1],
-	...sublib.lazymarks[2],
-	...sublib.lazymarks[3],
-	...sublib.lazymarks[5],
+	...lazymarks[0],
+	...lazymarks[1],
+	...lazymarks[2],
+	...lazymarks[3],
+	...lazymarks[5],
 
 ]);
 

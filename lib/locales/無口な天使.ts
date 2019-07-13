@@ -60,7 +60,7 @@ export const words: IWords[] = sublib._word_zh_all([
 
 	['尼克兹克|尼克斯克|ニクズク|妮可絲可', '尼克兹克'],
 
-	...sublib.lazymarks['class'],
+	...lazymarks['class'],
 
 	['【', '「'],
 	['】', '」'],
@@ -80,13 +80,13 @@ export const words: IWords[] = sublib._word_zh_all([
 		return m[1] + StrUtil.toFullEnglish(m[2]);
 	}),
 
-	...sublib.lazymarks[4],
+	...lazymarks[4],
 
-	...sublib.lazymarks[0],
-	...sublib.lazymarks[1],
-	...sublib.lazymarks[2],
-	...sublib.lazymarks[3],
-	...sublib.lazymarks[5],
+	...lazymarks[0],
+	...lazymarks[1],
+	...lazymarks[2],
+	...lazymarks[3],
+	...lazymarks[5],
 
 ] as IWords[]);
 

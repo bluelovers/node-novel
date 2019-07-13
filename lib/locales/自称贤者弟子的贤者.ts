@@ -306,23 +306,23 @@ export const words: IWords[] = sublib._word_zh_all([
 		return _m[1] + StrUtil.toFullWidth(_m[2]);
 	}],
 
-	...sublib.lazymarks[4],
+	...lazymarks[4],
 
-	...sublib.lazymarks['ltrim'],
+	...lazymarks['ltrim'],
 
 	[/^([^「」\n【】\[\]［］]*)[\[［]([ ]*[…\u4E00-\u9FFF][^\n【】\[\]］]*)[\]］]/gm, '$1【$2】'],
 	[/(「[^「」\n【】\[\]［］]*)[\[［]([ ]*[…\u4E00-\u9FFF][^\n【】\[\]］]*)[\]］]/gm, '$1【$2】'],
 
-	...sublib.lazymarks[1],
-	...sublib.lazymarks[2],
-	...sublib.lazymarks[3],
+	...lazymarks[1],
+	...lazymarks[2],
+	...lazymarks[3],
 
 	[/([^】\n])(\n【[^\n]+】\n)/g, '$1\n$2'],
 	[/(\n【[^\n]+】\n)([^【\n])/g, '$1\n$2'],
 
 	[/\n[ 　]*\.[ 　]*(?=\n)/g, '\n'],
 
-	...sublib.lazymarks['zh'],
+	...lazymarks['zh'],
 
 ]) as IWords[];
 

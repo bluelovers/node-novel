@@ -211,7 +211,7 @@ export const words: IWords[] = sublib._word_zh_all([
 
 	...words_source,
 
-	...sublib.lazymarks['class'],
+	...lazymarks['class'],
 
 	_word_en(/LV|HP|MP|EXP|[a-z]|\d+|LP/ig, function (...m)
 	{
@@ -236,13 +236,13 @@ export const words: IWords[] = sublib._word_zh_all([
 
 	[/^【([^\n】]+)】/gm, '「$1」'],
 
-	...sublib.lazymarks[4],
+	...lazymarks[4],
 
-	...sublib.lazymarks[0],
-	...sublib.lazymarks[1],
-	...sublib.lazymarks[2],
-	...sublib.lazymarks[3],
-	...sublib.lazymarks[5],
+	...lazymarks[0],
+	...lazymarks[1],
+	...lazymarks[2],
+	...lazymarks[3],
+	...lazymarks[5],
 
 ]);
 

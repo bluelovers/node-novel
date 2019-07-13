@@ -957,9 +957,9 @@ export const words: IWords[] = sublib._word_zh_all([
 
 	...words_source,
 
-	...sublib.lazymarks['unit'],
+	...lazymarks['unit'],
 
-	...sublib.lazymarks['class'],
+	...lazymarks['class'],
 
 	_word_en3('loli', '蘿莉'),
 
@@ -1323,9 +1323,9 @@ export const words: IWords[] = sublib._word_zh_all([
 	[/［/g, '「'],
 	[/］/g, '」'],
 
-	...sublib.lazymarks[4],
+	...lazymarks[4],
 
-	...sublib.lazymarks['ltrim'],
+	...lazymarks['ltrim'],
 
 	[/([\u4E00-\u9FFF])\.(?!\.)/g, '$1。'],
 
@@ -1334,12 +1334,12 @@ export const words: IWords[] = sublib._word_zh_all([
 
 	//[/^【([^【】\n]+)】/gm, '「$1」'],
 
-	...sublib.lazymarks[0],
-	...sublib.lazymarks[1],
+	...lazymarks[0],
+	...lazymarks[1],
 	[/[【]/g, '「'],
 	[/[】]/g, '」'],
-	...sublib.lazymarks[2],
-	...sublib.lazymarks[3],
+	...lazymarks[2],
+	...lazymarks[3],
 
 	[/([^】\n])(\n【[^\n]+】\n)/g, '$1\n$2'],
 	[/(\n【[^\n]+】\n)([^【\n])/g, '$1\n$2'],
@@ -1349,7 +1349,7 @@ export const words: IWords[] = sublib._word_zh_all([
 	[/\n+([\u0600-\u06FF\u0750-\u077F])/gm, '\n$1'],
 	[/([\u0600-\u06FF\u0750-\u077F])\n+/gm, '$1\n'],
 
-	...sublib.lazymarks[5],
+	...lazymarks[5],
 
 	[[
 		`([《（「『【])`,

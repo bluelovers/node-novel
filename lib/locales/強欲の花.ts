@@ -102,7 +102,7 @@ export const words: IWords[] = sublib._word_zh_all([
 
 	['異種族間交尾|異种族間交配|异种族交尾巴', '異種族間交尾'],
 
-	...sublib.lazymarks['class'],
+	...lazymarks['class'],
 
 	[/^(【[^\n]+)\n+(?=【)/gm, '$1\n'],
 	[/^[　 ]+/gm, ''],
@@ -111,13 +111,13 @@ export const words: IWords[] = sublib._word_zh_all([
 
 	//[/^回复举报[^\n]+\n+[^\n]+\n正式会员\d$/gm, '\n'],
 
-	...sublib.lazymarks[4],
+	...lazymarks[4],
 
-	...sublib.lazymarks[0],
-	...sublib.lazymarks[1],
-	...sublib.lazymarks[2],
-	...sublib.lazymarks[3],
-	...sublib.lazymarks[5],
+	...lazymarks[0],
+	...lazymarks[1],
+	...lazymarks[2],
+	...lazymarks[3],
+	...lazymarks[5],
 
 	[/^【([^\n【】 ]+)(\n[^【】]+)】/gm, '「$1$2」'],
 	[/^【([^\n【】 ]+[，。！…？][^\n【】]*)(\n[^【】\n]+)】/gm, '「$1$2」'],

@@ -1820,7 +1820,7 @@ export const words: IWords[] = sublib._word_zh_all([
 		return m[1] + StrUtil.toFullNumber(m[2]);
 	}),
 
-	...sublib.lazymarks['class'],
+	...lazymarks['class'],
 
 	['蟲', '蟲'],
 	['術', '術'],
@@ -1828,13 +1828,13 @@ export const words: IWords[] = sublib._word_zh_all([
 	['護', '護'],
 	['悪', '惡'],
 
-	...sublib.lazymarks[4],
+	...lazymarks[4],
 
-	...sublib.lazymarks[0],
-	...sublib.lazymarks[1],
-	...sublib.lazymarks[2],
-	...sublib.lazymarks[3],
-	...sublib.lazymarks[5],
+	...lazymarks[0],
+	...lazymarks[1],
+	...lazymarks[2],
+	...lazymarks[3],
+	...lazymarks[5],
 
 	[/(\n[^・\n][^\n]+)\n(・)/g, '$1\n\n$2'],
 	[/(\n[^：\n]+：[^\n]+)\n{2}([^：\n]+：)/g, '$1\n$2'],
