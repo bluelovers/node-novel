@@ -27,7 +27,7 @@ export const value = {
 /**
  * 在這裡放此小說專屬的取代樣本
  */
-export const words: IWords[] = sublib._word_zh_all([
+export const words: IWords[] = _word_zh_all([
 
 	['外木王国', 'ワイム王国'],
 	['ワイム|瓦伊姆', '瓦伊姆'],

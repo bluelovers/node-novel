@@ -26,7 +26,7 @@ export const value = {
 /**
  * 在這裡放此小說專屬的取代樣本
  */
-export const words: IWords[] = sublib._word_zh_all([
+export const words: IWords[] = _word_zh_all([
 
 	['Berth . Trauma', 'Berth・Trauma'],
 	[`芭璐特${sp}柯德兰`, '芭璐特・柯德兰'],

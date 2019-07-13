@@ -54,7 +54,7 @@ export const words_source: IWords[] = [
 
 ];
 
-export const words: IWords[] = sublib._word_zh_all([
+export const words: IWords[] = _word_zh_all([
 
 	...words_source,
 

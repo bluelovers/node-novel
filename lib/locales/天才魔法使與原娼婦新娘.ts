@@ -26,7 +26,7 @@ export const value = {
 /**
  * 在這裡放此小說專屬的取代樣本
  */
-export const words: IWords[] = sublib._word_zh_all([
+export const words: IWords[] = _word_zh_all([
 
 	[`艾斯特|艾斯提`, '艾斯特'],
 	[`拉尔夫${sp}艾斯特`, '拉爾夫＝艾斯特'],

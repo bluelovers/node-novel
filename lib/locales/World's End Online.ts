@@ -27,7 +27,7 @@ export const value = {
 /**
  * 在這裡放此小說專屬的取代樣本
  */
-export const words: IWords[] = sublib._word_zh_all([
+export const words: IWords[] = _word_zh_all([
 
 	['セシリア|賽系莉亞|(賽|塞)(希|西)莉(亞|婭)', '塞西莉婭'],
 

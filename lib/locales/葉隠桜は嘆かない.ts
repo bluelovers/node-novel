@@ -24,7 +24,7 @@ export const words_source: IWords[] = [
 /**
  * 實際使用的取代樣式
  */
-export const words: IWords[] = sublib._word_zh_all([
+export const words: IWords[] = _word_zh_all([
 
 	['八咫烏|八尺鳥', '八咫烏'],
 	['天照大御神', '天照大御神'],

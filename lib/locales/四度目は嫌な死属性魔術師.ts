@@ -1469,7 +1469,7 @@ _word_jp1('維(妲|达|塔|達)|維達|ヴィダ', '維達'),
 /**
  * 實際使用的取代樣式
  */
-export const words: IWords[] = sublib._word_zh_all([
+export const words: IWords[] = _word_zh_all([
 
 	...words_source,
 

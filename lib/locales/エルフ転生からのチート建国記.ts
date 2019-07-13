@@ -26,7 +26,7 @@ export const value = {
 /**
  * 在這裡放此小說專屬的取代樣本
  */
-export const words: IWords[] = sublib._word_zh_all([
+export const words: IWords[] = _word_zh_all([
 
 	['希利路|西利绿|席尔璐|西里尔|西利魯', '希利路'],
 

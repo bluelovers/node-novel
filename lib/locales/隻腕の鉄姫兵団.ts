@@ -26,7 +26,7 @@ export const value = {
 /**
  * 在這裡放此小說專屬的取代樣本
  */
-export const words: IWords[] = sublib._word_zh_all([
+export const words: IWords[] = _word_zh_all([
 
 	['愛玩奴隷|玩赏用?奴隷|玩弄奴隷', '愛玩奴隷'],
 	['鋼の女神亭', '鋼之女神亭'],

@@ -27,7 +27,7 @@ export const value = {
 /**
  * 在這裡放此小說專屬的取代樣本
  */
-export const words: IWords[] = sublib._word_zh_all([
+export const words: IWords[] = _word_zh_all([
 
 	['塞巴斯汀?|賽巴斯汀?', '賽巴斯汀'],
 	['アルト|阿魯多|阿爾特|阿爾德', '阿爾特'],

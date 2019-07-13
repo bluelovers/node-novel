@@ -26,7 +26,7 @@ export const value = {
 /**
  * 在這裡放此小說專屬的取代樣本
  */
-export const words: IWords[] = sublib._word_zh_all([
+export const words: IWords[] = _word_zh_all([
 
 	['拉奥斯提亚|劳斯提亞|ラオスティア|劳苏提亞', '拉奧斯提亞'],
 	['諾斯提亞|ノスティア|nosutia|Nosutia|諾眭迪亞|諾斯蒂亞|諾スティア', '諾斯蒂亞', 'ig'],

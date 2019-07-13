@@ -27,7 +27,7 @@ export const value = {
 /**
  * 在這裡放此小說專屬的取代樣本
  */
-export const words: IWords[] = sublib._word_zh_all([
+export const words: IWords[] = _word_zh_all([
 
 	['劍(的|之)(城市|都市)|劍之城', '劍之都'],
 	['豬頭人国?王', '豬頭人王'],
