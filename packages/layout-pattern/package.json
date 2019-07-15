@@ -41,6 +41,7 @@
   },
   "devDependencies": {
     "@bluelovers/fast-glob": "^3.0.4",
+    "case": "^1.6.1",
     "fs-extra": "^8.1.0"
   },
   "publishConfig": {

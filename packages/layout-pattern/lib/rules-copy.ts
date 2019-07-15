@@ -3,11 +3,11 @@
  */
 
 import { readFileSync } from 'fs';
-import { IRuleListKeys, RULE_LIST } from './rules-keys';
+import { IRuleListKey, RULE_LIST } from './rules-keys';
 import { IPatternRule } from './core/types';
 import { existsBuildInRule, getBuildInRulePath } from './rules';
 
-export function getBuildInRuleFileContext<T extends string | IRuleListKeys>(id: T)
+export function getBuildInRuleFileContext<T extends string | IRuleListKey>(id: T)
 {
 	if (existsBuildInRule(id))
 	{

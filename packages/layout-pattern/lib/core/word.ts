@@ -40,6 +40,9 @@ export function _word_en2(search: string | RegExp,
 	];
 }
 
+/**
+ * 配對英文單字
+ */
 export function _word_en3(search: string | RegExp,
 	ret: string | IRegExpCallback = null,
 	flag = 'ig',
@@ -51,6 +54,9 @@ export function _word_en3(search: string | RegExp,
 	];
 }
 
+/**
+ * 配對日文片假名
+ */
 export function _word_jp1(search: string | RegExp,
 	ret: string | IRegExpCallback = null,
 	flag = 'ig',
@@ -60,8 +66,9 @@ export function _word_jp1(search: string | RegExp,
 }
 
 /**
- * 最好只用在全新腳本內
+ * 自動配對簡繁日漢字
  *
+ * 最好只用在全新腳本內
  */
 export function _word_zh_all(arr: IWords[]): IWords[]
 {

@@ -4,12 +4,190 @@ import { toFullWidth, toHalfWidth, toFullNumber, toFullEnglish } from 'str-util'
 import { IWords } from '../word';
 import { console } from 'debug-color2';
 import { _re_cjk_conv as _re_cjk_conv2 } from 'regexp-helper/lib/cjk-conv';
-import { EN_REGEXP, _full_num, _zh_num, _zh_num2 } from '../const';
-import { ILazyMarkKeys } from '../pattern-keys';
+import { EN_REGEXP, _full_num, _zh_num, _zh_num2, ZH_WORD_CHAR_REGEXP } from '../const';
+import { ILazyMarkKey, EnumLazyMarkKeys } from '../pattern-keys';
 
-export const lazymarks = {} as Record<ILazyMarkKeys, IWords[]>;
+/**
+ * 預設的修正樣式
+ */
+export interface ILazyMark extends Record<ILazyMarkKey, IWords[]>
+{
 
-lazymarks[0] = [
+	/**
+	 * 排版整理 與 對話符號修正
+	 */
+	'1': IWords[],
+
+	/**
+	 * 適用於具有大量長段 而只縮減對話之間的空行使用
+	 */
+	'ln_talk': IWords[],
+
+	/**
+	 * 符號相關的排版整理
+	 */
+	'ln': IWords[],
+
+	/**
+	 * 符號 ... 相關的排版整理
+	 */
+	'ln_0010': IWords[],
+
+	// --------
+
+	/**
+	 * 對話符號修正
+	 *
+	 * 雖然這裡有BUG 但是這個BUG反而可以幫忙發現沒有正確對應的引號
+	 */
+	'3': IWords[],
+
+	/**
+	 * 對話符號修正
+	 */
+	'33': IWords[],
+
+	// --------
+
+	/**
+	 * 對話符號修正
+	 */
+	'2': IWords[],
+
+	// --------
+
+	/**
+	 * 將 [] 轉為 【$2】
+	 */
+	'0': IWords[],
+
+	/**
+	 * 無差別將 【】 轉為對話符號
+	 */
+	'7': IWords[],
+
+	/**
+	 * 將可能是對話的 【】 轉為對話符號
+	 */
+	'8': IWords[],
+
+	// --------
+
+	/**
+	 * 對話符號前後的空白
+	 */
+	'5': IWords[],
+
+	/**
+	 * 消除開頭的空白
+	 */
+	'clear_002': IWords[],
+
+	/**
+	 * 消除開頭的空白 v2
+	 */
+	'ltrim': IWords[],
+
+	/**
+	 * 消除多餘文字 例如 fin 完 之類
+	 */
+	'clear_001': IWords[],
+
+	// --------
+
+	/**
+	 * 將 xxxxx(xxxxx) 取代為 xxxxxx
+	 */
+	'replace_001': IWords[],
+
+	// --------
+
+	/**
+	 * 英文統一化
+	 */
+	'en': IWords[],
+
+	/**
+	 * 通用日文翻譯
+	 */
+	'jp1': IWords[],
+
+	/**
+	 * 英文統一化 part.2
+	 */
+	'en2': IWords[],
+
+	// --------
+
+	/**
+	 * 漢字偏好 統一化
+	 */
+	'zh': IWords[],
+
+	/**
+	 * 漢字偏好 統一化 (繁體)
+	 */
+	'zh_cht': IWords[],
+
+	/**
+	 * 中文詞偏好 統一化
+	 */
+	'zh2': IWords[],
+
+	/**
+	 * 職業 統一化
+	 */
+	'class': IWords[],
+
+	// --------
+
+	/**
+	 * 判斷前後文的符號修正
+	 */
+	'4': IWords[],
+
+	/**
+	 * 符號統一 與 去除 bom
+	 */
+	'c000': IWords[],
+
+	/**
+	 * 符號修正 與 判斷 點 是 點 還是 句號
+	 */
+	'c050': IWords[],
+
+	/**
+	 * 等號 與 線 的相關修正 與 統一化
+	 */
+	'c100': IWords[],
+
+	// --------
+
+	/**
+	 * 修正翻譯機將單位換算成px
+	 */
+	'unit': IWords[],
+
+	// --------
+
+	/**
+	 * 數字轉為全形
+	 */
+	'full_width_001': IWords[],
+
+	/**
+	 * 單獨的英文字母轉為全形
+	 */
+	'full_width_002': IWords[],
+
+}
+
+/**
+ * 預設的修正樣式
+ */
+export const lazymarks = {} as ILazyMark;
+
+lazymarks['0'] = [
 	[/([\u4E00-\u9FFF])\[([^\n【】<>\[\]\{\}『』「」“”'"]+)\]/g, '$1【$2】'],
 ];
 
@@ -31,12 +209,12 @@ lazymarks[0] = [
 
 	//〖号〗
 
-	let word = `！？…⋯－─—\\w０-９ａ-ｚＡ-Ｚ『』·＝\\u4E00-\\u9FFF\\u4E00-\\u9FAF\\u3000-\\u30FF\\u2200-\\u22FF\\u2e80-\\u33ffh`;
+	let word = ZH_WORD_CHAR_REGEXP;
 
 	let word1 = _re_cjk_conv2().source;
 	let word2 = _re_cjk_conv2().source.replace(/^\[|\]$/g, '');
 
-	lazymarks[1] = [
+	lazymarks['1'] = [
 
 		[/，(?=。)$/gm, ''],
 		[/(?<=[「」【】《》“”‘’『』（）\[\]"])。$/gm, ''],
@@ -350,7 +528,7 @@ lazymarks[0] = [
 	];
 }
 
-lazymarks[2] = [
+lazymarks['2'] = [
 	[/[“]/g, '「'],
 	[/[”]/g, '」'],
 
@@ -368,7 +546,7 @@ lazymarks[2] = [
 /**
  * 無差別將 【】 轉為對話符號
  */
-lazymarks[7] = [
+lazymarks['7'] = [
 	[/[【]/g, '「'],
 	[/[】]/g, '」'],
 ];
@@ -376,7 +554,7 @@ lazymarks[7] = [
 /**
  * 無差別將 【】 轉為對話符號
  */
-lazymarks[8] = [
+lazymarks['8'] = [
 
 	[/^【([^\n【】]+)】$/gm, '「$1」'],
 
@@ -386,7 +564,7 @@ lazymarks[8] = [
 
 ];
 
-lazymarks[33] = [
+lazymarks['33'] = [
 
 	[
 		/([「『]{2,})([^「『\n』」]+)([』」]{2,})/g, function (...m)
@@ -414,17 +592,17 @@ lazymarks[33] = [
 
 ];
 
-lazymarks[3] = [
+lazymarks['3'] = [
 	/**
 	 * 雖然這裡有BUG 但是這個BUG反而可以幫忙發現沒有正確對應的引號
 	 */
 	[/(「[^」]*)「([^」]*)」/g, '$1『$2』'],
 
-	...lazymarks[33],
+	...lazymarks['33'],
 
 ];
 
-lazymarks[4] = [
+lazymarks['4'] = [
 
 	[/^[。，]$/gm, '\n'],
 
@@ -527,7 +705,7 @@ lazymarks[4] = [
 	],
 ];
 
-lazymarks[5] = [
+lazymarks['5'] = [
 	[/ ?([』」》）】]) ?/g, '$1'],
 	[/ ?([【《（「『]) ?/g, '$1'],
 ];
@@ -567,7 +745,7 @@ lazymarks['replace_001'] = [
 ];
 
 /**
- * 適用於具有大量長段 而只縮減對話之間的空格使用
+ * 適用於具有大量長段 而只縮減對話之間的空行使用
  */
 lazymarks['ln_talk'] = [
 

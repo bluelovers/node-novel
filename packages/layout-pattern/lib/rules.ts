@@ -1,19 +1,19 @@
 /**
  * Created by user on 2019/7/13.
  */
-import { IRuleListKeys, RULE_LIST } from './rules-keys';
+import { IRuleListKey, RULE_LIST } from './rules-keys';
 import { IPatternRule } from './core/types';
 
 type IModuleLike<T> = {
 	default: T
 } & T
 
-export function existsBuildInRule<T extends string | IRuleListKeys>(id: T): id is Extract<T, IRuleListKeys>
+export function existsBuildInRule<T extends string | IRuleListKey>(id: T): id is Extract<T, IRuleListKey>
 {
-	return RULE_LIST.includes(id as Extract<T, IRuleListKeys>)
+	return RULE_LIST.includes(id as Extract<T, IRuleListKey>)
 }
 
-export function getBuildInRulePath<T extends string | IRuleListKeys>(id: T): string
+export function getBuildInRulePath<T extends string | IRuleListKey>(id: T): string
 {
 	if (existsBuildInRule(id))
 	{
@@ -21,7 +21,7 @@ export function getBuildInRulePath<T extends string | IRuleListKeys>(id: T): str
 	}
 }
 
-export function getBuildInRule<T extends string | IRuleListKeys>(id: T): IPatternRule
+export function getBuildInRule<T extends string | IRuleListKey>(id: T): IPatternRule
 {
 	if (existsBuildInRule(id))
 	{

@@ -2,7 +2,7 @@
  * Created by user on 2019/7/13.
  */
 import getBuildInRule, { getBuildInRulePath } from '@node-novel/layout-pattern/lib/rules';
-import { IRuleListKeys } from '@node-novel/layout-pattern/lib/rules-keys';
+import { IRuleListKey } from '@node-novel/layout-pattern/lib/rules-keys';
 import { IPatternRule } from '@node-novel/layout-pattern/lib/core/types';
 import novelText from '@node-novel/layout';
 import { IMdconfMeta, mdconf_parse } from 'node-novel-info';
@@ -16,7 +16,7 @@ import Bluebird = require('bluebird');
 import deepmerge = require('deepmerge-plus');
 import prettyuse = require('prettyuse');
 
-export function loadPatternRule<T extends IRuleListKeys>(id?: T)
+export function loadPatternRule<T extends IRuleListKey>(id?: T)
 {
 	let rule_tpl = getRule(id || 'demo');
 
@@ -28,7 +28,7 @@ export function loadPatternRule<T extends IRuleListKeys>(id?: T)
 	}
 }
 
-export function getRule<T extends IRuleListKeys>(id: T)
+export function getRule<T extends IRuleListKey>(id: T)
 {
 	let rule = getBuildInRule(id);
 

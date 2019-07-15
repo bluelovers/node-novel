@@ -104,9 +104,9 @@ Bluebird
 
 				words = words
 					.concat([
-						...lazymarks[1],
-						...lazymarks[2],
-						...lazymarks[33],
+						...lazymarks['1'],
+						...lazymarks['2'],
+						...lazymarks['33'],
 					])
 				;
 

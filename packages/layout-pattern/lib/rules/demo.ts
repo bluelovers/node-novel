@@ -1,10 +1,11 @@
-import lazymarks from '@node-novel/layout-pattern/lib/core/pattern/index';
+import {lazymarks} from '@node-novel/layout-pattern/lib/core/pattern/index';
 import { _word_en, _word_en3, _word_jp1, _word_zh_all } from '@node-novel/layout-pattern/lib/core/word';
 import { IWords, vMaybe, IWordsAll } from '@node-novel/layout-pattern/lib/core/word';
 import { _zh_num2, sp, sp2, _zh_num, _full_num, EN_REGEXP } from '@node-novel/layout-pattern/lib/core/const';
 import { IPatternRule } from '@node-novel/layout-pattern/lib/core/types';
 import * as StrUtil from 'str-util';
 import { _word_zh } from 'regexp-cjk/lib';
+import { EnumLazyMarkKeys } from '@node-novel/layout-pattern/lib/core/pattern-keys';
 
 /**
  * 改成小說名字 (可留白 則自動設定為檔案名稱)
@@ -32,21 +33,21 @@ export const words_layout: IPatternRule["words_layout"] = [
 
 	...lazymarks['ln_0010'],
 
-	...lazymarks[4],
+	...lazymarks['4'],
 
 	...lazymarks['full_width_001'],
 	...lazymarks['full_width_002'],
 
-	...lazymarks[0],
-	...lazymarks[1],
-	...lazymarks[2],
-	...lazymarks[3],
-	...lazymarks[5],
+	...lazymarks['0'],
+	...lazymarks['1'],
+	...lazymarks['2'],
+	...lazymarks['3'],
+	...lazymarks['5'],
 
 	/**
 	 * 無差別將 【】 轉為對話符號
 	 */
-	//...sublib.lazymarks[8],
+	//...sublib.lazymarks['8'],
 
 	...lazymarks['clear_002'],
 
