@@ -110,7 +110,7 @@ export const words: IWords[] = _word_zh_all([
 
 	...lazymarks['class'],
 
-	...lazymarks[4],
+	...lazymarks['4'],
 
 	_word_en(/\d+g?/ig, function (...m)
 	{
@@ -125,11 +125,11 @@ export const words: IWords[] = _word_zh_all([
 	[/[【]/g, '「'],
 	[/[】]/g, '」'],
 
-	...lazymarks[0],
-	...lazymarks[1],
-	...lazymarks[2],
-	...lazymarks[3],
-	...lazymarks[5],
+	...lazymarks['0'],
+	...lazymarks['1'],
+	...lazymarks['2'],
+	...lazymarks['3'],
+	...lazymarks['5'],
 
 
 

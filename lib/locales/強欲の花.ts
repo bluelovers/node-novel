@@ -115,13 +115,13 @@ export const words: IWords[] = _word_zh_all([
 
 	//[/^回复举报[^\n]+\n+[^\n]+\n正式会员\d$/gm, '\n'],
 
-	...lazymarks[4],
+	...lazymarks['4'],
 
-	...lazymarks[0],
-	...lazymarks[1],
-	...lazymarks[2],
-	...lazymarks[3],
-	...lazymarks[5],
+	...lazymarks['0'],
+	...lazymarks['1'],
+	...lazymarks['2'],
+	...lazymarks['3'],
+	...lazymarks['5'],
 
 	[/^【([^\n【】 ]+)(\n[^【】]+)】/gm, '「$1$2」'],
 	[/^【([^\n【】 ]+[，。！…？][^\n【】]*)(\n[^【】\n]+)】/gm, '「$1$2」'],

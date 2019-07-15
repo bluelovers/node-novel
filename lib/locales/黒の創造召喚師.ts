@@ -161,13 +161,13 @@ export const words: IWords[] = _word_zh_all([
 		return m[1] + StrUtil.toFullWidth(m[2].toUpperCase());
 	}),
 
-	...lazymarks[4],
+	...lazymarks['4'],
 
-	...lazymarks[0],
-	...lazymarks[1],
-	...lazymarks[2],
-	...lazymarks[3],
-	...lazymarks[5],
+	...lazymarks['0'],
+	...lazymarks['1'],
+	...lazymarks['2'],
+	...lazymarks['3'],
+	...lazymarks['5'],
 
 	[/【/g, '「'],
 	[/】/g, '」'],

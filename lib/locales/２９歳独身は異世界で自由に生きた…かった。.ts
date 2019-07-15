@@ -209,7 +209,7 @@ export const words: IWords[] = _word_zh_all([
 
 	//...lazymarks['unit'],
 
-	...lazymarks[4],
+	...lazymarks['4'],
 
 	_word_en3(/\d+(mp|MP)/ig, function (...m)
 	{
@@ -219,11 +219,11 @@ export const words: IWords[] = _word_zh_all([
 	...lazymarks['full_width_001'],
 	...lazymarks['full_width_002'],
 
-	...lazymarks[0],
-	...lazymarks[1],
-	...lazymarks[2],
-	...lazymarks[3],
-	...lazymarks[5],
+	...lazymarks['0'],
+	...lazymarks['1'],
+	...lazymarks['2'],
+	...lazymarks['3'],
+	...lazymarks['5'],
 
 ] as IWords[]);
 

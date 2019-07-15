@@ -538,19 +538,19 @@ export const words: IWords[] = _word_zh_all([
 		return m[1] + StrUtil.toFullNumber(m[2]);
 	}],
 
-	...lazymarks[4],
+	...lazymarks['4'],
 
 	...lazymarks['ltrim'],
 
 	[/^【([^【】\n]+)】/gm, '「$1」'],
 
-	...lazymarks[1],
-	...lazymarks[2],
+	...lazymarks['1'],
+	...lazymarks['2'],
 
 	[/[【]/g, '「'],
 	[/[】]/g, '」'],
 
-	...lazymarks[3],
+	...lazymarks['3'],
 
 	[/([^】\n])(\n【[^\n]+】\n)/g, '$1\n$2'],
 	[/(\n【[^\n]+】\n)([^【\n])/g, '$1\n$2'],

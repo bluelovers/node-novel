@@ -390,17 +390,17 @@ export const words: IWords[] = _word_zh_all([
 	[/\n+\-+\n+/gm, '\n\n\n'],
 	[/^　/gm, ''],
 
-	...lazymarks[4],
+	...lazymarks['4'],
 
 	...lazymarks['full_width_001'],
 	...lazymarks['full_width_002'],
 
-	...lazymarks[0],
-	...lazymarks[1],
-	...lazymarks[2],
+	...lazymarks['0'],
+	...lazymarks['1'],
+	...lazymarks['2'],
 
-	...lazymarks[3],
-	...lazymarks[5],
+	...lazymarks['3'],
+	...lazymarks['5'],
 
 	[/^([^\n"“”「」]*)["“]([^\n"“”「」]*)["”]/gm, '$1「$2」'],
 	[/\{([^\n\{}【】「」]*)\}/gm, '【$1】'],

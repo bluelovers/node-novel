@@ -1829,13 +1829,13 @@ export const words: IWords[] = _word_zh_all([
 	['護', '護'],
 	['悪', '惡'],
 
-	...lazymarks[4],
+	...lazymarks['4'],
 
-	...lazymarks[0],
-	...lazymarks[1],
-	...lazymarks[2],
-	...lazymarks[3],
-	...lazymarks[5],
+	...lazymarks['0'],
+	...lazymarks['1'],
+	...lazymarks['2'],
+	...lazymarks['3'],
+	...lazymarks['5'],
 
 	[/(\n[^・\n][^\n]+)\n(・)/g, '$1\n\n$2'],
 	[/(\n[^：\n]+：[^\n]+)\n{2}([^：\n]+：)/g, '$1\n$2'],
