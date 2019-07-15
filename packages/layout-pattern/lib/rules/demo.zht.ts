@@ -3,7 +3,7 @@
  */
 
 import { IPatternRule } from '@node-novel/layout-pattern/lib/core/types';
-import lazymarks from '@node-novel/layout-pattern/lib/core/pattern/index';
+import { lazymarks } from '@node-novel/layout-pattern/lib/core/pattern/index';
 
 export * from './demo'
 
@@ -20,7 +20,7 @@ export const words_layout: IPatternRule["words_layout"] = [
 
 	...demoRule.words_layout,
 
-	...lazymarks[EnumLazyMarkKeys.ZH_CHT],
+	...lazymarks['zh_cht'],
 
 ];
 

@@ -1,4 +1,4 @@
-import {lazymarks} from '@node-novel/layout-pattern/lib/core/pattern/index';
+import { lazymarks } from '@node-novel/layout-pattern/lib/core/pattern/index';
 import { _word_en, _word_en3, _word_jp1, _word_zh_all } from '@node-novel/layout-pattern/lib/core/word';
 import { IWords, vMaybe, IWordsAll } from '@node-novel/layout-pattern/lib/core/word';
 import { _zh_num2, sp, sp2, _zh_num, _full_num, EN_REGEXP } from '@node-novel/layout-pattern/lib/core/const';
