@@ -84,10 +84,13 @@ export function dummyMeta(): IMdconfMeta
 	}
 }
 
-export function handleGlob(cwd: string, globby_patterns: string[] = [])
+export function handleGlob(cwd: string, globby_patterns: string[] = [], options: {
+	ruleName?: IRuleListKey,
+} = {})
 {
-	if (globby_patterns.length === 0)
+	if (globby_patterns == null || globby_patterns.length === 0)
 	{
+		globby_patterns = globby_patterns || [];
 		globby_patterns.push('**/*.txt');
 	}
 
@@ -130,7 +133,7 @@ export function handleGlob(cwd: string, globby_patterns: string[] = [])
 //		globby_options,
 //	});
 
-	let ruleData = loadPatternRule();
+	let ruleData = loadPatternRule(options.ruleName as IRuleListKey);
 	let _last_empty: string[] = [];
 
 	console.dir({
