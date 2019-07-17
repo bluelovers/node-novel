@@ -26,6 +26,8 @@ export const words_source: IPatternRule["words_source"] = [
  */
 export const words_layout: IPatternRule["words_layout"] = [
 
+	...lazymarks['clear_002'],
+
 	...lazymarks['class'],
 	//...lazymarks['zh_cht'],
 
@@ -45,11 +47,9 @@ export const words_layout: IPatternRule["words_layout"] = [
 	...lazymarks['5'],
 
 	/**
-	 * 無差別將 【】 轉為對話符號
+	 * 將 【】 轉為對話符號
 	 */
-	//...sublib.lazymarks['8'],
-
-	...lazymarks['clear_002'],
+	//...lazymarks['8'],
 
 	/**
 	 * 適用於具有大量長段 而只縮減對話之間的空格使用

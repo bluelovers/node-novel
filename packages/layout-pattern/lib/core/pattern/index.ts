@@ -1359,6 +1359,8 @@ lazymarks['zh'] = _word_zh_all([
 
 	['[刴剁]', '剁'],
 
+	['効', '效'],
+
 ]);
 
 lazymarks['zh_cht'] = _word_zh_all([
@@ -1509,6 +1511,9 @@ lazymarks['jp1'] = _word_zh_all([
 	_word_jp1('ヤンデレ', '病嬌'),
 
 	_word_jp1('アーティファクト', '神器'),
+
+	_word_jp1('さん', '桑'),
+	_word_jp1('ちゃん', '醬'),
 
 ]);
 

@@ -3,6 +3,7 @@
  */
 
 import { IPatternRule } from '../types';
+import { _full_num, _zh_num } from '../const';
 
 /**
  * 需要人工確認的屏蔽字或錯字用語等等
@@ -206,9 +207,31 @@ export const WORDS_MAYBE: Readonly<IPatternRule["words_maybe"]> = [
 	//'',
 	'丶',
 
-	'好[象]',
+	'(?<=好|是|\\s)[象]',
 
 	///[\u4E00-\u9FFF]{1,3}[\?＝\=\-][\u4E00-\u9FFF]{1,3}/ig,
+
+	`登陸`,
+
+	`[涂凃]`,
+
+	`天[后]`,
+
+	`(?<=海|人)[里]`,
+
+	`(?<=不)干(?!涉)`,
+
+	`(?<=[${_zh_num}${_full_num}\\d兩])只`,
+
+	`呆(?=在)`,
+
+	`困(?!難|擾|惑)`,
+
+	`[占](?=了)`,
+
+	`[系](?=著)`,
+
+	`[松](?=[\\p{Punctuation}])`,
 
 ];
 

@@ -7,11 +7,14 @@ import { IRuleListKey, RULE_LIST } from './rules-keys';
 import { IPatternRule } from './core/types';
 import { existsBuildInRule, getBuildInRulePath } from './rules';
 
-export function getBuildInRuleFileContext<T extends string | IRuleListKey>(id: T)
+/**
+ * 取得內建 規則範本內容 (typescript)
+ */
+export function getBuildInRuleFileContext<T extends string | IRuleListKey>(id: T): Buffer
 {
 	if (existsBuildInRule(id))
 	{
-		return readFileSync(getBuildInRulePath(id))
+		return readFileSync(getBuildInRulePath(id, true))
 	}
 }
 
