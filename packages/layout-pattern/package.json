@@ -24,7 +24,7 @@
     "ncu": "npx yarn-tool ncu -u",
     "npm:publish": "npm publish",
     "prepublishOnly": "npm run ncu && npm run sort-package-json && yarn run build:pattern:keys",
-    "postpublish": "git commit -m \"publish new version\" .",
+    "postpublish": "echo postpublish",
     "sort-package-json": "npx sort-package-json ./package.json",
     "test": "npx mocha --require ts-node/register !(node_modules)/**/*.{test,spec}.{ts,tsx}",
     "tsc:default": "tsc -p tsconfig.json.tpl",
