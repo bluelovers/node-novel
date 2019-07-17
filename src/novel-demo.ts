@@ -23,15 +23,8 @@ import { loadLocales, locales_def } from '../lib/i18n';
 import { freeGC } from '../lib/util';
 import * as projectConfig from '../project.config';
 import { console } from 'debug-color2';
-import {
-	diffPatch,
-	fsReadFile,
-	getCwdPaths,
-	getNovelMeta,
-	handleContext,
-	isEmptyFile,
-	stringify,
-} from './core';
+import { IStyles, IStylesColorNames } from 'debug-color2/lib/styles';
+import { diffPatch, fsReadFile, getCwdPaths, getNovelMeta, handleContext, isEmptyFile, stringify } from './core';
 import { cache_output4, create_pattern_md, ICache, make_meta_md } from './cache';
 import { getLocales } from './util';
 
@@ -136,6 +129,14 @@ let myLocales: ReturnType<typeof loadLocales>;
 
 	let _last_empty: string[] = [];
 
+	let _stat = {
+		updated: 0,
+		added: 0,
+		empty: 0,
+		files: 0,
+		total: 0,
+	};
+
 	let ls = await Bluebird
 		.mapSeries(novelGlobby
 			.globbyASync(globby_patterns, globby_options)
@@ -164,6 +165,8 @@ let myLocales: ReturnType<typeof loadLocales>;
 
 					//process.exit();
 				}
+
+				_stat.total = ls.length;
 
 			}), async function (file, index, len)
 		{
@@ -212,6 +215,8 @@ let myLocales: ReturnType<typeof loadLocales>;
 
 			if (_cb_ret)
 			{
+				_stat.empty++;
+
 				return _cb_ret
 			}
 
@@ -433,11 +438,34 @@ let myLocales: ReturnType<typeof loadLocales>;
 				await fs.outputFile(path.join(cwd_out, currentFile) + '.patch', diffPatch(name, _t_old, _t));
 			}
 
+			let _updated = false;
+			let _added = false;
+
 			if (_t.replace(/\s+/g, ''))
 			{
-				//console.log('save', currentFile);
-				//await fs.outputFile(path.join(cwd_out, currentFile) + '.txt', novelText.toStr(_t, "\r\n"));
-				await fs.outputFile(path.join(cwd_out, currentFile) + '.txt', novelText.toStr(_t, "\n"));
+				let _out_file = path.join(cwd_out, currentFile) + '.txt';
+
+				let buf_out = Buffer.from(novelText.toStr(_t, "\n"));
+				let buf_out_old = await fs.readFile(_out_file)
+					.catch(e => null)
+				;
+
+				if (!buf_out_old || !buf_out.equals(buf_out_old))
+				{
+					_updated = true;
+
+					if (!buf_out_old)
+					{
+						_added = true;
+						_stat.added++;
+					}
+					else
+					{
+						_stat.updated++;
+					}
+
+					await fs.outputFile(_out_file, novelText.toStr(_t, "\n"));
+				}
 			}
 
 			if (_cache.block[_cache_key_] && !Object.keys(_cache.block[_cache_key_]).length)
@@ -445,7 +473,24 @@ let myLocales: ReturnType<typeof loadLocales>;
 				delete _cache.block[_cache_key_];
 			}
 
-			console[changed ? 'log' : 'red'](currentFile, index, len);
+			let color: keyof typeof console | IStylesColorNames = 'log';
+
+			if (_added)
+			{
+				color = 'yellow';
+			}
+			else if (_updated)
+			{
+				color = 'success';
+			}
+			else if (!changed)
+			{
+				color = 'red';
+			}
+
+			_stat.files++;
+
+			console[color](currentFile, index, len);
 
 			console.debug(prettyuse());
 			freeGC();
@@ -532,6 +577,8 @@ let myLocales: ReturnType<typeof loadLocales>;
 		})
 		.tap(function ()
 		{
+			console.dir(_stat);
+
 			console.debug(prettyuse());
 		})
 	;
