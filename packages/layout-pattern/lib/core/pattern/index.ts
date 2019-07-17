@@ -63,11 +63,13 @@ export interface ILazyMark extends Record<ILazyMarkKey, IWords[]>
 
 	/**
 	 * 無差別將 【】 轉為對話符號
+	 * 如果可以盡量不要使用此規則
 	 */
 	'7': IWords[],
 
 	/**
 	 * 將可能是對話的 【】 轉為對話符號
+	 * 如果可以盡量不要使用此規則
 	 */
 	'8': IWords[],
 
@@ -142,7 +144,7 @@ export interface ILazyMark extends Record<ILazyMarkKey, IWords[]>
 	// --------
 
 	/**
-	 * 判斷前後文的符號修正
+	 * 判斷前後文的符號修正 包含數字與英文
 	 */
 	'4': IWords[],
 
@@ -656,9 +658,9 @@ lazymarks['4'] = [
 	[/([\u4E00-\u9FFF\w\d０-９])\*([\d０-９]+)/g, '$1×$2'],
 
 	[
-		/([\u4E00-\u9FFF！？…⋯－—])([a-z])(?=[\u4E00-\u9FFF])/ig, function (...m)
+		/(?<=[\u4E00-\u9FFF！？…⋯－—])([a-z])(?=[\u4E00-\u9FFF])/ig, function (...m)
 	{
-		return m[1] + toFullWidth(m[2], {
+		return toFullWidth(m[1].toUpperCase(), {
 			skip: {
 				space: true,
 			},
@@ -782,6 +784,16 @@ lazymarks['ln'] = [
 	[/\n+([　 ]*[＊◇◆☆◊\*～\*＊＊↣◇★◆■□☆◊＝＝=══▼]+[＊◇◆☆◊\*～　\*＊＊↣◇★◆■□☆◊＝＝=══▼]*)\n+/g, '\n\n\n$1\n\n'],
 
 	[/(?<=[◆◇■□★▼＊☆◊]\n|^[◆◇■□★▼＊☆◊][^\n]*\n)(?=[^◆◇■□★▼＊☆◊\n])/gm, '\n'],
+
+	[
+		/(?<=[^↓\s]\n)(?=↓)/gm,
+		'\n',
+	],
+
+	[
+		/(?<=↓)(?=\n[^↓\s])/gm,
+		'\n',
+	],
 
 ];
 
@@ -1254,6 +1266,9 @@ lazymarks['zh'] = _word_zh_all([
 
 	['弾', '彈'],
 
+	['軽', '輕'],
+	['[択]', '擇'],
+
 	['図', '圖'],
 
 	['満', '滿'],
@@ -1530,7 +1545,7 @@ lazymarks['c000'] = _word_zh_all([
 
 	[/\uFEFF/g, ''],
 
-	[/[ \u00a0\xA0]/g, ' '],
+	[/[ \u00a0\xA0\t]/g, ' '],
 	//[/[　\u3000]/g, '　'],
 	[/[·‧・···•˙●‧﹒]/g, '・'],
 	[/[．]/g, '・'],
@@ -1690,18 +1705,18 @@ lazymarks['unit'] = _word_zh_all([
 
 lazymarks['full_width_001'] = _word_zh_all([
 
-	_word_en(/\d+(?:,\d+)*/g, function (...m)
+	_word_en3(/\d+(?:,\d+)*/g, function (...m: string[])
 	{
-		return m[1] + toFullNumber(m[2]);
+		return toFullNumber(m[1]);
 	}),
 
 ]);
 
 lazymarks['full_width_002'] = _word_zh_all([
 
-	_word_en3(/[a-z]/ig, function (...m)
+	_word_en3(/[a-z]/ig, function (...m: string[])
 	{
-		return toFullEnglish(m[1]);
+		return toFullEnglish(m[1].toUpperCase());
 	}),
 
 	_word_en3(/(?:s|x){2,3}/ig, function (...m)
