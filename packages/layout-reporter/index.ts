@@ -7,6 +7,7 @@ import naturalCompare = require("string-natural-compare");
 import { array_unique } from 'array-hyper-unique';
 import { ITSOverwrite, ITSPartialWith } from 'ts-type';
 import { arrayChunkMap } from 'array-chunk-split';
+import { fixJaKey } from './lib/util';
 
 export interface ICacheSource
 {
@@ -166,7 +167,12 @@ export function analyzeJa002(data: IOptions)
 
 		for (let m of _m)
 		{
-			let k = m[1];
+			let k = fixJaKey(m[1]);
+
+			if (!k)
+			{
+				continue;
+			}
 
 			_temp[k] = _temp[k] || [];
 
