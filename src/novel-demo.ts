@@ -9,6 +9,7 @@ import prettyuse = require('prettyuse');
 //import execall = require('execall2');
 import { execall } from 'execall2';
 import * as fs from 'fs-extra';
+import { lazyAnalyzeReportAll, lazyAnalyzeAll } from '@node-novel/layout-reporter';
 
 import * as iconv from 'iconv-jschardet';
 
@@ -27,6 +28,7 @@ import { IStyles, IStylesColorNames } from 'debug-color2/lib/styles';
 import { diffPatch, fsReadFile, getCwdPaths, getNovelMeta, handleContext, isEmptyFile, stringify } from './core';
 import { cache_output4, create_pattern_md, ICache, make_meta_md } from './cache';
 import { getLocales } from './util';
+import { outputBlock002, outputJa001 } from '@node-novel/layout-reporter/lib/md';
 
 console.enabledColor = true;
 
@@ -318,6 +320,13 @@ let myLocales: ReturnType<typeof loadLocales>;
 					}
 				}
 
+				lazyAnalyzeAll({
+					input: _t,
+					_cache,
+					_cache_key_,
+				});
+
+				/*
 				v = /([^\n\*]{0,3})?([^\n\*]\*{2,}[^\n\*])([^\n\*]{0,3})?/ig;
 				if ((_m = execall(v, _t)) && _m.length)
 				{
@@ -333,6 +342,8 @@ let myLocales: ReturnType<typeof loadLocales>;
 					}
 				}
 
+				 */
+
 				v = new RegExp(`(\\S{1,2})(@|（·?）|\\\.{2,}|%|￥|#|\\$|（和谐）)(\\S{1,2})`, 'g');
 				if ((_m = execall(v, _t)) && _m.length)
 				{
@@ -341,6 +352,7 @@ let myLocales: ReturnType<typeof loadLocales>;
 					_cache.block[_cache_key_][k] = _cache.block[_cache_key_][k].concat(_m);
 				}
 
+				/*
 				v = new RegExp(`^[^\\nぁ-んァ-ヴーｱ-ﾝﾞ]*?([『「]*[ぁ-んァ-ヴーｱ-ﾝﾞｰ]{2,}[」』]*(?:[『「？、…。＋０-９Ａ-Ｚａ-ｚ（）！]*[ぁ-んァ-ヴーｱ-ﾝﾞｰ]*[」』]*)*)[^\\n]*?$`, 'uigm');
 				if ((_m = execall(v, _t)) && _m.length)
 				{
@@ -412,6 +424,8 @@ let myLocales: ReturnType<typeof loadLocales>;
 						})
 					;
 				}
+
+				 */
 
 			}
 
@@ -559,7 +573,7 @@ let myLocales: ReturnType<typeof loadLocales>;
 			{
 				//console.log(4);
 
-				let out = await cache_output2(_cache.block2, '待修正屏蔽字');
+				let out = await cache_output22(_cache.block2, '待修正屏蔽字');
 
 				await fs.outputFile(path.join(cwd_out, '待修正屏蔽字.md'), out);
 			}
@@ -586,6 +600,14 @@ let myLocales: ReturnType<typeof loadLocales>;
 	//console.log(ls);
 
 })();
+
+function cache_output22(_block, title)
+{
+	return outputBlock002({
+		inputData: _block,
+		title,
+	})
+}
 
 function cache_output1(_block, title): string
 {
@@ -1294,6 +1316,12 @@ function cache_output2(_block, title): string
 
 function cache_output3(_block, title): string
 {
+	let out = outputJa001({
+		inputData: _block,
+		title,
+	});
+
+	/*
 	let out = Object.keys(_block)
 		.reduce(function (a, b)
 		{
@@ -1316,6 +1344,7 @@ function cache_output3(_block, title): string
 		])
 		.join("\n")
 	;
+	 */
 
 	return out;
 }

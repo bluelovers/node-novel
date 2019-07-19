@@ -1,0 +1,45 @@
+{
+  "name": "@node-novel/layout-reporter",
+  "version": "1.0.0",
+  "description": "用來解析並且報告 txt 檔內的雜七雜八資訊",
+  "homepage": "https://github.com/bluelovers/node-novel#readme",
+  "bugs": {
+    "url": "https://github.com/bluelovers/node-novel/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bluelovers/node-novel.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "coverage": "npx nyc yarn run test",
+    "lint": "npx eslint **/*.ts",
+    "ncu": "npx yarn-tool ncu -u",
+    "npm:publish": "npm publish",
+    "prepublishOnly": "yarn run ncu && yarn run sort-package-json && yarn run test",
+    "postpublish": "echo postpublish",
+    "sort-package-json": "npx sort-package-json ./package.json",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "tsc:default": "tsc -p tsconfig.json",
+    "tsc:esm": "tsc -p tsconfig.esm.json"
+  },
+  "dependencies": {
+    "array-chunk-split": "^1.0.2",
+    "array-hyper-unique": "^1.0.7",
+    "execall2": "^1.1.4",
+    "json5": "^2.1.0",
+    "string-natural-compare": "^2.0.3",
+    "ts-type": "^1.2.9"
+  },
+  "devDependencies": {
+    "@types/json5": "^0.0.30"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
