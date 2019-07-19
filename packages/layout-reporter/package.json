@@ -1,6 +1,6 @@
 {
   "name": "@node-novel/layout-reporter",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "用來解析並且報告 txt 檔內的雜七雜八資訊",
   "homepage": "https://github.com/bluelovers/node-novel#readme",
   "bugs": {
@@ -21,7 +21,7 @@
     "lint": "npx eslint **/*.ts",
     "ncu": "npx yarn-tool ncu -u",
     "npm:publish": "npm publish",
-    "prepublishOnly": "yarn run ncu && yarn run sort-package-json && yarn run test",
+    "prepublishOnly": "yarn run ncu && yarn run sort-package-json",
     "postpublish": "echo postpublish",
     "sort-package-json": "npx sort-package-json ./package.json",
     "test": "echo \"Error: no test specified\" && exit 1",
