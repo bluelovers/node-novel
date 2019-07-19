@@ -15,6 +15,8 @@ import * as novelGlobby from 'node-novel-globby/g';
 import Bluebird = require('bluebird');
 import deepmerge = require('deepmerge-plus');
 import prettyuse = require('prettyuse');
+import { lazyAnalyzeReportAll, lazyAnalyzeAll, dummyCache } from '@node-novel/layout-reporter';
+import { outputBlock002, outputJa001, outputJa002 } from '@node-novel/layout-reporter/lib/md';
 
 export function loadPatternRule<T extends IRuleListKey>(id?: T)
 {
@@ -141,6 +143,8 @@ export function handleGlob(cwd: string, globby_patterns: string[] = [], options:
 		cwd_out,
 	});
 
+	const _cache = dummyCache();
+
 	return Bluebird.resolve(novelGlobby
 		.globby(globby_patterns, globby_options))
 		.mapSeries(async (file, index, len) =>
@@ -194,6 +198,12 @@ export function handleGlob(cwd: string, globby_patterns: string[] = [], options:
 					allow_bom: true,
 				});
 
+				lazyAnalyzeAll({
+					input: _t,
+					_cache_key_,
+					_cache,
+				});
+
 				if (_t.replace(/\s+/g, ''))
 				{
 					await fs.outputFile(path.join(cwd_out, currentFile) + '.txt', novelText.toStr(_t, "\n"));
@@ -210,7 +220,7 @@ export function handleGlob(cwd: string, globby_patterns: string[] = [], options:
 				changed,
 			};
 		})
-		.tap((ls) =>
+		.tap(async (ls) =>
 		{
 			if (_last_empty.length)
 			{
@@ -222,6 +232,21 @@ export function handleGlob(cwd: string, globby_patterns: string[] = [], options:
 				;
 
 				_last_empty = [];
+			}
+
+			if (ls.length > 0)
+			{
+				await Bluebird.all([
+					fs.outputFile(path.join(cwd_out, 'ja2.md'), outputJa002({
+						inputData: _cache.ja2,
+					})),
+					fs.outputFile(path.join(cwd_out, 'ja.md'), outputJa001({
+						inputData: _cache.ja,
+					})),
+					fs.outputFile(path.join(cwd_out, '待修正屏蔽字.md'), outputBlock002({
+						inputData: _cache.block2,
+					})),
+				]);
 			}
 
 			console.info(`length: ${ls.length}`);
