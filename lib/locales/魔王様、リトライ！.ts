@@ -50,12 +50,14 @@ export const words_source: IWords[] = [
 		'近藤　友哉',
 		'田原　勇',
 		'野村　武文',
+		'九內　伯斗',
 	].reduce(function (a, b)
 	{
 		let c = b.split('　');
 
 		a.push([c.join(''), b]);
 		a.push([c.join(sp), b]);
+		a.push([c.join('  '), b]);
 
 		return a;
 	}, []),
@@ -164,7 +166,7 @@ export const words_source: IWords[] = [
 
 	['情報の一部が公開されました。|一部份的情報已公開。', '一部份的情報已公開。'],
 
-	['村莊小屋', '聚落小屋'],
+	['村莊小屋|古代小鎮', '聚落小屋'],
 
 ];
 
@@ -174,6 +176,8 @@ export const words_source: IWords[] = [
 export const words: IWords[] = _word_zh_all([
 
 	...words_source,
+
+	['反叛者', '反逆者'],
 
 	['兔[儿]', '兔耳'],
 	['野戦病院|野戰醫院', '野戰病院'],

@@ -17,6 +17,7 @@ import deepmerge = require('deepmerge-plus');
 import prettyuse = require('prettyuse');
 import { lazyAnalyzeReportAll, lazyAnalyzeAll, dummyCache } from '@node-novel/layout-reporter';
 import { outputBlock002, outputJa001, outputJa002 } from '@node-novel/layout-reporter/lib/md';
+import { IStyles, IStylesColorNames } from 'debug-color2/lib/styles';
 
 export function loadPatternRule<T extends IRuleListKey>(id?: T)
 {
@@ -145,8 +146,19 @@ export function handleGlob(cwd: string, globby_patterns: string[] = [], options:
 
 	const _cache = dummyCache();
 
+	const _stat = {
+		updated: 0,
+		added: 0,
+		empty: 0,
+		files: 0,
+		total: 0,
+	};
+
 	return Bluebird.resolve(novelGlobby
 		.globby(globby_patterns, globby_options))
+		.tap((ls) => {
+			_stat.total = ls.length;
+		})
 		.mapSeries(async (file, index, len) =>
 		{
 			let name = path.parse(file).name;
@@ -204,15 +216,60 @@ export function handleGlob(cwd: string, globby_patterns: string[] = [], options:
 					_cache,
 				});
 
+				let _updated = false;
+				let _added = false;
+
 				if (_t.replace(/\s+/g, ''))
 				{
-					await fs.outputFile(path.join(cwd_out, currentFile) + '.txt', novelText.toStr(_t, "\n"));
+					let _out_file = path.join(cwd_out, currentFile) + '.txt';
+					let buf_out = Buffer.from(novelText.toStr(_t, "\n"));
+					let buf_out_old = await fs.readFile(_out_file)
+						.catch(e => null)
+					;
+
+					if (!buf_out_old || !buf_out.equals(buf_out_old))
+					{
+						_updated = true;
+
+						if (!buf_out_old)
+						{
+							_added = true;
+							_stat.added++;
+						}
+						else
+						{
+							_stat.updated++;
+						}
+
+						await fs.outputFile(_out_file, novelText.toStr(_t, "\n"));
+					}
 				}
 
-				console[changed ? 'success' : 'log'](currentFile, printNum(index, len));
+				let color: keyof typeof console | IStylesColorNames = 'log';
+
+				if (_added)
+				{
+					color = 'yellow';
+				}
+				else if (_updated)
+				{
+					color = 'success';
+				}
+				else if (!changed)
+				{
+					color = 'red';
+				}
+
+				_stat.files++;
+
+				console[color](currentFile, printNum(index, len));
 
 				console.debug(prettyuse());
 				freeGC();
+			}
+			else
+			{
+				_stat.empty++;
 			}
 
 			return {
@@ -249,7 +306,10 @@ export function handleGlob(cwd: string, globby_patterns: string[] = [], options:
 				]);
 			}
 
-			console.info(`length: ${ls.length}`);
+			console.dir(_stat);
+			//console.info(`length: ${ls.length}`);
+
+			console.debug(prettyuse());
 		})
 		;
 }
