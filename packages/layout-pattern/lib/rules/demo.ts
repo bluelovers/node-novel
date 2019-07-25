@@ -29,6 +29,7 @@ export const words_layout: IPatternRule["words_layout"] = [
 	...lazymarks['clear_002'],
 
 	...lazymarks['class'],
+	...lazymarks['class_002'],
 	//...lazymarks['zh_cht'],
 
 	//...lazymarks['unit'],

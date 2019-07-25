@@ -141,6 +141,11 @@ export interface ILazyMark extends Record<ILazyMarkKey, IWords[]>
 	 */
 	'class': IWords[],
 
+	/**
+	 * 種族
+	 */
+	'class_002': IWords[],
+
 	// --------
 
 	/**
@@ -1547,6 +1552,14 @@ lazymarks['class'] = _word_zh_all([
 	['結界', '結界'],
 
 	['樞機卿|枢機卿', '樞機卿'],
+
+]);
+
+lazymarks['class_002'] = _word_zh_all([
+
+	['哥雷姆|格雷姆', '格雷姆'],
+	['阿[拉剌]克[尼涅涅妮捏]|阿剌克涅|阿剌克捏', '阿剌克涅'],
+	//['拉米[亚亞娅雅]|阿米拉米亚克|拉米亚克|拉米那克', '拉米亞'],
 
 ]);
 
