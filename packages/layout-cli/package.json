@@ -1,6 +1,6 @@
 {
   "name": "@node-novel/layout-cli",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "<description>",
   "homepage": "https://github.com/bluelovers/node-novel#readme",
   "bugs": {
@@ -34,8 +34,8 @@
   "dependencies": {
     "@bluelovers/fast-glob": "^3.0.4",
     "@node-novel/layout": "^2.0.2",
-    "@node-novel/layout-pattern": "^1.0.3",
-    "@node-novel/layout-reporter": "^1.0.1",
+    "@node-novel/layout-pattern": "^1.0.4",
+    "@node-novel/layout-reporter": "^1.0.3",
     "@types/diff": "^4.0.2",
     "@yarn-tool/is-npx": "^1.0.0",
     "bluebird": "^3.5.5",
