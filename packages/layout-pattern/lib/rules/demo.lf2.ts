@@ -29,7 +29,7 @@ export const words_layout: IPatternRule["words_layout"] = [
 
 	...demoRule.words_layout,
 
-	...lazymarks['zh_cht'],
+	...lazymarks['ln_talk'],
 
 ];
 

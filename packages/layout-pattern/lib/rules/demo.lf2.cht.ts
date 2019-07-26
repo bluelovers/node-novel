@@ -5,10 +5,10 @@
 import { IPatternRule } from '@node-novel/layout-pattern/lib/core/types';
 import { lazymarks } from '@node-novel/layout-pattern/lib/core/pattern/index';
 
-export * from '@node-novel/layout-pattern/lib/rules/demo'
+export * from '@node-novel/layout-pattern/lib/rules/demo.lf2'
 
-import * as demoRule from '@node-novel/layout-pattern/lib/rules/demo';
-import { lang, words_callback, words_maybe } from '@node-novel/layout-pattern/lib/rules/demo';
+import * as demoRule from '@node-novel/layout-pattern/lib/rules/demo.lf2';
+import { lang, words_callback, words_maybe } from '@node-novel/layout-pattern/lib/rules/demo.lf2';
 import { _word_en, _word_en3, _word_jp1, _word_zh_all } from '@node-novel/layout-pattern/lib/core/word';
 import { IWords, vMaybe, IWordsAll } from '@node-novel/layout-pattern/lib/core/word';
 import { EnumLazyMarkKeys } from '@node-novel/layout-pattern/lib/core/pattern-keys';

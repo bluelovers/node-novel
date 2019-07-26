@@ -47,4 +47,13 @@ export default array_unique(`哎
 咯噔
 啷
 啪嗒
+哆嗒
+嗖
+咧
+哆咧
+嚯
+誒哆
+嚯啦
+嗨咿
+啊啦
 `.split('\n').filter(v => v).sort());
