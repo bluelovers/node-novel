@@ -19,9 +19,27 @@ export default array_unique(`哎
 噗嗤
 哼
 誒
+欸嘿
 唔
 咔噠
 嗚
+唉
+吶
+呣
+哞
+㖿
+耶
+唔嘻
+咕
+呣喵
+喔呀
+哎呀
+咕嘎
+哼
+咕噗
+吔
+嘁
+呴
 噠
 喏
 咳哼
@@ -57,4 +75,6 @@ export default array_unique(`哎
 嗨咿
 啊啦
 叮
+叮咚
+嘁
 `.split('\n').filter(v => v).sort());
