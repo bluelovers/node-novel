@@ -18,6 +18,8 @@ export const lang = '' as const;
 export const words_source: IPatternRule["words_source"] = [
 
 	//['要取代的字', '取代後的字'],
+	//_word_jp1('日文原名專用', '日文原名專用'),
+	//_word_en3('英文專用', '英文專用'),
 
 ];
 

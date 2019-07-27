@@ -56,4 +56,5 @@ export default array_unique(`哎
 嚯啦
 嗨咿
 啊啦
+叮
 `.split('\n').filter(v => v).sort());
