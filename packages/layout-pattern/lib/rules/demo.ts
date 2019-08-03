@@ -52,6 +52,7 @@ export const words_layout: IPatternRule["words_layout"] = [
 	/**
 	 * 將 【】 轉為對話符號
 	 */
+	//...lazymarks['7'],
 	//...lazymarks['8'],
 
 	/**

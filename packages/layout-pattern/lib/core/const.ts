@@ -18,7 +18,7 @@ export let _full_num = '０１２３４５６７８９';
 /**
  * 英文數字
  */
-export const EN_REGEXP = /\w\u0100-\u017F\u0400-\u04FF\u00A1-\u00FF/.source;
+export const EN_REGEXP = /\w\u0100-\u017F\u0400-\u04FF\u00A1-\u00FF\u0180-\u024f/.source;
 
 /**
  * 判斷是否為中文字與相關符號 作為排版偵測用
