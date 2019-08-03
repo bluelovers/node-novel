@@ -60,3 +60,4 @@ intellij-style-guide.xml
 !/lib/rules/*.ts
 *.tsbuildinfo
 /scripts/
+/docs/
