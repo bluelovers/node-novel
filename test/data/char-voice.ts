@@ -85,6 +85,7 @@ export default array_unique(`哎
 誒哆
 噠嗚
 咯
+嘰
 鏗鏘
 啪嘰
 咚咯
@@ -105,8 +106,11 @@ export default array_unique(`哎
 噗啪
 咻嗡嗡
 嘿
+嗡
 噗嗤
 噗嚇
+轟隆隆
+嗡隆隆
 囉
 嗚噫
 唔溜
