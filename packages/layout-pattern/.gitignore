@@ -72,3 +72,9 @@ coverage
 /.browserslistrc
 /test/
 *.tsbuildinfo
+!test/regexp.test.ts
+!test/_local-dev.ts
+!test/data/
+!test/data
+!test/data/regexp.ts
+!test
