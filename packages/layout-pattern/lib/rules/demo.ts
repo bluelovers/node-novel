@@ -50,9 +50,14 @@ export const words_layout: IPatternRule["words_layout"] = [
 	...lazymarks['5'],
 
 	/**
-	 * 將 【】 轉為對話符號
+	 * 無差別將 【】 轉為對話符號
+	 * 如果可以盡量不要使用此規則
 	 */
 	//...lazymarks['7'],
+	/**
+	 * 將可能是對話的 【】 轉為對話符號
+	 * 如果可以盡量不要使用此規則
+	 */
 	//...lazymarks['8'],
 
 	/**
