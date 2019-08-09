@@ -33,7 +33,7 @@
     "packages/*"
   ],
   "scripts": {
-    "lerna:publish": "lerna publish",
+    "lerna:publish": "lerna publish --yes --cd-version patch",
     "build-novel": "ts-node ./bin/_novel_run_git_diff",
     "check-updates": "npx npm-check-updates -u && npx sort-package-json",
     "coverage": "npx nyc npm run test",
