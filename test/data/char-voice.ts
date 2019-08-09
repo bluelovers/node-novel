@@ -25,6 +25,10 @@ export default array_unique(`哎
 咔噠
 嗚
 唉
+盯
+嗶
+汪
+咯
 吶
 啊咧
 吚哩咕哩
