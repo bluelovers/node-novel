@@ -69,7 +69,7 @@ export const words_source: IWords[] = [
 
 	[`(?:吉珂妮亞)${sp}(?:伊斯提)`, '吉珂妮亞・伊斯提'],
 
-	_word_jp1('マクレガー|馬庫雷伽|馬庫雷加|麥格雷加|麥格雷戈', '馬克雷伽'),
+	_word_jp1('マクレガー|馬庫雷伽|馬庫雷加|麥格雷加|麥格雷戈|麥克格雷達|麥格雷戈', '馬克雷伽'),
 
 
 	/**
@@ -234,7 +234,7 @@ export const words_source: IWords[] = [
 
 	_word_jp1('エプベル', '艾普貝爾'),
 
-	_word_jp1('ミャギ|米加', '咩基'),
+	_word_jp1('ミャギ|米加|米基', '咩基'),
 
 	_word_jp1('ウリボウ|烏利波|烏力波', '烏利波'),
 	_word_jp1('アルマル|阿魯瑪魯|阿爾瑪', '瑪魯瑪魯'),
@@ -265,6 +265,9 @@ export const words_source: IWords[] = [
 
 	_word_jp1('跳ねつるべ', '吊桶'),
 
+	_word_jp1('手押しポンプ|手搖幫浦|手壓泵浦', '手壓泵浦'),
+	_word_jp1('幫浦', '泵浦'),
+
 ];
 
 /**
@@ -273,6 +276,8 @@ export const words_source: IWords[] = [
 export const words: IWords[] = _word_zh_all([
 
 	...words_source,
+
+	['木工?工匠人?', '木工匠人'],
 
 	...lazymarks['class'],
 	//...lazymarks['zh_cht'],
