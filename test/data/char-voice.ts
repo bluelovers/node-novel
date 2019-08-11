@@ -15,11 +15,15 @@ export default array_unique(`哎
 啊
 唔咕
 莎
+咔嚓
+蹄踏
+卡咯
 咿
 呣咕
 噗咻
 噗嗤
 哼
+哐當
 誒
 欸嘿
 噼里啪啦
