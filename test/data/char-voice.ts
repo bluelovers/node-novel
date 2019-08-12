@@ -16,6 +16,10 @@ export default array_unique(`哎
 唔咕
 莎
 咔嚓
+咣啷
+嗖
+咔啦
+吼
 蹄踏
 卡咯
 咿
