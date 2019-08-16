@@ -19,10 +19,40 @@ export const lang = '';
  */
 export const words_source: IWords[] = [
 
+
+
+	_word_jp1('ルーグ', '羅格'),
+	_word_jp1('トウアハーデ', '托瓦哈迪'),
+
+	/**
+	 * 女
+	 */
 	_word_jp1('迪亞|ディア', '迪亞'),
 	_word_jp1('ヴィコーネ', '維科內'),
 
+	_word_jp1('タルト', '塔爾特'),
+
+	_word_jp1('エポナ', '埃波納'),
+	_word_jp1('里安農|リアンノン', '利安諾'),
+
+	/**
+	 *
+	 */
+
+	_word_jp1('ノイシュ', '諾伊斯'),
+
+	/**
+	 *
+	 */
+	_word_jp1('レイチェル', '雷切爾'),
+
 	_word_jp1('[托]里', '托里'),
+
+	/**
+	 *
+	 */
+
+	_word_jp1('艾爾凡|阿爾凡|アルヴァン', '阿爾凡'),
 
 ];
 
@@ -37,6 +67,8 @@ export const words: IWords[] = _word_zh_all([
 	//[/(?<=^[⋯…][^\n]+)(\n)(?=\S)/gm, '\n\n'],
 
 	[/(?<=」)\n{2}(?=「)/g, '\n'],
+
+	...lazymarks['clear_002'],
 
 	...lazymarks['ln_0010'],
 
@@ -57,6 +89,8 @@ export const words: IWords[] = _word_zh_all([
 	...lazymarks['5'],
 
 	//...lazymarks['8'],
+
+	...lazymarks['ln_talk'],
 
 ] as IWords[]);
 
