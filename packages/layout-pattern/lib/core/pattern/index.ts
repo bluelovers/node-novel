@@ -1864,7 +1864,7 @@ lazymarks['unit'] = _word_zh_all([
 
 lazymarks['full_width_001'] = _word_zh_all([
 
-	_word_en(/\d+(?:,\d+)*/g, function (...m)
+	_word_en(/\d+(?:(?:,|\.)\d+)*/g, function (...m)
 	{
 		return m[1] + toFullNumber(m[2]);
 	}),
