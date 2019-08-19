@@ -178,4 +178,7 @@ export default array_unique(`哎
 霹咔
 霹哩
 捏
+嗚咕
+咕嘶
+呣喵
 `.split('\n').filter(v => v).sort());

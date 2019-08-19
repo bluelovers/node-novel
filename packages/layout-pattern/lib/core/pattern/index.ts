@@ -1781,6 +1781,8 @@ lazymarks['c050'] = _word_zh_all([
 
 	[/#/g, '＃'],
 
+	[/(?<!\/)\/(?!\/)/g, '／'],
+
 ]);
 
 lazymarks['c100'] = _word_zh_all([
