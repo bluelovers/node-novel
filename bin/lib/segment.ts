@@ -11,6 +11,11 @@ import { crlf } from 'crlf-normalize';
 import { console } from 'debug-color2';
 import * as fs from 'fs-extra';
 import novelText from 'novel-text';
+import micromatch = require('micromatch');
+import { defaultPatternsExclude } from 'node-novel-globby/lib/options';
+import { sortTree } from 'node-novel-globby/lib/glob-sort';
+import { array_unique } from '../../lib/func';
+import { fixGlobBug, sortTreeUnique } from './util';
 
 export function _getSegment()
 {
@@ -21,6 +26,10 @@ export function _getSegment()
 		{
 			await NovelSegmentCli.getSegment({
 				ttl: 3600 * 1000,
+
+				optionsSegment: {
+					nodeNovelMode: true,
+				}
 			})
 		})
 	;
@@ -28,6 +37,7 @@ export function _getSegment()
 
 export function globSegment(pattern: string[], options: IOptionsWithReturnGlobList & {
 	cwd: string,
+	fixGlob?: boolean,
 })
 {
 	let cwd_path = options.cwd;
@@ -47,7 +57,22 @@ export function globSegment(pattern: string[], options: IOptionsWithReturnGlobLi
 					cwd: cwd_path,
 					//absolute: true,
 					useDefaultPatternsExclude: true,
-				}).mapSeries(async function (file, index, arrayLength)
+				})
+				.then(ls => {
+
+					if (options.fixGlob)
+					{
+						let ls2 = fixGlobBug(pattern, {
+							cwd: cwd_path,
+							exclude: defaultPatternsExclude
+						});
+
+						ls = sortTreeUnique([...ls, ...ls2]);
+					}
+
+					return ls;
+				})
+				.mapSeries(async function (file, index, arrayLength)
 				{
 					const full_path = path.join(cwd_path, file);
 
@@ -58,7 +83,11 @@ export function globSegment(pattern: string[], options: IOptionsWithReturnGlobLi
 					let n = arrayLength.toString().length;
 
 					return NovelSegmentCli
-						.processText(old)
+						.processText(old, {
+							optionsSegment: {
+								nodeNovelMode: true,
+							}
+						})
 						.tap(async function (text)
 						{
 							let msg = `[${(index+1).toString().padStart(n, '0')}/${arrayLength}] ${file}`;

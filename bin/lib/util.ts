@@ -12,6 +12,10 @@ import * as path from "path";
 import { zhRegExp } from '../../../../nodejs-yarn/regexp-workspaces/packages/regexp-cjk';
 import { _word_zh_all, lazymarks } from '../../lib/locales/lib/index';
 import ProjectConfig from '../../project.config';
+import micromatch = require('micromatch');
+import { defaultPatternsExclude } from 'node-novel-globby/lib/options';
+import { sortTree } from 'node-novel-globby/lib/glob-sort';
+import { array_unique } from '../../lib/func';
 
 console.enabledColor = true;
 
@@ -273,4 +277,26 @@ export function _replace_list_001()
 	});
 
 	return CACHE_REGEXP_LIST_001;
+}
+
+export function fixGlobBug(pattern: string[], options: {
+	cwd: string,
+	exclude?: string[],
+})
+{
+	let ls = pattern
+		.filter(v => fs.existsSync(path.join(options.cwd, v)))
+	;
+
+	if (options.exclude)
+	{
+		ls = micromatch(ls, options.exclude);
+	}
+
+	return ls;
+}
+
+export function sortTreeUnique(ls: string[])
+{
+	return sortTree(array_unique(ls));
 }

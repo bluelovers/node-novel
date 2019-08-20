@@ -33,6 +33,8 @@ export const words: IWords[] = _word_zh_all([
 	['天照大御神', '天照大御神'],
 	['転移', '轉移'],
 
+	['亅', '」'],
+
 	...words_source,
 
 	...lazymarks['class'],
@@ -56,6 +58,8 @@ export const words: IWords[] = _word_zh_all([
 	//...lazymarks['8'],
 
 	...lazymarks['clear_002'],
+
+	...lazymarks['ln_talk'],
 
 ] as IWords[]);
 

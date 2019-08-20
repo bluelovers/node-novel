@@ -21,6 +21,9 @@ import escapeGlob = require('glob-escape');
 import { do_cn2tw_min } from './lib/conv';
 import novelText from 'novel-text';
 import { contextEmpty, loadFileAutoDecode } from '../lib/fs/load';
+import { sortTree } from 'node-novel-globby/lib/glob-sort';
+import { fixGlobBug, sortTreeUnique } from './lib/util';
+import { defaultPatternsExclude } from 'node-novel-globby/lib/options';
 
 let cli = yargs
 	.argv
@@ -104,6 +107,8 @@ Promise
 
 		console.log(files);
 
+		globby_options.nonull = true;
+
 		let ls = await Promise
 			.mapSeries(novelGlobby
 				.globbyASync([
@@ -116,6 +121,22 @@ Promise
 
 				})
 				.then(novelGlobby.returnGlobList)
+				.then(ls => {
+					let ls2 = fixGlobBug(files, {
+						cwd: cwd_path,
+						exclude: [
+							...defaultPatternsExclude,
+							'!**/*.md',
+							'!*.md',
+						]
+					})
+						.map(v => path.join(globby_options.cwd, v))
+					;
+
+					ls = sortTreeUnique([...ls, ...ls2]);
+
+					return ls
+				})
 				, async function (file, index, len)
 				{
 					let ext = '.txt';

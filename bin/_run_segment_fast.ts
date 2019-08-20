@@ -79,6 +79,7 @@ Promise
 			'!*.md',
 		], {
 			cwd: cwd_path,
+			fixGlob: true,
 		});
 	})
 	;
