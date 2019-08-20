@@ -99,6 +99,7 @@ export const words_source: IWords[] = [
 	 *
 	 */
 
+
 	_word_jp1('トゥーラ|圖拉', '圖拉'),
 	_word_jp1('クリーズ|克里斯|克萊斯', '克里斯'),
 
@@ -174,7 +175,10 @@ export const words_source: IWords[] = [
 
 	_word_jp1('ロウ', '羅烏'),
 
-	_word_jp1('ラエス|拉耶斯', '拉斯'),
+	/**
+	 * @todo 將 拉斯 取代為 ラエス
+	 */
+	_word_jp1('ラエス|拉耶斯|拉埃斯', '拉斯'),
 
 	_word_jp1('ヘルミーナ', '赫露米娜'),
 	_word_jp1('フォン', '馮'),
@@ -208,7 +212,13 @@ export const words_source: IWords[] = [
 	_word_jp1('摩洛貘|モロバク', '摩洛貘'),
 
 	_word_jp1('バルバトス', '巴巴妥司'),
-	_word_jp1('ブエル', '布爾'),
+
+	/**
+	 * @todo 將 布爾 取代為 ブエル
+	 * 巴爾
+	 */
+	_word_jp1('ブエル|布耶爾', '布爾'),
+
 	_word_jp1('ヴィネ', '拜恩'),
 
 	['誠實なる鎹|真誠締合', '真誠締合'],
@@ -270,6 +280,11 @@ export const words_source: IWords[] = [
 	/**
 	 *
 	 */
+	_word_jp1('エイトザドラ', '艾托薩多拉'),
+
+	/**
+	 *
+	 */
 	['川越怜奈', '川越怜奈'],
 	['怜奈', '怜奈'],
 
@@ -312,6 +327,8 @@ export const words: IWords[] = _word_zh_all([
 
 	[/(?<=^─[^\n]+)\n(?=[^─\n])/gm, '\n\n'],
 
+	...lazymarks['clear_002'],
+
 	...lazymarks['class'],
 	//...lazymarks['zh_cht'],
 
@@ -329,6 +346,8 @@ export const words: IWords[] = _word_zh_all([
 	...lazymarks['5'],
 
 	...lazymarks['ln_0010'],
+
+	...lazymarks['ln_talk'],
 
 ] as IWords[]);
 
