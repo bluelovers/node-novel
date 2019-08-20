@@ -127,6 +127,8 @@ export default array_unique(`哎
 嗚哇
 嗚噫
 嗚庫
+嘎吱
+嘎
 嗡
 嗡隆隆
 嗨咿

@@ -1487,6 +1487,8 @@ lazymarks['zh'] = _word_zh_all([
 
 	['进', '進'],
 
+	['励', '勵'],
+
 ]);
 
 lazymarks['zh_cht'] = _word_zh_all([
@@ -1661,6 +1663,8 @@ lazymarks['jp1'] = _word_zh_all([
 	_word_jp1('バンパイア', '吸血鬼'),
 
 	_word_jp1('チョコ', '巧克力'),
+
+	_word_jp1('システム', '系統'),
 
 ]);
 
