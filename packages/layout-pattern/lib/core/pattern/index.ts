@@ -1672,6 +1672,15 @@ lazymarks['jp1'] = _word_zh_all([
 
 	_word_jp1('ワイバーン', '飛竜'),
 
+	_word_jp1('キメラ', '奇美拉'),
+
+	_word_jp1('ヒヒイロカネ', '緋緋色金'),
+
+	_word_jp1('ケルベロス', '刻耳柏洛斯'),
+
+	_word_jp1('ガーゴイル', '石像鬼'),
+
+
 ]);
 
 lazymarks['class'] = _word_zh_all([

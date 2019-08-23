@@ -103,6 +103,7 @@ export default array_unique(`哎
 喀
 喀啦
 喀嘰
+喇
 喋呀
 喏
 喔呀
@@ -138,6 +139,8 @@ export default array_unique(`哎
 嘭嘭
 嘰
 嘻
+叩嘟
+咔噠
 嘻呀
 嘻咦
 嘿
@@ -151,6 +154,7 @@ export default array_unique(`哎
 噗嚇
 噗嚕
 噠
+誒咻
 噠呦
 噠嗚
 噢
@@ -182,7 +186,9 @@ export default array_unique(`哎
 轟隆隆
 鈴
 鏗
+嘀咕
 鏗鏘
+咕
 霹咔
 霹哩
 吪
@@ -192,4 +198,6 @@ export default array_unique(`哎
 吪
 吥
 嚦
+嘎達
+唰
 `.split('\n').filter(v => v).sort());
