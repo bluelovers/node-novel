@@ -113,7 +113,10 @@ novelID = '異世界薬局';
 pathMain = 'syosetu';
 novelID = '班級同學都被召喚到異世界，只有我倖存下來';
 
-subPath = 'z.raw/10000';
+//subPath = 'z.raw/10000';
+
+pathMain = 'syosetu';
+novelID = 'アラフォー賢者の異世界生活日記';
 
 let DEBUG_MODE = true;
 //DEBUG_MODE = false;
