@@ -29,6 +29,9 @@ import { diffPatch, fsReadFile, getCwdPaths, getNovelMeta, handleContext, isEmpt
 import { cache_output4, create_pattern_md, ICache, make_meta_md } from './cache';
 import { getLocales } from './util';
 import { outputBlock002, outputJa001 } from '@node-novel/layout-reporter/lib/md';
+import { gitDiffStagedFile } from '../lib/git';
+import { fixGlobBug } from '../bin/lib/util';
+import { defaultPatternsExclude } from 'node-novel-globby/lib/options';
 
 console.enabledColor = true;
 
@@ -139,38 +142,61 @@ let myLocales: ReturnType<typeof loadLocales>;
 		total: 0,
 	};
 
-	let ls = await Bluebird
-		.mapSeries(novelGlobby
-			.globbyASync(globby_patterns, globby_options)
-			.tap(async function (ls)
-			{
-				if (DEBUG)
-				{
-					await fs.writeJSON(path.join(projectConfig.temp_root, 'log.1.json'), ls, {
-						spaces: "\t",
-					});
-				}
-			})
-			.then(novelGlobby.returnGlobList)
-			.tap(async function (ls)
-			{
-				//console.log(globby_patterns, globby_options);
+	let _ls_ = await Bluebird.resolve()
+		.then(async () => {
 
-				if (DEBUG)
+			if (cli.diff)
+			{
+				let cwd_path = globby_options.cwd;
+
+				let files = gitDiffStagedFile(cwd_path);
+
+				let ls2 = fixGlobBug(files, {
+					cwd: cwd_path,
+					exclude: [
+						...defaultPatternsExclude,
+						'!**/*.md',
+						'!*.md',
+					]
+				});
+
+				return ls2.map(v => path.resolve(cwd_path, v))
+			}
+
+			return novelGlobby
+				.globbyASync(globby_patterns, globby_options)
+				.tap(async function (ls)
 				{
-					ls = ls.map(function (p)
+					if (DEBUG)
 					{
-						return path.relative(TXT_PATH, p);
-					});
+						await fs.writeJSON(path.join(projectConfig.temp_root, 'log.1.json'), ls, {
+							spaces: "\t",
+						});
+					}
+				})
+				.then(novelGlobby.returnGlobList)
+				.tap(async function (ls)
+				{
+					//console.log(globby_patterns, globby_options);
 
-					await fs.writeFile(path.join(projectConfig.temp_root, 'log.2.txt'), ls.join("\n"));
+					if (DEBUG)
+					{
+						ls = ls.map(function (p)
+						{
+							return path.relative(TXT_PATH, p);
+						});
 
-					//process.exit();
-				}
+						await fs.writeFile(path.join(projectConfig.temp_root, 'log.2.txt'), ls.join("\n"));
+					}
 
-				_stat.total = ls.length;
+					_stat.total = ls.length;
 
-			}), async function (file, index, len)
+				})
+		})
+	;
+
+	let ls = await Bluebird
+		.mapSeries(_ls_, async function (file, index, len)
 		{
 			let ext = '.txt';
 
@@ -533,6 +559,11 @@ let myLocales: ReturnType<typeof loadLocales>;
 		})
 		.tap(async function (ls)
 		{
+			if (cli.diff)
+			{
+				return;
+			}
+
 			//console.log(0);
 
 			if (Object.keys(_cache.block).length)

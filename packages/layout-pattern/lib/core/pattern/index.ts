@@ -1682,6 +1682,10 @@ lazymarks['jp1'] = _word_zh_all([
 
 	_word_jp1('ふふ', '呋呋'),
 
+	_word_jp1('やれ', '呀咧'),
+
+	_word_jp1('マンティコア', '蠍尾獅'),
+
 
 ]);
 

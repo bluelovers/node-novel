@@ -35,6 +35,7 @@
   "scripts": {
     "lerna:publish": "lerna publish --yes --cd-version patch",
     "build-novel": "ts-node ./bin/_novel_run_git_diff",
+    "build-novel-dast": "ts-node ./bin/_novel_run_git_diff --diff",
     "check-updates": "npx npm-check-updates -u && npx sort-package-json",
     "coverage": "npx nyc npm run test",
     "create-new-locale": "ts-node ./bin/_create_locale",

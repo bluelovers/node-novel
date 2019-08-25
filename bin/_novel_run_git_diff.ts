@@ -88,6 +88,7 @@ Promise
 			'-n',
 			novelID || '',
 			'--patternOnly=' + (cli.patternOnly ? 1 : 0).toString(),
+			cli.diff && '--diff' || '',
 		], {
 			stdio: 'inherit',
 		});
