@@ -631,7 +631,7 @@ export const words_source: IWords[] = [
 	['ラースプン|憤怒熊兔', '憤怒熊兔'],
 	_word_jp1('混沌熊兔姆?|卡奧西庫里姆|カオシックリム|卡奧西克里姆|混沌兔熊', '混沌熊兔'),
 
-	['哥雷母|哥雷姆', '哥雷姆'],
+	['哥雷母|哥雷姆|格雷姆', '哥雷姆'],
 	['奇美拉', '奇美拉'],
 
 	['ドラグノフ|杜格諾夫', '杜格諾夫'],
@@ -1000,6 +1000,11 @@ export const words_source: IWords[] = [
 	/**
 	 *
 	 */
+	_word_jp1('ハイラム', '海拉姆'),
+
+	/**
+	 *
+	 */
 	_word_jp1('スティンガ', 'Stinger'),
 	_word_jp1('スレイヤー', '殺手'),
 
@@ -1013,6 +1018,8 @@ export const words_source: IWords[] = [
 export const words: IWords[] = _word_zh_all([
 
 	...words_source,
+
+	...lazymarks['clear_002'],
 
 	...lazymarks['unit'],
 
@@ -1168,6 +1175,8 @@ export const words: IWords[] = _word_zh_all([
 	['生命吸収', '生命吸収'],
 	['神兵計画', '神兵計画'],
 	['腕力強化', '腕力強化'],
+
+	_word_en3('GRIM EATER', '黑食白蛇'),
 
 	[
 		`[《（「『]\\w+[』」》）]`, function (...m)

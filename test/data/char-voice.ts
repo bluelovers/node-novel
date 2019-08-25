@@ -22,6 +22,8 @@ export default array_unique(`哎
 呀嗬
 噫
 呀嘞
+哎
+哼
 呀嘞
 呋嗯
 呃
