@@ -293,6 +293,9 @@ export const words_source: IWords[] = [
 
 	_word_jp1('ヴィアイシア|佩艾希亞', '佩艾希亞'),
 
+	_word_jp1('里埃爾', '里埃爾'),
+
+
 ];
 
 /**
@@ -672,6 +675,8 @@ export const words: IWords[] = _word_zh_all([
 	...lazymarks['ln_0010'],
 
 	...lazymarks.ln_talk,
+
+	['雖・然・黑暗，但・不・黑暗', '雖・然・黑・暗，但・不・黑・暗'],
 
 ]) as IWords[];
 
