@@ -84,6 +84,7 @@ export default array_unique(`哎
 哆嗒
 哎
 哎呀
+砰
 啪嘎
 哎哆
 哐噹

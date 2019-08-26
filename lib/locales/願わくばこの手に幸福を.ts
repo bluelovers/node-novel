@@ -21,7 +21,7 @@ export const words_source: IWords[] = [
 
 	//['要取代的字', '取代後的字'],
 
-	_word_jp1('ルーギス', '路易斯'),
+	_word_jp1('ルーギス|盧吉斯|魯吉斯', '路易斯'),
 
 	_word_jp1('ナインズ', '南音絲'),
 	_word_jp1('アリュエノ', '阿琉珥娜'),
@@ -31,6 +31,26 @@ export const words_source: IWords[] = [
 	_word_jp1('バーベリッジ', '巴別利奇'),
 
 	_word_jp1('芙拉朵|芙垃朵', '芙拉朵'),
+
+	/**
+	 *
+	 */
+	_word_jp1('ヘルト|赫特爾?', '赫爾特'),
+	_word_jp1('スタンレー|斯坦(?:利|雷)?', '斯坦利'),
+
+	_word_jp1('セレアル|塞雷亞|塞雷爾|賽雷亞', '塞雷爾'),
+	_word_jp1('ウッド', '伍德'),
+
+	_word_jp1('トカゲ', '蜥蜴'),
+
+	_word_jp1('フィアラート', '芙拉朵'),
+	_word_jp1('ラ', '娜'),
+	_word_jp1('ボルゴグラード|博爾格萊德', '波魯克庫拉特'),
+
+	_word_jp1('ラルグド', '拉爾格'),
+	_word_jp1('アン', '安'),
+
+	_word_jp1('マティア|瑪蒂亞', '瑪蒂婭'),
 
 	/**
 	 *
@@ -46,7 +66,19 @@ export const words_source: IWords[] = [
 	/**
 	 *
 	 */
+	_word_jp1('ガザリア|卡沙利亚|加薩利亞', '加薩利亞'),
+	['空中庭院|空中庭園', '空中庭園'],
+
+	/**
+	 *
+	 */
 	_word_jp1('パーミリスト', '帕米利斯'),
+
+	/**
+	 *
+	 */
+	_word_jp1('アルティウス', '阿爾蒂斯'),
+	_word_jp1('オウフル', '奧菲'),
 
 ];
 
@@ -56,6 +88,8 @@ export const words_source: IWords[] = [
 export const words: IWords[] = _word_zh_all([
 
 	...words_source,
+
+	['貧民窟|窮民窟', '貧民窟'],
 
 	...lazymarks['clear_002'],
 
