@@ -57,6 +57,8 @@ export const words: IWords[] = _word_zh_all([
 
 	...words_source,
 
+	...lazymarks['clear_002'],
+
 	...lazymarks['class'],
 	//...lazymarks['zh_cht'],
 
@@ -77,7 +79,7 @@ export const words: IWords[] = _word_zh_all([
 
 	...lazymarks['8'],
 
-	...lazymarks['clear_002'],
+	...lazymarks['ln_talk'],
 
 ] as IWords[]);
 
