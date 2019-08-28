@@ -35,7 +35,7 @@ export const words_source: IWords[] = [
 	//['anima(?=\\b|[^\\w\\u00C0-\\u017F])', '阿尼瑪', 'ig'],
 	//['(Animus|Animes)(?=\\b|[^\\w\\u00C0-\\u017F])', '阿尼瑪斯', 'ig'],
 
-	_word_jp1('白诘|シロツメ', '白詰'),
+	_word_jp1('白诘|シロツメ|シロツ', '白詰'),
 	['诘', '詰'],
 	_word_jp1('岬|美崎|ミサキ', '岬'),
 
@@ -144,7 +144,9 @@ export const words_source: IWords[] = [
 	_word_en3('Gareltion', '卡文汀'),
 
 	_word_jp1('エクスカリバ', 'Excalibur'),
-	_word_en3('Excalibur', 'Excalibur'),
+	_word_en3('Excalibur|Excreber', 'Excalibur'),
+
+
 
 	_word_jp1('クラウソラス', '克勞烏索拉斯'),
 
@@ -277,6 +279,11 @@ export const words_source: IWords[] = [
 	/**
 	 *
 	 */
+	_word_jp1('エクロジ', '愛克羅賽'),
+
+	/**
+	 *
+	 */
 	_word_jp1('ゾウブ', '佐夫'),
 
 	/**
@@ -323,7 +330,11 @@ export const words: IWords[] = _word_zh_all([
 
 	['𪚥', ''],
 
+	...lazymarks['clear_002'],
+
 	...lazymarks['class'],
+
+	...lazymarks['ln_0010'],
 
 	...lazymarks['4'],
 
@@ -335,6 +346,8 @@ export const words: IWords[] = _word_zh_all([
 	...lazymarks['2'],
 	...lazymarks['3'],
 	...lazymarks['5'],
+
+	...lazymarks['ln_talk'],
 
 ]);
 
