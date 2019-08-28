@@ -1491,6 +1491,8 @@ lazymarks['zh'] = _word_zh_all([
 
 	['覇|霸', '霸'],
 
+	['[晕]', '暈'],
+
 ]);
 
 lazymarks['zh_cht'] = _word_zh_all([
