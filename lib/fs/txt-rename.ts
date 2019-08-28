@@ -44,7 +44,7 @@ export function replace_name_list()
 
 				[/\uFEFF/g, ''],
 
-				[/[  \xA0]/g, ' '],
+				[/[ \xA0]/g, ' '],
 				//[/[　\u3000]/g, '　'],
 				[/[·‧・···•˙●]/g, '・'],
 				[/[．]/g, '・'],
@@ -87,7 +87,7 @@ export function replace_name_list()
 
 				['[,!?]', StrUtil.toFullWidth],
 
-			]).map(function (data)
+			] as typeof CACHE_REGEXP_LIST).map(function (data)
 			{
 				if (!(data[0] instanceof RegExp) || (data[0] instanceof zhRegExp))
 				{
