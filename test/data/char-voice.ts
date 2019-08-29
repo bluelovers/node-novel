@@ -23,6 +23,7 @@ export default array_unique(`
 吧啦
 吪
 吱
+嗷
 吱吱嘎嘎
 咯吱
 吶
@@ -221,11 +222,24 @@ export default array_unique(`
 轟
 轟隆隆
 鈴
+咕唄
+咕
+唄
 鏗
 鏗鏘
 鏘
 鏘嗡
+咚嚓
+咚
+嚓
 鐺
+咔噠
+咔
+噠
+咔嘰
+咚嘎
+崩咚
+嘩
 霹咔
 霹哩
 `.split('\n').filter(v => v).sort());

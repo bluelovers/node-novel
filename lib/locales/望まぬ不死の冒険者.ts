@@ -115,6 +115,17 @@ export const words_source: IWords[] = [
 	/**
 	 *
 	 */
+	_word_jp1('リア', '莉亞'),
+
+	_word_jp1('アルプ', '阿露普'),
+
+	_word_jp1('ヒュミ', '修米'),
+
+	_word_jp1('ザール', '扎爾'),
+
+	/**
+	 *
+	 */
 	_word_jp1('沙魯|シャール|查爾', '沙魯'),
 	_word_jp1('蘇特諾|ステノ|斯提諾|斯特諾', '蘇特諾'),
 
@@ -245,9 +256,21 @@ export const words_source: IWords[] = [
 	 *
 	 */
 	_word_jp1(`ヤツール`, '亞蘇爾'),
-	_word_jp1(`ルーザ`, '盧莎'),
+	_word_jp1(`ルーザ|盧扎`, '盧莎'),
 
 	_word_jp1(`セィレーン`, '塞壬'),
+
+	_word_jp1(`ペトレーマ|彼得利瑪|彼得利馬`, '彼得利瑪'),
+
+	_word_jp1(`フェリシー`, '菲麗絲'),
+
+	_word_jp1(`リオ`, '里歐'),
+
+	_word_jp1(`レノラ`, '蕾洛拉'),
+
+	_word_jp1(`ヴァサ|維薩`, '瓦薩'),
+
+	_word_jp1(`フアナ`, '芙安娜'),
 
 	/**
 	 *
@@ -279,6 +302,9 @@ export const words_source: IWords[] = [
 	_word_jp1(`ナウス`, '納斯'),
 	_word_jp1(`アンクロ`, '安庫羅'),
 
+
+	_word_jp1(`ジゼル`, '吉澤爾'),
+	_word_jp1(`ジョルジュ`, '喬治'),
 
 	/**
 	 *
@@ -395,6 +421,8 @@ export const words_source: IWords[] = [
 	_word_jp1('ロア', '羅亞'),
 	_word_jp1('カヅキグサ', '卡其庫塞'),
 
+	_word_jp1('ライムズ', '萊姆斯'),
+
 ];
 
 /**
@@ -437,6 +465,8 @@ export const words: IWords[] = _word_zh_all([
 	...lazymarks['5'],
 
 	...lazymarks['clear_002'],
+
+	...lazymarks.ln_talk,
 
 ] as IWords[]);
 
