@@ -96,7 +96,9 @@ Bluebird
 
 				let _text = novelText.toStr(_t_old);
 
-				let _t = trimTxtLine(_text, rowData);
+				let _t = trimTxtLine(_text, rowData)
+					.replace(/[ \xa0]+$/gm, '')
+				;
 
 				let changed = _t != _t_old;
 
