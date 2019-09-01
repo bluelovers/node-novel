@@ -23,6 +23,9 @@ import novelText from 'novel-text';
 import { contextEmpty, loadFileAutoDecode } from '../lib/fs/load';
 
 let cli = yargs
+	.option('unsafe', {
+		boolean: true,
+	})
 	.argv
 ;
 
@@ -100,6 +103,13 @@ Promise
 
 		console.time(TIME_LABEL);
 
+		let do_cn2tw_min_options: Parameters<typeof do_cn2tw_min>[1] = {};
+
+		if (cli.unsafe)
+		{
+			do_cn2tw_min_options.safe = false;
+		}
+
 		let ls = await Promise
 			.mapSeries(novelGlobby
 				.globbyASync(globby_patterns, globby_options)
@@ -151,7 +161,7 @@ Promise
 					// @ts-ignore
 					_t_old = _t_old.toString();
 
-					let _t = trimTxtLine(do_cn2tw_min(novelText.toStr(_t_old)));
+					let _t = trimTxtLine(do_cn2tw_min(novelText.toStr(_t_old), do_cn2tw_min_options));
 
 					let changed = _t != _t_old;
 

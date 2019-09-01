@@ -50,6 +50,8 @@
     "reset-segment-cache": "ts-node ./bin/_reset_segment_cache",
     "run-conv": "ts-node ./bin/_novel_conv",
     "run-conv-fast": "ts-node ./bin/_novel_conv_fast",
+    "run-conv:unsafe": "ts-node ./bin/_novel_conv --unsafe",
+    "run-conv-fast:unsafe": "ts-node ./bin/_novel_conv_fast --unsafe",
     "run-epub": "ts-node ./bin/_run_epub",
     "run-fix-source": "ts-node ./bin/_novel_source",
     "run-fix-trim": "ts-node ./bin/_novel_trim",

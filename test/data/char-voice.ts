@@ -263,6 +263,14 @@ export default array_unique(`
 咚嘎
 崩咚
 嘩
+瓦嚕
+嚕
 霹咔
 霹哩
+沃嗚
+沃啦
+沃嚕
+喔
+†‡‡†‡
+‡†‡
 `.split('\n').filter(v => v).sort());

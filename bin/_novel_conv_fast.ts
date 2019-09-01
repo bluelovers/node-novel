@@ -26,6 +26,9 @@ import { fixGlobBug, sortTreeUnique } from './lib/util';
 import { defaultPatternsExclude } from 'node-novel-globby/lib/options';
 
 let cli = yargs
+	.option('unsafe', {
+		boolean: true,
+	})
 	.argv
 ;
 
@@ -109,6 +112,13 @@ Promise
 
 		globby_options.nonull = true;
 
+		let do_cn2tw_min_options: Parameters<typeof do_cn2tw_min>[1] = {};
+
+		if (cli.unsafe)
+		{
+			do_cn2tw_min_options.safe = false;
+		}
+
 		let ls = await Promise
 			.mapSeries(novelGlobby
 				.globbyASync([
@@ -180,7 +190,7 @@ Promise
 					// @ts-ignore
 					_t_old = _t_old.toString();
 
-					let _t = trimTxtLine(do_cn2tw_min(novelText.toStr(_t_old)));
+					let _t = trimTxtLine(do_cn2tw_min(novelText.toStr(_t_old), do_cn2tw_min_options));
 
 					let changed = _t != _t_old;
 
