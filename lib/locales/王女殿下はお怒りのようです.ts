@@ -136,6 +136,8 @@ export const words: IWords[] = _word_zh_all([
 
 	...words_source,
 
+	...lazymarks['clear_002'],
+
 	...lazymarks['class'],
 	//...lazymarks['zh_cht'],
 
@@ -155,6 +157,11 @@ export const words: IWords[] = _word_zh_all([
 	...lazymarks['5'],
 
 	//...lazymarks['8'],
+
+	/**
+	 * 適用於具有大量長段 而只縮減對話之間的空格使用
+	 */
+	//...lazymarks['ln_talk'],
 
 ] as IWords[]);
 
