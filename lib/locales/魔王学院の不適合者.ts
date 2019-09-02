@@ -161,6 +161,8 @@ export const words: IWords[] = _word_zh_all([
 
 	_word_jp1('醬|ちゃん', '醬'),
 
+	...lazymarks['clear_002'],
+
 	...lazymarks['class'],
 	//...lazymarks['zh_cht'],
 
@@ -169,13 +171,29 @@ export const words: IWords[] = _word_zh_all([
 	...lazymarks['4'],
 
 	...lazymarks['full_width_001'],
-	//...lazymarks['full_width_002'],
+	...lazymarks['full_width_002'],
 
 	...lazymarks['0'],
 	...lazymarks['1'],
 	...lazymarks['2'],
 	...lazymarks['3'],
 	...lazymarks['5'],
+
+	/**
+	 * 無差別將 【】 轉為對話符號
+	 * 如果可以盡量不要使用此規則
+	 */
+	//...lazymarks['7'],
+	/**
+	 * 將可能是對話的 【】 轉為對話符號
+	 * 如果可以盡量不要使用此規則
+	 */
+	//...lazymarks['8'],
+
+	/**
+	 * 適用於具有大量長段 而只縮減對話之間的空格使用
+	 */
+	//...lazymarks['ln_talk'],
 
 ] as IWords[]);
 
