@@ -30,7 +30,7 @@ export const words_source: IPatternRule["words_source"] = [
 	_word_jp1('カミル|卡密魯|卡米爾', '卡米魯'),
 
 	_word_jp1('サニア|薩妮婭|薩尼婭', '薩妮婭'),
-	_word_jp1('タリア|丹妮婭', '塔莉婭'),
+	_word_jp1('タリア|丹妮婭|塔利亞', '塔莉婭'),
 
 	_word_jp1('ハザール|ハザ—ル|卡薩魯', '哈薩爾'),
 
@@ -39,7 +39,7 @@ export const words_source: IPatternRule["words_source"] = [
 	_word_jp1('カノー', '卡農'),
 
 	_word_en3('NAZAR', '納薩爾'),
-	_word_jp1('ナザール', '納薩爾'),
+	_word_jp1('ナザール|納賽爾', '納薩爾'),
 
 	_word_jp1('ミランダ', '米蘭達'),
 
@@ -47,10 +47,24 @@ export const words_source: IPatternRule["words_source"] = [
 	_word_jp1('ジュリア', '茱莉亞'),
 	_word_jp1('マリーン', '瑪琳'),
 
+	_word_jp1('エリー', '伊莉'),
+
+	_word_jp1('プラット', '普拉托'),
+
 	/**
 	 *
 	 */
-	_word_jp1('エリー', '伊莉'),
+	_word_jp1('バルトランド', '巴爾特蘭德'),
+	_word_jp1('バルト', '巴爾特'),
+
+	_word_jp1('トルステン', '托爾斯頓'),
+
+	_word_jp1('サンドラ', '珊德拉'),
+
+	_word_jp1('カリーナ', '卡琳'),
+
+	_word_jp1('ミカ', '米卡'),
+	_word_jp1('ミカエラ', '米卡埃菈'),
 
 	/**
 	 *
