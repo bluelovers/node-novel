@@ -27,11 +27,21 @@ export const words_source: IPatternRule["words_source"] = [
 	 *
 	 */
 	_word_jp1('アリア', '亞里亞'),
-	_word_jp1('カミル|卡密魯', '卡米魯'),
+	_word_jp1('カミル|卡密魯|卡米爾', '卡米魯'),
+
+	_word_jp1('サニア|薩妮婭|薩尼婭', '薩妮婭'),
+	_word_jp1('タリア|丹妮婭', '塔莉婭'),
+
+	_word_jp1('ハザール|ハザ—ル', '哈薩爾'),
 
 	_word_jp1('ラシー', '拉茜'),
 	_word_jp1('ゲナー', '吉娜'),
 	_word_jp1('カノー', '卡農'),
+
+	_word_en3('NAZAR', '納薩爾'),
+	_word_jp1('ナザール', '納薩爾'),
+
+	_word_jp1('ミランダ', '米蘭達'),
 
 	/**
 	 *
@@ -43,9 +53,17 @@ export const words_source: IPatternRule["words_source"] = [
 	 */
 	_word_jp1('ヤシマ', '矢島'),
 
+	/**
+	 *
+	 */
+	_word_jp1('ハジメ', '哈基米'),
+	_word_jp1('ヒューマン', '赫曼'),
+	_word_jp1('ツヅキ', '斯茲卡'),
+
 	// ----------
 
 	_word_jp1('野雞虎|雉トラ', '棕色虎斑'),
+	_word_jp1('赤トラ|紅色的老虎', '赤虎'),
 
 	_word_jp1('ダンジョン|地宮', '迷宮'),
 
@@ -58,6 +76,8 @@ export const words_source: IPatternRule["words_source"] = [
 
 
 	_word_jp1('フロンティア', '最前線'),
+
+	_word_jp1('アニマ|尼瑪', '獸人'),
 
 	/**
 	 * 物品箱（Item Box）
