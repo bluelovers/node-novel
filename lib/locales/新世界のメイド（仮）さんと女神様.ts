@@ -32,7 +32,7 @@ export const words_source: IPatternRule["words_source"] = [
 	_word_jp1('サニア|薩妮婭|薩尼婭', '薩妮婭'),
 	_word_jp1('タリア|丹妮婭', '塔莉婭'),
 
-	_word_jp1('ハザール|ハザ—ル', '哈薩爾'),
+	_word_jp1('ハザール|ハザ—ル|卡薩魯', '哈薩爾'),
 
 	_word_jp1('ラシー', '拉茜'),
 	_word_jp1('ゲナー', '吉娜'),
@@ -42,6 +42,15 @@ export const words_source: IPatternRule["words_source"] = [
 	_word_jp1('ナザール', '納薩爾'),
 
 	_word_jp1('ミランダ', '米蘭達'),
+
+	_word_jp1('シーナ', '席娜'),
+	_word_jp1('ジュリア', '茱莉亞'),
+	_word_jp1('マリーン', '瑪琳'),
+
+	/**
+	 *
+	 */
+	_word_jp1('エリー', '伊莉'),
 
 	/**
 	 *
@@ -78,6 +87,11 @@ export const words_source: IPatternRule["words_source"] = [
 	_word_jp1('フロンティア', '最前線'),
 
 	_word_jp1('アニマ|尼瑪', '獸人'),
+
+	_word_jp1('門の番人', '門之看守者'),
+
+	_word_jp1('パイオニア', '開拓者'),
+	_word_jp1('エクスプローラー|探檢者', '探險者'),
 
 	/**
 	 * 物品箱（Item Box）
