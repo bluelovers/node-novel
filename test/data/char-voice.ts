@@ -276,6 +276,8 @@ export default array_unique(`
 滋
 恰鈴
 咧
+咈
+咈嗯
 咕唧
 咕
 唧

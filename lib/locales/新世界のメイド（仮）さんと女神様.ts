@@ -32,7 +32,7 @@ export const words_source: IPatternRule["words_source"] = [
 	_word_jp1('サニア|薩妮婭|薩尼婭', '薩妮婭'),
 	_word_jp1('タリア|丹妮婭|塔利亞', '塔莉婭'),
 
-	_word_jp1('ハザール|ハザ—ル|卡薩魯', '哈薩爾'),
+	_word_jp1('ハザール|ハザ—ル|卡薩魯|哈札爾', '哈薩爾'),
 
 	_word_jp1('ラシー', '拉茜'),
 	_word_jp1('ゲナー', '吉娜'),
@@ -45,7 +45,7 @@ export const words_source: IPatternRule["words_source"] = [
 
 	_word_jp1('シーナ', '席娜'),
 	_word_jp1('ジュリア', '茱莉亞'),
-	_word_jp1('マリーン', '瑪琳'),
+	_word_jp1('マリーン|馬琳', '瑪琳'),
 
 	_word_jp1('エリー', '伊莉'),
 
@@ -57,7 +57,7 @@ export const words_source: IPatternRule["words_source"] = [
 	_word_jp1('バルトランド', '巴爾特蘭德'),
 	_word_jp1('バルト', '巴爾特'),
 
-	_word_jp1('トルステン', '托爾斯頓'),
+	_word_jp1('トルステン|托爾斯滕', '托爾斯頓'),
 
 	_word_jp1('サンドラ', '珊德拉'),
 
@@ -65,6 +65,8 @@ export const words_source: IPatternRule["words_source"] = [
 
 	_word_jp1('ミカ', '米卡'),
 	_word_jp1('ミカエラ', '米卡埃菈'),
+
+	_word_jp1('アドレー', '阿朵蕾'),
 
 	/**
 	 *
@@ -114,12 +116,19 @@ export const words_source: IPatternRule["words_source"] = [
 	_word_jp1('アイテムボックス', '物品箱'),
 	_word_jp1('アイテムストレージ', '存物箱'),
 
+	_word_jp1('パンツ', '胖次'),
+	_word_jp1('サイズ', '尺寸'),
+
+	_word_jp1('バストサイズ', '胖次尺寸'),
+
 ];
 
 /**
  * @private
  */
 export const words_layout: IPatternRule["words_layout"] = [
+
+	[/^(如果?有錯字(脫|漏)字等，請您指出。|如有錯字漏字的話，請您指正，不勝榮幸。|如果錯字漏字等有，請指摘幸運。|如有錯字、漏字敬請指正，不勝榮幸。|誤字脱字などありましたら、ご指摘くださると幸いです。)$/gm, ''],
 
 	...lazymarks['clear_002'],
 
