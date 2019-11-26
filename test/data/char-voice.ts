@@ -273,6 +273,9 @@ export default array_unique(`
 沃嗚
 呼嘿嘿
 美滋滋
+啊咧
+啊
+咧
 滋
 恰鈴
 咧
