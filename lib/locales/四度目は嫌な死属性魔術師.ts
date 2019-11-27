@@ -1860,6 +1860,4 @@ export const value = {
 	chapter_title: `$t(chapter_id, [{{0}}])　{{title}}`,
 };
 
-import * as self from './四度目は嫌な死属性魔術師';
-
-export default self;
+export default exports;
