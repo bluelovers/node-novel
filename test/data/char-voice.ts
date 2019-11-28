@@ -39,6 +39,10 @@ export default array_unique(`
 呋嗯
 呋姆
 呣
+吆
+啊嘞
+啊
+嘞
 呣咕
 呣喵
 呭
@@ -81,6 +85,9 @@ export default array_unique(`
 咯噢
 咳哼
 咻
+咯噔
+咯
+噔
 咻咚
 咻嗡嗡
 咿
@@ -88,6 +95,12 @@ export default array_unique(`
 哆
 哆咧
 哆嗒
+噼里啪啦
+噗嗤
+噗
+嗤
+嚯
+哼
 哇
 哈
 哎
@@ -267,6 +280,7 @@ export default array_unique(`
 咔
 唦
 瓦嚕
+啪
 嚕
 霹咔
 霹哩
