@@ -411,9 +411,12 @@ export const words_source: IWords[] = [
 	/**
 	 *
 	 */
+	_word_jp1('艾斯佩拉德', '艾斯佩拉德'),
+	_word_jp1('里根', '里根'),
 
-
-
+	/**
+	 *
+	 */
 
 
 	_word_en3('Tortoise', '托達斯'),
@@ -599,6 +602,8 @@ export const words: IWords[] = _word_zh_all([
 	...lazymarks['2'],
 	...lazymarks['3'],
 	...lazymarks['5'],
+
+	...lazymarks['ln_talk'],
 
 ] as IWords[]);
 

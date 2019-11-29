@@ -1622,6 +1622,8 @@ lazymarks['zh2'] = _word_zh_all([
 
 	['気圧', '氣壓'],
 
+	['前仆後繼', '前仆後繼'],
+
 ]);
 
 lazymarks['jp1'] = _word_zh_all([
