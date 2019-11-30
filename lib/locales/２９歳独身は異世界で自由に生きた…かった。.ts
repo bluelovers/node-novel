@@ -204,10 +204,14 @@ export const words: IWords[] = _word_zh_all([
 
 	[/(?<=」)\n{2}(?=「)/gm, '\n'],
 
+	...lazymarks['clear_002'],
+
 	...lazymarks['class'],
 	//...lazymarks['zh_cht'],
 
 	//...lazymarks['unit'],
+
+	...lazymarks['ln_0010'],
 
 	...lazymarks['4'],
 
@@ -224,6 +228,8 @@ export const words: IWords[] = _word_zh_all([
 	...lazymarks['2'],
 	...lazymarks['3'],
 	...lazymarks['5'],
+
+	...lazymarks['ln_talk'],
 
 ] as IWords[]);
 
