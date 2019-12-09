@@ -19,6 +19,7 @@ export default array_unique(`
 吔
 吚哩咕哩
 吥
+嗥
 吧
 吧啦
 吪
@@ -130,6 +131,7 @@ export default array_unique(`
 吧嗒
 吧
 嗒
+卟
 嘁
 嘚
 唔噗
