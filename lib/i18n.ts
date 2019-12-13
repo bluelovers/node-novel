@@ -79,7 +79,7 @@ export function loadLocales(name, basepath = localesPath): {
 	{
 		if (e.code == 'MODULE_NOT_FOUND')
 		{
-			console.red(e.toString());
+			console.red.log(`MODULE_NOT_FOUND`, e.toString());
 		}
 		else
 		{
