@@ -67,7 +67,7 @@ describe(relative(__filename), () =>
 		testLazymarks.forEach(testCase => {
 
 			// @ts-ignore
-			it(NodeUtil.inspect(testCase.title || testCase.txt), function ()
+			it(NodeUtil.inspect(testCase.title || testCase.txt), function (done)
 			{
 				//console.log('it:inner', currentTest.title);
 				//console.log('it:inner', currentTest.fullTitle());
@@ -76,7 +76,10 @@ describe(relative(__filename), () =>
 
 				currentTest[SymbolLogOutput] = actual;
 
-				expect(actual).to.be.not.deep.equal(testCase.txt);
+				if (!testCase.skipCheckDeepEqual)
+				{
+					expect(actual).to.be.not.deep.equal(testCase.txt);
+				}
 
 				if (!Array.isArray(testCase.match))
 				{
@@ -89,6 +92,7 @@ describe(relative(__filename), () =>
 
 				});
 
+				done();
 			});
 
 		});

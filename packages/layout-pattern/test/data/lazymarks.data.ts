@@ -7,6 +7,8 @@ export const testLazymarks: {
 	words: IWordsAll[];
 	txt: string;
 	match: ITSValueOrArray<RegExp>;
+
+	skipCheckDeepEqual?: boolean,
 }[] = [
 
 	{
@@ -15,6 +17,13 @@ export const testLazymarks: {
 
 「哈，哈……」`,
 		match: /[』」]\n[「『]/,
+	},
+
+	{
+		words: lazymarks.replace_001,
+		txt: `「【PARALYZE】！【PARALYZE】！」`,
+		match: /「【PARALYZE】！【PARALYZE】！」/,
+		skipCheckDeepEqual: true,
 	},
 
 ];
