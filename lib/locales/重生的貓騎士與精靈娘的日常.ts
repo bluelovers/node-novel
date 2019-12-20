@@ -167,7 +167,7 @@ export const words_source: IPatternRule["words_source"] = [
 	[`水${sp}咆哮`, '水・咆哮'],
 
 	_word_en3('Ether-Howling', '以太・咆哮'),
-	_word_jp1('ウォーター・ハウリング|空氣─咆哮', '以太・咆哮'),
+	_word_jp1('エーテルハウリング|空氣─咆哮', '以太・咆哮'),
 
 	_word_jp1('スキル喰奪', '技能喰奪'),
 
