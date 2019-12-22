@@ -163,7 +163,7 @@ export function fixTargetFile(pathMain: string, novelID: string, targetFile: str
 }
 
 export function findTargetPattern(pathMain: string, novelID: string, targetFile: string, currentTest: {
-	cb(_t_new: string, value: IWordsRuntime): any
+	cb(_t_new: string, value: IWordsRuntime, index: number, words: IWordsRuntime[]): any
 })
 {
 	return Bluebird.resolve()
@@ -184,12 +184,13 @@ export function findTargetPattern(pathMain: string, novelID: string, targetFile:
 			const words = _my_words(myLocales, inited);
 
 			let _t = _t_old;
+			let _i: number = 0;
 
 			for (let value of words)
 			{
 				let _t_new = novelText.replace_row(_t, value);
 
-				let bool = currentTest.cb(_t_new, value);
+				let bool = currentTest.cb(_t_new, value, _i++, words);
 
 				if (bool)
 				{
