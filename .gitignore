@@ -47,3 +47,4 @@ project.config.local.*
 /test/**/*.d.ts
 /test/**/*.js
 /tsconfig.tsbuildinfo
+!/test/find-pattern.ts
