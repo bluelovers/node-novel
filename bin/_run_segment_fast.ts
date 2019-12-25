@@ -46,7 +46,7 @@ if (arr_ids.length == 0 && fs.existsSync(_cache_file))
 	console.info(`使用上次執行的目錄`, arr_ids);
 }
 
-if (arr_ids.length != 1)
+if (arr_ids.length > 2)
 {
 	throw new Error(util.inspect(arr_ids, {
 		colors: true,

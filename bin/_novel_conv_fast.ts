@@ -86,6 +86,7 @@ Promise
 			cwd: cwd_path,
 			useDefaultPatternsExclude: true,
 			absolute: true,
+			throwEmpty: false,
 		};
 
 		{
