@@ -62,6 +62,12 @@ export default array_unique(`
 乓乒
 哧嘭
 哧
+咚
+哐
+咚哐
+噼咉
+噼
+咉
 嘭
 吥嚕
 唦溜
