@@ -1728,6 +1728,8 @@ lazymarks['jp1'] = _word_zh_all([
 
 	_word_jp1('ペット', '寵物'),
 
+	_word_jp1('キーボード', '鍵盤'),
+
 ]);
 
 lazymarks['class'] = _word_zh_all([
