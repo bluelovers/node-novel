@@ -1778,7 +1778,7 @@ lazymarks['c000'] = _word_zh_all([
 	],
 
 	[
-		/(?<![ァ-ヴーｱ-ﾝﾞｰ])(ー+)(?=[\u4E00-\u9FFF])/g, function (...m)
+		/(?<![ァ-ヴーｱ-ﾝﾞｰ])(ー+)(?=[\u4E00-\u9FFF」！])/g, function (...m)
 	{
 		return '─'.repeat(m[1].length)
 	},
