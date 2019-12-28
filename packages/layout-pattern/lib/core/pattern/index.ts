@@ -1,5 +1,5 @@
 import { killBadPx } from '../helper';
-import { _word_en, _word_en3, _word_jp1, _word_zh_all } from '../word';
+import { _word_en, _word_en3, _word_jp1, _word_zh_all, _word_en2 } from '../word';
 import { toFullWidth, toHalfWidth, toFullNumber, toFullEnglish } from 'str-util';
 import { IWords } from '../word';
 import { console } from 'debug-color2';
@@ -947,14 +947,29 @@ let _en = [
 
 lazymarks['en'] = [
 
-	_word_en(/[a-z][a-z']*/, function (...m)
+//	_word_en(/[a-z][a-z']*/, function (...m)
+//	{
+//		if (m[2].match(/([a-z]{2,})(?:\1)|([a-z])\2{2,}/i))
+//		{
+//			return m[0];
+//		}
+//
+//		return m[1] + m[2].replace(/^[a-z]/, function (s)
+//		{
+//			return s.toUpperCase();
+//		});
+//	}, 'g'),
+
+	_word_en3(`[a-z${EN_REGEXP}][a-z'${EN_REGEXP}]*`, function (...m)
 	{
-		if (m[2].match(/([a-z]{2,})(?:\1)|([a-z])\2{2,}/i))
+		let re = new RegExp(`([a-z${EN_REGEXP}]{2,})(?:\\1)|([a-z])\\2{2,}`, 'i')
+
+		if (m[1].match(re))
 		{
 			return m[0];
 		}
 
-		return m[1] + m[2].replace(/^[a-z]/, function (s)
+		return m[1].replace(/^[a-z]/, function (s)
 		{
 			return s.toUpperCase();
 		});
