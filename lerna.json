@@ -2,6 +2,12 @@
   "packages": [
     "packages/*"
   ],
+  "command": {
+    "publish": {
+      "ignoreChanges": ["lib/locales/*", "test/**"],
+      "message": "chore(release): publish"
+    }
+  },
   "npmClient": "yarn",
   "useWorkspaces": true,
   "version": "independent"
