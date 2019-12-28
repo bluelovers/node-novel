@@ -4,7 +4,7 @@
   ],
   "command": {
     "publish": {
-      "ignoreChanges": ["lib/locales/*", "test/**"],
+      "ignoreChanges": ["lib/locales/*", "test/**/*", "node_modules"],
       "message": "chore(release): publish"
     }
   },
