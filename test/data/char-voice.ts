@@ -340,6 +340,7 @@ export default array_unique(`
 庫嘶
 啪嘰嗯
 泥啾
+咔鈴
 咔嘰
 撲簌
 吭

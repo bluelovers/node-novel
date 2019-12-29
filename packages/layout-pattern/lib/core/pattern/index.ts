@@ -4,7 +4,7 @@ import { toFullWidth, toHalfWidth, toFullNumber, toFullEnglish } from 'str-util'
 import { IWords } from '../word';
 import { console } from 'debug-color2';
 import { _re_cjk_conv as _re_cjk_conv2 } from 'regexp-helper/lib/cjk-conv';
-import { EN_REGEXP, _full_num, _zh_num, _zh_num2, ZH_WORD_CHAR_REGEXP } from '../const';
+import { EN_REGEXP, _full_num, _zh_num, _zh_num2, ZH_WORD_CHAR_REGEXP, EN_REGEXP2 } from '../const';
 import { ILazyMarkKey, EnumLazyMarkKeys } from '../pattern-keys';
 
 /**
@@ -960,7 +960,7 @@ lazymarks['en'] = [
 //		});
 //	}, 'g'),
 
-	_word_en3(`[a-z${EN_REGEXP}][a-z'${EN_REGEXP}]*`, function (...m)
+	_word_en3(`[a-z${EN_REGEXP2}][a-z'${EN_REGEXP2}]*`, function (...m)
 	{
 		let re = new RegExp(`([a-z${EN_REGEXP}]{2,})(?:\\1)|([a-z])\\2{2,}`, 'i')
 

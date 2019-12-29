@@ -21,6 +21,11 @@ export let _full_num = '０１２３４５６７８９';
 export const EN_REGEXP = /\w\u0100-\u017F\u0400-\u04FF\u00A1-\u00FF\u0180-\u024f/.source;
 
 /**
+ * 英文
+ */
+export const EN_REGEXP2 = /\u0041-\u007A\u0100-\u017F\u0400-\u04FF\u00A1-\u00FF\u0180-\u024f/.source;
+
+/**
  * 判斷是否為中文字與相關符號 作為排版偵測用
  */
 export const ZH_WORD_CHAR_REGEXP = `！？…⋯－─—\\w０-９ａ-ｚＡ-Ｚ『』·＝\\u4E00-\\u9FFF\\u4E00-\\u9FAF\\u3000-\\u30FF\\u2200-\\u22FF\\u2e80-\\u33ffh`;
