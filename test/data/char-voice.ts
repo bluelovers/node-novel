@@ -332,7 +332,9 @@ export default array_unique(`
 噗哧
 嗷吼
 嗷嗚
+噠
 哧
+唏
 嗷
 啪喳
 啪
@@ -342,6 +344,8 @@ export default array_unique(`
 泥啾
 咔鈴
 咯吱
+呀嚯
+唔哇
 咔嘰
 撲簌
 吭
