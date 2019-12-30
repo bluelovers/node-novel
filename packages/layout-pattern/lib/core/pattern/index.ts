@@ -960,7 +960,7 @@ lazymarks['en'] = [
 //		});
 //	}, 'g'),
 
-	_word_en3(`[a-z${EN_REGEXP2}][a-z'${EN_REGEXP2}]*`, function (...m)
+	_word_en3(`[a-z${EN_REGEXP2}][a-z'${EN_REGEXP}]*`, function (...m)
 	{
 		let re = new RegExp(`([a-z${EN_REGEXP}]{2,})(?:\\1)|([a-z])\\2{2,}`, 'i')
 
