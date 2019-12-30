@@ -341,6 +341,7 @@ export default array_unique(`
 啪嘰嗯
 泥啾
 咔鈴
+咯吱
 咔嘰
 撲簌
 吭
