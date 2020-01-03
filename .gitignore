@@ -48,3 +48,4 @@ project.config.local.*
 /test/**/*.js
 /tsconfig.tsbuildinfo
 !/test/find-pattern.ts
+!/test/script/
