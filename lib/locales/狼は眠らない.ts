@@ -21,6 +21,28 @@ export const words_source: IPatternRule["words_source"] = [
 	//_word_jp1('日文原名專用', '日文原名專用'),
 	//_word_en3('英文專用', '英文專用'),
 
+	['朱維德\\*莫爾', '朱維德莫爾'],
+	['贊吉\\*卡埃爾', '贊吉卡埃爾'],
+
+	_word_jp1('ザーグ', '薩格'),
+	_word_en3('Zerg', '薩格'),
+
+
+	_word_jp1('エイフン', '艾文'),
+	_word_jp1('チェイニー', '傑尼'),
+
+	[`札克。寨卡茲`, '札克・寨卡茲'],
+
+	_word_jp1('磁波魯特', '茨波魯特'),
+
+	_word_jp1('ルビアナフェル|路比安菲露|盧比安菲爾|露比安菲露', '露比安菲露'),
+
+	_word_jp1('加斯科|加斯可|ガスコー', '加斯科'),
+
+	_word_jp1('斑恰拉|斑洽拉', '斑恰拉'),
+
+	['系統譜', '系譜'],
+
 ];
 
 /**
@@ -32,6 +54,8 @@ export const words_layout: IPatternRule["words_layout"] = [
 
 	[/^([\d０-９]+)[。\.]*\n+/gm, '$1\n\n'],
 	[/\n+([\d０-９]+)[。\.]*$/gm, '\n\n\n$1'],
+
+	[/\）\n\n\（/g, '）\n（'],
 
 	...lazymarks['class'],
 	...lazymarks['class_002'],
@@ -66,7 +90,7 @@ export const words_layout: IPatternRule["words_layout"] = [
 	/**
 	 * 適用於具有大量長段 而只縮減對話之間的空格使用
 	 */
-	//...lazymarks['ln_talk'],
+	...lazymarks['ln_talk'],
 
 ];
 
