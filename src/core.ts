@@ -293,6 +293,19 @@ export function searchLocalesID(ids: string[], localesPath: string)
 
 		let p = path.join(localesPath, name);
 
+		try
+		{
+			if (require.resolve(p))
+			{
+				myLocalesID = name;
+				break;
+			}
+		}
+		catch (e)
+		{
+
+		}
+
 		if (fs.existsSync(p + '.ts'))
 		{
 			myLocalesID = name;

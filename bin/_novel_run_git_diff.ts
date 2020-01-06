@@ -80,6 +80,8 @@ Promise
 		}
 
 		let cp = crossSpawn.sync('node', [
+			'-r',
+			'ts-node/register',
 			path.join(__dirname, '../src/novel-demo'),
 			'-m',
 			pathMain || '',
