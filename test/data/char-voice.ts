@@ -48,6 +48,9 @@ export default array_unique(`
 呀
 咕呶
 咕
+啪噠
+啪
+噠
 呶嗚
 啪嘶
 呶

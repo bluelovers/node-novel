@@ -28,6 +28,8 @@ export const words_source: IPatternRule["words_source"] = [
  */
 export const words_layout: IPatternRule["words_layout"] = [
 
+	['(\\S)\\n{1,2}(?=[一-九]　)', '$1\n\n\n', 'gm'],
+
 	...lazymarks['clear_002'],
 
 	...lazymarks['class'],
