@@ -132,7 +132,10 @@ export default array_unique(`
 噼嗒
 嗒哩
 啵喲
+鎗
 噗喲
+㕷
+啪
 呣喲
 咔嗒
 咻啪
