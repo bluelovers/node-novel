@@ -17,7 +17,7 @@ export const lang = '';
 /**
  * 在這裡放此小說專屬的取代樣本
  */
-export const words_source: IWords[] = [
+export const words_source_old: IWords[] = [
 
 	_word_jp1('阿諾斯|アノス|阿斯諾|亞諾斯', '阿諾斯'),
 	_word_jp1('沃勒迪戈|ヴォルディゴード|沃爾迪哥德|伏爾迪哥德|伏爾迪歌德|沃尓迪哥徳|沃爾迪斯哥', '沃爾迪哥德'),
@@ -86,7 +86,6 @@ export const words_source: IWords[] = [
 	_word_jp1('シン|辛', '辛'),
 	_word_jp1('レグリア|雷格里亞', '雷格里亞'),
 
-
 	_word_jp1('米瑟|ミサ|米薩', '米瑟'),
 	_word_jp1('伊利奧羅格|イリオローグ', '伊利奧羅格'),
 
@@ -108,13 +107,7 @@ export const words_source: IWords[] = [
 
 ];
 
-/**
- * 實際使用的取代樣式
- */
-export const words: IWords[] = _word_zh_all([
-
-	...words_source,
-
+export const words_old: IWords[] = _word_zh_all([
 	['成長(Kurusuto|（クルスト）)', '成長'],
 	['契約(Zekuri|ゼクト|（ゼクト）)', '契約'],
 	['蘇生(Ingaru|（インガル）|インガル)', '蘇生'],
@@ -151,6 +144,20 @@ export const words: IWords[] = _word_zh_all([
 	['(破滅|毀滅)の魔眼', '破滅的魔眼'],
 
 	['(蓮葉|荷葉)氷の(指輪|戒指)', '蓮葉冰的戒指'],
+]);
+
+export const words_source: IWords[] = [
+
+
+
+];
+
+/**
+ * 實際使用的取代樣式
+ */
+export const words: IWords[] = _word_zh_all([
+
+	...words_source,
 
 	[/^[　 ]+/gm, ''],
 
@@ -159,11 +166,11 @@ export const words: IWords[] = _word_zh_all([
 
 	['▪', '・'],
 
-	_word_jp1('醬|ちゃん', '醬'),
+	//_word_jp1('醬|ちゃん', '醬'),
 
 	...lazymarks['clear_002'],
 
-	...lazymarks['class'],
+	//...lazymarks['class'],
 	//...lazymarks['zh_cht'],
 
 	//...lazymarks['unit'],
