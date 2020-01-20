@@ -171,7 +171,7 @@ export const words: IWords[] = _word_zh_all([
 	...lazymarks['clear_002'],
 
 	//...lazymarks['class'],
-	//...lazymarks['zh_cht'],
+	...lazymarks['zh_cht'],
 
 	//...lazymarks['unit'],
 
