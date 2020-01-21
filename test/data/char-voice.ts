@@ -136,11 +136,15 @@ export default array_unique(`
 噗喲
 㕷
 啪
+嘍
 呣喲
 咔嗒
 咻啪
 啵
 噗噶
+咯
+叩
+嚄
 庫吚
 咚轟
 噫喵
