@@ -3,7 +3,7 @@
  */
 
 import { IPatternRule } from '@node-novel/layout-pattern/lib/core/types';
-import { lazymarks } from '@node-novel/layout-pattern/lib/core/pattern/index';
+import { lazymarks } from '@node-novel/layout-pattern/lib/core/pattern';
 
 export * from '@node-novel/layout-pattern/lib/rules/demo'
 
