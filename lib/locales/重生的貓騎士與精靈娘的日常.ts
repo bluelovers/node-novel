@@ -38,7 +38,7 @@ export const words_source: IPatternRule["words_source"] = [
 	_word_jp1('ホズィルズネッガー', '霍茲尼格爾'),
 
 	_word_jp1('ヴァルカンズ', '薇兒卡斯'),
-	_word_jp1('ヴァルカン|伏爾坎|伏爾甘|維爾干|伏爾干|維爾幹|薇爾卡|瓦爾肯', '薇兒卡'),
+	_word_jp1('ヴァルカン|伏爾坎|伏爾甘|維爾干|伏爾干|維爾幹|薇爾卡|瓦爾肯|瓦爾坎|瓦爾乾|瓦爾干', '薇兒卡'),
 
 	_word_jp1('サクラ', '櫻'),
 
@@ -56,7 +56,7 @@ export const words_source: IPatternRule["words_source"] = [
 	_word_jp1('ハワード', '霍華德'),
 
 	_word_jp1('ケニー|肯尼|凱尼', '凱妮'),
-	_word_jp1('マリエッタ|瑪麗塔', '瑪麗埃塔'),
+	_word_jp1('マリエッタ|瑪麗塔|瑪麗葉塔', '瑪麗埃塔'),
 
 	/**
 	 *
@@ -91,7 +91,7 @@ export const words_source: IPatternRule["words_source"] = [
 	_word_jp1('ガイゼル', '蓋澤魯'),
 	_word_jp1('アウシューラ', '奧修拉'),
 
-	_word_jp1('ジュリウス', '朱利烏斯'),
+	_word_jp1('ジュリウス|朱莉烏斯', '朱利烏斯'),
 	_word_jp1('アウシューラ', '奧修拉'),
 
 	_word_jp1('ベルゼビュート', '貝露澤碧尤特'),
@@ -227,6 +227,11 @@ export const words_source: IPatternRule["words_source"] = [
 	_word_jp1('アダマンタイト', '精金'),
 
 	_word_jp1('アーティファクト', '神器'),
+	_word_jp1('アーティファクトスミス', '神器鍛造師'),
+
+	_word_jp1('天鵝絨|テンペストブリンガー', '暴風劍'),
+
+	_word_jp1('マナダイト|馬納戴伊合金', '萬應礦'),
 
 	/**
 	 *
