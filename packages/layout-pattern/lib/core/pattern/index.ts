@@ -1531,6 +1531,8 @@ lazymarks['zh'] = _word_zh_all([
 
 	['[晕]', '暈'],
 
+	['[窓]', '窗'],
+
 ]);
 
 lazymarks['zh_cht'] = _word_zh_all([
