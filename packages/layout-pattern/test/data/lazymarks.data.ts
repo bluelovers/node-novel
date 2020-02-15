@@ -26,4 +26,14 @@ export const testLazymarks: {
 		skipCheckDeepEqual: true,
 	},
 
+	{
+		words: lazymarks.ln,
+		txt: `尽管没有说话，但公主的眼神中除了冷冽的威严，还掺杂了几分看不出是怜悯还是哀伤的情绪。
+
+†††
+
+「求你住手啊！！」`,
+		match: /\n\n\n†/,
+	},
+
 ];
