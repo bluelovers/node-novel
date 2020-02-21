@@ -139,6 +139,9 @@ export default array_unique(`
 嘍
 呣喲
 咔嗒
+咿嘎
+咿
+嘎
 咻啪
 啵
 噗噶
