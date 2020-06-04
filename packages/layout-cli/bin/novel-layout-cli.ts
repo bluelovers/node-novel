@@ -1,21 +1,14 @@
 #!/usr/bin/env node
 
-import yargs = require('yargs');
+import yargs from 'yargs';
 import { handleGlob } from '../lib';
 //import isNpx = require("is-npx");
-import PACKAGE_JSON = require('../package.json');
-import updateNotifier = require('update-notifier');
+import PACKAGE_JSON from '../package.json';
+import updateNotifier from '@yarn-tool/update-notifier';
 import { isNpx } from '@yarn-tool/is-npx';
 import { IRuleListKey } from '@node-novel/layout-pattern/lib/rules-keys';
 
-if (!isNpx({
-	__dirname,
-}))
-{
-	updateNotifier({
-		pkg: PACKAGE_JSON,
-	}).notify();
-}
+updateNotifier([__dirname, '..'])
 
 const argv = yargs
 	.option('cwd', {

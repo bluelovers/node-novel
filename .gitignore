@@ -49,3 +49,9 @@ project.config.local.*
 /tsconfig.tsbuildinfo
 !/test/find-pattern.ts
 !/test/script/
+
+
+!packages/**/*.d.ts
+!packages/**/*.js
+/yarn-error.log
+*.map

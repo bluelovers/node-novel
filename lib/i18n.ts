@@ -2,7 +2,7 @@
  * Created by user on 2017/12/9/009.
  */
 
-import * as i18next from 'i18next';
+import i18next from 'i18next';
 import * as StrUtil from 'str-util';
 import * as path from 'path';
 import { console } from 'debug-color2';
@@ -64,7 +64,9 @@ export function loadLocales(name, basepath = localesPath): {
 		let c = require.resolve(id);
 		//console.log(c);
 
-		let i = require(id);
+		let i = {
+			...require(id),
+		};
 
 		if (i.lang === '' || i.lang === null)
 		{

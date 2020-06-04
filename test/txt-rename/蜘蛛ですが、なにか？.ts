@@ -2,7 +2,7 @@
  * Created by user on 2018/3/7/007.
  */
 
-import * as Promise from 'bluebird';
+import Bluebird from 'bluebird';
 import { cn2tw_min } from 'cjk-conv/lib/zh/convert/min';
 import * as crossSpawn from 'cross-spawn-extra';
 import * as fs from 'fs-extra';
@@ -151,7 +151,7 @@ let _space = ' 　\\t \\s';
 		process.exit();
 	}
 
-	let ls = await Promise
+	let ls = await Bluebird
 		.mapSeries(globby([
 			'**/*.txt',
 			'!**/~*',

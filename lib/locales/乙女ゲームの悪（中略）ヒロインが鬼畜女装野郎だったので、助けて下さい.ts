@@ -7,7 +7,7 @@ import { _word_en, _word_en3, _word_jp1, _word_zh_all } from '@node-novel/layout
 import { IWords, vMaybe, IWordsAll } from '@node-novel/layout-pattern/lib/core/word';
 import { sp, sp2 } from '@node-novel/layout-pattern/lib/core/const';
 import { IPatternRule } from '@node-novel/layout-pattern/lib/core/types';
-import * as StrUtil from 'str-util';
+import StrUtil from 'str-util';
 
 /**
  * 改成小說名字

@@ -3,20 +3,16 @@
  */
 
 import { console } from 'debug-color2';
-import * as fs from 'fs-extra';
-import * as iconv from 'iconv-jschardet';
-import * as path from "path";
-import * as yargs from 'yargs';
-import { replace_name_list } from '../lib/fs/txt-rename';
+import fs from 'fs-extra';
+import path from "path";
+import yargs from 'yargs';
 import gitDiffIDNovelID from '../lib/git';
 import { trimTxtLine } from '../lib/util';
 import ProjectConfig from '../project.config';
 import { _replace_list_001, getNovel, globNovel } from './lib/util';
 import Bluebird = require('bluebird');
 import novelText from 'novel-text';
-import { _word_zh_all, lazymarks } from '../lib/locales/lib/index';
-import * as util from 'util';
-import * as fsIconv from 'fs-iconv';
+import util from 'util';
 import { contextEmpty, loadFileAutoDecode } from '../lib/fs/load';
 
 let cli = yargs

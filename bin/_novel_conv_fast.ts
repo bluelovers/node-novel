@@ -7,7 +7,7 @@ import * as path from 'path';
 import gitDiffIDNovelID, { gitDiffStagedFile } from '../lib/git';
 import { freeGC, trimTxtLine } from '../lib/util';
 import ProjectConfig from '../project.config';
-import Promise = require('bluebird');
+import Bluebird = require('bluebird');
 import * as fs from 'fs-extra';
 import { array_unique } from '../lib/func';
 import novelInfo, { mdconf_parse, IMdconfMeta } from 'node-novel-info';
@@ -53,7 +53,7 @@ else if (arr_ids.length == 0 && fs.existsSync(_cache_file))
 	console.info(`使用上次執行的目錄`, arr_ids);
 }
 
-Promise
+Bluebird
 	.mapSeries(arr_ids, async function ({
 		pathMain,
 		novelID,
@@ -120,7 +120,7 @@ Promise
 			do_cn2tw_min_options.safe = false;
 		}
 
-		let ls = await Promise
+		let ls = await Bluebird
 			.mapSeries(novelGlobby
 				.globbyASync([
 					...escapeGlob(files),

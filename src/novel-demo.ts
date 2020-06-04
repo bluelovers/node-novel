@@ -2,23 +2,20 @@
  * Created by user on 2017/12/8/008.
  */
 
-import Bluebird = require('bluebird');
-//import Promise = require('bluebird');
+import Bluebird from 'bluebird';
 import prettyuse = require('prettyuse');
-//import * as execall from 'execall';
-//import execall = require('execall2');
 import { execall } from 'execall2';
-import * as fs from 'fs-extra';
+import fs from 'fs-extra';
 import { lazyAnalyzeReportAll, lazyAnalyzeAll } from '@node-novel/layout-reporter';
 
-import * as iconv from 'iconv-jschardet';
+import iconv from 'iconv-jschardet';
 
 import * as novelGlobby from 'node-novel-globby';
 //import novelText from 'novel-text';
 import novelText from '@node-novel/layout';
 import path from 'upath2';
 
-import * as yargs from 'yargs';
+import yargs from 'yargs';
 import { array_unique } from '../lib/func';
 import { loadLocales, locales_def } from '../lib/i18n';
 import { freeGC } from '../lib/util';

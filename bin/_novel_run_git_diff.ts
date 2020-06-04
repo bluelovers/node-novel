@@ -6,7 +6,7 @@ import * as crossSpawn from 'cross-spawn-extra';
 import * as path from 'path';
 import gitDiffIDNovelID from '../lib/git';
 import ProjectConfig from '../project.config';
-import * as Promise from 'bluebird';
+import Bluebird from 'bluebird';
 import * as fs from 'fs-extra';
 import { IMdconfMeta, mdconf_parse } from 'node-novel-info';
 import * as yargs from 'yargs';
@@ -36,7 +36,7 @@ else if (arr_ids.length == 0 && fs.existsSync(_cache_file))
 
 const localesPath = path.join(ProjectConfig.project_root, './lib/locales');
 
-Promise
+Bluebird
 	.mapSeries(arr_ids, async function ({
 		pathMain,
 		novelID,

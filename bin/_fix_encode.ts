@@ -2,24 +2,18 @@
  * Created by user on 2018/5/21/021.
  */
 
-import * as crossSpawn from 'cross-spawn-extra';
-import * as path from 'path';
+import path from 'path';
 import gitDiffIDNovelID from '../lib/git';
-import { freeGC, trimTxtLine } from '../lib/util';
 import ProjectConfig from '../project.config';
-import Promise = require('bluebird');
-import * as fs from 'fs-extra';
-import { array_unique } from '../lib/func';
+import Bluebird from 'bluebird';
+import fs from 'fs-extra';
 import novelInfo, { mdconf_parse, IMdconfMeta } from 'node-novel-info';
-import * as yargs from 'yargs';
+import yargs from 'yargs';
 import { console } from 'debug-color2';
-import prettyuse = require('prettyuse');
+import prettyuse from 'prettyuse';
 import * as novelGlobby from 'node-novel-globby';
-import * as iconv from 'iconv-jschardet';
-import { tw2cn_min, cn2tw_min, tableCn2TwDebug, tableTw2CnDebug } from 'cjk-conv/lib/zh/convert/min';
-import * as util from 'util';
+import util from 'util';
 import { do_cn2tw_min } from './lib/conv';
-import novelText from 'novel-text';
 import { contextEmpty, loadFileAutoDecode } from '../lib/fs/load';
 
 let cli = yargs
@@ -50,7 +44,7 @@ else if (arr_ids.length == 0 && fs.existsSync(_cache_file))
 	console.info(`使用上次執行的目錄`, arr_ids);
 }
 
-Promise
+Bluebird
 	.mapSeries(arr_ids, async function ({
 		pathMain,
 		novelID,
@@ -110,7 +104,7 @@ Promise
 			do_cn2tw_min_options.safe = false;
 		}
 
-		let ls = await Promise
+		let ls = await Bluebird
 			.mapSeries(novelGlobby
 				.globbyASync(globby_patterns, globby_options)
 				.tap(async function (ls)

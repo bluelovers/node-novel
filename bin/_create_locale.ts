@@ -7,7 +7,7 @@ import * as path from 'path';
 import gitDiffIDNovelID, { getLocalesPath, localesPath, searchLocalesID } from '../lib/git';
 import { freeGC } from '../lib/util';
 import ProjectConfig from '../project.config';
-import Promise = require('bluebird');
+import Bluebird = require('bluebird');
 import * as fs from 'fs-extra';
 import { array_unique } from '../lib/func';
 import novelInfo, { mdconf_parse, IMdconfMeta } from 'node-novel-info';
@@ -44,7 +44,7 @@ if (arr_ids.length != 1)
 	}));
 }
 
-Promise
+Bluebird
 	.mapSeries(arr_ids, async function ({
 		pathMain,
 		novelID,

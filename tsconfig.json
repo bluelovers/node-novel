@@ -1,13 +1,3 @@
 {
-  "extends": "@bluelovers/tsconfig",
-  "compilerOptions": {
-
-    "diagnostics": true,
-
-    "showConfig": true,
-
-    "locale": "zh-TW",
-    "preserveConstEnums": true
-  },
-  "locale": "zh-TW"
+  "extends": "@bluelovers/tsconfig/esm/mapfile.json"
 }

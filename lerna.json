@@ -4,8 +4,31 @@
   ],
   "command": {
     "publish": {
-      "ignoreChanges": ["lib/locales/*", "test/**/*", "node_modules"],
-      "message": "chore(release): publish"
+      "ignoreChanges": [
+        "lib/locales/*",
+        "test/**/*",
+        "node_modules",
+        "**/node_modules/**",
+        "**/__snapshots__/**",
+        "**/__fixtures__/**",
+        "**/__tests__/**",
+        "**/__tests__/**",
+        "*.map",
+        "*.spec.*",
+        "*.test.*",
+        "packages/cjk-conv/test/list.ts",
+        ".gitrepo"
+      ],
+      "message": "chore(release): publish",
+      "bump": "patch",
+      "conventionalCommits": true,
+      "conventionalGraduate": false
+    },
+    "run": {
+      "stream": true
+    },
+    "exec": {
+      "stream": true
     }
   },
   "npmClient": "yarn",

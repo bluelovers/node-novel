@@ -4,10 +4,10 @@
 
 import { IMyLocales, stringify } from './core';
 import * as novelGlobby from 'node-novel-globby';
-import * as Bluebird from 'bluebird';
+import Bluebird from 'bluebird';
 import path from 'upath2';
-import * as fs from 'fs-extra';
-import novelInfo, { array_unique } from 'node-novel-info';
+import fs from 'fs-extra';
+import novelInfo from 'node-novel-info';
 import { load_pattern, make_pattern_md } from './pattern_output';
 import { lazyAnalyzeReportAll, lazyAnalyzeAll, handleJa002 } from '@node-novel/layout-reporter';
 import { outputJa002 } from '@node-novel/layout-reporter/lib/md';

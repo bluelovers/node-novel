@@ -1,7 +1,8 @@
 {
   "name": "@node-novel/layout-pattern",
   "version": "1.0.19",
-  "description": "",
+  "description": "<description>",
+  "keywords": [],
   "homepage": "https://github.com/bluelovers/node-novel#readme",
   "bugs": {
     "url": "https://github.com/bluelovers/node-novel/issues"
@@ -11,38 +12,44 @@
     "url": "git+https://github.com/bluelovers/node-novel.git"
   },
   "license": "ISC",
-  "author": "",
+  "author": "bluelovers",
   "main": "index.js",
   "directories": {
     "lib": "lib",
+    "doc": "docs",
     "test": "test"
   },
   "scripts": {
-    "build:pattern:keys": "ts-node ./scripts/build-pattern-keys && tsc ./lib/core/pattern-keys.ts && tsc ./lib/rules-keys.ts",
     "coverage": "npx nyc npm run test",
     "lint": "npx eslint **/*.ts",
-    "ncu": "npx yarn-tool ncu -u",
-    "npm:publish": "npm publish",
-    "prepublishOnly": "npm run ncu && npm run sort-package-json && yarn run build:pattern:keys",
-    "postpublish": "echo postpublish",
-    "sort-package-json": "npx sort-package-json ./package.json",
+    "pretest": "yarn run build:pattern:keys",
     "test": "npx mocha --require ts-node/register !(node_modules)/**/*.{test,spec}.{ts,tsx}",
+    "build:pattern:keys": "ts-node ./scripts/build-pattern-keys && tsc ./lib/core/pattern-keys.ts && tsc ./lib/rules-keys.ts",
+    "npm:publish": "npm publish",
+    "npm:publish:lerna": "npx lerna publish --yes --cd-version patch",
+    "prepublish:lockfile": "npx sync-lockfile .",
+    "prepublishOnly": "yarn run test",
+    "prepublishOnly_": "yarn run ncu && yarn run sort-package-json && yarn run test",
+    "postpublish": "echo postpublish",
+    "postpublish_": "git commit -m \"chore(release): publish\" .",
+    "ncu": "npx yarn-tool ncu -u",
+    "sort-package-json": "npx yarn-tool sort",
     "tsc:default": "tsc -p tsconfig.json.tpl",
     "tsc:esm": "tsc -p tsconfig.esm.json"
   },
   "dependencies": {
-    "@node-novel/layout": "^2.0.5",
+    "@node-novel/layout": "^2.0.8",
     "debug-color2": "^1.1.7",
     "deepmerge-plus": "^2.1.3",
-    "regexp-cjk": "^3.3.10",
-    "regexp-helper": "^1.0.8",
+    "regexp-cjk": "^3.3.40",
+    "regexp-helper": "^1.0.10",
     "str-util": "^2.3.21",
-    "tieba-harmony": "^1.3.0"
+    "tieba-harmony": "^2.0.0"
   },
   "devDependencies": {
     "@bluelovers/fast-glob": "^3.0.4",
-    "case": "^1.6.2",
-    "fs-extra": "^8.1.0"
+    "case": "^1.6.3",
+    "fs-extra": "^9.0.1"
   },
   "publishConfig": {
     "access": "public"
