@@ -2,8 +2,8 @@
  * Created by user on 2018/9/16/016.
  */
 
-import * as crossSpawn from 'cross-spawn-extra';
-import * as path from 'path';
+import crossSpawn from 'cross-spawn-extra';
+import path from 'path';
 import ProjectConfig from '../project.config';
 import { array_unique, lazy_unique } from 'array-hyper-unique';
 import { defaultSortCallback } from '@node-novel/sort';

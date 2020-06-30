@@ -16,6 +16,8 @@
         "*.map",
         "*.spec.*",
         "*.test.*",
+        "dist_novel/",
+        "**/dist_novel/**",
         "packages/cjk-conv/test/list.ts",
         ".gitrepo"
       ],
@@ -23,6 +25,10 @@
       "bump": "patch",
       "conventionalCommits": true,
       "conventionalGraduate": false
+    },
+    "version": {
+      "conventionalCommits": true,
+      "changelogPreset": "@bluelovers/conventional-changelog-bluelovers"
     },
     "run": {
       "stream": true
