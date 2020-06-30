@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.22](https://github.com/bluelovers/node-novel/compare/@node-novel/layout-pattern@1.0.21...@node-novel/layout-pattern@1.0.22) (2020-06-30)
+
+
+### ♻️　Chores
+
+* update deps ([d9c8d6b](https://github.com/bluelovers/node-novel/commit/d9c8d6bb9b4f31496a5a390adb950c9bb7f4131d))
+
+
+
+
+
 ## [1.0.21](https://github.com/bluelovers/node-novel/compare/@node-novel/layout-pattern@1.0.20...@node-novel/layout-pattern@1.0.21) (2020-06-10)
 
 
