@@ -55,3 +55,5 @@ project.config.local.*
 !packages/**/*.js
 /yarn-error.log
 *.map
+node_modules
+/node_modules/
