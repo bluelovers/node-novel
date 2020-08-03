@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.13](https://github.com/bluelovers/node-novel/compare/@node-novel/layout-cli@1.0.12...@node-novel/layout-cli@1.0.13) (2020-08-03)
+
+
+### 🛠　Build System
+
+* update build ([b10676d](https://github.com/bluelovers/node-novel/commit/b10676d1fea942a9fc3432e9e1de1c711501bade))
+
+
+### ♻️　Chores
+
+* update deps ([7e74883](https://github.com/bluelovers/node-novel/commit/7e74883adc57bd6b795ab3a88d72c98a58e25feb))
+
+
+
+
+
 ## [1.0.12](https://github.com/bluelovers/node-novel/compare/@node-novel/layout-cli@1.0.11...@node-novel/layout-cli@1.0.12) (2020-06-30)
 
 

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.7](https://github.com/bluelovers/node-novel/compare/@node-novel/layout-reporter@1.0.6...@node-novel/layout-reporter@1.0.7) (2020-08-03)
+
+
+### ♻️　Chores
+
+* update deps ([7e74883](https://github.com/bluelovers/node-novel/commit/7e74883adc57bd6b795ab3a88d72c98a58e25feb))
+
+
+
+
+
 ## [1.0.6](https://github.com/bluelovers/node-novel/compare/@node-novel/layout-reporter@1.0.5...@node-novel/layout-reporter@1.0.6) (2020-06-30)
 
 
