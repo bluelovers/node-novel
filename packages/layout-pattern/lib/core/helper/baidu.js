@@ -7,10 +7,7 @@ var __createBinding = (this && this.__createBinding) || (Object.create ? (functi
     o[k2] = m[k];
 }));
 var __exportStar = (this && this.__exportStar) || function(m, exports) {
-    for (var p in m) if (p !== "default" && !exports.hasOwnProperty(p)) __createBinding(exports, m, p);
-};
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
+    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getTable = void 0;
@@ -19,7 +16,7 @@ exports.getTable = void 0;
  */
 const word_1 = require("../word");
 __exportStar(require("tieba-harmony"), exports);
-const tieba_harmony_1 = __importDefault(require("tieba-harmony"));
+const tieba_harmony_1 = require("tieba-harmony");
 const deepmerge_plus_1 = require("deepmerge-plus");
 function getTable(options = {}) {
     options = deepmerge_plus_1.deepmerge(options, {
@@ -40,7 +37,7 @@ function getTable(options = {}) {
             '全裸',
         ],
     });
-    return word_1._word_zh_all(tieba_harmony_1.default.getTable(options));
+    return word_1._word_zh_all(tieba_harmony_1.getTable(options));
 }
 exports.getTable = getTable;
 exports.default = getTable;

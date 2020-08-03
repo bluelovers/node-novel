@@ -4,10 +4,10 @@
 import { IWords, _word_zh_all } from '../word';
 
 export * from 'tieba-harmony';
-import tiebaHarmony from 'tieba-harmony';
+import { IOptions, getTable as _getTable } from 'tieba-harmony';
 import { deepmerge } from 'deepmerge-plus';
 
-export function getTable(options: tiebaHarmony.IOptions = {}): IWords[]
+export function getTable(options: IOptions = {}): IWords[]
 {
 	options = deepmerge(options, {
 		tables: [
@@ -32,7 +32,7 @@ export function getTable(options: tiebaHarmony.IOptions = {}): IWords[]
 		],
 	});
 
-	return _word_zh_all(tiebaHarmony.getTable(options));
+	return _word_zh_all(_getTable(options));
 }
 
 export default getTable
