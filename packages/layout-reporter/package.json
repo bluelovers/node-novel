@@ -34,11 +34,11 @@
   },
   "dependencies": {
     "array-chunk-split": "^1.0.5",
-    "array-hyper-unique": "^1.1.8",
-    "execall2": "^2.0.2",
+    "array-hyper-unique": "^1.1.9",
+    "execall2": "^2.0.7",
     "json5": "^2.1.3",
     "string-natural-compare": "^3.0.1",
-    "ts-type": "^1.2.23"
+    "ts-type": "^1.2.32"
   },
   "devDependencies": {
     "@types/json5": "^0.0.30"
