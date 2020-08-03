@@ -948,6 +948,7 @@ exports.lazymarks['zh'] = word_1._word_zh_all([
     ['[⼈]', '人'],
     ['[⾁]', '肉'],
     ['[⽪]', '皮'],
+    ['[勐]', '猛'],
 ]);
 exports.lazymarks['zh_cht'] = word_1._word_zh_all([
     ['國', '國'],

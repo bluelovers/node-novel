@@ -1554,6 +1554,8 @@ lazymarks['zh'] = _word_zh_all([
 	['[⾁]', '肉'],
 	['[⽪]', '皮'],
 
+	['[勐]', '猛'],
+
 ]);
 
 lazymarks['zh_cht'] = _word_zh_all([
