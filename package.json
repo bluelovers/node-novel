@@ -39,6 +39,7 @@
     "build-novel": "ts-node ./bin/_novel_run_git_diff",
     "build-novel-fast": "ts-node ./bin/_novel_run_git_diff --diff",
     "lerna:publish": "lerna publish --yes --cd-version patch",
+    "lerna:publish:yes": "npx lerna publish --yes --bump patch",
     "prepublishOnly": "npm run test",
     "check-updates": "npx yarn-tool ncu -u && npx yarn-tool sort",
     "create-new-locale": "ts-node ./bin/_create_locale",
