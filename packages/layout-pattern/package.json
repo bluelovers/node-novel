@@ -41,7 +41,7 @@
     "@node-novel/layout": "^2.0.14",
     "debug-color2": "^1.2.3",
     "deepmerge-plus": "^2.1.3",
-    "regexp-cjk": "^3.3.78",
+    "regexp-cjk": "^3.3.80",
     "regexp-helper": "^1.0.18",
     "str-util": "^2.3.26",
     "tieba-harmony": "^2.0.16"
