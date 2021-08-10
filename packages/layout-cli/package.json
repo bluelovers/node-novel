@@ -1,6 +1,6 @@
 {
   "name": "@node-novel/layout-cli",
-  "version": "1.0.15",
+  "version": "1.0.16",
   "description": "<description>",
   "keywords": [],
   "homepage": "https://github.com/bluelovers/node-novel#readme",
@@ -70,5 +70,6 @@
   },
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "gitHead": "1155a4670fabfbbda656a9bf8b15d2ea57a5ed94"
 }
