@@ -1,0 +1,8 @@
+require:
+#  - esm
+  - ts-node/register
+timeout: 0
+color: true
+extension:
+  - ts
+
