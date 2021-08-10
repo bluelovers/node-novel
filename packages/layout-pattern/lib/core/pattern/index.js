@@ -30,8 +30,8 @@ exports.lazymarks['0'] = [
     // u203B     : Weird asterisk thing
     //〖号〗
     let word = const_1.ZH_WORD_CHAR_REGEXP;
-    let word1 = cjk_conv_1._re_cjk_conv().source;
-    let word2 = cjk_conv_1._re_cjk_conv().source.replace(/^\[|\]$/g, '');
+    let word1 = (0, cjk_conv_1._re_cjk_conv)().source;
+    let word2 = (0, cjk_conv_1._re_cjk_conv)().source.replace(/^\[|\]$/g, '');
     exports.lazymarks['1'] = [
         [/，(?=。)$/gm, ''],
         [/(?<=[「」【】《》“”‘’『』（）\[\]"])。$/gm, ''],
@@ -323,7 +323,7 @@ exports.lazymarks['4'] = [
     [/^[。，]$/gm, '\n'],
     [
         /[\!\(\):~∞&%]+/g, function (...m) {
-            return str_util_1.toFullWidth(m[0], {
+            return (0, str_util_1.toFullWidth)(m[0], {
                 skip: {
                     space: true,
                 },
@@ -332,7 +332,7 @@ exports.lazymarks['4'] = [
     ],
     [
         /([^\d０-９])(,)(?![\d０-９])/ig, function (...m) {
-            return m[1] + str_util_1.toFullWidth(m[2], {
+            return m[1] + (0, str_util_1.toFullWidth)(m[2], {
                 skip: {
                     space: true,
                 },
@@ -353,7 +353,7 @@ exports.lazymarks['4'] = [
     */
     [
         /([\d０-９])([\/\-~\+])([\d０-９])/g, function (...m) {
-            return m[1] + str_util_1.toFullWidth(m[2], {
+            return m[1] + (0, str_util_1.toFullWidth)(m[2], {
                 skip: {
                     space: true,
                 },
@@ -364,7 +364,7 @@ exports.lazymarks['4'] = [
     [/([\u4E00-\u9FFF\w\d０-９])\*([\d０-９]+)/g, '$1×$2'],
     [
         /(?<=[\u4E00-\u9FFF！？…⋯－—])([a-z])(?=[\u4E00-\u9FFF])/ig, function (...m) {
-            return str_util_1.toFullWidth(m[1].toUpperCase(), {
+            return (0, str_util_1.toFullWidth)(m[1].toUpperCase(), {
                 skip: {
                     space: true,
                 },
@@ -373,7 +373,7 @@ exports.lazymarks['4'] = [
     ],
     [
         /\?+(?=[』」\n])/g, function (...m) {
-            return str_util_1.toFullWidth(m[0], {
+            return (0, str_util_1.toFullWidth)(m[0], {
                 skip: {
                     space: true,
                 },
@@ -382,7 +382,7 @@ exports.lazymarks['4'] = [
     ],
     [
         /([\u4E00-\u9FFF])(\?+)(?=[』」\n ][^\u4E00-\u9FFF])/g, function (...m) {
-            return m[1] + str_util_1.toFullWidth(m[2], {
+            return m[1] + (0, str_util_1.toFullWidth)(m[2], {
                 skip: {
                     space: true,
                 },
@@ -437,7 +437,7 @@ exports.lazymarks['ln_talk'] = [
     [/(^[「『][^\n]+[』」])\n\n(?=[「『][^\n]+[』」]$)/gm, '$1\n'],
 ];
 exports.lazymarks['ln'] = [
-    [/^([　 ]*[\-\=＝－─＊◇◆☆◊\*─＝=══－～\-─—\*＊＊↣◇◆★■□☆◊]+[\-\=＝－─＊◇◆☆◊\*─＝=══－\-─—\*＊＊◇◆■□☆◊　 ]*)。$/g, '$1'],
+    [/^([　 ]*[‐\-\=＝－─＊◇◆☆◊\*─＝=══－～\-─—\*＊＊↣◇◆★■□☆◊]+[‐\-\=＝－─＊◇◆☆◊\*─＝=══－\-─—\*＊＊◇◆■□☆◊　 ]*)。$/g, '$1'],
     //['([。”])\n+[,，﹑]\n+', '$1\n\n'],
     [/^[,，﹑]$/gm, ''],
     [/^(「[^\n」]+)\n*((?:\n[^\n「」]+)*)\n*(\n[^\n「]+」)/gm, '$1$2$3'],
@@ -562,7 +562,7 @@ exports.lazymarks['en'] = [
     //			return s.toUpperCase();
     //		});
     //	}, 'g'),
-    word_1._word_en3(`[a-z${const_1.EN_REGEXP2}][a-z'${const_1.EN_REGEXP}]*`, function (...m) {
+    (0, word_1._word_en3)(`[a-z${const_1.EN_REGEXP2}][a-z'${const_1.EN_REGEXP}]*`, function (...m) {
         let re = new RegExp(`([a-z${const_1.EN_REGEXP}]{2,})(?:\\1)|([a-z])\\2{2,}`, 'i');
         if (m[1].match(re)) {
             return m[0];
@@ -572,12 +572,12 @@ exports.lazymarks['en'] = [
         });
     }, 'g'),
     ..._en.map(function (value) {
-        return word_1._word_en(value);
+        return (0, word_1._word_en)(value);
     }),
 ];
 //console.log(lazymarks['en']);
 exports.lazymarks['en2'] = [
-    word_1._word_en(/[a-z]+/, function (...m) {
+    (0, word_1._word_en)(/[a-z]+/, function (...m) {
         if (m[2].match(/([a-z]{2,})(?:\1)/i)) {
             return m[0];
         }
@@ -586,7 +586,7 @@ exports.lazymarks['en2'] = [
         });
     }, 'g'),
     ..._en.map(function (value) {
-        return word_1._word_en(value, /[a-z]/.test(value) ? function (...m) {
+        return (0, word_1._word_en)(value, /[a-z]/.test(value) ? function (...m) {
             if (!/[a-z]/.test(m[2])) {
                 return m[0];
             }
@@ -594,7 +594,7 @@ exports.lazymarks['en2'] = [
         } : null);
     }),
 ];
-exports.lazymarks['zh'] = word_1._word_zh_all([
+exports.lazymarks['zh'] = (0, word_1._word_zh_all)([
     /**
      * 難以辨認的簡繁日 字替換
      */
@@ -956,7 +956,7 @@ exports.lazymarks['zh'] = word_1._word_zh_all([
     ['[抜]', '拔'],
     ['[収]', '收'],
 ]);
-exports.lazymarks['zh_cht'] = word_1._word_zh_all([
+exports.lazymarks['zh_cht'] = (0, word_1._word_zh_all)([
     ['國', '國'],
     ['姫|姬', '姬'],
     ['壞', '壞'],
@@ -973,7 +973,7 @@ exports.lazymarks['zh_cht'] = word_1._word_zh_all([
     ['樂', '樂'],
     ['絕', '絕'],
 ]);
-exports.lazymarks['zh2'] = word_1._word_zh_all([
+exports.lazymarks['zh2'] = (0, word_1._word_zh_all)([
     [/([两一-十])只(手)/g, '$1隻$2'],
     ['娼婦|娼婦', '娼婦'],
     ['飯餸|飯餚', '飯餚'],
@@ -1026,52 +1026,52 @@ exports.lazymarks['zh2'] = word_1._word_zh_all([
     ['気圧', '氣壓'],
     ['前仆後繼', '前仆後繼'],
 ]);
-exports.lazymarks['jp1'] = word_1._word_zh_all([
-    word_1._word_jp1('プロローグ|序章', '序章'),
-    word_1._word_jp1('パーティ|隊伍', '隊伍'),
-    word_1._word_jp1('スキル|技能', '技能'),
-    word_1._word_jp1('ステータス|狀態', '狀態'),
-    word_1._word_jp1('ギルド', '公會'),
-    word_1._word_jp1('ゴブリン|哥布林', '哥布林'),
-    word_1._word_jp1('プレイヤー|玩家', '玩家'),
-    word_1._word_jp1('ゲーム|遊戲', '遊戲'),
-    word_1._word_jp1('レベル|等級', '等級'),
-    word_1._word_jp1('任務|クエスト', '任務'),
-    word_1._word_jp1('矮人|ドワーフ', '矮人'),
-    word_1._word_jp1('キャラクター', '角色'),
-    word_1._word_jp1('キャラ', '角色'),
-    word_1._word_jp1('ダンジョン', '迷宮'),
-    word_1._word_jp1('スライム', '史萊姆'),
-    word_1._word_jp1('ヤンデレ', '病嬌'),
-    word_1._word_jp1('アーティファクト', '神器'),
-    word_1._word_jp1('さん', '桑'),
-    word_1._word_jp1('ちゃん', '醬'),
-    word_1._word_jp1('メイド', '女僕'),
-    word_1._word_jp1('ほら', '嚯啦'),
-    word_1._word_jp1('ええっと', '誒哆'),
-    word_1._word_jp1('マスケット', '鳥銃'),
-    word_1._word_jp1('マッチロック', '火縄銃'),
-    word_1._word_jp1('フリントロック', '燧發槍'),
-    word_1._word_jp1('オリハルコン', '奧里哈鋼'),
-    word_1._word_jp1('フォン', '馮'),
-    word_1._word_jp1('ムービー', '電影'),
-    word_1._word_jp1('バンパイア', '吸血鬼'),
-    word_1._word_jp1('チョコ', '巧克力'),
-    word_1._word_jp1('システム', '系統'),
-    word_1._word_jp1('ハーフリング', '半身人'),
-    word_1._word_jp1('ワイバーン', '飛竜'),
-    word_1._word_jp1('キメラ', '奇美拉'),
-    word_1._word_jp1('ヒヒイロカネ', '緋緋色金'),
-    word_1._word_jp1('ケルベロス', '刻耳柏洛斯'),
-    word_1._word_jp1('ガーゴイル', '石像鬼'),
-    word_1._word_jp1('ふふ', '呋呋'),
-    word_1._word_jp1('やれ', '呀咧'),
-    word_1._word_jp1('マンティコア', '蠍尾獅'),
-    word_1._word_jp1('ヨルムンガンド', '耶夢加得'),
-    word_1._word_jp1('ペット', '寵物'),
-    word_1._word_jp1('キーボード', '鍵盤'),
+exports.lazymarks['jp1'] = (0, word_1._word_zh_all)([
+    (0, word_1._word_jp1)('プロローグ|序章', '序章'),
+    (0, word_1._word_jp1)('パーティ|隊伍', '隊伍'),
+    (0, word_1._word_jp1)('スキル|技能', '技能'),
+    (0, word_1._word_jp1)('ステータス|狀態', '狀態'),
+    (0, word_1._word_jp1)('ギルド', '公會'),
+    (0, word_1._word_jp1)('ゴブリン|哥布林', '哥布林'),
+    (0, word_1._word_jp1)('プレイヤー|玩家', '玩家'),
+    (0, word_1._word_jp1)('ゲーム|遊戲', '遊戲'),
+    (0, word_1._word_jp1)('レベル|等級', '等級'),
+    (0, word_1._word_jp1)('任務|クエスト', '任務'),
+    (0, word_1._word_jp1)('矮人|ドワーフ', '矮人'),
+    (0, word_1._word_jp1)('キャラクター', '角色'),
+    (0, word_1._word_jp1)('キャラ', '角色'),
+    (0, word_1._word_jp1)('ダンジョン', '迷宮'),
+    (0, word_1._word_jp1)('スライム', '史萊姆'),
+    (0, word_1._word_jp1)('ヤンデレ', '病嬌'),
+    (0, word_1._word_jp1)('アーティファクト', '神器'),
+    (0, word_1._word_jp1)('さん', '桑'),
+    (0, word_1._word_jp1)('ちゃん', '醬'),
+    (0, word_1._word_jp1)('メイド', '女僕'),
+    (0, word_1._word_jp1)('ほら', '嚯啦'),
+    (0, word_1._word_jp1)('ええっと', '誒哆'),
+    (0, word_1._word_jp1)('マスケット', '鳥銃'),
+    (0, word_1._word_jp1)('マッチロック', '火縄銃'),
+    (0, word_1._word_jp1)('フリントロック', '燧發槍'),
+    (0, word_1._word_jp1)('オリハルコン', '奧里哈鋼'),
+    (0, word_1._word_jp1)('フォン', '馮'),
+    (0, word_1._word_jp1)('ムービー', '電影'),
+    (0, word_1._word_jp1)('バンパイア', '吸血鬼'),
+    (0, word_1._word_jp1)('チョコ', '巧克力'),
+    (0, word_1._word_jp1)('システム', '系統'),
+    (0, word_1._word_jp1)('ハーフリング', '半身人'),
+    (0, word_1._word_jp1)('ワイバーン', '飛竜'),
+    (0, word_1._word_jp1)('キメラ', '奇美拉'),
+    (0, word_1._word_jp1)('ヒヒイロカネ', '緋緋色金'),
+    (0, word_1._word_jp1)('ケルベロス', '刻耳柏洛斯'),
+    (0, word_1._word_jp1)('ガーゴイル', '石像鬼'),
+    (0, word_1._word_jp1)('ふふ', '呋呋'),
+    (0, word_1._word_jp1)('やれ', '呀咧'),
+    (0, word_1._word_jp1)('マンティコア', '蠍尾獅'),
+    (0, word_1._word_jp1)('ヨルムンガンド', '耶夢加得'),
+    (0, word_1._word_jp1)('ペット', '寵物'),
+    (0, word_1._word_jp1)('キーボード', '鍵盤'),
 ]);
-exports.lazymarks['class'] = word_1._word_zh_all([
+exports.lazymarks['class'] = (0, word_1._word_zh_all)([
     ['(錬|炼)金術', '錬金術'],
     ['術(师|師)', '術師'],
     ['賢者', '賢者'],
@@ -1090,11 +1090,12 @@ exports.lazymarks['class'] = word_1._word_zh_all([
     ['結界', '結界'],
     ['樞機卿|枢機卿', '樞機卿'],
 ]);
-exports.lazymarks['class_002'] = word_1._word_zh_all([
+exports.lazymarks['class_002'] = (0, word_1._word_zh_all)([
     ['哥雷姆|格雷姆', '格雷姆'],
     ['阿[拉剌]克[尼涅涅妮捏]|阿剌克涅|阿剌克捏', '阿剌克涅'],
+    //['拉米[亚亞娅雅]|阿米拉米亚克|拉米亚克|拉米那克', '拉米亞'],
 ]);
-exports.lazymarks['c000'] = word_1._word_zh_all([
+exports.lazymarks['c000'] = (0, word_1._word_zh_all)([
     [/\uFEFF/g, ''],
     [/[ \u00a0\xA0\t]/g, ' '],
     //[/[　\u3000]/g, '　'],
@@ -1106,7 +1107,7 @@ exports.lazymarks['c000'] = word_1._word_zh_all([
     [/[〕］]/g, '］'],
     [/﹖/g, '？'],
     // 單一橫線
-    [/[―—﹘]/ug, '—'],
+    [/[―—﹘‐]/ug, '—'],
     [
         /(?<=[\u4E00-\u9FFF])(ー+)/g, function (...m) {
             return '─'.repeat(m[1].length);
@@ -1120,8 +1121,9 @@ exports.lazymarks['c000'] = word_1._word_zh_all([
     [/([^ぁ-んァ-ヴーｱ-ﾝﾞｰ])ー(?=[\u4E00-\u9FFF])/g, '$1─'],
     // 無視線之間的空白
     ['— —', '——'],
+    //['｜', '｜'],
 ]);
-exports.lazymarks['c050'] = word_1._word_zh_all([
+exports.lazymarks['c050'] = (0, word_1._word_zh_all)([
     [/[\.・。]{3}/g, '…'],
     [/(?<=…)[\.・。]{1,2}|[\.・]{1,2}(?=[…⋯])/g, '…'],
     [/[\.・。]{2}/g, '…'],
@@ -1129,7 +1131,7 @@ exports.lazymarks['c050'] = word_1._word_zh_all([
     [
         /([…⋯─師賴法也額吗么近錢只是得嗎處備了題色組激生来本由謊幣币麼思伙人君呵恩呣中嗯樣噢喏个容子嘞跑聊咧話的蛤哦技哎掉喵狂熱要地系勒毒妹誒暑呀萬笑者雄办喔我營恋道心帥變會則女害做個族策車號吧桑後兒王啦拉蹈具哈对事破偶娘令嗯手鼻槍辦喲襲嘛欸著咦船家留貓到能呢來啊冊數阿用喬牲辈何誰國裡忙勢涉好場吶加裏吧了哟趣里做样前桶诶谁物量見醬在係～！？][\?!]+|[\?!]+[」…⋯）！])/ug,
         function (...m) {
-            return str_util_1.toFullWidth(m[0], {
+            return (0, str_util_1.toFullWidth)(m[0], {
                 skip: {
                     space: true,
                 },
@@ -1140,7 +1142,7 @@ exports.lazymarks['c050'] = word_1._word_zh_all([
     [/(?<=[ \u4E00-\u9FFF\u{20000}-\u{2FA1F}])\.(?=[ ])/ug, '。'],
     [
         /(?<=[\u4E00-\u9FFF\u{20000}-\u{2FA1F}])([?+])(?=[\u4E00-\u9FFF\u{20000}-\u{2FA1F}])/ug,
-        s => str_util_1.toFullWidth(s),
+        s => (0, str_util_1.toFullWidth)(s),
     ],
     [/(?<=[\u4E00-\u9FFF\u{20000}-\u{2FA1F}])\.(?=[\u4E00-\u9FFF\u{20000}-\u{2FA1F}])/ug, '・'],
     [/[\.．・]([』」》）】])/g, '。$1'],
@@ -1153,18 +1155,18 @@ exports.lazymarks['c050'] = word_1._word_zh_all([
     [/[｛]([^\n]+?)[}]/g, '｛$1｝'],
     [/[{]([^\n]+?)[｝]/g, '｛$1｝'],
 ]);
-exports.lazymarks['c100'] = word_1._word_zh_all([
+exports.lazymarks['c100'] = (0, word_1._word_zh_all)([
     [
-        /^[ ]*([─＝═=══－一\-─—\*＊＊◇◆☆◊▃\.…⋯\.─＾]+)(?:(?:原文自帶)?分(?:割|隔)線|這?是?作者的?分隔線|我?是?分(?:隔|割)线|以下正文|場景線|华丽+分割线|分割|華麗+分割線|作者自加的分割線|正文|作者的話|這是原文的?分隔線|代表小節結束的分割線)+([──＝═=══－一\-─—\*＊＊◇◆☆◊▃…⋯\.＾]+)[ ]*$/gm,
+        /^[ ]*([─＝═=══－一‐\-─—\*＊＊◇◆☆◊▃\.…⋯\.─＾]+)(?:(?:原文自帶)?分(?:割|隔)線|這?是?作者的?分隔線|我?是?分(?:隔|割)线|以下正文|場景線|华丽+分割线|分割|華麗+分割線|作者自加的分割線|正文|作者的話|這是原文的?分隔線|代表小節結束的分割線)+([──＝═=══－一‐\-─—\*＊＊◇◆☆◊▃…⋯\.＾]+)[ ]*$/gm,
         '$1$2',
     ],
     [
-        /^([─＝═=══－\-─—\*＊＊◇◆☆◊▃…＾]+)分([─＝═=══－\-─—\*＊＊◇◆☆◊▃…⋯＾]*)割([─＝═=══－\-─—\*＊＊◇◆☆◊▃…⋯＾]*)线([─＝═=══－\-─—\*＊＊◇◆☆◊▃…⋯＾]*)$/gm,
+        /^([─＝═=══－‐\-─—\*＊＊◇◆☆◊▃…＾]+)分([─＝═=══－‐\-─—\*＊＊◇◆☆◊▃…⋯＾]*)割([─＝═=══－\-─—\*＊＊◇◆☆◊▃…⋯＾]*)线([─＝═=══－‐\-─—\*＊＊◇◆☆◊▃…⋯＾]*)$/gm,
         '$1$2$3$4',
     ],
     // 無間斷的 -
     [
-        /[－\-─—–]{2,}|[－\-─—–](?=[』」》）])/g, function (...m) {
+        /[－‐\-─—–]{2,}|[－‐\-─—–](?=[』」》）])/g, function (...m) {
             //return m[0].replace(/[－\-─—]/g, '─');
             return '─'.repeat(m[0].length);
         },
@@ -1176,7 +1178,7 @@ exports.lazymarks['c100'] = word_1._word_zh_all([
         },
     ],
     [
-        /([─＝=══－\-─—\*＊＊◇◆☆◊▃–＾_＾])\1{9,}/g, function (...m) {
+        /([─＝=══－‐\-─—\*＊＊◇◆☆◊▃–＾_＾])\1{9,}/g, function (...m) {
             //return m[0].replace(/[－\-─—]/g, '─');
             return m[1].repeat(20 || 51);
         },
@@ -1199,27 +1201,27 @@ exports.lazymarks['c100'] = word_1._word_zh_all([
     [/([\u4E00-\u9FFF])\-(?![\w\-+])/g, '$1─'],
     [/([ 　])\-([\u4E00-\u9FFF])/g, '$1─$2'],
     [/(?<=[\u4E00-\u9FFF])=(?=[\u4E00-\u9FFF])/g, '＝'],
-    [/^\s*(?=[─－\-─—–]+)/, ''],
+    [/^\s*(?=[─－‐\-─—–]+)/, ''],
 ]);
-exports.lazymarks['unit'] = word_1._word_zh_all([
+exports.lazymarks['unit'] = (0, word_1._word_zh_all)([
     [
         /(?<!\w)[\d０-９]+(?:px|ｐｘ)(?!\w)/ig, function (...m) {
-            let s = helper_1.killBadPx(m[0]);
-            return str_util_1.toFullWidth(s || m[0]);
+            let s = (0, helper_1.killBadPx)(m[0]);
+            return (0, str_util_1.toFullWidth)(s || m[0]);
         },
     ],
 ]);
-exports.lazymarks['full_width_001'] = word_1._word_zh_all([
-    word_1._word_en(/\d+(?:(?:,|\.)\d+)*/g, function (...m) {
-        return m[1] + str_util_1.toFullNumber(m[2]);
+exports.lazymarks['full_width_001'] = (0, word_1._word_zh_all)([
+    (0, word_1._word_en)(/\d+(?:(?:,|\.)\d+)*/g, function (...m) {
+        return m[1] + (0, str_util_1.toFullNumber)(m[2]);
     }),
 ]);
-exports.lazymarks['full_width_002'] = word_1._word_zh_all([
-    word_1._word_en3(/[a-z]/ig, function (...m) {
-        return str_util_1.toFullEnglish(m[1]);
+exports.lazymarks['full_width_002'] = (0, word_1._word_zh_all)([
+    (0, word_1._word_en3)(/[a-z]/ig, function (...m) {
+        return (0, str_util_1.toFullEnglish)(m[1]);
     }),
-    word_1._word_en3(/(?:s|x){2,3}/ig, function (...m) {
-        return str_util_1.toFullEnglish(m[1]);
+    (0, word_1._word_en3)(/(?:s|x){2,3}/ig, function (...m) {
+        return (0, str_util_1.toFullEnglish)(m[1]);
     }),
 ]);
 exports.default = exports.lazymarks;

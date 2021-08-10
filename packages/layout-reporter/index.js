@@ -2,13 +2,11 @@
 /**
  * Created by user on 2019/7/18.
  */
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.lazyAnalyzeReportAll = exports.lazyAnalyzeAll = exports.handleBlock002 = exports.analyzeBlock002 = exports.handleJa002 = exports.analyzeJa002 = exports.handleJa001 = exports.analyzeJa001 = exports.dummyCache = void 0;
+const tslib_1 = require("tslib");
 const execall2_1 = require("execall2");
-const string_natural_compare_1 = __importDefault(require("string-natural-compare"));
+const string_natural_compare_1 = (0, tslib_1.__importDefault)(require("string-natural-compare"));
 const array_hyper_unique_1 = require("array-hyper-unique");
 const array_chunk_split_1 = require("array-chunk-split");
 const util_1 = require("./lib/util");
@@ -27,7 +25,7 @@ function dummyCache(data) {
 exports.dummyCache = dummyCache;
 function analyzeJa001(data) {
     const RE_JA_001 = new RegExp(`^[^\\nぁ-んァ-ヴーｱ-ﾝﾞ]*?([『「]*[ぁ-んァ-ヴーｱ-ﾝﾞｰ]{2,}[」』]*(?:[『「？、…。＋０-９Ａ-Ｚａ-ｚ（）！]*[ぁ-んァ-ヴーｱ-ﾝﾞｰ]*[」』]*)*)[^\\n]*?$`, 'uigm');
-    let _m = execall2_1.execall(RE_JA_001, data.input, {
+    let _m = (0, execall2_1.execall)(RE_JA_001, data.input, {
         removeHiddenData: true,
     });
     if (_m && _m.length) {
@@ -43,7 +41,7 @@ function analyzeJa001(data) {
             .sort(function (a, b) {
             return 0 - (a.sub[0].length - b.sub[0].length);
         });
-        _m = array_chunk_split_1.arrayChunkMap({
+        _m = (0, array_chunk_split_1.arrayChunkMap)({
             inputArray: _m,
             maxChunkLength: MAX,
         })
@@ -75,7 +73,7 @@ function handleJa001(_data) {
 exports.handleJa001 = handleJa001;
 function analyzeJa002(data) {
     const RE_JA_002 = new RegExp(/(?<![ァ-ヴーｱ-ﾝﾞｰ])([ァ-ヴーｱ-ﾝﾞｰ]{2,}(?:[・＝=＝]+[ァ-ヴーｱ-ﾝﾞｰ]+)*)(?![ァ-ヴーｱ-ﾝﾞｰ])/iug, 'uig');
-    let _m = execall2_1.execall(RE_JA_002, data.input, {
+    let _m = (0, execall2_1.execall)(RE_JA_002, data.input, {
         leftContext: true,
         rightContext: true,
         removeHiddenData: true,
@@ -85,7 +83,7 @@ function analyzeJa002(data) {
         const { _cache_key_, _cache } = data;
         const _temp = {};
         for (let m of _m) {
-            let k = util_1.fixJaKey(m[1]);
+            let k = (0, util_1.fixJaKey)(m[1]);
             if (!k) {
                 continue;
             }
@@ -121,10 +119,10 @@ exports.analyzeJa002 = analyzeJa002;
 function handleJa002(_data) {
     return Object.entries(_data)
         .sort(function (a, b) {
-        return string_natural_compare_1.default(a[0], b[0]);
+        return (0, string_natural_compare_1.default)(a[0], b[0]);
     })
         .reduce((a, b) => {
-        let arr = array_hyper_unique_1.array_unique(b[1]);
+        let arr = (0, array_hyper_unique_1.array_unique)(b[1]);
         if (arr.length > MAX * 2) {
             let c0 = arr.shift();
             let c2 = arr.pop();
@@ -143,7 +141,7 @@ function handleJa002(_data) {
             ret.push(c2);
             arr = ret;
         }
-        a[b[0]] = array_chunk_split_1.arrayChunkMap({
+        a[b[0]] = (0, array_chunk_split_1.arrayChunkMap)({
             inputArray: arr,
             maxChunkLength: MAX,
         });
@@ -153,7 +151,7 @@ function handleJa002(_data) {
 exports.handleJa002 = handleJa002;
 function analyzeBlock002(data) {
     const RE_BLOCK_002 = /([^\n\*]{0,3})?([^\n\*]\*{2,}[^\n\*])([^\n\*]{0,3})?/uig;
-    let _m = execall2_1.execall(RE_BLOCK_002, data.input, {
+    let _m = (0, execall2_1.execall)(RE_BLOCK_002, data.input, {
         removeHiddenData: true,
     });
     if (_m && _m.length) {

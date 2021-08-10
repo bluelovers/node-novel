@@ -1,42 +1,21 @@
 "use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getNovelMeta = exports.isGCMode = exports.freeGC = exports.diffPatch = exports.isEmptyFile = exports.fsReadFile = exports.handleContext = exports.printNum = exports.handleGlob = exports.dummyMeta = exports.my_words = exports._my_words = exports.getRule = exports.loadPatternRule = void 0;
+const tslib_1 = require("tslib");
 /**
  * Created by user on 2019/7/13.
  */
-const rules_1 = __importStar(require("@node-novel/layout-pattern/lib/rules"));
-const layout_1 = __importDefault(require("@node-novel/layout"));
+const rules_1 = (0, tslib_1.__importStar)(require("@node-novel/layout-pattern/lib/rules"));
+const layout_1 = (0, tslib_1.__importDefault)(require("@node-novel/layout"));
 const node_novel_info_1 = require("node-novel-info");
-const fs_iconv_1 = __importDefault(require("fs-iconv"));
-const JsDiff = __importStar(require("diff"));
+const fs_iconv_1 = (0, tslib_1.__importDefault)(require("fs-iconv"));
+const JsDiff = (0, tslib_1.__importStar)(require("diff"));
 const debug_color2_1 = require("debug-color2");
-const upath2_1 = __importDefault(require("upath2"));
-const novelGlobby = __importStar(require("node-novel-globby/g"));
-const bluebird_1 = __importDefault(require("bluebird"));
-const deepmerge_plus_1 = __importDefault(require("deepmerge-plus"));
-const prettyuse_1 = __importDefault(require("prettyuse"));
+const upath2_1 = (0, tslib_1.__importDefault)(require("upath2"));
+const novelGlobby = (0, tslib_1.__importStar)(require("node-novel-globby/g"));
+const bluebird_1 = (0, tslib_1.__importDefault)(require("bluebird"));
+const deepmerge_plus_1 = (0, tslib_1.__importDefault)(require("deepmerge-plus"));
+const prettyuse_1 = (0, tslib_1.__importDefault)(require("prettyuse"));
 const layout_reporter_1 = require("@node-novel/layout-reporter");
 const md_1 = require("@node-novel/layout-reporter/lib/md");
 function loadPatternRule(id) {
@@ -49,12 +28,12 @@ function loadPatternRule(id) {
 }
 exports.loadPatternRule = loadPatternRule;
 function getRule(id) {
-    let rule = rules_1.default(id);
+    let rule = (0, rules_1.default)(id);
     return {
         ...rule,
         __id: id,
         words_arr: [],
-        __file: rules_1.getBuildInRulePath(id),
+        __file: (0, rules_1.getBuildInRulePath)(id),
     };
 }
 exports.getRule = getRule;
@@ -130,7 +109,7 @@ function handleGlob(cwd, globby_patterns = [], options = {}) {
         cwd,
         cwd_out,
     });
-    const _cache = layout_reporter_1.dummyCache();
+    const _cache = (0, layout_reporter_1.dummyCache)();
     const _stat = {
         updated: 0,
         added: 0,
@@ -174,7 +153,7 @@ function handleGlob(cwd, globby_patterns = [], options = {}) {
                 allow_nbsp: true,
                 allow_bom: true,
             });
-            layout_reporter_1.lazyAnalyzeAll({
+            (0, layout_reporter_1.lazyAnalyzeAll)({
                 input: _t,
                 _cache_key_,
                 _cache,
@@ -210,7 +189,7 @@ function handleGlob(cwd, globby_patterns = [], options = {}) {
             }
             _stat.files++;
             debug_color2_1.console[color](currentFile, printNum(index, len));
-            debug_color2_1.console.debug(prettyuse_1.default());
+            debug_color2_1.console.debug((0, prettyuse_1.default)());
             freeGC();
         }
         else {
@@ -231,20 +210,20 @@ function handleGlob(cwd, globby_patterns = [], options = {}) {
         }
         if (ls.length > 0) {
             await bluebird_1.default.all([
-                fs_iconv_1.default.outputFile(upath2_1.default.join(cwd_out, 'ja2.md'), md_1.outputJa002({
+                fs_iconv_1.default.outputFile(upath2_1.default.join(cwd_out, 'ja2.md'), (0, md_1.outputJa002)({
                     inputData: _cache.ja2,
                 })),
-                fs_iconv_1.default.outputFile(upath2_1.default.join(cwd_out, 'ja.md'), md_1.outputJa001({
+                fs_iconv_1.default.outputFile(upath2_1.default.join(cwd_out, 'ja.md'), (0, md_1.outputJa001)({
                     inputData: _cache.ja,
                 })),
-                fs_iconv_1.default.outputFile(upath2_1.default.join(cwd_out, '待修正屏蔽字.md'), md_1.outputBlock002({
+                fs_iconv_1.default.outputFile(upath2_1.default.join(cwd_out, '待修正屏蔽字.md'), (0, md_1.outputBlock002)({
                     inputData: _cache.block2,
                 })),
             ]);
         }
         debug_color2_1.console.dir(_stat);
         //console.info(`length: ${ls.length}`);
-        debug_color2_1.console.debug(prettyuse_1.default());
+        debug_color2_1.console.debug((0, prettyuse_1.default)());
     });
 }
 exports.handleGlob = handleGlob;
@@ -320,13 +299,13 @@ function getNovelMeta(paths) {
     let meta;
     for (let cwd_out of paths) {
         if (fs_iconv_1.default.pathExistsSync(upath2_1.default.join(cwd_out, 'README.md'))) {
-            meta = node_novel_info_1.mdconf_parse(fs_iconv_1.default.readFileSync(upath2_1.default.join(cwd_out, 'README.md')));
+            meta = (0, node_novel_info_1.mdconf_parse)(fs_iconv_1.default.readFileSync(upath2_1.default.join(cwd_out, 'README.md')));
         }
         if (meta) {
             break;
         }
     }
-    return deepmerge_plus_1.default({
+    return (0, deepmerge_plus_1.default)({
         options: {
             textlayout: {},
         },

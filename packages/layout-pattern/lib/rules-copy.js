@@ -10,8 +10,8 @@ const rules_1 = require("./rules");
  * 取得內建 規則範本內容 (typescript)
  */
 function getBuildInRuleFileContext(id) {
-    if (rules_1.existsBuildInRule(id)) {
-        return fs_1.readFileSync(rules_1.getBuildInRulePath(id, true));
+    if ((0, rules_1.existsBuildInRule)(id)) {
+        return (0, fs_1.readFileSync)((0, rules_1.getBuildInRulePath)(id, true));
     }
 }
 exports.getBuildInRuleFileContext = getBuildInRuleFileContext;

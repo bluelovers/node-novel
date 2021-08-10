@@ -1,13 +1,11 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.words_callback = exports.words_maybe = exports.words = exports.words_layout = exports.words_source = exports.lang = void 0;
-const pattern_1 = __importDefault(require("@node-novel/layout-pattern/lib/core/pattern"));
+const tslib_1 = require("tslib");
+const pattern_1 = (0, tslib_1.__importDefault)(require("@node-novel/layout-pattern/lib/core/pattern"));
 const word_1 = require("@node-novel/layout-pattern/lib/core/word");
-const baidu_1 = __importDefault(require("@node-novel/layout-pattern/lib/core/helper/baidu"));
-const maybe_1 = __importDefault(require("@node-novel/layout-pattern/lib/core/words/maybe"));
+const baidu_1 = (0, tslib_1.__importDefault)(require("@node-novel/layout-pattern/lib/core/helper/baidu"));
+const maybe_1 = (0, tslib_1.__importDefault)(require("@node-novel/layout-pattern/lib/core/words/maybe"));
 /**
  * 改成小說名字 (可留白 則自動設定為檔案名稱)
  */
@@ -26,7 +24,7 @@ exports.words_source = [
 exports.words_layout = [
     // BOM
     ...pattern_1.default['c000'],
-    ...baidu_1.default(),
+    ...(0, baidu_1.default)(),
     ...pattern_1.default['zh'],
     ...pattern_1.default['zh2'],
     //['(不死者?)[話话]', '$1化'],
@@ -155,7 +153,7 @@ exports.words_layout = [
 /**
  * 實際使用的取代樣式
  */
-exports.words = word_1._word_zh_all([
+exports.words = (0, word_1._word_zh_all)([
     ...exports.words_layout,
 ]);
 /**

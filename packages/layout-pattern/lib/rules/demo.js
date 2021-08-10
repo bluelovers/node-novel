@@ -33,11 +33,25 @@ exports.words_layout = [
     ...pattern_1.lazymarks['2'],
     ...pattern_1.lazymarks['3'],
     ...pattern_1.lazymarks['5'],
+    /**
+     * 無差別將 【】 轉為對話符號
+     * 如果可以盡量不要使用此規則
+     */
+    //...lazymarks['7'],
+    /**
+     * 將可能是對話的 【】 轉為對話符號
+     * 如果可以盡量不要使用此規則
+     */
+    //...lazymarks['8'],
+    /**
+     * 適用於具有大量長段 而只縮減對話之間的空格使用
+     */
+    //...lazymarks['ln_talk'],
 ];
 /**
  * 實際使用的取代樣式
  */
-exports.words = word_1._word_zh_all([
+exports.words = (0, word_1._word_zh_all)([
     ...exports.words_source,
     ...exports.words_layout,
 ]);

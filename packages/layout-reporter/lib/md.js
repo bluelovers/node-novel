@@ -8,7 +8,7 @@ const index_1 = require("../index");
 function outputBlock002(options) {
     let { inputData, title = '待修正屏蔽字', handled } = options;
     if (!handled) {
-        inputData = index_1.handleBlock002(inputData);
+        inputData = (0, index_1.handleBlock002)(inputData);
     }
     return _mdStyle002({
         inputData: inputData,
@@ -22,7 +22,7 @@ exports.outputBlock002 = outputBlock002;
 function outputJa001(options) {
     let { inputData, title = '含有日文的章節段落', handled } = options;
     if (!handled) {
-        inputData = index_1.handleJa001(inputData);
+        inputData = (0, index_1.handleJa001)(inputData);
     }
     return _mdStyle001({
         inputData: inputData,
@@ -36,7 +36,7 @@ exports.outputJa001 = outputJa001;
 function outputJa002(options) {
     let { inputData, title = '待整合的日文', handled } = options;
     if (!handled) {
-        inputData = index_1.handleJa002(inputData);
+        inputData = (0, index_1.handleJa002)(inputData);
     }
     return _mdStyle001({
         inputData,

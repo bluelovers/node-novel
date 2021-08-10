@@ -24,7 +24,7 @@
     "lint": "npx eslint **/*.ts",
     "pretest": "yarn run build:pattern:keys",
     "test": "npx mocha --require ts-node/register !(node_modules)/**/*.{test,spec}.{ts,tsx}",
-    "build:pattern:keys": "ts-node ./scripts/build-pattern-keys && tsc ./lib/core/pattern-keys.ts && tsc ./lib/rules-keys.ts",
+    "build:pattern:keys": "ts-node ./scripts/build-pattern-keys && ynpx build-ts-file ./lib/core/pattern-keys.ts && ynpx build-ts-file ./lib/rules-keys.ts",
     "npm:publish": "npm publish",
     "npm:publish:lerna": "npx lerna publish --yes --cd-version patch",
     "prepublish:lockfile": "npx sync-lockfile .",

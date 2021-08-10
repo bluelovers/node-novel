@@ -12,7 +12,7 @@ const regexp_cjk_1 = require("regexp-cjk");
  * @deprecated
  */
 function _word_en(search, ret = null, flag = 'ig') {
-    return [new RegExp(`(^|[^\\w'’])(${util_1.regex_str(search)})(?![\\w'’])`, flag), ((ret !== null) ? ret : '$1' + search)];
+    return [new RegExp(`(^|[^\\w'’])(${(0, util_1.regex_str)(search)})(?![\\w'’])`, flag), ((ret !== null) ? ret : '$1' + search)];
 }
 exports._word_en = _word_en;
 /**
@@ -20,7 +20,7 @@ exports._word_en = _word_en;
  */
 function _word_en2(search, ret = null, flag = 'ig') {
     return [
-        new RegExp(`(^|[^\\w'’${const_1.EN_REGEXP}])(${util_1.regex_str(search)})(?![\\w'’${const_1.EN_REGEXP}])`, flag),
+        new RegExp(`(^|[^\\w'’${const_1.EN_REGEXP}])(${(0, util_1.regex_str)(search)})(?![\\w'’${const_1.EN_REGEXP}])`, flag),
         ((ret !== null) ? ret : '$1' + search),
     ];
 }
@@ -30,7 +30,7 @@ exports._word_en2 = _word_en2;
  */
 function _word_en3(search, ret = null, flag = 'ig') {
     return [
-        new RegExp(`(?<![\\w'’${const_1.EN_REGEXP}])(${util_1.regex_str2(search)})(?![\\w'’${const_1.EN_REGEXP}])`, flag),
+        new RegExp(`(?<![\\w'’${const_1.EN_REGEXP}])(${(0, util_1.regex_str2)(search)})(?![\\w'’${const_1.EN_REGEXP}])`, flag),
         ((ret !== null) ? ret : search),
     ];
 }
@@ -39,7 +39,7 @@ exports._word_en3 = _word_en3;
  * 配對日文片假名
  */
 function _word_jp1(search, ret = null, flag = 'ig') {
-    return [new RegExp(`(?<![ァ-ヴーｱ-ﾝﾞｰ])(${util_1.regex_str2(search)})(?![ァ-ヴーｱ-ﾝﾞｰ])`, flag), ((ret !== null) ? ret : search)];
+    return [new RegExp(`(?<![ァ-ヴーｱ-ﾝﾞｰ])(${(0, util_1.regex_str2)(search)})(?![ァ-ヴーｱ-ﾝﾞｰ])`, flag), ((ret !== null) ? ret : search)];
 }
 exports._word_jp1 = _word_jp1;
 /**
@@ -49,7 +49,7 @@ exports._word_jp1 = _word_jp1;
  */
 function _word_zh_all(arr) {
     return arr.slice().map(function (value, index, array) {
-        if (Array.isArray(value) && ((typeof value[0] == 'string') || regexp_cjk_1.isRegExp(value[0]))) {
+        if (Array.isArray(value) && ((typeof value[0] == 'string') || (0, regexp_cjk_1.isRegExp)(value[0]))) {
             let [s, ...a] = value.slice();
             if (0 && a.length > 2) {
                 // @ts-ignore
@@ -57,7 +57,7 @@ function _word_zh_all(arr) {
                     return [s, ...a];
                 }
             }
-            s = lib_1._word_zh(s, null)[0];
+            s = (0, lib_1._word_zh)(s, null)[0];
             return [s, ...a];
         }
         return value;
