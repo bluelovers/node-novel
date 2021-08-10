@@ -83,12 +83,23 @@ describe(relative(__filename), () =>
 
 				if (!Array.isArray(testCase.match))
 				{
-					testCase.match = [testCase.match];
+					testCase.match = [testCase.match].filter(v => typeof v !== 'undefined');
+				}
+
+				if (!Array.isArray(testCase.match_not))
+				{
+					testCase.match_not = [testCase.match_not].filter(v => typeof v !== 'undefined');
 				}
 
 				testCase.match.forEach(expected => {
 
 					expect(actual).to.match(expected);
+
+				});
+
+				testCase.match_not?.forEach(expected => {
+
+					expect(actual).not.to.match(expected);
 
 				});
 
