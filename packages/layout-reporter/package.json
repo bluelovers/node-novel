@@ -33,13 +33,13 @@
     "tsc:esm": "tsc -p tsconfig.esm.json"
   },
   "dependencies": {
-    "array-chunk-split": "^1.0.6",
-    "array-hyper-unique": "^1.1.10",
-    "execall2": "^2.0.11",
-    "json5": "^2.2.0",
+    "array-chunk-split": "^2.0.8",
+    "array-hyper-unique": "^2.0.6",
+    "execall2": "^2.0.21",
+    "json5": "^2.2.1",
     "string-natural-compare": "^3.0.1",
-    "ts-type": "^1.2.39",
-    "tslib": "^2.3.0"
+    "ts-type": "^2.1.6",
+    "tslib": "^2"
   },
   "devDependencies": {
     "@types/json5": "^0.0.30"
