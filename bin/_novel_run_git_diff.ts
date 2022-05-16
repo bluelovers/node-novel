@@ -2,7 +2,7 @@
  * Created by user on 2018/5/21/021.
  */
 
-import * as crossSpawn from 'cross-spawn-extra';
+import { sync as crossSpawn } from 'cross-spawn-extra';
 import * as path from 'path';
 import gitDiffIDNovelID from '../lib/git';
 import ProjectConfig from '../project.config';
@@ -14,7 +14,7 @@ import { console } from 'debug-color2';
 import { searchLocalesID, searchMyLocalesID } from '../src/core';
 
 let cli = yargs
-	.argv
+	.parseSync()
 ;
 
 let arr_ids = gitDiffIDNovelID(ProjectConfig.dist_novel_root);
@@ -79,7 +79,7 @@ Bluebird
 			}
 		}
 
-		let cp = crossSpawn.sync('node', [
+		let cp = crossSpawn('node', [
 			'-r',
 			'ts-node/register',
 			path.join(__dirname, '../src/novel-demo'),
@@ -89,7 +89,9 @@ Bluebird
 			myLocalesID || '',
 			'-n',
 			novelID || '',
+			// @ts-ignore
 			'--patternOnly=' + (cli.patternOnly ? 1 : 0).toString(),
+			// @ts-ignore
 			cli.diff && '--diff' || '',
 		], {
 			stdio: 'inherit',
@@ -99,4 +101,3 @@ Bluebird
 		//console.dir(meta);
 	})
 ;
-

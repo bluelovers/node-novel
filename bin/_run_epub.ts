@@ -61,6 +61,7 @@ Bluebird
 		let meta: IMdconfMeta;
 
 		console.log(pathMain, novelID);
+		console.info(cwd_path);
 
 		const inputPath = cwd_path;
 		const outputPath = path.join(ProjectConfig.temp_root, 'epub');
@@ -109,4 +110,3 @@ Bluebird
 		*/
 	})
 	;
-
