@@ -5,17 +5,17 @@ const tslib_1 = require("tslib");
 /**
  * Created by user on 2019/7/13.
  */
-const rules_1 = (0, tslib_1.__importStar)(require("@node-novel/layout-pattern/lib/rules"));
-const layout_1 = (0, tslib_1.__importDefault)(require("@node-novel/layout"));
+const rules_1 = tslib_1.__importStar(require("@node-novel/layout-pattern/lib/rules"));
+const layout_1 = tslib_1.__importDefault(require("@node-novel/layout"));
 const node_novel_info_1 = require("node-novel-info");
-const fs_iconv_1 = (0, tslib_1.__importDefault)(require("fs-iconv"));
-const JsDiff = (0, tslib_1.__importStar)(require("diff"));
+const fs_iconv_1 = tslib_1.__importDefault(require("fs-iconv"));
+const JsDiff = tslib_1.__importStar(require("diff"));
 const debug_color2_1 = require("debug-color2");
-const upath2_1 = (0, tslib_1.__importDefault)(require("upath2"));
-const novelGlobby = (0, tslib_1.__importStar)(require("node-novel-globby/g"));
-const bluebird_1 = (0, tslib_1.__importDefault)(require("bluebird"));
-const deepmerge_plus_1 = (0, tslib_1.__importDefault)(require("deepmerge-plus"));
-const prettyuse_1 = (0, tslib_1.__importDefault)(require("prettyuse"));
+const upath2_1 = tslib_1.__importDefault(require("upath2"));
+const novelGlobby = tslib_1.__importStar(require("node-novel-globby/g"));
+const bluebird_1 = tslib_1.__importDefault(require("bluebird"));
+const deepmerge_plus_1 = tslib_1.__importDefault(require("deepmerge-plus"));
+const prettyuse_1 = tslib_1.__importDefault(require("prettyuse"));
 const layout_reporter_1 = require("@node-novel/layout-reporter");
 const md_1 = require("@node-novel/layout-reporter/lib/md");
 function loadPatternRule(id) {

@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.lazyAnalyzeReportAll = exports.lazyAnalyzeAll = exports.handleBlock002 = exports.analyzeBlock002 = exports.handleJa002 = exports.analyzeJa002 = exports.handleJa001 = exports.analyzeJa001 = exports.dummyCache = void 0;
 const tslib_1 = require("tslib");
 const execall2_1 = require("execall2");
-const string_natural_compare_1 = (0, tslib_1.__importDefault)(require("string-natural-compare"));
+const string_natural_compare_1 = tslib_1.__importDefault(require("string-natural-compare"));
 const array_hyper_unique_1 = require("array-hyper-unique");
 const array_chunk_split_1 = require("array-chunk-split");
 const util_1 = require("./lib/util");

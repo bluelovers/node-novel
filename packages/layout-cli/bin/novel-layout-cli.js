@@ -2,9 +2,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const tslib_1 = require("tslib");
-const yargs_1 = (0, tslib_1.__importDefault)(require("yargs"));
+const yargs_1 = tslib_1.__importDefault(require("yargs"));
 const lib_1 = require("../lib");
-const update_notifier_1 = (0, tslib_1.__importDefault)(require("@yarn-tool/update-notifier"));
+const update_notifier_1 = tslib_1.__importDefault(require("@yarn-tool/update-notifier"));
 (0, update_notifier_1.default)([__dirname, '..']);
 const argv = yargs_1.default
     .option('cwd', {

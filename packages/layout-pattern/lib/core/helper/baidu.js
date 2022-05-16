@@ -6,7 +6,7 @@ const tslib_1 = require("tslib");
  * Created by user on 2018/1/31/031.
  */
 const word_1 = require("../word");
-(0, tslib_1.__exportStar)(require("tieba-harmony"), exports);
+tslib_1.__exportStar(require("tieba-harmony"), exports);
 const tieba_harmony_1 = require("tieba-harmony");
 const deepmerge_plus_1 = require("deepmerge-plus");
 function getTable(options = {}) {

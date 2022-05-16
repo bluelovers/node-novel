@@ -6,8 +6,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.words = exports.words_layout = exports.words_source = void 0;
 const tslib_1 = require("tslib");
 const pattern_1 = require("@node-novel/layout-pattern/lib/core/pattern");
-(0, tslib_1.__exportStar)(require("@node-novel/layout-pattern/lib/rules/demo.lf2"), exports);
-const demoRule = (0, tslib_1.__importStar)(require("@node-novel/layout-pattern/lib/rules/demo.lf2"));
+tslib_1.__exportStar(require("@node-novel/layout-pattern/lib/rules/demo.lf2"), exports);
+const demoRule = tslib_1.__importStar(require("@node-novel/layout-pattern/lib/rules/demo.lf2"));
 const demo_lf2_1 = require("@node-novel/layout-pattern/lib/rules/demo.lf2");
 const word_1 = require("@node-novel/layout-pattern/lib/core/word");
 /**

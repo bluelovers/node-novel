@@ -4,8 +4,8 @@ exports.words_callback = exports.words_maybe = exports.words = exports.words_lay
 const tslib_1 = require("tslib");
 const pattern_1 = require("@node-novel/layout-pattern/lib/core/pattern");
 const word_1 = require("@node-novel/layout-pattern/lib/core/word");
-const baidu_1 = (0, tslib_1.__importDefault)(require("@node-novel/layout-pattern/lib/core/helper/baidu"));
-const maybe_1 = (0, tslib_1.__importDefault)(require("@node-novel/layout-pattern/lib/core/words/maybe"));
+const baidu_1 = tslib_1.__importDefault(require("@node-novel/layout-pattern/lib/core/helper/baidu"));
+const maybe_1 = tslib_1.__importDefault(require("@node-novel/layout-pattern/lib/core/words/maybe"));
 /**
  * 改成小說名字 (可留白 則自動設定為檔案名稱)
  */
