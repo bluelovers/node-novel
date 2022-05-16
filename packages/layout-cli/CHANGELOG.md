@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.19](https://github.com/bluelovers/node-novel/compare/@node-novel/layout-cli@1.0.18...@node-novel/layout-cli@1.0.19) (2022-05-16)
+
+
+### 🔖　Miscellaneous
+
+* . ([66e5feb](https://github.com/bluelovers/node-novel/commit/66e5febd64e446845450754c44cec83c51a54ecc))
+
+
+
+
+
 ## [1.0.18](https://github.com/bluelovers/node-novel/compare/@node-novel/layout-cli@1.0.17...@node-novel/layout-cli@1.0.18) (2022-05-16)
 
 
