@@ -2,7 +2,7 @@
  * Created by user on 2019/5/31.
  */
 
-import deepmerge from 'deepmerge-plus';
+import { deepmerge } from 'deepmerge-plus';
 //import * as execall from 'execall';
 //import execall = require('execall2');
 import * as fs from 'fs-extra';

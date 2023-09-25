@@ -1,5 +1,6 @@
 
-import { isRegExp, zhRegExp } from 'regexp-cjk';
+import { zhRegExp } from 'regexp-cjk';
+import { isRegExp } from 'regexp-helper-core';
 
 export function regex_str(str: RegExp): string
 export function regex_str(str: string): string

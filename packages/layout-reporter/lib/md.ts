@@ -1,5 +1,4 @@
 import { ICacheSource, ICacheOutput, handleJa002, handleJa001, handleBlock002 } from '../index';
-import * as JSON5 from 'json5';
 
 /**
  * 待修正屏蔽字.md

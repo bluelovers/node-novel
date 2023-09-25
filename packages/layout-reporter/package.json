@@ -1,6 +1,6 @@
 {
   "name": "@node-novel/layout-reporter",
-  "version": "1.0.12",
+  "version": "2.0.0",
   "description": "用來解析並且報告 txt 檔內的雜七雜八資訊",
   "keywords": [],
   "homepage": "https://github.com/bluelovers/node-novel#readme",
@@ -27,23 +27,20 @@
     "prepublish:lockfile": "npx sync-lockfile .",
     "postpublish": "echo postpublish",
     "postpublish_": "git commit -m \"chore(release): publish\" .",
-    "ncu": "npx yarn-tool ncu -u",
+    "ncu": "ynpx yarn-tool ncu -u",
     "sort-package-json": "npx yarn-tool sort",
     "tsc:default": "tsc -p tsconfig.json",
     "tsc:esm": "tsc -p tsconfig.esm.json"
   },
   "dependencies": {
-    "array-chunk-split": "^2.0.8",
-    "array-hyper-unique": "^2.0.6",
-    "execall2": "^2.0.21",
-    "json5": "^2.2.1",
-    "string-natural-compare": "^3.0.1",
-    "ts-type": "^2.1.6",
+    "@bluelovers/string-natural-compare": "^2.0.11",
+    "array-chunk-split": "^2.0.13",
+    "array-hyper-unique": "^2.1.4",
+    "execall2": "^2.0.23",
+    "ts-type": "^3.0.1",
     "tslib": "^2"
   },
-  "devDependencies": {
-    "@types/json5": "^0.0.30"
-  },
+  "devDependencies": {},
   "publishConfig": {
     "access": "public"
   },

@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.regex_str2 = exports.regex_str = void 0;
-const regexp_cjk_1 = require("regexp-cjk");
+const regexp_helper_core_1 = require("regexp-helper-core");
 function regex_str(str) {
-    if ((0, regexp_cjk_1.isRegExp)(str)) {
+    if ((0, regexp_helper_core_1.isRegExp)(str)) {
         return str.source;
     }
     return str
@@ -11,7 +11,7 @@ function regex_str(str) {
 }
 exports.regex_str = regex_str;
 function regex_str2(str) {
-    if ((0, regexp_cjk_1.isRegExp)(str)) {
+    if ((0, regexp_helper_core_1.isRegExp)(str)) {
         return str.source;
     }
     return str;

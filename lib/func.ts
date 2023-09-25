@@ -4,7 +4,8 @@
 
 import * as StrUtil from 'str-util';
 import { trimFilename } from 'fs-iconv/util';
-import { isRegExp } from 'regexp-cjk';
+import { zhRegExp } from 'regexp-cjk';
+import { isRegExp } from 'regexp-helper-core';
 export { array_unique, lazy_unique } from 'array-hyper-unique';
 
 export { trimFilename }

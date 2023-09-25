@@ -4,7 +4,7 @@ import yargs from 'yargs';
 import { handleGlob } from '../lib';
 //import isNpx = require("is-npx");
 import PACKAGE_JSON from '../package.json';
-import updateNotifier from '@yarn-tool/update-notifier';
+import { updateNotifier } from '@yarn-tool/update-notifier';
 import { isNpx } from '@yarn-tool/is-npx';
 import { IRuleListKey } from '@node-novel/layout-pattern/lib/rules-keys';
 
@@ -24,9 +24,9 @@ const argv = yargs
 	})
 	.version()
 	.help()
-	.argv
+	.parseSync()
 ;
 
-handleGlob(argv.cwd, argv._, {
+handleGlob(argv.cwd, (argv as any)._, {
 	ruleName: argv.ruleName as any as IRuleListKey,
 });

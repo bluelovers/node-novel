@@ -3,7 +3,7 @@
  */
 
 import { execall, IMatchesRow } from 'execall2';
-import naturalCompare from "string-natural-compare";
+import { naturalCompare } from "@bluelovers/string-natural-compare";
 import { array_unique } from 'array-hyper-unique';
 import { ITSOverwrite, ITSPartialWith } from 'ts-type';
 import { arrayChunkMap } from 'array-chunk-split';

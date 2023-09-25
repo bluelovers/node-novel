@@ -7,7 +7,7 @@ exports._word_zh_all = exports._word_jp1 = exports._word_en3 = exports._word_en2
 const util_1 = require("../util");
 const const_1 = require("./const");
 const lib_1 = require("regexp-cjk/lib");
-const regexp_cjk_1 = require("regexp-cjk");
+const regexp_helper_core_1 = require("regexp-helper-core");
 /**
  * @deprecated
  */
@@ -49,7 +49,7 @@ exports._word_jp1 = _word_jp1;
  */
 function _word_zh_all(arr) {
     return arr.slice().map(function (value, index, array) {
-        if (Array.isArray(value) && ((typeof value[0] == 'string') || (0, regexp_cjk_1.isRegExp)(value[0]))) {
+        if (Array.isArray(value) && ((typeof value[0] == 'string') || (0, regexp_helper_core_1.isRegExp)(value[0]))) {
             let [s, ...a] = value.slice();
             if (0 && a.length > 2) {
                 // @ts-ignore

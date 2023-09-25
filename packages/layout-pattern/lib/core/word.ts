@@ -7,7 +7,8 @@ import { regex_str, regex_str2 } from '../util';
 import { EN_REGEXP } from './const';
 import { IRegExpCallback } from '@node-novel/layout/lib/types';
 import { _word_zh } from 'regexp-cjk/lib';
-import { isRegExp, zhRegExp } from 'regexp-cjk';
+import { zhRegExp } from 'regexp-cjk';
+import { isRegExp } from 'regexp-helper-core';
 
 export type IWords = IWordsAll;
 

@@ -4,9 +4,8 @@
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.lazyAnalyzeReportAll = exports.lazyAnalyzeAll = exports.handleBlock002 = exports.analyzeBlock002 = exports.handleJa002 = exports.analyzeJa002 = exports.handleJa001 = exports.analyzeJa001 = exports.dummyCache = void 0;
-const tslib_1 = require("tslib");
 const execall2_1 = require("execall2");
-const string_natural_compare_1 = tslib_1.__importDefault(require("string-natural-compare"));
+const string_natural_compare_1 = require("@bluelovers/string-natural-compare");
 const array_hyper_unique_1 = require("array-hyper-unique");
 const array_chunk_split_1 = require("array-chunk-split");
 const util_1 = require("./lib/util");
@@ -119,7 +118,7 @@ exports.analyzeJa002 = analyzeJa002;
 function handleJa002(_data) {
     return Object.entries(_data)
         .sort(function (a, b) {
-        return (0, string_natural_compare_1.default)(a[0], b[0]);
+        return (0, string_natural_compare_1.naturalCompare)(a[0], b[0]);
     })
         .reduce((a, b) => {
         let arr = (0, array_hyper_unique_1.array_unique)(b[1]);

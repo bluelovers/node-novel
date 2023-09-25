@@ -1,19 +1,19 @@
 /**
  * Created by user on 2019/7/13.
  */
-import getBuildInRule, { getBuildInRulePath } from '@node-novel/layout-pattern/lib/rules';
+import { getBuildInRule, getBuildInRulePath } from '@node-novel/layout-pattern/lib/rules';
 import { IRuleListKey } from '@node-novel/layout-pattern/lib/rules-keys';
 import { IPatternRule } from '@node-novel/layout-pattern/lib/core/types';
-import novelText from '@node-novel/layout';
+import { default as novelText } from '@node-novel/layout';
 import { IMdconfMeta, mdconf_parse } from 'node-novel-info';
-import fs from 'fs-iconv';
-import * as JsDiff from 'diff';
+import { readFile, loadFile, readFileSync, pathExistsSync, outputFile } from 'fs-iconv';
+import { createPatch } from 'diff';
 import { console } from 'debug-color2';
 import path from 'upath2';
 import FastGlob from '@bluelovers/fast-glob/bluebird';
-import * as novelGlobby from 'node-novel-globby/g';
+import { globby as novelGlobby, getOptions, IOptions } from 'node-novel-globby/g';
 import Bluebird from 'bluebird';
-import deepmerge from 'deepmerge-plus';
+import { deepmerge } from 'deepmerge-plus';
 import prettyuse from 'prettyuse';
 import { lazyAnalyzeReportAll, lazyAnalyzeAll, dummyCache } from '@node-novel/layout-reporter';
 import { outputBlock002, outputJa001, outputJa002 } from '@node-novel/layout-reporter/lib/md';
@@ -97,13 +97,13 @@ export function handleGlob(cwd: string, globby_patterns: string[] = [], options:
 		globby_patterns.push('**/*.txt');
 	}
 
-	let globby_options: novelGlobby.IOptions = {
+	let globby_options: IOptions = {
 		cwd,
 		useDefaultPatternsExclude: true,
 		absolute: true,
 	};
 
-	([globby_patterns, globby_options] = novelGlobby.getOptions([
+	([globby_patterns, globby_options] = getOptions([
 		...globby_patterns,
 		'!z.raw',
 		'!**/z.raw',
@@ -154,8 +154,7 @@ export function handleGlob(cwd: string, globby_patterns: string[] = [], options:
 		total: 0,
 	};
 
-	return Bluebird.resolve(novelGlobby
-		.globby(globby_patterns, globby_options))
+	return Bluebird.resolve<string[]>(novelGlobby(globby_patterns, globby_options as any) as any)
 		.tap((ls) => {
 			_stat.total = ls.length;
 		})
@@ -223,7 +222,7 @@ export function handleGlob(cwd: string, globby_patterns: string[] = [], options:
 				{
 					let _out_file = path.join(cwd_out, currentFile) + '.txt';
 					let buf_out = Buffer.from(novelText.toStr(_t, "\n"));
-					let buf_out_old = await fs.readFile(_out_file)
+					let buf_out_old = await readFile(_out_file)
 						.catch(e => null)
 					;
 
@@ -241,7 +240,7 @@ export function handleGlob(cwd: string, globby_patterns: string[] = [], options:
 							_stat.updated++;
 						}
 
-						await fs.outputFile(_out_file, novelText.toStr(_t, "\n"));
+						await outputFile(_out_file, novelText.toStr(_t, "\n"));
 					}
 				}
 
@@ -294,13 +293,13 @@ export function handleGlob(cwd: string, globby_patterns: string[] = [], options:
 			if (ls.length > 0)
 			{
 				await Bluebird.all([
-					fs.outputFile(path.join(cwd_out, 'ja2.md'), outputJa002({
+					outputFile(path.join(cwd_out, 'ja2.md'), outputJa002({
 						inputData: _cache.ja2,
 					})),
-					fs.outputFile(path.join(cwd_out, 'ja.md'), outputJa001({
+					outputFile(path.join(cwd_out, 'ja.md'), outputJa001({
 						inputData: _cache.ja,
 					})),
-					fs.outputFile(path.join(cwd_out, '待修正屏蔽字.md'), outputBlock002({
+					outputFile(path.join(cwd_out, '待修正屏蔽字.md'), outputBlock002({
 						inputData: _cache.block2,
 					})),
 				]);
@@ -359,8 +358,7 @@ export function handleContext(input: {
 
 export async function fsReadFile(file: string, cb?: (_t_old: Buffer) => unknown)
 {
-	const _t_old = await fs
-		.loadFile(file, {
+	const _t_old = await loadFile(file, {
 			autoDecode: true,
 		})
 		.then(v => Buffer.from(v))
@@ -381,7 +379,7 @@ export function isEmptyFile(_t_old: Buffer | string)
 
 export function diffPatch(name: string, _t_old: Buffer | string, _t: string)
 {
-	return JsDiff.createPatch(name, novelText.toStr(_t_old), _t, null, null, {
+	return createPatch(name, novelText.toStr(_t_old), _t, null, null, {
 		newlineIsToken: true,
 	})
 }
@@ -417,9 +415,9 @@ export function getNovelMeta(paths: string[] | string): IMdconfMeta
 
 	for (let cwd_out of paths)
 	{
-		if (fs.pathExistsSync(path.join(cwd_out, 'README.md')))
+		if (pathExistsSync(path.join(cwd_out, 'README.md')))
 		{
-			meta = mdconf_parse(fs.readFileSync(path.join(cwd_out, 'README.md')))
+			meta = mdconf_parse(readFileSync(path.join(cwd_out, 'README.md')))
 		}
 
 		if (meta)

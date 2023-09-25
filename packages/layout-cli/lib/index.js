@@ -5,16 +5,16 @@ const tslib_1 = require("tslib");
 /**
  * Created by user on 2019/7/13.
  */
-const rules_1 = tslib_1.__importStar(require("@node-novel/layout-pattern/lib/rules"));
+const rules_1 = require("@node-novel/layout-pattern/lib/rules");
 const layout_1 = tslib_1.__importDefault(require("@node-novel/layout"));
 const node_novel_info_1 = require("node-novel-info");
-const fs_iconv_1 = tslib_1.__importDefault(require("fs-iconv"));
-const JsDiff = tslib_1.__importStar(require("diff"));
+const fs_iconv_1 = require("fs-iconv");
+const diff_1 = require("diff");
 const debug_color2_1 = require("debug-color2");
 const upath2_1 = tslib_1.__importDefault(require("upath2"));
-const novelGlobby = tslib_1.__importStar(require("node-novel-globby/g"));
+const g_1 = require("node-novel-globby/g");
 const bluebird_1 = tslib_1.__importDefault(require("bluebird"));
-const deepmerge_plus_1 = tslib_1.__importDefault(require("deepmerge-plus"));
+const deepmerge_plus_1 = require("deepmerge-plus");
 const prettyuse_1 = tslib_1.__importDefault(require("prettyuse"));
 const layout_reporter_1 = require("@node-novel/layout-reporter");
 const md_1 = require("@node-novel/layout-reporter/lib/md");
@@ -28,7 +28,7 @@ function loadPatternRule(id) {
 }
 exports.loadPatternRule = loadPatternRule;
 function getRule(id) {
-    let rule = (0, rules_1.default)(id);
+    let rule = (0, rules_1.getBuildInRule)(id);
     return {
         ...rule,
         __id: id,
@@ -79,7 +79,7 @@ function handleGlob(cwd, globby_patterns = [], options = {}) {
         useDefaultPatternsExclude: true,
         absolute: true,
     };
-    ([globby_patterns, globby_options] = novelGlobby.getOptions([
+    ([globby_patterns, globby_options] = (0, g_1.getOptions)([
         ...globby_patterns,
         '!z.raw',
         '!**/z.raw',
@@ -117,8 +117,7 @@ function handleGlob(cwd, globby_patterns = [], options = {}) {
         files: 0,
         total: 0,
     };
-    return bluebird_1.default.resolve(novelGlobby
-        .globby(globby_patterns, globby_options))
+    return bluebird_1.default.resolve((0, g_1.globby)(globby_patterns, globby_options))
         .tap((ls) => {
         _stat.total = ls.length;
     })
@@ -163,7 +162,7 @@ function handleGlob(cwd, globby_patterns = [], options = {}) {
             if (_t.replace(/\s+/g, '')) {
                 let _out_file = upath2_1.default.join(cwd_out, currentFile) + '.txt';
                 let buf_out = Buffer.from(layout_1.default.toStr(_t, "\n"));
-                let buf_out_old = await fs_iconv_1.default.readFile(_out_file)
+                let buf_out_old = await (0, fs_iconv_1.readFile)(_out_file)
                     .catch(e => null);
                 if (!buf_out_old || !buf_out.equals(buf_out_old)) {
                     _updated = true;
@@ -174,7 +173,7 @@ function handleGlob(cwd, globby_patterns = [], options = {}) {
                     else {
                         _stat.updated++;
                     }
-                    await fs_iconv_1.default.outputFile(_out_file, layout_1.default.toStr(_t, "\n"));
+                    await (0, fs_iconv_1.outputFile)(_out_file, layout_1.default.toStr(_t, "\n"));
                 }
             }
             let color = 'log';
@@ -210,13 +209,13 @@ function handleGlob(cwd, globby_patterns = [], options = {}) {
         }
         if (ls.length > 0) {
             await bluebird_1.default.all([
-                fs_iconv_1.default.outputFile(upath2_1.default.join(cwd_out, 'ja2.md'), (0, md_1.outputJa002)({
+                (0, fs_iconv_1.outputFile)(upath2_1.default.join(cwd_out, 'ja2.md'), (0, md_1.outputJa002)({
                     inputData: _cache.ja2,
                 })),
-                fs_iconv_1.default.outputFile(upath2_1.default.join(cwd_out, 'ja.md'), (0, md_1.outputJa001)({
+                (0, fs_iconv_1.outputFile)(upath2_1.default.join(cwd_out, 'ja.md'), (0, md_1.outputJa001)({
                     inputData: _cache.ja,
                 })),
-                fs_iconv_1.default.outputFile(upath2_1.default.join(cwd_out, '待修正屏蔽字.md'), (0, md_1.outputBlock002)({
+                (0, fs_iconv_1.outputFile)(upath2_1.default.join(cwd_out, '待修正屏蔽字.md'), (0, md_1.outputBlock002)({
                     inputData: _cache.block2,
                 })),
             ]);
@@ -255,8 +254,7 @@ function handleContext(input) {
 }
 exports.handleContext = handleContext;
 async function fsReadFile(file, cb) {
-    const _t_old = await fs_iconv_1.default
-        .loadFile(file, {
+    const _t_old = await (0, fs_iconv_1.loadFile)(file, {
         autoDecode: true,
     })
         .then(v => Buffer.from(v));
@@ -272,7 +270,7 @@ function isEmptyFile(_t_old) {
 }
 exports.isEmptyFile = isEmptyFile;
 function diffPatch(name, _t_old, _t) {
-    return JsDiff.createPatch(name, layout_1.default.toStr(_t_old), _t, null, null, {
+    return (0, diff_1.createPatch)(name, layout_1.default.toStr(_t_old), _t, null, null, {
         newlineIsToken: true,
     });
 }
@@ -298,14 +296,14 @@ function getNovelMeta(paths) {
     }
     let meta;
     for (let cwd_out of paths) {
-        if (fs_iconv_1.default.pathExistsSync(upath2_1.default.join(cwd_out, 'README.md'))) {
-            meta = (0, node_novel_info_1.mdconf_parse)(fs_iconv_1.default.readFileSync(upath2_1.default.join(cwd_out, 'README.md')));
+        if ((0, fs_iconv_1.pathExistsSync)(upath2_1.default.join(cwd_out, 'README.md'))) {
+            meta = (0, node_novel_info_1.mdconf_parse)((0, fs_iconv_1.readFileSync)(upath2_1.default.join(cwd_out, 'README.md')));
         }
         if (meta) {
             break;
         }
     }
-    return (0, deepmerge_plus_1.default)({
+    return (0, deepmerge_plus_1.deepmerge)({
         options: {
             textlayout: {},
         },

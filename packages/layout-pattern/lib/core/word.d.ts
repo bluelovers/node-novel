@@ -3,9 +3,9 @@
  */
 import { IWordsAll, IWordsArray2, IWordsArray, IWordsUser, IWordsFunction, IWordsRuntime } from '@node-novel/layout';
 import { IRegExpCallback } from '@node-novel/layout/lib/types';
-export declare type IWords = IWordsAll;
+export type IWords = IWordsAll;
 export { IWordsAll, IWordsArray2, IWordsArray, IWordsUser, IWordsFunction, IWordsRuntime };
-export declare type vMaybe = Array<string | RegExp | Function | Array<string | RegExp>>;
+export type vMaybe = Array<string | RegExp | Function | Array<string | RegExp>>;
 /**
  * @deprecated
  */
