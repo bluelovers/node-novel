@@ -1,6 +1,6 @@
 {
   "name": "@node-novel/layout-reporter",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "用來解析並且報告 txt 檔內的雜七雜八資訊",
   "keywords": [],
   "homepage": "https://github.com/bluelovers/node-novel#readme",
@@ -40,7 +40,6 @@
     "ts-type": "^3.0.1",
     "tslib": "^2"
   },
-  "devDependencies": {},
   "publishConfig": {
     "access": "public"
   },
